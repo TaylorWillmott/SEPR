@@ -1,3 +1,2 @@
 ## Software Engineering Project (SEPR)
-
-### Placeholder
+See the help page [here](https://github.com/TheRandomnessGuy/SEPR/edit/master/README.md).

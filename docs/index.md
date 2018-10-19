@@ -1,2 +1,2 @@
 ## Software Engineering Project (SEPR)
-See the help page [here](https://github.com/TheRandomnessGuy/SEPR/edit/master/README.md).
+See the help page [here](https://therandomnessguy.github.io/SEPR/help).

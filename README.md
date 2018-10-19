@@ -1,2 +1,2 @@
 # SEPR
-Repository for SEPR group project.
+Git repository for SEPR group project.

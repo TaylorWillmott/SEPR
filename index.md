@@ -8,7 +8,7 @@
 - [Method Selection and Planning](https://therandomnessguy.github.io/SEPR/Assessment/1/Plan1.pdf)
 - [Risk Assessment and Mitigation](https://therandomnessguy.github.io/SEPR/Assessment/1/Risk1.pdf)
 
-!!! incomplete-assessments
+<!-- Incomplete assessments below. Move this line down as more are completed.
 
 ### Assessment 2
 [Full Download (.zip)](https://therandomnessguy.github.io/SEPR/Assessment/2/Ass2.zip)
@@ -28,4 +28,4 @@
 - [Implementation](https://therandomnessguy.github.io/SEPR/Assessment/4/Code4.zip) (and [report](https://therandomnessguy.github.io/SEPR/Assessment/4/Impl4.pdf))
 - [Project Review Report](https://therandomnessguy.github.io/SEPR/Assessment/4/Review4.pdf)
 
-!!!
+-->

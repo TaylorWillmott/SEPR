@@ -5,7 +5,7 @@ public class Ship {
     public int defence;
     public int accuracy;
     public int health;
-    public string type;
+    private string type;
 
     public void attack(Ship target){
 

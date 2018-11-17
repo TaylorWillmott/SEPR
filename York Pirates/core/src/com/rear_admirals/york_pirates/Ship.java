@@ -1,11 +1,21 @@
 package com.rear_admirals.york_pirates;
 
+import java.util.HashMap;
+
 public class Ship {
     public int attack;
     public int defence;
     public int accuracy;
     public int health;
-    private string type;
+    private String type;
+
+    public Ship(int attack, int defence, int accuracy, int health, String type) {
+        this.attack = attack;
+        this.defence = defence;
+        this.accuracy = accuracy;
+        this.health = health;
+        this.type = type;
+    }
 
     public void attack(Ship target){
 
@@ -14,7 +24,7 @@ public class Ship {
 
     }
     public int getMaxHealth(){
-
+		return 0;
     }
 
     // Getters and Setters
@@ -51,11 +61,11 @@ public class Ship {
     public void setHealth(int health) {
         this.health = health;
     }
-    public string getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(string type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

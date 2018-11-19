@@ -1,9 +1,16 @@
 package com.rear_admirals.york_pirates;
 
-public class MovableObject {
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public class MoveableObject {
 	int x;
 	int y;
 	int a;
+	Texture tex;
+
+	private double sind(double angle) {
 		return Math.sin(Math.toRadians(angle));
 	}
 
@@ -11,9 +18,18 @@ public class MovableObject {
 		return Math.cos(Math.toRadians(angle));
 	}
 
+	public MoveableObject(int x, int y, int angle, Texture texture) {
+		this.x = x;
+		this.y = y;
+		this.a = angle;
+		this.tex = texture;
+	}
+
+	public void draw(SpriteBatch batch) {
+		batch.draw(tex, x, y, tex.getWidth()/2, tex.getHeight()/2, tex.getWidth(), tex.getHeight(), 1, 1, a, 0,0, tex.getWidth(), tex.getHeight(), false, false);
+	}
 
 	public void angularMove(float angle, int distance) {
-		int xChange = (int) (Math.round(Math.cos(angle) * distance));
 		int xChange = (int) (Math.round(sind(angle) * distance));
 		int yChange = (int) (Math.round(cosd(angle) * distance));
 		x = x - xChange;
@@ -26,7 +42,6 @@ public class MovableObject {
 	}
 
 	public void rotate(int angleChange) {
-		angle = angle + angleChange;
 		a = a + angleChange;
 		if (a > 360) {a = a - 360;}
 	}

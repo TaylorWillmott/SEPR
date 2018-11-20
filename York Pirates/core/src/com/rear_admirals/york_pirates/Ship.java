@@ -1,8 +1,10 @@
 package com.rear_admirals.york_pirates;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.HashMap;
 
-public class Ship {
+public class Ship extends MoveableObject {
     public int attack;
     public int defence;
     public int accuracy;
@@ -15,7 +17,12 @@ public class Ship {
         this.accuracy = accuracy;
         this.health = health;
         this.type = type;
+        this.tex = new Texture(type + ".png");
     }
+
+    public void forward(int distance) { angularMove(a, distance); }
+
+    public void forward() { angularMove(a,3); }
 
     public void attack(Ship target){
 

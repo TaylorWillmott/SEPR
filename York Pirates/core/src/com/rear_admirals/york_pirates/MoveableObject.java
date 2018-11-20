@@ -18,10 +18,31 @@ public class MoveableObject {
 		return Math.cos(Math.toRadians(angle));
 	}
 
+	public MoveableObject() {
+		this.x = 0;
+		this.y = 0;
+		this.a = 0;
+		this.tex = new Texture("default.png");
+	}
+
 	public MoveableObject(int x, int y, int angle, Texture texture) {
 		this.x = x;
 		this.y = y;
 		this.a = angle;
+		this.tex = texture;
+	}
+
+	public MoveableObject(int x, int y, Texture texture) {
+		this.x = x;
+		this.y = y;
+		this.a = 0;
+		this.tex = texture;
+	}
+
+	public MoveableObject(Texture texture) {
+		this.x = 0;
+		this.y = 0;
+		this.a = 0;
 		this.tex = texture;
 	}
 
@@ -45,5 +66,11 @@ public class MoveableObject {
 		a = a + angleChange;
 		if (a > 360) {a = a - 360;}
 	}
+
+	public void setX(int x) {this.x = x;}
+
+	public void setY(int y) {this.y = y;}
+
+	public void setAngle(int angle) {a = angle;}
 
 }

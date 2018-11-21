@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee69a22e-17b0-4bb3-ad52-717a2961eac5" name="Default Changelist" comment="Fixed some type errors (string to String) and added a constructor.">
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/MoveableObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/MoveableObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/York Pirates.iws" beforeDir="false" afterPath="$PROJECT_DIR$/York Pirates.iws" afterDir="false" />
     </list>
     <list id="551e3c74-4a61-43df-9211-90dd776e603a" name="Obsolete" comment="Obsolete" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -96,14 +95,42 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-283346323">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.47" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="138" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="138" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/MoveableObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="73" column="48" lean-forward="true" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
+            <state relative-caret-position="816">
+              <caret line="52" column="46" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -114,7 +141,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/PirateGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-536">
+            <state relative-caret-position="-119">
               <caret line="2" column="43" selection-start-line="2" selection-start-column="43" selection-end-line="2" selection-end-column="43" />
             </state>
           </provider>
@@ -129,11 +156,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="66" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
+            <state relative-caret-position="76">
+              <caret line="5" lean-forward="true" selection-end-line="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/College.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,6 +200,7 @@
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/PirateGame.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/MoveableObject.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java" />
+        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/College.java" />
       </list>
     </option>
   </component>
@@ -175,10 +215,10 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="834" />
-    <option name="y" value="-27" />
-    <option name="width" value="1526" />
-    <option name="height" value="2015" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -191,18 +231,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="York Pirates" type="b2602c69:ProjectViewProjectNode" />
               <item name="York Pirates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="York Pirates" type="b2602c69:ProjectViewProjectNode" />
-              <item name="York Pirates" type="462c0819:PsiDirectoryNode" />
-              <item name=".gradle" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="York Pirates" type="b2602c69:ProjectViewProjectNode" />
@@ -233,16 +267,12 @@
               <item name="York Pirates" type="462c0819:PsiDirectoryNode" />
               <item name="gradle" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="York Pirates" type="b2602c69:ProjectViewProjectNode" />
-              <item name="York Pirates" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -254,6 +284,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542810070411" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/York Pirates.ipr" />
   </component>
   <component name="RunDashboard">
@@ -332,6 +363,7 @@
       <workItem from="1542372569478" duration="4166000" />
       <workItem from="1542639798184" duration="8210000" />
       <workItem from="1542648965758" duration="830000" />
+      <workItem from="1542809469194" duration="546000" />
     </task>
     <task id="LOCAL-00001" summary="new version">
       <created>1542373186967</created>
@@ -379,13 +411,15 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13206000" />
+    <option name="totallyTimeSpent" value="13752000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1728" height="1157" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1257485" />
+      <window_info id="Image Layers" />
+      <window_info id="Capture Tool" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12783661" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -402,6 +436,8 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32682925" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3287805" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -437,10 +473,13 @@
     <entry file="file://$PROJECT_DIR$/core/assets/ship.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/PirateGame.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-536">
-          <caret line="2" column="43" selection-start-line="2" selection-start-column="43" selection-end-line="2" selection-end-column="43" />
+        <state relative-caret-position="76">
+          <caret line="5" lean-forward="true" selection-end-line="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -451,20 +490,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/PirateGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-119">
+          <caret line="2" column="43" selection-start-line="2" selection-start-column="43" selection-end-line="2" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/MoveableObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="73" column="48" lean-forward="true" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
+        <state relative-caret-position="816">
+          <caret line="52" column="46" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/College.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="66" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
+        <state relative-caret-position="187">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

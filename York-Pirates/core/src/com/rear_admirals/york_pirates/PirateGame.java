@@ -2,9 +2,7 @@ package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,6 +12,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import static com.rear_admirals.york_pirates.ShipType.Brig;
+
 public class PirateGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private ShapeRenderer shapeBatch;
@@ -21,15 +21,11 @@ public class PirateGame extends ApplicationAdapter {
 	private OrthographicCamera cam;
 	private Viewport viewport;
 
-	public static shipType sloop = new shipType("Sloop", 4, 4, 7);
-	public static shipType brig = new shipType("Brig", 5, 5, 5);
-	public static shipType galleon = new shipType("Galleon", 6, 6, 3);
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		shapeBatch = new ShapeRenderer();
-		ship = new Ship(brig);
+		ship = new Ship(Brig);
 		ship.tex = new Texture("ship.png");
 		cam = new OrthographicCamera();
 		viewport = new FitViewport(1920, 1080, cam);

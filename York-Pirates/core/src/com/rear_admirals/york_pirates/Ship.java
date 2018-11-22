@@ -1,15 +1,13 @@
 package com.rear_admirals.york_pirates;
 
-import com.badlogic.gdx.graphics.Texture;
-
 public class Ship extends MoveableObject {
     public int attack;
     public int defence;
     public int accuracy;
     public int health;
-    private shipType type;
+    private ShipType type;
 
-    public Ship(int attack, int defence, int accuracy, int health, shipType type) {
+    public Ship(int attack, int defence, int accuracy, int health, ShipType type) {
         this.attack = attack;
         this.defence = defence;
         this.accuracy = accuracy;
@@ -18,7 +16,7 @@ public class Ship extends MoveableObject {
         this.tex = type.texture;
     }
 
-    public Ship(shipType type) {
+    public Ship(ShipType type) {
         this.type = type;
         this.attack = type.getAttack();
         this.defence = type.getDefence();
@@ -30,16 +28,19 @@ public class Ship extends MoveableObject {
 
     public void forward() { angularMove(a,3); }
 
-    public void attack(Ship target){
-
+    public void damage(int amt){
+    	health = health - amt;
+    	if (health <= 0) {
+    		sink();
+	    }
     }
 
-    public void damage(int amt){
+    public void sink() {
 
     }
 
     public int getMaxHealth(){
-		return 0;
+		return type.health;
     }
 
     // Getters and Setters
@@ -80,54 +81,7 @@ public class Ship extends MoveableObject {
         return type.getName();
     }
 
-    public void setType(shipType type) {
+    public void setType(ShipType type) {
         this.type = type;
     }
-}
-
-class shipType {
-    private int attack;
-    private int defence;
-    private int accuracy;
-    private int health;
-    public Texture texture;
-    private String name;
-
-    public shipType() {
-        this.name = name;
-        this.attack = attack;
-        this.defence = defence;
-        this.accuracy = accuracy;
-        this.health = health;
-        this.texture = texture;
-    }
-
-    public shipType (String name, int attack, int defence, int accuracy, int health) {
-        this.name = name;
-        this.attack = attack;
-        this.defence = defence;
-        this.accuracy = accuracy;
-        this.health = health;
-        this.texture = new Texture(name.toLowerCase() + ".png");
-    }
-
-    public shipType (String name, int attack, int defence, int accuracy) {
-        this.name = name;
-        this.attack = attack;
-        this.defence = defence;
-        this.accuracy = accuracy;
-        this.health = 100;
-        this.texture = new Texture(name.toLowerCase() + ".png");
-    }
-
-    public String getName() { return name; }
-
-    public int getAttack() { return attack; }
-
-    public int getDefence() { return defence; }
-
-    public int getAccuracy() { return accuracy; }
-
-    public int getHealth() { return health; }
-
 }

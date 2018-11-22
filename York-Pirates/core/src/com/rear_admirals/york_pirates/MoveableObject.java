@@ -1,14 +1,13 @@
 package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MoveableObject {
-	int x;
-	int y;
-	int a;
-	Texture tex;
+	protected int x;
+	protected int y;
+	protected int a;
+	protected Texture tex;
 
 	private double sind(double angle) {
 		return Math.sin(Math.toRadians(angle));

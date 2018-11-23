@@ -6,6 +6,8 @@ public class Attack {
 	private String name = "Broadside";
 	private String desc = "Fire a broadside at your enemy.";
 
+	public Attack() {};
+
 	public boolean doAttack(Ship attacker, Ship defender) {
 		if (attacker.accuracy > 0) { // Accuracy Check Goes Here
 			defender.damage(attacker.attack);
@@ -16,5 +18,7 @@ public class Attack {
 
 	public String getName() { return name;	}
 	public String getDesc() { return desc; }
+
+	public static Attack attackMain = new Attack();
 
 }

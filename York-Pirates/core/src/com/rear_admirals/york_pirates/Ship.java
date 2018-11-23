@@ -36,14 +36,14 @@ public class Ship extends MoveableObject {
     }
 
     public void sink() {
-
+        //TODO Sinking function.
     }
+
+    // Getters and Setters
 
     public int getMaxHealth(){
 		return type.health;
     }
-
-    // Getters and Setters
 
     public int getAttack() {
         return attack;
@@ -61,6 +61,10 @@ public class Ship extends MoveableObject {
         return health;
     }
 
+	public String getType() {
+		return type.getName();
+	}
+
     public void setAttack(int attack) {
         this.attack = attack;
     }
@@ -77,11 +81,6 @@ public class Ship extends MoveableObject {
         this.health = health;
     }
 
-    public String getType() {
-        return type.getName();
-    }
+    public void setType(ShipType type) { this.type = type; }
 
-    public void setType(ShipType type) {
-        this.type = type;
-    }
 }

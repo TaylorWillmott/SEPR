@@ -6,7 +6,6 @@ public class ShipType {
 	int attack;
 	int defence;
 	int accuracy;
-	int health;
 	String name;
 	Texture texture;
 
@@ -15,7 +14,6 @@ public class ShipType {
 		this.attack = attack;
 		this.defence = defence;
 		this.accuracy = accuracy;
-		this.health = health;
 		this.texture = new Texture(name.toLowerCase() + ".png");
 	} // There is currently no way to give ships a custom texture. Do we need this?
 
@@ -26,8 +24,6 @@ public class ShipType {
 	public int getDefence() { return defence; }
 
 	public int getAccuracy() { return accuracy; }
-
-	public int getHealth() { return health; }
 
 	public Texture getTexture() { return texture; }
 

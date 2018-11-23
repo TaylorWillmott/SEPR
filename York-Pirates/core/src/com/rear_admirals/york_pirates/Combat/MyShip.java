@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.rear_admirals.york_pirates.Combat;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

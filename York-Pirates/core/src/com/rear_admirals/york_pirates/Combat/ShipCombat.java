@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.rear_admirals.york_pirates.Combat;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;

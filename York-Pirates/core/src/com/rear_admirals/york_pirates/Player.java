@@ -29,3 +29,5 @@ public class Player {
     public void addGold(int amount) { gold = gold + amount; }
 
 }
+
+//Test GIT

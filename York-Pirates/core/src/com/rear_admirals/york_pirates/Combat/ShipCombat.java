@@ -2,6 +2,7 @@ package com.rear_admirals.york_pirates.Combat;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,17 +13,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.rear_admirals.york_pirates.PirateGame;
 
-public class ShipCombat implements ApplicationListener {
+public class ShipCombat implements Screen {
 
+    final PirateGame main;
     private Stage stage;
     private SpriteBatch batch;
 
+    public ShipCombat (final PirateGame main){
+        this.main = main;
 
-	@Override
-	public void create () {
-	    Skin skin;
-		stage = new Stage();
+        Skin skin;
+        stage = new Stage();
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
         AttackButton button1 = new AttackButton("Basic",200f,50f,skin);
@@ -46,16 +49,21 @@ public class ShipCombat implements ApplicationListener {
         stage.addActor(button6);
 
         Gdx.input.setInputProcessor(stage);
-	}
+
+    }
 
 	@Override
-	public void render () {
+	public void render (float delta) {
 	    Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
         stage.draw();
         batch.end();
-	}
+    }
+
+	@Override
+	public void show(){
+    }
 	
 	@Override
 	public void dispose () {
@@ -68,6 +76,10 @@ public class ShipCombat implements ApplicationListener {
 
     @Override
     public void pause() {
+    }
+
+    @Override
+    public void hide(){
     }
 
     @Override

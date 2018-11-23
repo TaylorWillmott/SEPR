@@ -1,27 +1,31 @@
 package com.rear_admirals.york_pirates;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.math.Vector2;
+
+import static com.rear_admirals.york_pirates.ShipType.Brig;
 
 public class Player {
-    private Vector2 position;
-    private double angle;
+    public Ship playerShip;
     private int gold;
     private int points;
 
     public Player() {
-        this.position = new Vector2();
-        this.points = 0;
-//        Starting angle and gold can be changed based on game, just put 0 here for example
-        this.angle = 0.0;
-        this.gold = 0;
+	    playerShip = new Ship(Brig);
+        gold = 0;
+        points = 0;
     }
 
-    public int getPoints() { return this.points;}
-    public void addPoints(int points) { this.points += points;}
+    public Player(Ship ship) {
+        playerShip = ship;
+        gold = 0;
+        points = 0;
+    }
 
-    public int getGold() {return this.gold;}
-    public void addGold(int gold) {this.gold += gold;}
-    public void subtractGold(int gold) {this.gold -= gold;};
+    public int getPoints() { return points; }
+
+	public int getGold() { return gold; }
+
+    public void addPoints(int amount) { points += amount; }
+
+    public void addGold(int amount) { gold = gold + amount; }
 
 }

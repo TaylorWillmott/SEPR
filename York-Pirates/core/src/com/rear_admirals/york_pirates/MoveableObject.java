@@ -19,8 +19,7 @@ public class MoveableObject extends GameObject {
 	public void angularMove(float angle, int distance) {
 		int xChange = (int) (Math.round(sind(angle) * distance));
 		int yChange = (int) (Math.round(cosd(angle) * distance));
-		pos.x = pos.x - xChange;
-		pos.y = pos.y + yChange;
+		absoluteMove(xChange, yChange);
 	}
 
 	public void absoluteMove(int xChange, int yChange) {

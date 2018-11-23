@@ -43,7 +43,7 @@ public class PirateGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) { ship.forward(); }
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) { ship.forward(-3); }
 
-		cam.position.set(ship.x, ship.y, 0);
+		cam.position.set(ship.pos.x, ship.pos.y, 0);
 		cam.update();
 
 		batch.setProjectionMatrix(cam.combined);
@@ -66,10 +66,6 @@ public class PirateGame extends ApplicationAdapter {
 		batch.dispose();
 		shapeBatch.dispose();
 		ship.tex.dispose();
-	}
-
-	private void customDraw(SpriteBatch batch, Texture img, int x, int y, int a) {
-		batch.draw(img, x, y, img.getWidth() >> 1, img.getHeight() >> 1, img.getWidth(), img.getHeight(), 1, 1, a, 0,0, img.getWidth(), img.getHeight(), false, false);
 	}
 
 }

@@ -9,8 +9,8 @@ public class Attack {
 	public Attack() {};
 
 	public boolean doAttack(Ship attacker, Ship defender) {
-		if (attacker.accuracy > 0) { // Accuracy Check Goes Here
-			defender.damage(attacker.attack);
+		if (attacker.getAccuracy() > 0) { // Accuracy Check Goes Here
+			defender.damage(attacker.getAttack());
 			return true;
 		}
 		return false;

@@ -9,27 +9,16 @@ public class GameObject {
 	protected Vector3 pos;
 	protected Texture tex;
 
-	public GameObject() {
-		pos.x = 0;
-		pos.y = 0;
-		pos.z = 0;
-		this.tex = new Texture("default.png");
-	}
-
 	public GameObject(int x, int y, int angle, Texture texture) {
 		pos = new Vector3(x,y,angle);
 		this.tex = texture;
 	}
 
-	public GameObject(int x, int y, Texture texture) {
-		pos = new Vector3(x,y,0);
-		this.tex = texture;
-	}
+	public GameObject() { this(0, 0, 0, new Texture("default.png")); }
 
-	public GameObject(Texture texture) {
-		pos = new Vector3();
-		this.tex = texture;
-	}
+	public GameObject(int x, int y, Texture texture) { this(x, y, 0, texture); }
+
+	public GameObject(Texture texture) { this(0, 0, 0, texture); }
 
 	public void draw(SpriteBatch batch) {
 		batch.draw(tex, pos.x, pos.y, tex.getWidth() >> 1, tex.getHeight() >> 1, tex.getWidth(), tex.getHeight(), 1, 1, pos.z, 0,0, tex.getWidth(), tex.getHeight(), false, false);

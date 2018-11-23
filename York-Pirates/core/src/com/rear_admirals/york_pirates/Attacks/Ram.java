@@ -8,9 +8,9 @@ public class Ram extends Attack {
 
 	@Override
 	public boolean doAttack(Ship attacker, Ship defender) {
-		if (attacker.accuracy > 0) { // Accuracy Check Goes Here
-			defender.damage(attacker.attack*2);
-			attacker.damage(defender.defence);
+		if (attacker.getAccuracy() > 0) { // Accuracy Check Goes Here
+			defender.damage(attacker.getAttack()*2);
+			attacker.damage(defender.getDefence());
 			return true;
 		}
 		return false;

@@ -14,7 +14,7 @@ public class Template extends Attack {
 		// This is the main function for this attack. Make sure you leave the name as doAttack (@Override tag helps).
 		// It takes the attacking and defending ships as parameters, get any relevant stats from there.
 
-		if (attacker.accuracy > 0) { // Accuracy Check Goes Here
+		if (attacker.getAccuracy() > 0) { // Accuracy Check Goes Here
 			defender.damage(attacker.getAttack()*2);
 			attacker.damage(defender.getDefence());
 			return true; // Return true if the attack was successful.

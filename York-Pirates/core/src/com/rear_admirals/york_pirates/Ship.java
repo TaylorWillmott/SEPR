@@ -24,9 +24,9 @@ public class Ship extends MoveableObject {
         this.health = type.getHealth();
     }
 
-    public void forward(int distance) { angularMove(a, distance); }
+    public void forward(int distance) { angularMove(pos.z, distance); }
 
-    public void forward() { angularMove(a,3); }
+    public void forward() { angularMove(pos.z,3); }
 
     public void damage(int amt){
     	health = health - amt;

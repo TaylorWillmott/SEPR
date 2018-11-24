@@ -1,12 +1,18 @@
 package com.rear_admirals.york_pirates;
 
 
+import com.rear_admirals.york_pirates.Attacks.Attack;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.rear_admirals.york_pirates.ShipType.Brig;
 
 public class Player {
     public Ship playerShip;
     private int gold;
     private int points;
+    private List<Attack> attacks = new ArrayList<Attack>();
 
     public Player() {
 	    playerShip = new Ship(Brig);
@@ -24,10 +30,12 @@ public class Player {
 
 	public int getGold() { return gold; }
 
+	public List<Attack> getAttacks() { return attacks; }
+
     public void addPoints(int amount) { points += amount; }
 
     public void addGold(int amount) { gold = gold + amount; }
 
-}
+    public void setAttacks( List<Attack> attacks ) { this.attacks = attacks; }
 
-//Test GIT
+}

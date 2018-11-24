@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Island {
 	private Texture texture;
+	private College college;
 	private int x;
 	private int y;
 
-	public void Island (String texture, int x, int y) {
-		this.texture = new Texture(texture);
+	public Island (Texture texture, College college, int x, int y) {
+		this.texture = texture;
+		this.college = college;
 		this.x = x;
 		this.y = y;
 	}

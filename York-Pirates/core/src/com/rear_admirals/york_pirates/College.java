@@ -1,6 +1,6 @@
 package com.rear_admirals.york_pirates;
 
-public class College extends Island{
+public class College {
 
     public String name;
     public College ally;

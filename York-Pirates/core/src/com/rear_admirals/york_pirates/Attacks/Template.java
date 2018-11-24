@@ -22,6 +22,6 @@ public class Template extends Attack {
 		return false; // Return false if it was not successful.
 	}
 
-	public static Template attackTemplate = new Template();
+	public static Attack attackTemplate = new Template();
 
 }

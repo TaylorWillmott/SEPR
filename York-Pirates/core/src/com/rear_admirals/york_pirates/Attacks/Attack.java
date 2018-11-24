@@ -8,8 +8,13 @@ public class Attack {
 
 	public Attack() {};
 
+	protected boolean doesHit( int accuracy, int mult, int bound) {
+		if ( accuracy * mult > Math.random() * bound ) { return true; }
+		else { return false; }
+	}
+
 	public boolean doAttack(Ship attacker, Ship defender) {
-		if (attacker.getAccuracy() > 0) { // Accuracy Check Goes Here
+		if ( doesHit(attacker.getAccuracy(), 10, 100) ) {
 			defender.damage(attacker.getAttack());
 			return true;
 		}

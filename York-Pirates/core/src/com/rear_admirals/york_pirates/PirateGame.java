@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
@@ -20,6 +21,7 @@ import static com.rear_admirals.york_pirates.ShipType.Brig;
 public class PirateGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
+    public Skin skin;
 
 	public void create(){
         batch = new SpriteBatch();

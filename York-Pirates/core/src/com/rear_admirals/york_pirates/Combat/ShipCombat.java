@@ -24,16 +24,15 @@ public class ShipCombat implements Screen {
     public ShipCombat (final PirateGame main){
         this.main = main;
 
-        Skin skin;
         stage = new Stage();
         batch = new SpriteBatch();
-        skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
-        AttackButton button1 = new AttackButton("Basic",200f,50f,skin);
-        AttackButton button2 = new AttackButton("Charge",350f,50f,skin);
-        AttackButton button3 = new AttackButton("Rapid",500f,50f,skin);
-        AttackButton button4 = new AttackButton("Board",200f,20f,skin);
-        AttackButton button5 = new AttackButton("Ram",350f,20f,skin);
-        AttackButton button6 = new AttackButton("FLEE",500f,20f,skin);
+        main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
+        AttackButton button1 = new AttackButton("Basic",200f,50f,main.skin);
+        AttackButton button2 = new AttackButton("Charge",350f,50f,main.skin);
+        AttackButton button3 = new AttackButton("Rapid",500f,50f,main.skin);
+        AttackButton button4 = new AttackButton("Board",200f,20f,main.skin);
+        AttackButton button5 = new AttackButton("Ram",350f,20f,main.skin);
+        AttackButton button6 = new AttackButton("FLEE",500f,20f,main.skin);
 
 
         MyShip myShip = new MyShip("ship1.png",75,275);

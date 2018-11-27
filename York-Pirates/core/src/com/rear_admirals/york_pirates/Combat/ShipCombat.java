@@ -17,6 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.rear_admirals.york_pirates.Attacks.Attack;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
+import com.rear_admirals.york_pirates.Ship;
+
+import static com.rear_admirals.york_pirates.ShipType.Brig;
 
 public class ShipCombat implements Screen {
 
@@ -26,7 +29,8 @@ public class ShipCombat implements Screen {
 
     public ShipCombat (final PirateGame main){
         this.main = main;
-        Player player = new Player();
+        Ship playerShip = new Ship(Brig);
+        Player player = new Player(playerShip);
 
         stage = new Stage();
         batch = new SpriteBatch();
@@ -34,11 +38,11 @@ public class ShipCombat implements Screen {
         Table attack_table = new Table();
         attack_table.setPosition(Gdx.graphics.getWidth()/1.5f,50);
         AttackButton button1 = new AttackButton(player.attacks.get(0),main.skin);
-        AttackButton button2 = new AttackButton("Charge",main.skin);
-        AttackButton button3 = new AttackButton("Rapid",main.skin);
-        AttackButton button4 = new AttackButton("Board",main.skin);
-        AttackButton button5 = new AttackButton("Ram",main.skin);
-        AttackButton button6 = new AttackButton("FLEE",main.skin);
+        AttackButton button2 = new AttackButton("Charge",main.skin,"Insert Desc.");
+        AttackButton button3 = new AttackButton("Rapid",main.skin,"Insert Desc.");
+        AttackButton button4 = new AttackButton("Board",main.skin,"Insert Desc.");
+        AttackButton button5 = new AttackButton("Ram",main.skin,"Insert Desc.");
+        AttackButton button6 = new AttackButton("FLEE",main.skin,"Insert Desc.");
 
         attack_table.add(button1).pad(0,0,20,20).size(125,40).fill();
         attack_table.add(button2).pad(0,0,20,20).size(125,40).fill();
@@ -65,6 +69,7 @@ public class ShipCombat implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
         stage.draw();
+        stage.act();
         batch.end();
     }
 

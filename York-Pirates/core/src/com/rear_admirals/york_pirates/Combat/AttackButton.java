@@ -12,21 +12,29 @@ import javafx.scene.text.Text;
 
 public class AttackButton extends TextButton {
     String name;
-//    float posX;
-//    float posY;
     Skin skin;
+    String desc;
 
-    public AttackButton(String name, Skin skin){
+    public AttackButton(String name, Skin skin, String desc){
         super(name, skin);
         this.name = name;
-//        this.posX = posX;
-//        this.posY = posY;
         this.skin = skin;
+        this.desc = desc;
 
         setWidth(125f);
         setHeight(20f);
-//        setPosition(posX, posY);
         addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor){
+                getLabel().setFontScale(0.5f, 0.5f);
+                setText(getDesc());
+
+            };
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor){
+                getLabel().setFontScale(1, 1);
+                setText(getName());
+            };
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setText("Attacking");
@@ -36,20 +44,37 @@ public class AttackButton extends TextButton {
     public AttackButton(Attack attack, Skin skin){
         super(attack.getName(), skin);
         this.name = attack.getName();
-//        this.posX = posX;
-//        this.posY = posY;
         this.skin = skin;
-
+        this.desc = attack.getDesc();
         setWidth(125f);
         setHeight(20f);
-//        setPosition(posX, posY);
         addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor){
+                getLabel().setFontScale(0.5f, 0.5f);
+                setText(getDesc());
+            };
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor){
+                getLabel().setFontScale(1, 1);
+                setText(getName());
+            };
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setText("Attacking");
 //                attack.doAttack();
             }
         });
+
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
 //    public AttackButton setAttack

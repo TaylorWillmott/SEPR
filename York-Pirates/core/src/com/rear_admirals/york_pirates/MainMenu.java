@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -31,8 +32,8 @@ public class MainMenu implements Screen {
 
         Table table = new Table();
 
-        TextButton welcome_text = new TextButton("Welcome to Rear Admirals", main.skin);
-
+        Label title = new Label("Rear Admirals", main.skin);
+        title.setFontScale(3f);
         TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);
 
         // Allows button to be clickable, and sets process for when clicked.
@@ -55,9 +56,9 @@ public class MainMenu implements Screen {
 //            }
 //        });
 
-        table.add(welcome_text).padBottom(20f);
+        table.add(title).padBottom(100f);
         table.row(); // Ends the current row
-        table.add(combat_mode).fill();
+        table.add(combat_mode).fill().padBottom(20f);
         table.row();
         table.add(sailing_mode).fill();
         table.row();

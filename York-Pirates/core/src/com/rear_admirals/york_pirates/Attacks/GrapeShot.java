@@ -3,8 +3,11 @@ package com.rear_admirals.york_pirates.Attacks;
 import com.rear_admirals.york_pirates.Ship;
 
 public class GrapeShot extends Attack {
-	private String name = "Grape Shot";
-	private String desc = "Fire a bundle of smaller cannonballs at the enemy.";
+
+	protected GrapeShot() {
+		name = "Grape Shot";
+		desc = "Fire a bundle of smaller cannonballs at the enemy.";
+	}
 
 	@Override
 	public boolean doAttack(Ship attacker, Ship defender) {

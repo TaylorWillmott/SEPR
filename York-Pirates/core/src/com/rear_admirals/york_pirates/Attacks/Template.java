@@ -9,6 +9,11 @@ public class Template extends Attack {
 	private String name = "NAME"; // Formatted name of the attack. This will be displayed in-game.
 	private String desc = "DESCRIPTION"; // Description of the attack. This will be displayed in-game so try not to be too technical.
 
+	protected Template() {
+		name = "NAME";
+		desc = "DESC";
+	}
+
 	@Override
 	public boolean doAttack(Ship attacker, Ship defender) {
 		// This is the main function for this attack. Make sure you leave the name as doAttack (@Override tag helps).

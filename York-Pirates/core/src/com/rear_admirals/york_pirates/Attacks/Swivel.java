@@ -3,20 +3,21 @@ package com.rear_admirals.york_pirates.Attacks;
 import com.rear_admirals.york_pirates.Ship;
 
 public class Swivel extends Attack {
-    private String name = "Swivel"; // Formatted name of the attack. This will be displayed in-game.
-    private String desc = "High accuracy, low damage attack."; // Description of the attack. This will be displayed in-game so try not to be too technical.
+
+	protected Swivel() {
+		name = "Swivel";
+		desc = "High accuracy, low damage attack.";
+	}
 
     @Override
     public boolean doAttack(Ship attacker, Ship defender) {
-        // This is the main function for this attack. Make sure you leave the name as doAttack (@Override tag helps).
-        // It takes the attacking and defending ships as parameters, get any relevant stats from there.
 
-        if (attacker.getAccuracy() > 0) { // Accuracy Check Goes Here
+        if (attacker.getAccuracy() > 0) {
             defender.damage(attacker.getAttack()*2);
             attacker.damage(defender.getDefence());
-            return true; // Return true if the attack was successful.
+            return true;
         }
-        return false; // Return false if it was not successful.
+        return false;
     }
 
     public static final Attack attackSwivel = new Attack();

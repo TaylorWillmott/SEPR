@@ -19,12 +19,11 @@ public class Player {
         gold = 0;
         points = 0;
 
-        attacks.add(new Attack());
-        attacks.add(new GrapeShot());
-        attacks.add(new Ram());
-        attacks.add(new Swivel());
-        attacks.add(new Attack());
-        attacks.add(new Flee());
+        attacks.add(Attacks.list.attackMain);
+        attacks.add(Attacks.list.attackGrape);
+        attacks.add(Attacks.list.attackRam);
+        attacks.add(Attacks.list.attackSwivel);
+        attacks.add(Attacks.list.attackFlee);
     }
 
     public Player(Ship ship) {
@@ -32,12 +31,11 @@ public class Player {
         gold = 0;
         points = 0;
 
-        attacks.add(new Attack());
-        attacks.add(new GrapeShot());
-        attacks.add(new Ram());
-        attacks.add(new Swivel());
-        attacks.add(new Attack());
-        attacks.add(new Flee());
+	    attacks.add(Attacks.list.attackMain);
+	    attacks.add(Attacks.list.attackGrape);
+	    attacks.add(Attacks.list.attackRam);
+	    attacks.add(Attacks.list.attackSwivel);
+	    attacks.add(Attacks.list.attackFlee);
     }
 
     public int getPoints() { return points; }

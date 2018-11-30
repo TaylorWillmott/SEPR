@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.rear_admirals.york_pirates.Attacks.Attack;
+import com.rear_admirals.york_pirates.Attacks.Attacks;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.Ship;
@@ -37,12 +38,12 @@ public class ShipCombat implements Screen {
         main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
         Table attack_table = new Table();
         attack_table.setPosition(Gdx.graphics.getWidth()/1.5f,50);
-        AttackButton button1 = new AttackButton(player.attacks.get(0),main.skin);
-        AttackButton button2 = new AttackButton("Charge",main.skin,"Insert Desc.");
-        AttackButton button3 = new AttackButton("Rapid",main.skin,"Insert Desc.");
-        AttackButton button4 = new AttackButton("Board",main.skin,"Insert Desc.");
-        AttackButton button5 = new AttackButton("Ram",main.skin,"Insert Desc.");
-        AttackButton button6 = new AttackButton("FLEE",main.skin,"Insert Desc.");
+	    AttackButton button1 = new AttackButton(Attacks.list.attackMain, main.skin);
+        AttackButton button2 = new AttackButton(player.attacks.get(0), main.skin);
+	    AttackButton button3 = new AttackButton(player.attacks.get(1), main.skin);
+	    AttackButton button4 = new AttackButton(player.attacks.get(2), main.skin);
+	    AttackButton button5 = new AttackButton(player.attacks.get(3), main.skin);
+	    AttackButton button6 = new AttackButton(Attacks.list.attackFlee, main.skin);
 
         attack_table.add(button1).pad(0,0,20,20).size(125,40).fill();
         attack_table.add(button2).pad(0,0,20,20).size(125,40).fill();

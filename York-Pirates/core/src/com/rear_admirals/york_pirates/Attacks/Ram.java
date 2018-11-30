@@ -16,6 +16,6 @@ public class Ram extends Attack {
 		return false;
 	}
 
-	public static Attack attackRam = new Ram();
+	public static final Attack attackRam = new Ram();
 
 }

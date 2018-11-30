@@ -24,6 +24,6 @@ public class Attack {
 	public String getName() { return name;	}
 	public String getDesc() { return desc; }
 
-	public static Attack attackMain = new Attack();
+	public static final Attack attackMain = new Attack();
 
 }

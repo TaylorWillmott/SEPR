@@ -19,6 +19,6 @@ public class GrapeShot extends Attack {
 		return toReturn;
 	}
 
-	public static Attack attackGrape = new GrapeShot();
+	public static final Attack attackGrape = new GrapeShot();
 
 }

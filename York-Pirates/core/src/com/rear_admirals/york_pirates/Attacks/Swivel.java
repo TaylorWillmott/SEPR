@@ -19,5 +19,5 @@ public class Swivel extends Attack {
         return false; // Return false if it was not successful.
     }
 
-    public static Attack attackTemplate = new Template();
+    public static final Attack attackSwivel = new Attack();
 }

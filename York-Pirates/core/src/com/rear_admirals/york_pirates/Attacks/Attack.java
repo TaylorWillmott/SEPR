@@ -3,8 +3,8 @@ package com.rear_admirals.york_pirates.Attacks;
 import com.rear_admirals.york_pirates.Ship;
 
 public class Attack {
-	private String name = "Broadside";
-	private String desc = "Fire a broadside at your enemy.";
+	protected String name = "Broadside";
+	protected String desc = "Fire a broadside at your enemy.";
 
 	public Attack() {};
 

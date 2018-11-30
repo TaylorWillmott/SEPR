@@ -4,8 +4,10 @@ import com.rear_admirals.york_pirates.Ship;
 
 public class Flee extends Attack {
 
-    private String name = "FLEE"; // Formatted name of the attack. This will be displayed in-game.
-    private String desc = "Attempt to escape enemy."; // Description of the attack. This will be displayed in-game so try not to be too technical.
+    protected Flee() {
+        this.name = "FLEE";
+        this.desc = "Attempt to escape enemy.";
+    }
 
     @Override
     public boolean doAttack(Ship attacker, Ship defender) {
@@ -14,5 +16,7 @@ public class Flee extends Attack {
 //        }
         return false; // Return false if it was not successful.
     }
+
+    public static Attack attackFlee = new Flee();
 
 }

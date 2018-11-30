@@ -6,7 +6,7 @@ public class Attack {
 	private String name = "Broadside";
 	private String desc = "Fire a broadside at your enemy.";
 
-	public Attack() {};
+	protected Attack() {}
 
 	protected boolean doesHit( int accuracy, int mult, int bound) {
 		if ( accuracy * mult > Math.random() * bound ) { return true; }

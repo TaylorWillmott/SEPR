@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
 
 public class MainMenu implements Screen {
@@ -19,21 +19,32 @@ public class MainMenu implements Screen {
     final PirateGame main;
 //    OrthographicCamera camera;
     Stage stage;
+    float screen_width;
+    float screen_height;
 
     public MainMenu(final PirateGame main){
         this.main = main;
 //        camera = new OrthographicCamera();
 //        camera.setToOrtho(false, 800, 480);
 
-        stage = new Stage();
-        main.batch = new SpriteBatch();
+        Container<Table> tableContainer = new Container<Table>();
+        tableContainer.setFillParent(true);
+        tableContainer.setPosition(0,0);
+        tableContainer.align(Align.center);
+
+        stage = new Stage(new FitViewport(1920,1080));
+
         main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
 
+        screen_width = stage.getWidth();
+        screen_height = stage.getHeight();
+
+        System.out.println(screen_width + ", " + screen_height);
 
         Table table = new Table();
 
-        Label title = new Label("Rear Admirals", main.skin);
-        title.setFontScale(3f);
+        Label title = new Label("Rear Admirals", main.skin, "title");
+        title.setAlignment(Align.center);
         TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);
 
         // Allows button to be clickable, and sets process for when clicked.
@@ -56,16 +67,18 @@ public class MainMenu implements Screen {
 //            }
 //        });
 
-        table.add(title).padBottom(100f);
+        table.setDebug(true);
+
+        tableContainer.setActor(table);
+
+        table.add(title).padBottom(screen_height/20).width(screen_width/4);
         table.row(); // Ends the current row
-        table.add(combat_mode).fill().padBottom(20f);
+        table.add(combat_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
         table.row();
-        table.add(sailing_mode).fill();
+        table.add(sailing_mode).uniform().fill();
         table.row();
 
-
-        table.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/1.5f);
-        stage.addActor(table);
+        stage.addActor(tableContainer);
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -74,9 +87,7 @@ public class MainMenu implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        main.batch.begin();
         stage.draw();
-        main.batch.end();
 
     }
     @Override

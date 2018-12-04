@@ -23,12 +23,11 @@ public class ShipCombat implements Screen {
 
     final PirateGame main;
     private Stage stage;
-    private SpriteBatch batch;
     float button_pad_bottom;
     float button_pad_right;
     public Label descriptionLabel;
-    private float width;
-    private float height;
+    public float width;
+    public float height;
 
 
     public ShipCombat (final PirateGame main){
@@ -80,9 +79,9 @@ public class ShipCombat implements Screen {
         button_pad_right = width/32f;
 
         leftTable.center();
-        leftTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).width(width/2 - button_pad_right*2).fillY();
+        leftTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(width/2 - button_pad_right*2, height/12).top();
         leftTable.row();
-        leftTable.add(fleeButton).uniform().center();
+        leftTable.add(fleeButton).uniform().bottom();
 
 
         attackTable.add(button1).uniform().width(width/5);
@@ -91,27 +90,34 @@ public class ShipCombat implements Screen {
         attackTable.add(button3).uniform().width(width/5);
         attackTable.add(button4).uniform().width(width/5);
 
-        CombatShip myShip = new CombatShip(player.playerShip,"ship1.png");
-        CombatShip enemyShip = new CombatShip(new Ship(Brig, "enemy"),"ship2.png");
+        CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
+        CombatShip enemyShip = new CombatShip(new Ship(Brig, "enemy"),"ship2.png",width/3);
 
-        rootTable.row().expandX().fillX();
+//        myShip.setPosition(width/8, height/2);
+//        enemyShip.setPosition(width/2, height/2);
+
+        rootTable.row().fillX().padBottom(height/5f);
+        rootTable.add(myShip);
+        rootTable.add(enemyShip);
+        rootTable.row().expandX();
         rootTable.add(leftTable).width(width/2);
-        rootTable.add(attackTable).width(width/2);
+        rootTable.add(attackTable).width(width/2).bottom();
         rootTable.padBottom(height/10f);
 
         tableContainer.setActor(rootTable);
 
-        stage.addActor(myShip);
-        stage.addActor(enemyShip);
+//        stage.addActor(myShip);
+//        stage.addActor(enemyShip);
+
         stage.addActor(tableContainer);
         Gdx.input.setInputProcessor(stage);
 
         //Allow debugging of layout
         leftTable.setDebug(true);
         attackTable.setDebug(true);
-        rootTable.setDebug(false);
-        myShip.setDebug(true);
-        enemyShip.setDebug(true);
+        rootTable.setDebug(true);
+//        myShip.setDebug(true);
+//        enemyShip.setDebug(true);
         tableContainer.setDebug(true);
     }
 

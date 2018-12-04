@@ -5,8 +5,8 @@ import com.rear_admirals.york_pirates.Ship;
 public class Flee extends Attack {
 
     protected Flee() {
-        this.name = "FLEE";
-        this.desc = "Attempt to escape enemy.";
+        name = "FLEE";
+        desc = "Attempt to escape enemy.";
     }
 
     @Override
@@ -17,6 +17,6 @@ public class Flee extends Attack {
         return false; // Return false if it was not successful.
     }
 
-    public static Attack attackFlee = new Flee();
+    public static final Flee attackFlee = new Flee();
 
 }

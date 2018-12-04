@@ -3,10 +3,13 @@ package com.rear_admirals.york_pirates.Attacks;
 import com.rear_admirals.york_pirates.Ship;
 
 public class Attack {
-	protected String name = "Broadside";
-	protected String desc = "Fire a broadside at your enemy.";
+	protected String name;
+	protected String desc;
 
-	public Attack() {};
+	protected Attack() {
+		name = "Broadside";
+		desc = "Fire a broadside at your enemy.";
+	}
 
 	protected boolean doesHit( int accuracy, int mult, int bound) {
 		if ( accuracy * mult > Math.random() * bound ) { return true; }
@@ -24,6 +27,6 @@ public class Attack {
 	public String getName() { return name;	}
 	public String getDesc() { return desc; }
 
-	public static Attack attackMain = new Attack();
+	public static final Attack attackMain = new Attack();
 
 }

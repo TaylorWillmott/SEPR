@@ -21,7 +21,6 @@ public class AttackButton extends TextButton {
         this.name = attack.getName();
         this.skin = skin;
         this.desc = attack.getDesc();
-        setWidth(125f);
 //        setHeight(20f);
 
     }

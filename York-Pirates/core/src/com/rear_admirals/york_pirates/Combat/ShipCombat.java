@@ -71,8 +71,8 @@ public class ShipCombat implements Screen {
         buttonListener(button3);
         final AttackButton button4 = new AttackButton(player.attacks.get(2), main.skin);
         buttonListener(button4);
-        final AttackButton fleeButton = new AttackButton(Flee.attackFlee, main.skin);
-        buttonListener(fleeButton);
+        final AttackButton fleeButton = new AttackButton(Flee.attackFlee, main.skin, "flee");
+        buttonListener(fleeButton, "Attempting to flee");
 
         descriptionLabel = new Label("Please choose your attack", main.skin);
         descriptionLabel.setWrap(true);
@@ -99,21 +99,26 @@ public class ShipCombat implements Screen {
         Label shipName = new Label(player.playerShip.getName(),main.skin);
         ProgressBar playerHP = new ProgressBar(0, player.playerShip.getDefence(),0.1f,false,main.skin);
 
+        playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
+
         Label enemyName = new Label("Enemy "+Brig.getName(),main.skin);
         ProgressBar enemyHP = new ProgressBar(0,Brig.getDefence(),0.1f,false,main.skin);
 
+        Label screenTitle = new Label("Combat Mode", main.skin,"title");
+
+        rootTable.add(screenTitle).colspan(2);
         rootTable.row();
         rootTable.add(shipName);
         rootTable.add(enemyName);
         rootTable.row().fillX();
         rootTable.add(myShip);
         rootTable.add(enemyShip);
-        rootTable.row().width(width/4).padBottom(height/12f);
+        rootTable.row().size(width/4, playerHP.getPrefHeight()).padBottom(height/18f);
         rootTable.add(playerHP);
         rootTable.add(enemyHP);
-        rootTable.row().expandX().padBottom(height/9f);
+        rootTable.row().expandX().padBottom(height/12f);
         rootTable.add(descriptionTable).width(width/2);
-        rootTable.add(attackTable).width(width/2);
+        rootTable.add(attackTable).width(width/2).bottom();
 
         tableContainer.setActor(rootTable);
 
@@ -188,6 +193,23 @@ public class ShipCombat implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 button.setText("Attacking");
+//                attack.doAttack();
+            }
+        });
+    }
+    public void buttonListener(final AttackButton button, final String message){
+        button.addListener(new ClickListener(){
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor){
+                descriptionLabel.setText(button.getDesc());
+            };
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor){
+                descriptionLabel.setText("Choose an option");
+            };
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                button.setText(message);
 //                attack.doAttack();
             }
         });

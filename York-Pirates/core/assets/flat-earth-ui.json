@@ -41,6 +41,18 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0.33313715
 		a: 1
 	}
+	red: {
+		r: 1
+		g: 0
+		b: 0
+		a: 1
+	}
+	red-highlight: {
+		r: 1
+		g: 0.3466667
+		b: 0.3466667
+		a: 1
+	}
 	selection: {
 		r: 0.22745098
 		g: 0.59607846
@@ -245,6 +257,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: radio-pressed
 		color: pressed
 	}
+	button-c-red: {
+		name: button
+		color: red
+	}
+	button-h-red: {
+		name: button
+		color: red-highlight
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
@@ -412,6 +432,15 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		up: button-c
 		down: button-p
 		over: button-h
+	}
+	flee: {
+		font: button
+		fontColor: white
+		downFontColor: white
+		overFontColor: gray
+		up: button-c-red
+		down: button-c-red
+		over: button-h-red
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

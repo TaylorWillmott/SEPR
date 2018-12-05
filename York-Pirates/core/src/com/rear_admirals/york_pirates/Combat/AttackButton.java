@@ -21,17 +21,14 @@ public class AttackButton extends TextButton {
         this.name = attack.getName();
         this.skin = skin;
         this.desc = attack.getDesc();
-//        setHeight(20f);
-
     }
-//
-//    void changeToDesc() {
-//        label.setText(attack.getDesc());
-//    }
-//
-//    void changeToName() {
-//        label.setText(attack.getName());
-//    }
+
+    public AttackButton(Attack attack, Skin skin, String type){
+        super(attack.getName(), skin, type);
+        this.name = attack.getName();
+        this.skin = skin;
+        this.desc = attack.getDesc();
+    }
 
     @Override
     public String getName() {

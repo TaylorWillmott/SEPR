@@ -3,6 +3,7 @@ package com.rear_admirals.york_pirates.Combat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -28,6 +29,7 @@ public class ShipCombat implements Screen {
     public Label descriptionLabel;
     public float width;
     public float height;
+    private Texture bg_texture;
 
 
     public ShipCombat (final PirateGame main){
@@ -36,10 +38,13 @@ public class ShipCombat implements Screen {
 
         this.main = main;
         Player player = new Player();
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new FitViewport(1920,1080));
 
         height = stage.getHeight();
         width = stage.getWidth();
+
+        bg_texture = new Texture("water_texture.png");
+        Image background = new Image(bg_texture);
 
         Container<Table> tableContainer = new Container<Table>();
 //        tableContainer.setSize(width,height);
@@ -102,19 +107,19 @@ public class ShipCombat implements Screen {
         rootTable.row().expandX();
         rootTable.add(leftTable).width(width/2);
         rootTable.add(attackTable).width(width/2).bottom();
-        rootTable.padBottom(height/10f);
+//        rootTable.padBottom(height/10f);
 
         tableContainer.setActor(rootTable);
 
 //        stage.addActor(myShip);
 //        stage.addActor(enemyShip);
-
+        stage.addActor(background);
         stage.addActor(tableContainer);
         Gdx.input.setInputProcessor(stage);
 
         //Allow debugging of layout
-        leftTable.setDebug(true);
-        attackTable.setDebug(true);
+//        leftTable.setDebug(true);
+//        attackTable.setDebug(true);
         rootTable.setDebug(true);
 //        myShip.setDebug(true);
 //        enemyShip.setDebug(true);
@@ -123,7 +128,7 @@ public class ShipCombat implements Screen {
 
 	@Override
 	public void render (float delta) {
-	    Gdx.gl.glClearColor((float) 0.26,(float) 0.52,(float) 0.95,1);
+//	    Gdx.gl.glClearColor((float) 0.26,(float) 0.52,(float) 0.95,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //		batch.begin();
         stage.draw();
@@ -139,6 +144,7 @@ public class ShipCombat implements Screen {
 	@Override
 	public void dispose () {
         stage.dispose();
+        bg_texture.dispose();
 	}
 
     @Override

@@ -14,14 +14,12 @@ public class CombatShip extends Actor {
     float ship_size;
     Texture texture;
     Ship ship;
-    float x;
-    float y;
 
     public CombatShip(Ship ship, String shipFile, float ship_size){
         this.ship = ship;
         this.texture = new Texture(shipFile);
         this.ship_size = ship_size;
-//        this.setBounds(x,y,ship_size,ship_size);
+        this.setBounds(getX(),getY(),ship_size,ship_size);
     }
 
 

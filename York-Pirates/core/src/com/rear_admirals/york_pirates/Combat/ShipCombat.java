@@ -55,24 +55,22 @@ public class ShipCombat implements Screen {
 
         main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
 
-        Table leftTable = new Table();
-        Table attackTable = new Table();
         Table rootTable = new Table();
+        Table descriptionTable = new Table();
+        Table attackTable = new Table();
 
         System.out.println(width + "," + height + " AND " + Gdx.graphics.getWidth() + "," + Gdx.graphics.getHeight());
 
+        // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified by within player class.
+
         final AttackButton button1 = new AttackButton(Attack.attackMain, main.skin);
         buttonListener(button1);
-
         final AttackButton button2 = new AttackButton(player.attacks.get(0), main.skin);
         buttonListener(button2);
-
         final AttackButton button3 = new AttackButton(player.attacks.get(1), main.skin);
         buttonListener(button3);
-
         final AttackButton button4 = new AttackButton(player.attacks.get(2), main.skin);
         buttonListener(button4);
-
         final AttackButton fleeButton = new AttackButton(Flee.attackFlee, main.skin);
         buttonListener(fleeButton);
 
@@ -83,10 +81,10 @@ public class ShipCombat implements Screen {
         button_pad_bottom = height/24f;
         button_pad_right = width/32f;
 
-        leftTable.center();
-        leftTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(width/2 - button_pad_right*2, height/12).top();
-        leftTable.row();
-        leftTable.add(fleeButton).uniform().bottom();
+        descriptionTable.center();
+        descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(width/2 - button_pad_right*2, height/12).top();
+        descriptionTable.row();
+        descriptionTable.add(fleeButton).uniform().bottom();
 
         attackTable.row();
         attackTable.add(button1).uniform().width(width/5).padRight(button_pad_right);
@@ -98,14 +96,23 @@ public class ShipCombat implements Screen {
         CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
         CombatShip enemyShip = new CombatShip(new Ship(Brig, "enemy"),"ship2.png",width/3);
 
-//        myShip.setPosition(width/8, height/2);
-//        enemyShip.setPosition(width/2, height/2);
+        Label shipName = new Label(player.playerShip.getName(),main.skin);
+        ProgressBar playerHP = new ProgressBar(0, player.playerShip.getDefence(),0.1f,false,main.skin);
 
-        rootTable.row().fillX().padBottom(height/7f);
+        Label enemyName = new Label("Enemy "+Brig.getName(),main.skin);
+        ProgressBar enemyHP = new ProgressBar(0,Brig.getDefence(),0.1f,false,main.skin);
+
+        rootTable.row();
+        rootTable.add(shipName);
+        rootTable.add(enemyName);
+        rootTable.row().fillX();
         rootTable.add(myShip);
         rootTable.add(enemyShip);
+        rootTable.row().width(width/4).padBottom(height/12f);
+        rootTable.add(playerHP);
+        rootTable.add(enemyHP);
         rootTable.row().expandX().padBottom(height/9f);
-        rootTable.add(leftTable).width(width/2);
+        rootTable.add(descriptionTable).width(width/2);
         rootTable.add(attackTable).width(width/2);
 
         tableContainer.setActor(rootTable);
@@ -117,12 +124,13 @@ public class ShipCombat implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         //Allow debugging of layout
-//        leftTable.setDebug(true);
-        attackTable.setDebug(true);
+
+//        descriptionTable.setDebug(true);
+//        attackTable.setDebug(true);
         rootTable.setDebug(true);
 //        myShip.setDebug(true);
 //        enemyShip.setDebug(true);
-        tableContainer.setDebug(true);
+//        tableContainer.setDebug(true);
     }
 
 	@Override
@@ -132,6 +140,7 @@ public class ShipCombat implements Screen {
 //		batch.begin();
         stage.draw();
         stage.act();
+
 //        stage.setDebugAll(true);
 //        batch.end();
     }

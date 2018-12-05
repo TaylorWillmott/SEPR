@@ -88,11 +88,11 @@ public class ShipCombat implements Screen {
         leftTable.row();
         leftTable.add(fleeButton).uniform().bottom();
 
-
-        attackTable.add(button1).uniform().width(width/5);
-        attackTable.add(button2).uniform().width(width/5);
         attackTable.row();
-        attackTable.add(button3).uniform().width(width/5);
+        attackTable.add(button1).uniform().width(width/5).padRight(button_pad_right);
+        attackTable.add(button2).uniform().width(width/5);
+        attackTable.row().padTop(button_pad_bottom);
+        attackTable.add(button3).uniform().width(width/5).padRight(button_pad_right);
         attackTable.add(button4).uniform().width(width/5);
 
         CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
@@ -101,13 +101,12 @@ public class ShipCombat implements Screen {
 //        myShip.setPosition(width/8, height/2);
 //        enemyShip.setPosition(width/2, height/2);
 
-        rootTable.row().fillX().padBottom(height/5f);
+        rootTable.row().fillX().padBottom(height/7f);
         rootTable.add(myShip);
         rootTable.add(enemyShip);
-        rootTable.row().expandX();
+        rootTable.row().expandX().padBottom(height/9f);
         rootTable.add(leftTable).width(width/2);
-        rootTable.add(attackTable).width(width/2).bottom();
-//        rootTable.padBottom(height/10f);
+        rootTable.add(attackTable).width(width/2);
 
         tableContainer.setActor(rootTable);
 
@@ -119,7 +118,7 @@ public class ShipCombat implements Screen {
 
         //Allow debugging of layout
 //        leftTable.setDebug(true);
-//        attackTable.setDebug(true);
+        attackTable.setDebug(true);
         rootTable.setDebug(true);
 //        myShip.setDebug(true);
 //        enemyShip.setDebug(true);

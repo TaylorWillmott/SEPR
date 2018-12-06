@@ -25,16 +25,20 @@ public class MainMenu implements Screen {
     float screen_width;
     float screen_height;
 
+    // Screens
+    public ShipCombat combatScreen;
+
     public MainMenu(final PirateGame main){
         this.main = main;
 //        camera = new OrthographicCamera();
 //        camera.setToOrtho(false, 800, 480);
 
+        // Layout Properties
         Container<Table> tableContainer = new Container<Table>();
         tableContainer.setFillParent(true);
         tableContainer.setPosition(0,0);
         tableContainer.align(Align.center);
-
+        Table table = new Table();
         stage = new Stage(new FitViewport(1920,1080));
 
         main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
@@ -42,9 +46,8 @@ public class MainMenu implements Screen {
         screen_width = stage.getWidth();
         screen_height = stage.getHeight();
 
+        // Debugging
         System.out.println(screen_width + ", " + screen_height);
-
-        Table table = new Table();
 
         final Player player = new Player();
 
@@ -63,14 +66,14 @@ public class MainMenu implements Screen {
 
         TextButton sailing_mode = new TextButton("Go to Sailing Mode", main.skin);
 
-        //TODO Implement ShipSailing constructor to work with scene switching
-//        combat_mode.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y){
-//                main.setScreen(new ShipSailing(main));
-//                dispose();
-//            }
-//        });
+//        TODO Implement ShipSailing constructor to work with scene switching
+        sailing_mode.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                main.setScreen(new ShipSailing(main));
+                dispose();
+            }
+        });
 
         table.setDebug(true);
 

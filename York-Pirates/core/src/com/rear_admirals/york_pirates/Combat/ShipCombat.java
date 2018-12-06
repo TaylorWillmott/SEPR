@@ -30,13 +30,17 @@ public class ShipCombat implements Screen {
     public float width;
     public float height;
     private Texture bg_texture;
-
+    public Player player;
+    public Ship enemy;
 
     public ShipCombat (final PirateGame main, Player player, Ship enemy){
 
         // This constructor also replaces the create function that a stage would typically have.
 
         this.main = main;
+        this.player = player;
+        this.enemy = enemy;
+
         stage = new Stage(new FitViewport(1920,1080));
 
         height = stage.getHeight();
@@ -96,15 +100,26 @@ public class ShipCombat implements Screen {
         CombatShip enemyShip = new CombatShip(enemy,"ship2.png",width/3);
 
         Label shipName = new Label(player.playerShip.getName(),main.skin);
-        ProgressBar playerHP = new ProgressBar(0, player.playerShip.getDefence(),0.1f,false,main.skin);
+        ProgressBar playerHP = new ProgressBar(0, player.playerShip.getHealthMax(),0.1f,false,main.skin);
+        Label playerHPLabel = new Label(player.playerShip.getHealth()+"/"+player.playerShip.getHealthMax(), main.skin);
 
         playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
         playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
 
         Label enemyName = new Label("Enemy "+enemy.getName(),main.skin);
-        ProgressBar enemyHP = new ProgressBar(0,enemy.getDefence(),0.1f,false,main.skin);
+        ProgressBar enemyHP = new ProgressBar(0,enemy.getHealthMax(),0.1f,false,main.skin);
+        Label enemyHPLabel = new Label(enemy.getHealth()+"/"+enemy.getHealthMax(), main.skin);
 
-        enemyHP.setValue(enemy.getDefence()/2);
+        enemyHP.setValue(enemy.getDefence());
+
+        Table playerHPTable = new Table();
+        Table enemyHPTable = new Table();
+
+        playerHPTable.add(playerHPLabel).padRight(width/36f);
+        playerHPTable.add(playerHP).width(width/5);
+
+        enemyHPTable.add(enemyHPLabel).padRight(width/36f);
+        enemyHPTable.add(enemyHP).width(width/5);
 
         Label screenTitle = new Label("Combat Mode", main.skin,"title");
 
@@ -115,9 +130,9 @@ public class ShipCombat implements Screen {
         rootTable.row().fillX();
         rootTable.add(myShip);
         rootTable.add(enemyShip);
-        rootTable.row().size(width/5, playerHP.getPrefHeight()).padBottom(height/18f);
-        rootTable.add(playerHP);
-        rootTable.add(enemyHP);
+        rootTable.row().padBottom(height/18f);
+        rootTable.add(playerHPTable);
+        rootTable.add(enemyHPTable);
         rootTable.row().expandX().padBottom(height/12f);
         rootTable.add(descriptionTable).width(width/2);
         rootTable.add(attackTable).width(width/2).bottom();
@@ -182,6 +197,31 @@ public class ShipCombat implements Screen {
     public void resume() {
     }
 
+    // Combat Handler
+    public void combatHandler(String status){
+        switch(status) {
+            case "none":
+                return;
+            case "player attack":
+
+            case "enemy attack":
+
+            case "player charge turn":
+
+            case "enemy charge turn":
+
+            case "player dies":
+
+            case "enemy dies":
+
+            case "player flees":
+                
+
+        }
+    }
+
+    // Button Listener Classes
+
     public void buttonListener(final AttackButton button){
         button.addListener(new ClickListener(){
             @Override
@@ -195,7 +235,7 @@ public class ShipCombat implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 button.setText("Attacking");
-//                attack.doAttack();
+                button.attack.doAttack(player.playerShip, enemy);
             }
         });
     }
@@ -212,7 +252,7 @@ public class ShipCombat implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 button.setText(message);
-//                attack.doAttack();
+                button.attack.doAttack(player.playerShip, enemy);
             }
         });
     }

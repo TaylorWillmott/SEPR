@@ -2,6 +2,7 @@ package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,15 +14,17 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import static com.rear_admirals.york_pirates.ShipType.Brig;
 
-public class ShipSailing {
+public class ShipSailing implements Screen {
+
     private SpriteBatch batch;
     private ShapeRenderer shapeBatch;
     private Ship ship;
     private OrthographicCamera cam;
     private Viewport viewport;
+    final PirateGame main;
 
-//    @Override
-    public void create () {
+    public ShipSailing(final PirateGame main){
+        this.main = main;
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
         ship = new Ship(Brig);
@@ -29,11 +32,21 @@ public class ShipSailing {
         cam = new OrthographicCamera();
         viewport = new FitViewport(1920, 1080, cam);
         Gdx.graphics.setTitle("York Pirates!");
-        //Gdx.graphics.setWindowedMode(4000, 3000);
     }
-
 //    @Override
-    public void render () {
+//    public void create () {
+//        batch = new SpriteBatch();
+//        shapeBatch = new ShapeRenderer();
+//        ship = new Ship(Brig);
+//        ship.tex = new Texture("ship.png");
+//        cam = new OrthographicCamera();
+//        viewport = new FitViewport(1920, 1080, cam);
+//        Gdx.graphics.setTitle("York Pirates!");
+//        //Gdx.graphics.setWindowedMode(4000, 3000);
+//    }
+
+    @Override
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -57,13 +70,30 @@ public class ShipSailing {
         batch.end();
     }
 
-//    @Override
+    @Override
     public void resize(int width, int height) { viewport.update(width, height); }
 
-//    @Override
+    @Override
     public void dispose () {
         batch.dispose();
         shapeBatch.dispose();
         ship.tex.dispose();
+    }
+
+    @Override
+    public void show(){
+    }
+
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void hide(){
+    }
+
+    @Override
+    public void resume() {
     }
 }

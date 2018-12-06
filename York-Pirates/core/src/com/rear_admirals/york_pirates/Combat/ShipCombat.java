@@ -32,12 +32,11 @@ public class ShipCombat implements Screen {
     private Texture bg_texture;
 
 
-    public ShipCombat (final PirateGame main){
+    public ShipCombat (final PirateGame main, Player player, Ship enemy){
 
         // This constructor also replaces the create function that a stage would typically have.
 
         this.main = main;
-        Player player = new Player();
         stage = new Stage(new FitViewport(1920,1080));
 
         height = stage.getHeight();
@@ -94,15 +93,18 @@ public class ShipCombat implements Screen {
         attackTable.add(button4).uniform().width(width/5);
 
         CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
-        CombatShip enemyShip = new CombatShip(new Ship(Brig, "enemy"),"ship2.png",width/3);
+        CombatShip enemyShip = new CombatShip(enemy,"ship2.png",width/3);
 
         Label shipName = new Label(player.playerShip.getName(),main.skin);
         ProgressBar playerHP = new ProgressBar(0, player.playerShip.getDefence(),0.1f,false,main.skin);
 
         playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
+        playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
 
-        Label enemyName = new Label("Enemy "+Brig.getName(),main.skin);
-        ProgressBar enemyHP = new ProgressBar(0,Brig.getDefence(),0.1f,false,main.skin);
+        Label enemyName = new Label("Enemy "+enemy.getName(),main.skin);
+        ProgressBar enemyHP = new ProgressBar(0,enemy.getDefence(),0.1f,false,main.skin);
+
+        enemyHP.setValue(enemy.getDefence()/2);
 
         Label screenTitle = new Label("Combat Mode", main.skin,"title");
 
@@ -113,7 +115,7 @@ public class ShipCombat implements Screen {
         rootTable.row().fillX();
         rootTable.add(myShip);
         rootTable.add(enemyShip);
-        rootTable.row().size(width/4, playerHP.getPrefHeight()).padBottom(height/18f);
+        rootTable.row().size(width/5, playerHP.getPrefHeight()).padBottom(height/18f);
         rootTable.add(playerHP);
         rootTable.add(enemyHP);
         rootTable.row().expandX().padBottom(height/12f);
@@ -132,7 +134,7 @@ public class ShipCombat implements Screen {
 
 //        descriptionTable.setDebug(true);
 //        attackTable.setDebug(true);
-        rootTable.setDebug(true);
+//        rootTable.setDebug(true);
 //        myShip.setDebug(true);
 //        enemyShip.setDebug(true);
 //        tableContainer.setDebug(true);

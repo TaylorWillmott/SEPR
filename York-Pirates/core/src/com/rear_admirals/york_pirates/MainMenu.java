@@ -13,6 +13,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
+import com.sun.scenario.effect.Brightpass;
+
+import static com.rear_admirals.york_pirates.ShipType.Brig;
 
 public class MainMenu implements Screen {
 
@@ -43,6 +46,8 @@ public class MainMenu implements Screen {
 
         Table table = new Table();
 
+        final Player player = new Player();
+
         Label title = new Label("Rear Admirals", main.skin, "title");
         title.setAlignment(Align.center);
         TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);
@@ -51,7 +56,7 @@ public class MainMenu implements Screen {
         combat_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new ShipCombat(main));
+                main.setScreen(new ShipCombat(main, player, new Ship(Brig)));
                 dispose();
             }
         });

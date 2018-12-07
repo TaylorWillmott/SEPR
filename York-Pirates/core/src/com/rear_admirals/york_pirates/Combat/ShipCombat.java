@@ -267,10 +267,8 @@ public class ShipCombat implements Screen {
         if (!combatStack.empty()){
             currentAttack = combatStack.pop();
         }
-        if (player.playerShip.getHealth() <= 0) {
-            status = BattleEvent.PLAYER_DIES;
-        }
         if (enemy.getHealth() <= 0) {
+            System.out.println(enemy.getHealth());
             status = BattleEvent.ENEMY_DIES;
         }
         switch(status) {
@@ -309,20 +307,37 @@ public class ShipCombat implements Screen {
                         currentAttack.setSkipMoveStatus(true);
                     }
                 }
+                if (player.playerShip.getHealth() <= 0) {
+                    combatHandler(BattleEvent.PLAYER_DIES);
+                }
+                if (enemy.getHealth() <= 0) {
+                    combatHandler(BattleEvent.ENEMY_DIES);
+                }
                 combatHandler(BattleEvent.ENEMY_MOVE);
+                break;
             case ENEMY_MOVE:
+                System.out.println("Running enemy move");
                 Attack enemyAttack = enemyAttacks.get(ThreadLocalRandom.current().nextInt(0,3));
                 int damage = enemyAttack.doAttack(enemy, player.playerShip);
                 System.out.println("ENEMY ATTACK SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
                 dialog("Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!");
                 updateHP();
-                toggleAttackStage();
+                if (combatStack.isEmpty()){
+                    toggleAttackStage();
+                }
+                else{
+                    combatHandler(BattleEvent.PLAYER_MOVE);
+                }
+                break;
             case PLAYER_DIES:
-
+                break;
             case ENEMY_DIES:
-
+                dialog("Congratulations, you have defeated Enemy " + enemy.getName());
+                player.addGold(10);
+                player.addPoints(10);
+                break;
             case PLAYER_FLEES:
-
+                break;
 
         }
     }

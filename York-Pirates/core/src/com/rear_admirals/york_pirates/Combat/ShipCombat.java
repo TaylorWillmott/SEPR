@@ -97,7 +97,8 @@ public class ShipCombat implements Screen {
         enemyHP = new ProgressBar(0,enemy.getHealthMax(),0.1f,false,main.skin);
         enemyHPLabel = new Label(enemy.getHealth()+"/"+enemy.getHealthMax(), main.skin);
 
-        enemyHP.setValue(enemy.getDefence());
+        playerHP.setValue(player.playerShip.getHealthMax());
+        enemyHP.setValue(enemy.getHealthMax());
 
         Table playerHPTable = new Table();
         Table enemyHPTable = new Table();
@@ -267,14 +268,11 @@ public class ShipCombat implements Screen {
         if (!combatStack.empty()){
             currentAttack = combatStack.pop();
         }
-        if (enemy.getHealth() <= 0) {
-            System.out.println(enemy.getHealth());
-            status = BattleEvent.ENEMY_DIES;
-        }
         switch(status) {
             case NONE:
                 return;
             case PLAYER_MOVE:
+                System.out.println("Running players move");
                 toggleAttackStage();
                 if (currentAttack.isSkipMoveStatus()){
                     currentAttack.setSkipMoveStatus(false);
@@ -308,28 +306,52 @@ public class ShipCombat implements Screen {
                     }
                 }
                 if (player.playerShip.getHealth() <= 0) {
+                    System.out.println("Player has died");
                     combatHandler(BattleEvent.PLAYER_DIES);
+                    break;
                 }
                 if (enemy.getHealth() <= 0) {
+                    System.out.println("Enemy has died");
                     combatHandler(BattleEvent.ENEMY_DIES);
+                    break;
                 }
-                combatHandler(BattleEvent.ENEMY_MOVE);
+                else {
+                    combatHandler(BattleEvent.ENEMY_MOVE);
+                }
                 break;
             case ENEMY_MOVE:
                 System.out.println("Running enemy move");
                 Attack enemyAttack = enemyAttacks.get(ThreadLocalRandom.current().nextInt(0,3));
                 int damage = enemyAttack.doAttack(enemy, player.playerShip);
-                System.out.println("ENEMY ATTACK SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-                dialog("Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!");
-                updateHP();
-                if (combatStack.isEmpty()){
-                    toggleAttackStage();
+                if (damage == 0){
+                    System.out.println("ENEMY ATTACK MISSED");
                 }
                 else{
-                    combatHandler(BattleEvent.PLAYER_MOVE);
+                    System.out.println("ENEMY ATTACK SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                    dialog("Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!");
+                    updateHP();
+                }
+                if (player.playerShip.getHealth() <= 0) {
+                    System.out.println("Player has died");
+                    combatHandler(BattleEvent.PLAYER_DIES);
+                    break;
+                }
+                else if (enemy.getHealth() <= 0) {
+                    System.out.println("Enemy has died");
+                    combatHandler(BattleEvent.ENEMY_DIES);
+                    break;
+                }
+                else {
+                    if (combatStack.isEmpty()){
+                        toggleAttackStage();
+                    }
+                    else{
+                        combatHandler(BattleEvent.PLAYER_MOVE);
+                    }
                 }
                 break;
             case PLAYER_DIES:
+                dialog("YOU HAVE DIED");
                 break;
             case ENEMY_DIES:
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName());
@@ -356,8 +378,8 @@ public class ShipCombat implements Screen {
             };
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                button.setText("Attacking");
-                //Insert Delay?
+//                button.setText("Attacking");
+                //Insert Delay
                 combatStack.push(button.attack);
                 combatHandler(BattleEvent.PLAYER_MOVE);
             }

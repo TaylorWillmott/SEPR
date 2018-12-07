@@ -241,6 +241,7 @@ public class ShipCombat implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width,height);
+        attackStage.getViewport().update(width,height);
         this.width = stage.getWidth();
         this.height = stage.getHeight();
 
@@ -317,12 +318,15 @@ public class ShipCombat implements Screen {
                         updateHP();
                         if (player.playerShip.getHealth() <= 0) {
                             System.out.println("Player has died");
-                            dialog("You dealt " + damage + "with " + currentAttack.getName() + "!", BattleEvent.PLAYER_DIES);
-                        } else if (enemy.getHealth() <= 0) {
-                            System.out.println("Enemy has died");
-                            dialog("You dealt " + damage + "with " + currentAttack.getName() + "!", BattleEvent.ENEMY_DIES);
+                            dialog("You dealt " + damage + " with " + currentAttack.getName() + "!", BattleEvent.PLAYER_DIES);
                         }
-                        dialog("You dealt " + damage + "with " + currentAttack.getName() + "!", BattleEvent.ENEMY_MOVE);
+                        else if (enemy.getHealth() <= 0) {
+                            System.out.println("Enemy has died");
+                            dialog("You dealt " + damage + " with " + currentAttack.getName() + "!", BattleEvent.ENEMY_DIES);
+                        }
+                        else{
+                            dialog("You dealt " + damage + " with " + currentAttack.getName() + "!", BattleEvent.ENEMY_MOVE);
+                        }
                     }
 
                 }
@@ -415,8 +419,14 @@ public class ShipCombat implements Screen {
         });
     }
 
-    //TODO Add animation to HP bar
+    //TODO Add animation to HP bar and remove knob when health = 0.
     public void updateHP(){
+        if (enemy.getHealth() <= 0){
+            enemy.setHealth(0);
+        }
+        if (player.playerShip.getHealth() <= 0){
+            player.playerShip.setHealth(0);
+        }
         enemyHPLabel.setText(enemy.getHealth()+"/"+enemy.getHealthMax());
         enemyHP.setValue(enemy.getHealth());
         playerHPLabel.setText(player.playerShip.getHealth()+"/"+player.playerShip.getHealthMax());
@@ -425,11 +435,9 @@ public class ShipCombat implements Screen {
     //TODO Add animation to dialog box
     public void dialog(String message, final BattleEvent nextEvent){
         queuedCombatEvent = nextEvent;
-        System.out.println("Dialogue Box should display: "+message);
         if (background_wood.isVisible()){
             toggleAttackStage();
         }
-        System.out.println("Queued event: " + queuedCombatEvent.toString());
         textBox.setText(message);
     }
 }

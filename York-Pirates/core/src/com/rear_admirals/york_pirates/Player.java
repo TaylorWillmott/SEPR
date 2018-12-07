@@ -20,8 +20,8 @@ public class Player {
         points = 0;
 
         attacks.add(Ram.attackRam);
-        attacks.add(Swivel.attackSwivel);
-        attacks.add(GrapeShot.attackGrape);
+        attacks.add(Attack.attackSwivel);
+        attacks.add(Attack.attackGrape);
 
     }
 
@@ -31,8 +31,8 @@ public class Player {
         points = 0;
 
         attacks.add(Ram.attackRam);
-        attacks.add(Swivel.attackSwivel);
-        attacks.add(GrapeShot.attackGrape);
+        attacks.add(Attack.attackSwivel);
+        attacks.add(Attack.attackGrape);
     }
 
     public int getPoints() { return points; }

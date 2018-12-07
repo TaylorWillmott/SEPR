@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.rear_admirals.york_pirates.Attacks.Attacks;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
 
 import static com.rear_admirals.york_pirates.ShipType.Brig;

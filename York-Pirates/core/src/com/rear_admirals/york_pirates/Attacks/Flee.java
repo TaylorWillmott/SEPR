@@ -2,6 +2,8 @@ package com.rear_admirals.york_pirates.Attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Flee extends Attack {
 
     protected Flee() {
@@ -10,11 +12,13 @@ public class Flee extends Attack {
     }
 
     @Override
-    public boolean doAttack(Ship attacker, Ship defender) {
-        //TODO Fill in Flee attacks
-//        if (){
-//        }
-        return false; // Return false if it was not successful.
+    public int doAttack(Ship attacker, Ship defender) {
+        int fleeSuccess = ThreadLocalRandom.current().nextInt(0, 101);
+        if (fleeSuccess >= 30) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public static final Flee attackFlee = new Flee();

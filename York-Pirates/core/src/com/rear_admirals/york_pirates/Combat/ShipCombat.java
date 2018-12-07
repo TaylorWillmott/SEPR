@@ -347,7 +347,7 @@ public class ShipCombat implements Screen {
                 }
                 break;
             case PLAYER_DIES:
-                dialog("YOU HAVE DIED", BattleEvent.PLAYER_DIES);
+                dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
                 break;
             case ENEMY_DIES:
                 player.addGold(10);

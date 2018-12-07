@@ -12,6 +12,7 @@ public enum BattleEvent {
     // Enemy ship sunk
     ENEMY_DIES,
     // Players flee is successful
-    PLAYER_FLEES
-
+    PLAYER_FLEES,
+    // Ends combat screen.
+    SCENE_RETURN,
 }

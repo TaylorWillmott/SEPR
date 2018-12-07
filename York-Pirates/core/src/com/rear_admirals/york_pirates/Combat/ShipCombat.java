@@ -272,101 +272,95 @@ public class ShipCombat implements Screen {
         }
         switch(status) {
             case NONE:
-                return;
+                System.out.println("do nothing");
+                break;
             case PLAYER_MOVE:
                 System.out.println("Running players move");
-                toggleAttackStage();
-                if (currentAttack.isSkipMoveStatus()){
+//                toggleAttackStage();
+                if (currentAttack.isSkipMoveStatus()) {
                     System.out.println("Charging attack");
                     currentAttack.setSkipMoveStatus(false);
-                    dialog("Charging attack.");
                     combatStack.push(currentAttack);
-                }
-                else if (currentAttack.getName() == "FLEE"){
-                    if (currentAttack.doAttack(player.playerShip, enemy) == 1){
-                        dialog("Flee successful!");
-                        combatHandler(BattleEvent.PLAYER_FLEES);
+                    dialog("Charging attack.", BattleEvent.ENEMY_MOVE);
+                } else if (currentAttack.getName() == "FLEE") {
+                    if (currentAttack.doAttack(player.playerShip, enemy) == 1) {
+                        System.out.println("Flee successful");
+                        dialog("Flee successful!", BattleEvent.PLAYER_FLEES);
+                    } else {
+                        System.out.println("Flee Failed");
+                        dialog("Flee failed.", BattleEvent.ENEMY_MOVE);
                     }
-                    else{
-                        dialog("Flee failed.");
-                    }
-                }
-                else {
+                } else {
                     int damage = currentAttack.doAttack(player.playerShip, enemy); // Calls the attack function on the player and stores damage output
-                    if (damage == 0){
-                        dialog("Attack Missed");
-                        System.out.println(currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-                    }
-                    else{
-                        dialog("You dealt " + damage + "with " + currentAttack.getName() + "!");
-                        updateHP();
-                        System.out.println(currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-
-                    }
                     // This selection statement returns Special Charge Attacks to normal state
                     if (currentAttack.isSkipMove()) {
                         currentAttack.setSkipMoveStatus(true);
                     }
-                }
-                if (player.playerShip.getHealth() <= 0) {
-                    System.out.println("Player has died");
-                    combatHandler(BattleEvent.PLAYER_DIES);
-                    break;
-                }
-                else if (enemy.getHealth() <= 0) {
-                    System.out.println("Enemy has died");
-                    combatHandler(BattleEvent.ENEMY_DIES);
-                    break;
-                }
-                else {
-                    combatHandler(BattleEvent.ENEMY_MOVE);
+                    if (damage == 0) {
+                        System.out.println(currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        dialog("Attack Missed", BattleEvent.ENEMY_MOVE);
+                    } else {
+                        System.out.println(currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        updateHP();
+                        if (player.playerShip.getHealth() <= 0) {
+                            System.out.println("Player has died");
+                            dialog("You dealt " + damage + "with " + currentAttack.getName() + "!", BattleEvent.PLAYER_DIES);
+                        } else if (enemy.getHealth() <= 0) {
+                            System.out.println("Enemy has died");
+                            dialog("You dealt " + damage + "with " + currentAttack.getName() + "!", BattleEvent.ENEMY_DIES);
+                        }
+                        dialog("You dealt " + damage + "with " + currentAttack.getName() + "!", BattleEvent.ENEMY_MOVE);
+                    }
+
                 }
                 break;
             case ENEMY_MOVE:
                 System.out.println("Running enemy move");
                 Attack enemyAttack = enemyAttacks.get(ThreadLocalRandom.current().nextInt(0,3));
                 int damage = enemyAttack.doAttack(enemy, player.playerShip);
+                String message;
                 if (damage == 0){
-                    System.out.println(enemyAttack.getName() + " ATTACK MISSED");
+                    System.out.println("Enemy " + enemyAttack.getName() + " ATTACK MISSED");
+                    message = "Enemies " + enemyAttack.getName() + " missed.";
                 }
-                else{
-                    System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-                    dialog("Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!");
-                    updateHP();
+                else {
+                    System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                    message = "Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!";
                 }
+                updateHP();
                 if (player.playerShip.getHealth() <= 0) {
                     System.out.println("Player has died");
-                    combatHandler(BattleEvent.PLAYER_DIES);
-                    break;
+                    dialog("Enemies " + enemyAttack.getName() + " hit you for "+ damage, BattleEvent.PLAYER_DIES);
                 }
                 else if (enemy.getHealth() <= 0) {
                     System.out.println("Enemy has died");
-                    combatHandler(BattleEvent.ENEMY_DIES);
-                    break;
+                    dialog("Enemies " + enemyAttack.getName() + " hit you for "+ damage, BattleEvent.ENEMY_DIES);
                 }
                 else {
                     if (currentAttack.isSkipMove() != currentAttack.isSkipMoveStatus()){
-                        toggleAttackStage();
                         System.out.println("Loading charged attack");
-                        combatHandler(BattleEvent.PLAYER_MOVE);
+                        dialog(message, BattleEvent.PLAYER_MOVE);
                     }
                     else{
-                        System.out.println("Please choose an attack");
-                        toggleAttackStage();
+                        dialog(message,BattleEvent.NONE);
                     }
                 }
                 break;
             case PLAYER_DIES:
-                dialog("YOU HAVE DIED");
+                dialog("YOU HAVE DIED", BattleEvent.PLAYER_DIES);
                 break;
             case ENEMY_DIES:
-                dialog("Congratulations, you have defeated Enemy " + enemy.getName());
                 player.addGold(10);
                 player.addPoints(10);
+                dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
                 break;
             case PLAYER_FLEES:
                 break;
-
+            case SCENE_RETURN:
+                System.out.println("END OF COMBAT");
+                toggleAttackStage();
+                textBox.setText("STOP");
+                return;
         }
     }
 
@@ -416,7 +410,9 @@ public class ShipCombat implements Screen {
         playerHP.setValue(player.playerShip.getHealth());
     }
     //TODO Add animation to dialog box
-    public void dialog(String message){
+    public void dialog(String message, BattleEvent event){
         textBox.setText(message);
+//        toggleAttackStage();
+        combatHandler(event);
     }
 }

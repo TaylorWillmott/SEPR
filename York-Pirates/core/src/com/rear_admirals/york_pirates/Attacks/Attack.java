@@ -59,5 +59,5 @@ public class Attack {
 	public static Attack attackMain = new Attack("Broadside","Fire a broadside at your enemy.",3,1,false);
 	public static Attack attackGrape = new Attack("Grape Shot","Fire a bundle of smaller cannonballs at the enemy.",1,0.5,false);
 	public static Attack attackSwivel = new Attack("Swivel","High accuracy, low damage attack.",2,4,false);
-
+	public static Attack attackBoard = new Attack("Board","Charge attack over a turn, medium - high damage and high accuracy", 4,6,true);
 }

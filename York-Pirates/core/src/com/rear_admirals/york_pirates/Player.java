@@ -21,7 +21,7 @@ public class Player {
 
         attacks.add(Ram.attackRam);
         attacks.add(Attack.attackSwivel);
-        attacks.add(Attack.attackGrape);
+        attacks.add(Attack.attackBoard);
 
     }
 
@@ -32,7 +32,7 @@ public class Player {
 
         attacks.add(Ram.attackRam);
         attacks.add(Attack.attackSwivel);
-        attacks.add(Attack.attackGrape);
+        attacks.add(Attack.attackBoard);
     }
 
     public int getPoints() { return points; }

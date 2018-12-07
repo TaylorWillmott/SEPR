@@ -265,8 +265,10 @@ public class ShipCombat implements Screen {
     // Combat Handler
     //  This function handles the ship combat
     public void combatHandler(BattleEvent status){
+        System.out.println("Running combatHandler with status: " + status.toString());
         if (!combatStack.empty()){
             currentAttack = combatStack.pop();
+            System.out.println("Popping "+currentAttack.getName());
         }
         switch(status) {
             case NONE:
@@ -275,6 +277,7 @@ public class ShipCombat implements Screen {
                 System.out.println("Running players move");
                 toggleAttackStage();
                 if (currentAttack.isSkipMoveStatus()){
+                    System.out.println("Charging attack");
                     currentAttack.setSkipMoveStatus(false);
                     dialog("Charging attack.");
                     combatStack.push(currentAttack);
@@ -292,12 +295,12 @@ public class ShipCombat implements Screen {
                     int damage = currentAttack.doAttack(player.playerShip, enemy); // Calls the attack function on the player and stores damage output
                     if (damage == 0){
                         dialog("Attack Missed");
-                        System.out.println("ATTACK MISSED, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        System.out.println(currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
                     }
                     else{
                         dialog("You dealt " + damage + "with " + currentAttack.getName() + "!");
                         updateHP();
-                        System.out.println("ATTACK SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        System.out.println(currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
 
                     }
                     // This selection statement returns Special Charge Attacks to normal state
@@ -310,7 +313,7 @@ public class ShipCombat implements Screen {
                     combatHandler(BattleEvent.PLAYER_DIES);
                     break;
                 }
-                if (enemy.getHealth() <= 0) {
+                else if (enemy.getHealth() <= 0) {
                     System.out.println("Enemy has died");
                     combatHandler(BattleEvent.ENEMY_DIES);
                     break;
@@ -324,10 +327,10 @@ public class ShipCombat implements Screen {
                 Attack enemyAttack = enemyAttacks.get(ThreadLocalRandom.current().nextInt(0,3));
                 int damage = enemyAttack.doAttack(enemy, player.playerShip);
                 if (damage == 0){
-                    System.out.println("ENEMY ATTACK MISSED");
+                    System.out.println(enemyAttack.getName() + " ATTACK MISSED");
                 }
                 else{
-                    System.out.println("ENEMY ATTACK SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                    System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: "+ player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
                     dialog("Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!");
                     updateHP();
                 }
@@ -342,11 +345,14 @@ public class ShipCombat implements Screen {
                     break;
                 }
                 else {
-                    if (combatStack.isEmpty()){
+                    if (currentAttack.isSkipMove() != currentAttack.isSkipMoveStatus()){
                         toggleAttackStage();
+                        System.out.println("Loading charged attack");
+                        combatHandler(BattleEvent.PLAYER_MOVE);
                     }
                     else{
-                        combatHandler(BattleEvent.PLAYER_MOVE);
+                        System.out.println("Please choose an attack");
+                        toggleAttackStage();
                     }
                 }
                 break;

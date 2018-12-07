@@ -47,6 +47,7 @@ public class ShipCombat implements Screen {
     private Label enemyHPLabel;
     private static List<Attack> enemyAttacks;
     private Attack currentAttack;
+    private BattleEvent queuedCombatEvent;
 
 
     public ShipCombat (final PirateGame main, Player player, Ship enemy){
@@ -112,6 +113,17 @@ public class ShipCombat implements Screen {
         Label screenTitle = new Label("Combat Mode", main.skin,"title");
         screenTitle.setAlignment(Align.center);
 
+        textBox = new TextButton("WELCOME TO THE BATTLE", main.skin);
+        this.queuedCombatEvent = BattleEvent.NONE;
+        textBox.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+//                System.out.println("Queued event: " + queuedCombatEvent.toString());
+                System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
+                combatHandler(queuedCombatEvent);
+            }
+        });
+
         // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified by within player class.
         final AttackButton button1 = new AttackButton(Attack.attackMain, main.skin);
         buttonListener(button1);
@@ -140,7 +152,7 @@ public class ShipCombat implements Screen {
         attackTable.add(button3).uniform().width(width/5).padRight(button_pad_right);
         attackTable.add(button4).uniform().width(width/5);
 
-        textBox = new TextButton("WELCOME TO THE BATTLE", main.skin);
+
         rootTable.row().width(width*0.8f);
         rootTable.add(screenTitle).colspan(2);
         rootTable.row();
@@ -186,8 +198,6 @@ public class ShipCombat implements Screen {
         currentAttack = null;
 
         Gdx.input.setInputProcessor(stage);
-        toggleAttackStage();
-
 
         //Allow debugging of layout
 //        descriptionTable.setDebug(true);
@@ -265,16 +275,19 @@ public class ShipCombat implements Screen {
     // Combat Handler
     //  This function handles the ship combat
     public void combatHandler(BattleEvent status){
+        //Debugging
         System.out.println("Running combatHandler with status: " + status.toString());
+
         if (!combatStack.empty()){
             currentAttack = combatStack.pop();
-            System.out.println("Popping "+currentAttack.getName());
+//            System.out.println("Popping "+currentAttack.getName());
         }
         switch(status) {
             case NONE:
-                System.out.println("do nothing");
+                toggleAttackStage();
                 break;
             case PLAYER_MOVE:
+                toggleAttackStage();
                 System.out.println("Running players move");
 //                toggleAttackStage();
                 if (currentAttack.isSkipMoveStatus()) {
@@ -297,10 +310,10 @@ public class ShipCombat implements Screen {
                         currentAttack.setSkipMoveStatus(true);
                     }
                     if (damage == 0) {
-                        System.out.println(currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        System.out.println("Player "+currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
                         dialog("Attack Missed", BattleEvent.ENEMY_MOVE);
                     } else {
-                        System.out.println(currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        System.out.println("Player "+currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
                         updateHP();
                         if (player.playerShip.getHealth() <= 0) {
                             System.out.println("Player has died");
@@ -342,7 +355,7 @@ public class ShipCombat implements Screen {
                         dialog(message, BattleEvent.PLAYER_MOVE);
                     }
                     else{
-                        dialog(message,BattleEvent.NONE);
+                        dialog(message, BattleEvent.NONE);
                     }
                 }
                 break;
@@ -360,7 +373,7 @@ public class ShipCombat implements Screen {
                 System.out.println("END OF COMBAT");
                 toggleAttackStage();
                 textBox.setText("STOP");
-                return;
+                break;
         }
     }
 
@@ -410,9 +423,13 @@ public class ShipCombat implements Screen {
         playerHP.setValue(player.playerShip.getHealth());
     }
     //TODO Add animation to dialog box
-    public void dialog(String message, BattleEvent event){
+    public void dialog(String message, final BattleEvent nextEvent){
+        queuedCombatEvent = nextEvent;
+        System.out.println("Dialogue Box should display: "+message);
+        if (background_wood.isVisible()){
+            toggleAttackStage();
+        }
+        System.out.println("Queued event: " + queuedCombatEvent.toString());
         textBox.setText(message);
-//        toggleAttackStage();
-        combatHandler(event);
     }
 }

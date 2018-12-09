@@ -162,7 +162,7 @@ public class ShipCombat implements Screen {
         buttonListener(button3);
         final AttackButton button4 = new AttackButton(player.attacks.get(2), main.skin);
         buttonListener(button4);
-        final AttackButton fleeButton = new AttackButton(Flee.attackFlee, main.skin, "flee");
+        final AttackButton fleeButton = new AttackButton(Flee.attackFlee, main.skin, "red");
         buttonListener(fleeButton);
 
         descriptionLabel = new Label("Please choose your attack option", main.skin);
@@ -313,6 +313,7 @@ public class ShipCombat implements Screen {
                 break;
             case PLAYER_MOVE:
                 toggleAttackStage();
+                textBox.setStyle(main.skin.get("default", TextButton.TextButtonStyle.class));
                 System.out.println("Running players move");
 //                toggleAttackStage();
                 if (currentAttack.isSkipMoveStatus()) {
@@ -356,6 +357,7 @@ public class ShipCombat implements Screen {
                 break;
             case ENEMY_MOVE:
                 System.out.println("Running enemy move");
+                textBox.setStyle(main.skin.get("red", TextButton.TextButtonStyle.class));
                 Attack enemyAttack = enemyAttacks.get(ThreadLocalRandom.current().nextInt(0,3));
                 int damage = enemyAttack.doAttack(enemy, player.playerShip);
                 String message;
@@ -386,14 +388,17 @@ public class ShipCombat implements Screen {
                 }
                 break;
             case PLAYER_DIES:
+                textBox.setStyle(main.skin.get("red", TextButton.TextButtonStyle.class));
                 dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
                 break;
             case ENEMY_DIES:
+                textBox.setStyle(main.skin.get("default", TextButton.TextButtonStyle.class));
                 player.addGold(10);
                 player.addPoints(10);
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
                 break;
             case PLAYER_FLEES:
+                textBox.setStyle(main.skin.get("red", TextButton.TextButtonStyle.class));
                 break;
             case SCENE_RETURN:
                 System.out.println("END OF COMBAT");

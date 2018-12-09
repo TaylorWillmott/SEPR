@@ -433,7 +433,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		down: button-p
 		over: button-h
 	}
-	flee: {
+	red: {
 		font: button
 		fontColor: white
 		downFontColor: white

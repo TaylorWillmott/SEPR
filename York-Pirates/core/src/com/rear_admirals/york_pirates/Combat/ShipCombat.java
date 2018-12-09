@@ -22,29 +22,51 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+
 public class ShipCombat implements Screen {
 
+    // Pass instance of main game to scene
     final PirateGame main;
+
+    // Stages for the Combat Scene
     private Stage stage;
+    private Stage attackStage;
+
+    // Screen layout variables
     float button_pad_bottom;
     float button_pad_right;
-    public Label descriptionLabel;
     public float width;
     public float height;
-    private Texture bg_texture;
-    private Texture wood_texture;
-    public Player player;
-    public Ship enemy;
-    private Stage attackStage;
-    private Table completeAttackTable;
-    private Image background;
-    private Image background_wood;
-    private Stack<Attack> combatStack;
-    private TextButton textBox;
-    private ProgressBar playerHP;
-    private ProgressBar enemyHP;
+
+    // Labels changed throughout the scene
+    public Label descriptionLabel;
     private Label playerHPLabel;
     private Label enemyHPLabel;
+
+    // Image textures and images for the various stages
+    private Texture bg_texture;
+    private Texture wood_texture;
+    private Image background;
+    private Image background_wood;
+
+
+    public Player player;
+    public Ship enemy;
+
+    // Control the layout of the stage
+    private Table completeAttackTable;
+    private Table attackTable;
+    private Table rootTable;
+    private Table descriptionTable;
+    private Container<Table> tableContainer;
+
+    private TextButton textBox;
+
+    private ProgressBar playerHP;
+    private ProgressBar enemyHP;
+
+    private Stack<Attack> combatStack;
     private static List<Attack> enemyAttacks;
     private Attack currentAttack;
     private BattleEvent queuedCombatEvent;
@@ -57,7 +79,11 @@ public class ShipCombat implements Screen {
         this.main = main;
         this.player = player;
         this.enemy = enemy;
-        this.combatStack = new Stack();
+
+        // Load the skin for this Screen
+        main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
+
+        combatStack = new Stack();
 
         stage = new Stage(new FitViewport(1920,1080));
 
@@ -71,18 +97,15 @@ public class ShipCombat implements Screen {
         wood_texture = new Texture("wood_texture.png");
         background_wood = new Image(wood_texture);
 
-        Container<Table> tableContainer = new Container<Table>();
-//        tableContainer.setSize(width,height);
+        tableContainer = new Container<Table>();
         tableContainer.setFillParent(true);
         tableContainer.setPosition(0,0);
         tableContainer.align(Align.bottom);
-//        tableContainer.fillX();
 
-        main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
 
-        Table rootTable = new Table();
-        Table descriptionTable = new Table();
-        Table attackTable = new Table();
+        rootTable = new Table();
+        descriptionTable = new Table();
+        attackTable = new Table();
 
         CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
         CombatShip enemyShip = new CombatShip(enemy,"ship2.png",width/3);
@@ -120,6 +143,7 @@ public class ShipCombat implements Screen {
             public void clicked(InputEvent event, float x, float y) {
 //                System.out.println("Queued event: " + queuedCombatEvent.toString());
                 System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
+                updateHP();
                 combatHandler(queuedCombatEvent);
             }
         });
@@ -315,7 +339,6 @@ public class ShipCombat implements Screen {
                         dialog("Attack Missed", BattleEvent.ENEMY_MOVE);
                     } else {
                         System.out.println("Player "+currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-                        updateHP();
                         if (player.playerShip.getHealth() <= 0) {
                             System.out.println("Player has died");
                             dialog("You dealt " + damage + " with " + currentAttack.getName() + "!", BattleEvent.PLAYER_DIES);
@@ -344,7 +367,6 @@ public class ShipCombat implements Screen {
                     System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
                     message = "Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!";
                 }
-                updateHP();
                 if (player.playerShip.getHealth() <= 0) {
                     System.out.println("Player has died");
                     dialog("Enemies " + enemyAttack.getName() + " hit you for "+ damage, BattleEvent.PLAYER_DIES);
@@ -419,8 +441,10 @@ public class ShipCombat implements Screen {
         });
     }
 
-    //TODO Add animation to HP bar and remove knob when health = 0.
+    //TODO Remove knob when health = 0.
     public void updateHP(){
+        enemyHP.setAnimateDuration(2);
+        playerHP.setAnimateDuration(2);
         if (enemy.getHealth() <= 0){
             enemy.setHealth(0);
         }
@@ -438,6 +462,16 @@ public class ShipCombat implements Screen {
         if (background_wood.isVisible()){
             toggleAttackStage();
         }
-        textBox.setText(message);
+        int message_length = message.length();
+        System.out.println(message_length + message);
+        Boolean animation = false;
+        for (int i = 0; i < message_length; i++){
+            System.out.println(message.substring(0,i+1));
+            textBox.setText(message.substring(0,i+1));
+            //TODO get delay to implement properly
+            Gdx.graphics.getDeltaTime();
+            delay(1);
+        }
+        animation = true;
     }
 }

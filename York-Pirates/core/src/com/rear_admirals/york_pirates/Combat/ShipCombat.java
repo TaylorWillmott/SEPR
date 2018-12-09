@@ -18,7 +18,6 @@ import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -71,6 +70,11 @@ public class ShipCombat implements Screen {
     private Attack currentAttack;
     private BattleEvent queuedCombatEvent;
 
+    float delayTime = 0;
+    boolean textAnimation = false;
+//    boolean endTextAnimation = false;
+    int animationIndex = 0;
+    String displayText = "";
 
     public ShipCombat (final PirateGame main, Player player, Ship enemy){
 
@@ -143,6 +147,7 @@ public class ShipCombat implements Screen {
             public void clicked(InputEvent event, float x, float y) {
 //                System.out.println("Queued event: " + queuedCombatEvent.toString());
                 System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
+                textBox.setText("");
                 updateHP();
                 combatHandler(queuedCombatEvent);
             }
@@ -239,16 +244,11 @@ public class ShipCombat implements Screen {
 	public void render (float delta) {
 //	    Gdx.gl.glClearColor((float) 0.26,(float) 0.52,(float) 0.95,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
         stage.draw();
         stage.act();
         attackStage.draw();
         attackStage.act();
-
-//        Gdx.input.setInputProcessor(attackStage);
-
-//        stage.setDebugAll(true);
-//        batch.end();
+        update(delta);
     }
 
 	@Override
@@ -462,16 +462,24 @@ public class ShipCombat implements Screen {
         if (background_wood.isVisible()){
             toggleAttackStage();
         }
-        int message_length = message.length();
-        System.out.println(message_length + message);
-        Boolean animation = false;
-        for (int i = 0; i < message_length; i++){
-            System.out.println(message.substring(0,i+1));
-            textBox.setText(message.substring(0,i+1));
-            //TODO get delay to implement properly
-            Gdx.graphics.getDeltaTime();
-            delay(1);
+//        System.out.println(message_length + message);
+        displayText = message;
+        animationIndex = 0;
+        textAnimation = true;
+
+    }
+    public void update(float dt){
+        if (textAnimation) {
+            delayTime += dt;
+            if (animationIndex > displayText.length()){
+                textAnimation = false;
+            }
+            if (delayTime >= 0.05f){
+                textBox.setText(displayText.substring(0,animationIndex));
+                animationIndex++;
+                delayTime = 0;
+            }
         }
-        animation = true;
     }
 }
+

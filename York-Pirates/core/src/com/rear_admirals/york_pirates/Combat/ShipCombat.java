@@ -146,10 +146,17 @@ public class ShipCombat implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 //                System.out.println("Queued event: " + queuedCombatEvent.toString());
-                System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
-                textBox.setText("");
-                updateHP();
-                combatHandler(queuedCombatEvent);
+                if (textAnimation) {
+                    textAnimation = false;
+                    textBox.setText(displayText);
+                }
+                else{
+                    System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
+                    textBox.setText("");
+                    updateHP();
+                    combatHandler(queuedCombatEvent);
+                }
+
             }
         });
 
@@ -248,7 +255,7 @@ public class ShipCombat implements Screen {
         stage.act();
         attackStage.draw();
         attackStage.act();
-        update(delta);
+        labelAnimationUpdate(delta);
     }
 
 	@Override
@@ -473,7 +480,7 @@ public class ShipCombat implements Screen {
         textAnimation = true;
 
     }
-    public void update(float dt){
+    public void labelAnimationUpdate(float dt){
         if (textAnimation) {
             delayTime += dt;
             if (animationIndex > displayText.length()){

@@ -70,11 +70,10 @@ public class ShipCombat implements Screen {
     private Attack currentAttack;
     private BattleEvent queuedCombatEvent;
 
-    float delayTime = 0;
-    boolean textAnimation = false;
-//    boolean endTextAnimation = false;
-    int animationIndex = 0;
-    String displayText = "";
+    private float delayTime = 0;
+    private boolean textAnimation = false;
+    private int animationIndex = 0;
+    private String displayText = "";
 
     public ShipCombat (final PirateGame main, Player player, Ship enemy){
 

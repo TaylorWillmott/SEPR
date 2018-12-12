@@ -95,7 +95,8 @@ public class ShipCombat implements Screen {
         button_pad_bottom = height/24f;
         button_pad_right = width/32f;
 
-        bg_texture = new Texture("water_texture.png");
+//        bg_texture = new Texture("water_texture.png");
+        bg_texture = new Texture("water_texture_sky.png");
         background = new Image(bg_texture);
 
         //TODO choose best wood textue, then will add it into complete background (or leave as is) - simply uncomment different textures to try
@@ -119,14 +120,14 @@ public class ShipCombat implements Screen {
         CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
         CombatShip enemyShip = new CombatShip(enemy,"ship2.png",width/3);
 
-        Label shipName = new Label(player.playerShip.getName(),main.skin);
+        Label shipName = new Label(player.playerShip.getName(),main.skin, "default_black");
         playerHP = new ProgressBar(0, player.playerShip.getHealthMax(),0.1f,false,main.skin);
         playerHPLabel = new Label(player.playerShip.getHealth()+"/"+player.playerShip.getHealthMax(), main.skin);
 
         playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
         playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
 
-        Label enemyName = new Label("Enemy "+enemy.getName(),main.skin);
+        Label enemyName = new Label("Enemy "+enemy.getName(),main.skin,"default_black");
         enemyHP = new ProgressBar(0,enemy.getHealthMax(),0.1f,false,main.skin);
         enemyHPLabel = new Label(enemy.getHealth()+"/"+enemy.getHealthMax(), main.skin);
 
@@ -142,7 +143,7 @@ public class ShipCombat implements Screen {
         enemyHPTable.add(enemyHPLabel).padRight(width/36f);
         enemyHPTable.add(enemyHP).width(width/5);
 
-        Label screenTitle = new Label("Combat Mode", main.skin,"title");
+        Label screenTitle = new Label("Combat Mode", main.skin,"title_black");
         screenTitle.setAlignment(Align.center);
 
         textBox = new TextButton("WELCOME TO THE BATTLE", main.skin);
@@ -296,7 +297,7 @@ public class ShipCombat implements Screen {
     }
 
     public void toggleAttackStage(){
-        // This method should be called at the start and end of a player move (overlays attack menu on the screen)
+        // This method toggles the visibility of the players attack moves and changes input processor to relevant stage
         if (background_wood.isVisible()) {
             background_wood.setVisible(false);
             completeAttackTable.setVisible(false);

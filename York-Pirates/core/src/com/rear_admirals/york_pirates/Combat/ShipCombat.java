@@ -88,35 +88,42 @@ public class ShipCombat implements Screen {
 
         combatStack = new Stack();
 
+        // Instantiates the different stages in this screen.
         stage = new Stage(new FitViewport(1920,1080));
+        attackStage = new Stage(new FitViewport(1920,1080));
 
+        // Sets size constants for the scene depending on viewport, also sets button padding constants for use in tables
         height = stage.getHeight();
         width = stage.getWidth();
         button_pad_bottom = height/24f;
         button_pad_right = width/32f;
 
+        // Insantiate the image textures for use within the scene as backgrounds.
+
 //        bg_texture = new Texture("water_texture.png");
         bg_texture = new Texture("water_texture_sky.png");
         background = new Image(bg_texture);
+        background.setSize(width, height);
 
         //TODO choose best wood textue, then will add it into complete background (or leave as is) - simply uncomment different textures to try
 //        wood_texture = new Texture("wood_texture.png");
 //        wood_texture = new Texture("wood_checkerboard_texture.png");
         wood_texture = new Texture("wood_vertical_board_texture.png");
-
-
         background_wood = new Image(wood_texture);
+        background_wood.setSize(width, height);
 
+        // Create a Container which takes up the whole screen (used for layout purposes)
         tableContainer = new Container<Table>();
         tableContainer.setFillParent(true);
         tableContainer.setPosition(0,0);
         tableContainer.align(Align.bottom);
 
-
+        // Instantiate some different tables used throughout scene
         rootTable = new Table();
         descriptionTable = new Table();
         attackTable = new Table();
 
+        // Instantiate both the ships for the battle
         CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
         CombatShip enemyShip = new CombatShip(enemy,"ship2.png",width/3);
 
@@ -147,7 +154,6 @@ public class ShipCombat implements Screen {
         screenTitle.setAlignment(Align.center);
 
         textBox = new TextButton("WELCOME TO THE BATTLE", main.skin);
-        this.queuedCombatEvent = BattleEvent.NONE;
         textBox.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -165,6 +171,9 @@ public class ShipCombat implements Screen {
 
             }
         });
+
+        this.queuedCombatEvent = BattleEvent.NONE;
+        currentAttack = null;
 
         // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified by within player class.
         final AttackButton button1 = new AttackButton(Attack.attackMain, main.skin);
@@ -185,7 +194,7 @@ public class ShipCombat implements Screen {
         descriptionTable.center();
         descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(width/2 - button_pad_right*2, height/12).top();
         descriptionTable.row();
-        descriptionTable.add(fleeButton).uniform().bottom();
+        descriptionTable.add(fleeButton).uniform();
 
         attackTable.row();
         attackTable.add(button1).uniform().width(width/5).padRight(button_pad_right);
@@ -206,20 +215,20 @@ public class ShipCombat implements Screen {
         rootTable.row();
         rootTable.add(playerHPTable);
         rootTable.add(enemyHPTable);
-        rootTable.row().height(height/54f);
-        rootTable.add().colspan(2);
+//        rootTable.row().height(height/54f);
+//        rootTable.add().colspan(2);
         rootTable.row();
-        rootTable.add(textBox).colspan(2).fillX().height(height/9f).pad(2*height/27,0,2*height/27,0);
+        rootTable.add(textBox).colspan(2).fillX().height(height/9f).pad(height/12,0,height/12,0);
         tableContainer.setActor(rootTable);
 
-        // Creates the overlay stage for choosing a move on players turn.
-        attackStage = new Stage(new FitViewport(1920,1080));
         completeAttackTable = new Table();
         completeAttackTable.setFillParent(true);
         completeAttackTable.align(Align.bottom);
-        completeAttackTable.row().expandX().padBottom(2*height/27f);
+//        completeAttackTable.row().expandX().padBottom(height/12f);
+        completeAttackTable.row().expandX().padBottom(height/18f);
         completeAttackTable.add(descriptionTable).width(width/2);
-        completeAttackTable.add(attackTable).width(width/2).bottom();
+        completeAttackTable.add(attackTable).width(width/2);
+
         background_wood.setVisible(false);
         completeAttackTable.setVisible(false);
         attackStage.addActor(background_wood);
@@ -234,10 +243,8 @@ public class ShipCombat implements Screen {
         // Setup Enemy Attacks
         enemyAttacks = new ArrayList<Attack>();
         enemyAttacks.add(Attack.attackMain);
-        enemyAttacks.add(Attack.attackGrape);
+        enemyAttacks.add(GrapeShot.attackGrape);
         enemyAttacks.add(Attack.attackSwivel);
-
-        currentAttack = null;
 
         Gdx.input.setInputProcessor(stage);
 
@@ -245,10 +252,10 @@ public class ShipCombat implements Screen {
 //        descriptionTable.setDebug(true);
 //        attackTable.setDebug(true);
 //        completeAttackTable.setDebug(true);
-//        rootTable.setDebug(true);
-//        myShip.setDebug(true);
-//        enemyShip.setDebug(true);
-//        tableContainer.setDebug(true);
+        rootTable.setDebug(true);
+        myShip.setDebug(true);
+        enemyShip.setDebug(true);
+        tableContainer.setDebug(true);
         System.out.println(width + "," + height + " AND " + Gdx.graphics.getWidth() + "," + Gdx.graphics.getHeight());
 
     }

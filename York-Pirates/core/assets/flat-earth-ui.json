@@ -49,8 +49,8 @@ com.badlogic.gdx.graphics.Color: {
 	}
 	red-highlight: {
 		r: 1
-		g: 0.3466667
-		b: 0.3466667
+		g: 0.22
+		b: 0.22
 		a: 1
 	}
 	selection: {
@@ -437,7 +437,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: button
 		fontColor: white
 		downFontColor: white
-		overFontColor: gray
+		overFontColor: white
 		up: button-c-red
 		down: button-c-red
 		over: button-h-red

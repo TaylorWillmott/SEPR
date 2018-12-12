@@ -98,7 +98,13 @@ public class ShipCombat implements Screen {
 
         bg_texture = new Texture("water_texture.png");
         background = new Image(bg_texture);
-        wood_texture = new Texture("wood_texture.png");
+
+        //TODO choose best wood textue, then will add it into complete background (or leave as is) - simply uncomment different textures to try
+//        wood_texture = new Texture("wood_texture.png");
+//        wood_texture = new Texture("wood_checkerboard_texture.png");
+        wood_texture = new Texture("wood_vertical_board_texture.png");
+
+
         background_wood = new Image(wood_texture);
 
         tableContainer = new Container<Table>();
@@ -238,8 +244,8 @@ public class ShipCombat implements Screen {
         //Allow debugging of layout
 //        descriptionTable.setDebug(true);
 //        attackTable.setDebug(true);
-        completeAttackTable.setDebug(true);
-        rootTable.setDebug(true);
+//        completeAttackTable.setDebug(true);
+//        rootTable.setDebug(true);
 //        myShip.setDebug(true);
 //        enemyShip.setDebug(true);
 //        tableContainer.setDebug(true);
@@ -327,7 +333,7 @@ public class ShipCombat implements Screen {
                     System.out.println("Charging attack");
                     currentAttack.setSkipMoveStatus(false);
                     combatStack.push(currentAttack);
-                    dialog("Charging attack.", BattleEvent.ENEMY_MOVE);
+                    dialog("Charging attack " + currentAttack.getName(), BattleEvent.ENEMY_MOVE);
                 } else if (currentAttack.getName() == "FLEE") {
                     if (currentAttack.doAttack(player.playerShip, enemy) == 1) {
                         System.out.println("Flee successful");
@@ -374,7 +380,7 @@ public class ShipCombat implements Screen {
                 }
                 else {
                     System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.playerShip.getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-                    message = "Enemy "+enemy.getName()+ "dealt " + damage + " with " + enemyAttack.getName()+ "!";
+                    message = "Enemy "+enemy.getName()+ " dealt " + damage + " with " + enemyAttack.getName()+ "!";
                 }
                 if (player.playerShip.getHealth() <= 0) {
                     System.out.println("Player has died");
@@ -486,7 +492,7 @@ public class ShipCombat implements Screen {
             if (animationIndex > displayText.length()){
                 textAnimation = false;
             }
-            if (delayTime >= 0.05f){
+            if (delayTime >= 0.1f){
                 textBox.setText(displayText.substring(0,animationIndex));
                 animationIndex++;
                 delayTime = 0;

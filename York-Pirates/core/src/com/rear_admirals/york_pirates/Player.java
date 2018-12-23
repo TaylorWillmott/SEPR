@@ -1,7 +1,7 @@
 package com.rear_admirals.york_pirates;
 
 
-import com.rear_admirals.york_pirates.Attacks.Attack;
+import com.rear_admirals.york_pirates.Attacks.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +12,27 @@ public class Player {
     public Ship playerShip;
     private int gold;
     private int points;
-    private List<Attack> attacks = new ArrayList<Attack>();
+    public static List<Attack> attacks = new ArrayList<Attack>();
 
     public Player() {
 	    playerShip = new Ship(Brig);
         gold = 0;
         points = 0;
+
+        attacks.add(Ram.attackRam);
+        attacks.add(Attack.attackSwivel);
+        attacks.add(Attack.attackBoard);
+
     }
 
     public Player(Ship ship) {
         playerShip = ship;
         gold = 0;
         points = 0;
+
+        attacks.add(Ram.attackRam);
+        attacks.add(Attack.attackSwivel);
+        attacks.add(Attack.attackBoard);
     }
 
     public int getPoints() { return points; }

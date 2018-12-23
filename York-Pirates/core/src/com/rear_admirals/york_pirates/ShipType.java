@@ -14,7 +14,9 @@ public class ShipType {
 		this.attack = attack;
 		this.defence = defence;
 		this.accuracy = accuracy;
-		this.texture = new Texture(name.toLowerCase() + ".png");
+		this.texture = new Texture("ship4.png"); //TESTING (without assets created)
+//		this.texture = new Texture(name.toLowerCase() + ".png");
+
 	} // There is currently no way to give ships a custom texture. Do we need this?
 
 	public String getName() { return name; }
@@ -28,8 +30,8 @@ public class ShipType {
 	public Texture getTexture() { return texture; }
 
 	// Static Ship Types go here
-	public static ShipType Sloop = new ShipType("Sloop", 4, 4, 7, 80);
+//	public static ShipType Sloop = new ShipType("Sloop", 4, 4, 7, 80);
 	public static ShipType Brig = new ShipType("Brig", 5, 5, 5, 100);
-	public static ShipType Galleon = new ShipType("Galleon", 6, 6, 3, 120);
+//	public static ShipType Galleon = new ShipType("Galleon", 6, 6, 3, 120);
 
 }

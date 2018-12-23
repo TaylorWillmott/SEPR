@@ -7,6 +7,11 @@ public class Ship extends MoveableObject {
 	private int accuracy;
 	private int health;
     private ShipType type;
+    private int healthMax;
+
+    public int getHealthMax() {
+        return healthMax;
+    }
 
     public Ship(int attack, int defence, int accuracy, int health, ShipType type) {
     	this.name = type.name;
@@ -16,11 +21,13 @@ public class Ship extends MoveableObject {
         this.health = health;
         this.type = type;
         this.tex = type.texture;
+        this.healthMax = defence*20;
     }
 
     public Ship(ShipType type) {
     	this(type.getAttack(), type.getDefence(), type.getAccuracy(), 100, type);
     	this.health = getMaxHealth();
+    	this.healthMax = defence*20;
     }
 
     public Ship(ShipType type, String name) {
@@ -48,7 +55,7 @@ public class Ship extends MoveableObject {
 	public String getName() { return name; }
 
     public int getMaxHealth(){
-		return defence*20;
+		return healthMax;
     }
 
     public int getAttack() {
@@ -77,6 +84,7 @@ public class Ship extends MoveableObject {
 
     public void setDefence(int defence) {
         this.defence = defence;
+        this.healthMax = defence * 20;
     }
 
     public void setAccuracy(int accuracy) {

@@ -28,11 +28,9 @@ public class ShipSailing implements Screen {
 	    Gdx.graphics.setTitle("Sailing Demo - York Pirates!");
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
-        ship = new Ship(Brig);
-        ship.tex = new Texture("ship.png");
+        ship = main.player.playerShip;
         cam = new OrthographicCamera();
         viewport = new FitViewport(1920, 1080, cam);
-        Gdx.graphics.setTitle("York Pirates!");
     }
 //    @Override
 //    public void create () {

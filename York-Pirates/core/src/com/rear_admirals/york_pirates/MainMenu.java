@@ -30,6 +30,7 @@ public class MainMenu implements Screen {
 
     public MainMenu(final PirateGame main){
         this.main = main;
+        Gdx.graphics.setTitle("Main Menu - York Pirates!");
 //        camera = new OrthographicCamera();
 //        camera.setToOrtho(false, 800, 480);
 

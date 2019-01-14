@@ -90,6 +90,7 @@ public class ShipCombat implements Screen {
 
         // Load the skin for this Screen
         main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
+        Gdx.graphics.setTitle("Combat Demo - York Pirates!");
 
         combatStack = new Stack();
 

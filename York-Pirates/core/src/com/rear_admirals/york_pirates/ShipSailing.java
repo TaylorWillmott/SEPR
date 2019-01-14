@@ -25,6 +25,7 @@ public class ShipSailing implements Screen {
 
     public ShipSailing(final PirateGame main){
         this.main = main;
+	    Gdx.graphics.setTitle("Sailing Demo - York Pirates!");
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
         ship = new Ship(Brig);

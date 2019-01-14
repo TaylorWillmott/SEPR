@@ -25,6 +25,7 @@ public class PirateGame extends Game {
     public Player player;
 
 	public void create(){
+		Gdx.graphics.setTitle("York Pirates!");
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = new BitmapFont();

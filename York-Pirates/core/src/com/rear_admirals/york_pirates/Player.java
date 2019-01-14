@@ -2,7 +2,7 @@ package com.rear_admirals.york_pirates;
 
 
 import com.rear_admirals.york_pirates.Attacks.*;
-import com.rear_admirals.york_pirates.Combat.GrapeShot;
+import com.rear_admirals.york_pirates.Attacks.GrapeShot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Player {
         points = 0;
 
         attacks.add(Ram.attackRam);
-        attacks.add(GrapeShot.attackGrape);
+        attacks.add(GrapeShot.attackSwivel);
         attacks.add(Attack.attackBoard);
 
     }

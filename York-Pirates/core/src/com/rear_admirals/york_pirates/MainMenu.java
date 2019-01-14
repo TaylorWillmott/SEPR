@@ -59,7 +59,7 @@ public class MainMenu implements Screen {
         combat_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new ShipCombat(main, player, new Ship(Brig)));
+                main.setScreen(new ShipCombat(main, new Ship(Brig)));
                 dispose();
             }
         });
@@ -75,11 +75,11 @@ public class MainMenu implements Screen {
             }
         });
 
-        table.setDebug(true);
+//        table.setDebug(true);
 
         tableContainer.setActor(table);
 
-        table.add(title).padBottom(screen_height/20).width(screen_width/4);
+        table.add(title).padBottom(screen_height/20).width(screen_width/2);
         table.row(); // Ends the current row
         table.add(combat_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
         table.row();
@@ -96,6 +96,7 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
+        stage.act();
 
     }
     @Override

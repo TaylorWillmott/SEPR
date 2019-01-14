@@ -15,6 +15,7 @@ import com.rear_admirals.york_pirates.Attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.ShipSailing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,10 @@ public class ShipCombat implements Screen {
     private Label playerHPLabel;
     private Label enemyHPLabel;
 
+    // Health bars of both ships
+    private ProgressBar playerHP;
+    private ProgressBar enemyHP;
+
     // Image textures and images for the various stages
     private Texture bg_texture;
     private Texture wood_texture;
@@ -60,27 +65,27 @@ public class ShipCombat implements Screen {
     private Table descriptionTable;
     private Container<Table> tableContainer;
 
+    // Written text box
     private TextButton textBox;
 
-    private ProgressBar playerHP;
-    private ProgressBar enemyHP;
-
+    // Variables used in handling combat
     private Stack<Attack> combatStack;
     private static List<Attack> enemyAttacks;
     private Attack currentAttack;
     private BattleEvent queuedCombatEvent;
 
+    // Variables used in text animation
     private float delayTime = 0;
     private boolean textAnimation = false;
     private int animationIndex = 0;
     private String displayText = "";
 
-    public ShipCombat (final PirateGame main, Player player, Ship enemy){
+    public ShipCombat (final PirateGame main, Ship enemy){
 
         // This constructor also replaces the create function that a stage would typically have.
 
         this.main = main;
-        this.player = player;
+        this.player = main.player;
         this.enemy = enemy;
 
         // Load the skin for this Screen
@@ -240,7 +245,7 @@ public class ShipCombat implements Screen {
         stage.addActor(background);
         stage.addActor(tableContainer);
 
-        // Setup Enemy Attacks
+        // Setup Enemy Attacks - may need to change this is you want to draw attacks from enemy's class
         enemyAttacks = new ArrayList<Attack>();
         enemyAttacks.add(Attack.attackMain);
         enemyAttacks.add(GrapeShot.attackGrape);
@@ -252,10 +257,10 @@ public class ShipCombat implements Screen {
 //        descriptionTable.setDebug(true);
 //        attackTable.setDebug(true);
 //        completeAttackTable.setDebug(true);
-        rootTable.setDebug(true);
-        myShip.setDebug(true);
-        enemyShip.setDebug(true);
-        tableContainer.setDebug(true);
+//        rootTable.setDebug(true);
+//        myShip.setDebug(true);
+//        enemyShip.setDebug(true);
+//        tableContainer.setDebug(true);
         System.out.println(width + "," + height + " AND " + Gdx.graphics.getWidth() + "," + Gdx.graphics.getHeight());
 
     }
@@ -481,7 +486,8 @@ public class ShipCombat implements Screen {
         playerHPLabel.setText(player.playerShip.getHealth()+"/"+player.playerShip.getHealthMax());
         playerHP.setValue(player.playerShip.getHealth());
     }
-    //TODO Add animation to dialog box
+
+    //Updates text box
     public void dialog(String message, final BattleEvent nextEvent){
         queuedCombatEvent = nextEvent;
         if (background_wood.isVisible()){

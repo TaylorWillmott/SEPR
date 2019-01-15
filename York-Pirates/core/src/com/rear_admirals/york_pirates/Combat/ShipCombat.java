@@ -171,8 +171,8 @@ public class ShipCombat implements Screen {
                 else{
                     System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
                     textBox.setText("");
-                    combatHandler(queuedCombatEvent);
                     updateHP();
+                    combatHandler(queuedCombatEvent);
                 }
 
             }

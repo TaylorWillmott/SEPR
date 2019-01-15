@@ -15,7 +15,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
 import com.sun.scenario.effect.Brightpass;
 
-import static com.rear_admirals.york_pirates.ShipType.Brig;
+import static com.rear_admirals.york_pirates.ShipType.*;
+import static com.rear_admirals.york_pirates.College.*;
 
 public class MainMenu implements Screen {
 
@@ -60,7 +61,7 @@ public class MainMenu implements Screen {
         combat_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new ShipCombat(main, new Ship(Brig)));
+                main.setScreen(new ShipCombat(main, new Ship(Brig, Derwent)));
                 dispose();
             }
         });

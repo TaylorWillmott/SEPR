@@ -7,7 +7,8 @@ import com.rear_admirals.york_pirates.Attacks.GrapeShot;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.rear_admirals.york_pirates.ShipType.Brig;
+import static com.rear_admirals.york_pirates.College.*;
+import static com.rear_admirals.york_pirates.ShipType.*;
 
 public class Player {
     public Ship playerShip;
@@ -16,7 +17,7 @@ public class Player {
     public static List<Attack> attacks = new ArrayList<Attack>();
 
     public Player() {
-	    playerShip = new Ship(Brig);
+	    playerShip = new Ship(Brig, "Your Ship", Derwent);
         gold = 0;
         points = 0;
 

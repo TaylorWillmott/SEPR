@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import sun.security.util.DerEncoder;
 
-import static com.rear_admirals.york_pirates.ShipType.Brig;
+import static com.rear_admirals.york_pirates.College.*;
+import static com.rear_admirals.york_pirates.ShipType.*;
 
 public class ShipSailing implements Screen {
 
@@ -25,12 +27,13 @@ public class ShipSailing implements Screen {
 
     public ShipSailing(final PirateGame main){
         this.main = main;
-	    Gdx.graphics.setTitle("Sailing Demo - York Pirates!");
         batch = new SpriteBatch();
         shapeBatch = new ShapeRenderer();
-        ship = main.player.playerShip;
+        ship = new Ship(Brig, Derwent);
+        ship.tex = new Texture("ship.png");
         cam = new OrthographicCamera();
         viewport = new FitViewport(1920, 1080, cam);
+        Gdx.graphics.setTitle("York Pirates!");
     }
 //    @Override
 //    public void create () {

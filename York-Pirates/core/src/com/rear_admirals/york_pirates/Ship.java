@@ -9,12 +9,22 @@ public class Ship extends MoveableObject {
     private ShipType type;
     private int healthMax;
 
+    public College getCollege() {
+        return college;
+    }
+
+    public void setCollege(College college) {
+        this.college = college;
+    }
+
+    private College college;
+
     public int getHealthMax() {
         return healthMax;
     }
 
-    public Ship(int attack, int defence, int accuracy, int health, ShipType type) {
-    	this.name = type.name;
+    public Ship(int attack, int defence, int accuracy, int health, ShipType type, College college) {
+    	this.name = college.name + " " + type.name;
         this.attack = attack;
         this.defence = defence;
         this.accuracy = accuracy;
@@ -22,16 +32,17 @@ public class Ship extends MoveableObject {
         this.type = type;
         this.tex = type.texture;
         this.healthMax = defence*20;
+        this.college = college;
     }
 
-    public Ship(ShipType type) {
-    	this(type.getAttack(), type.getDefence(), type.getAccuracy(), 100, type);
+    public Ship(ShipType type, College college) {
+    	this(type.getAttack(), type.getDefence(), type.getAccuracy(), 100, type, college);
     	this.health = getMaxHealth();
     	this.healthMax = defence*20;
     }
 
-    public Ship(ShipType type, String name) {
-	    this(type);
+    public Ship(ShipType type, String name, College college) {
+	    this(type, college);
 	    this.name = name;
     }
 

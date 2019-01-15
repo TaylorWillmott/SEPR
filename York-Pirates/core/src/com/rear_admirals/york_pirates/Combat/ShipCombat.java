@@ -140,7 +140,7 @@ public class ShipCombat implements Screen {
         playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
         playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
 
-        Label enemyName = new Label("Enemy "+enemy.getName(),main.skin,"default_black");
+        Label enemyName = new Label(enemy.getName(),main.skin,"default_black");
         enemyHP = new ProgressBar(0,enemy.getHealthMax(),0.1f,false,main.skin);
         enemyHPLabel = new Label(enemy.getHealth()+"/"+enemy.getHealthMax(), main.skin);
 
@@ -171,8 +171,8 @@ public class ShipCombat implements Screen {
                 else{
                     System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
                     textBox.setText("");
-                    updateHP();
                     combatHandler(queuedCombatEvent);
+                    updateHP();
                 }
 
             }
@@ -448,8 +448,6 @@ public class ShipCombat implements Screen {
             };
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                button.setText("Attacking");
-                //Insert Delay
                 combatStack.push(button.attack);
                 combatHandler(BattleEvent.PLAYER_MOVE);
             }
@@ -474,19 +472,23 @@ public class ShipCombat implements Screen {
 
     //TODO Remove knob when health = 0.
     public void updateHP(){
-        enemyHP.setAnimateDuration(2);
-        playerHP.setAnimateDuration(2);
+        enemyHP.setAnimateDuration(1);
+        playerHP.setAnimateDuration(1);
+
         if (enemy.getHealth() <= 0){
             enemy.setHealth(0);
         }
         if (player.playerShip.getHealth() <= 0){
             player.playerShip.setHealth(0);
         }
+
         enemyHPLabel.setText(enemy.getHealth()+"/"+enemy.getHealthMax());
+
         enemyHP.setValue(enemy.getHealth());
         playerHPLabel.setText(player.playerShip.getHealth()+"/"+player.playerShip.getHealthMax());
         playerHP.setValue(player.playerShip.getHealth());
     }
+
 
     //Updates text box
     public void dialog(String message, final BattleEvent nextEvent){
@@ -506,7 +508,7 @@ public class ShipCombat implements Screen {
             if (animationIndex > displayText.length()){
                 textAnimation = false;
             }
-            if (delayTime >= 0.1f){
+            if (delayTime >= 0.05f){
                 textBox.setText(displayText.substring(0,animationIndex));
                 animationIndex++;
                 delayTime = 0;

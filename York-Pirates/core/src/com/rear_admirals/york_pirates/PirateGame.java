@@ -29,8 +29,9 @@ public class PirateGame extends Game {
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
+		player = new Player();
         this.setScreen(new MainMenu(this));
-        player = new Player();
+
 	}
 
 

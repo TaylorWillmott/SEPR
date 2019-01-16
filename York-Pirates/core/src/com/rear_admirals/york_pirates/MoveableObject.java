@@ -1,35 +1,103 @@
 package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 public class MoveableObject extends GameObject {
 
-	public MoveableObject() { super(); }
+	protected Vector2 velocity;
+	private Vector2 acceleration;
 
-	public MoveableObject(int x, int y, int angle, Texture texture) { super(x,y,angle,texture); }
+	// maximum speed
+	private float maxSpeed;
 
-	public MoveableObject(int x, int y, Texture texture) { super(x,y,texture); }
+	// speed reduction, in pixels/second, when not accelerating
+	private float deceleration;
 
-	public MoveableObject(Texture texture) { super(texture); }
+	// should image rotate to match velocity?
+	private boolean autoAngle;
 
-	private double sind(double angle) { return Math.sin(Math.toRadians(angle)); }
+    public boolean isAnchor() {
+        return anchor;
+    }
 
-	private double cosd(double angle) { return Math.cos(Math.toRadians(angle)); }
+    public boolean anchor;
 
-	public void angularMove(float angle, int distance) {
-		int xChange = (int) (Math.round(sind(angle) * distance));
-		int yChange = (int) (Math.round(cosd(angle) * distance));
-		absoluteMove(xChange, yChange);
+	public MoveableObject() {
+		velocity = new Vector2();
+		acceleration = new Vector2();
+		maxSpeed = 9999;
+		deceleration = 0;
+		autoAngle = false;
+		anchor = true;
 	}
 
-	public void absoluteMove(int xChange, int yChange) {
-		pos.x = pos.x + xChange;
-		pos.y = pos.y + yChange;
+	// velocity methods
+	public void setVelocityXY(float vx, float vy) {velocity.set(vx, vy);}
+	public void addVelocityXY(float vx, float vy) {velocity.add(vx, vy);}
+
+	// set velocity from angle and speed
+	public void setVelocityAS(float angleDeg, float speed) {
+		velocity.x = speed * MathUtils.cosDeg(angleDeg);
+		velocity.y = speed * MathUtils.sinDeg(angleDeg);
 	}
 
-	public void rotate(int angleChange) {
-		pos.z = pos.z + angleChange;
-		if (pos.z > 360) {pos.z = pos.z - 360;}
+	// acceleration/deceleration methods
+	public void setAccelerationXY(float ax, float ay) {acceleration.set(ax, ay);}
+	public void addAccelerationXY(float ax, float ay) {acceleration.add(ax, ay);}
+
+	// set acceleration from angle and speed
+	public void setAccelerationAS(float angleDeg, float speed) {
+		acceleration.x = speed * MathUtils.cosDeg(angleDeg);
+		acceleration.y = speed * MathUtils.sinDeg(angleDeg);
 	}
+
+	public void setDeceleration(float d) {deceleration = d;}
+
+	public float getSpeed() {return velocity.len();}
+
+	public void setSpeed(float s) {velocity.setLength(s);}
+
+	public void setMaxSpeed(float ms) {maxSpeed = ms;}
+
+	public float getMotionAngle() {
+		return MathUtils.atan2(velocity.y, velocity.x) * MathUtils.radiansToDegrees;
+	}
+
+	public void setAutoAngle(boolean b) {autoAngle = b;}
+
+	public void accelerateForward(float speed) {setAccelerationAS(getRotation(), speed);}
+
+	public void addAccelerationAS(float angle, float amount) {
+		acceleration.add(amount * MathUtils.cosDeg(angle),amount * MathUtils.sinDeg(angle));
+	}
+
+	public void act(float dt) {
+		super.act(dt);
+
+		// apply acceleration
+		velocity.add(acceleration.x * dt,acceleration.y * dt);
+
+		// decrease velocity when not accelerating
+		if (acceleration.len() < 0.01) {
+			float decelerateAmount = deceleration * dt;
+			if (getSpeed() < decelerateAmount) setSpeed(0);
+			else setSpeed(getSpeed() - decelerateAmount);
+		}
+
+		// cap at max speed
+		if (getSpeed() > maxSpeed) setSpeed(maxSpeed);
+
+		// apply velocity
+		moveBy(velocity.x * dt,velocity.y * dt);
+
+		// rotate image when moving
+		if (autoAngle && getSpeed() > 0.1) setRotation(getMotionAngle());
+
+	}
+
+
 
 }

@@ -51,8 +51,6 @@ public class MainMenu implements Screen {
         // Debugging
         System.out.println(screen_width + ", " + screen_height);
 
-        final Player player = new Player();
-
         Label title = new Label("Rear Admirals", main.skin, "title");
         title.setAlignment(Align.center);
         TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);

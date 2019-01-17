@@ -6,15 +6,6 @@ public class College {
 	public College ally;
 	public College enemy;
 
-    public String getName() {
-        return name;
-    }
-
-    public String name;
-//    public College ally;
-//    public College enemy;
-
-
     public College(String name) {
         this.name = name;
     }
@@ -23,10 +14,6 @@ public class College {
     	this.name = name;
     	this.ally = ally;
     	this.enemy = enemy;
-    }
-
-    public College(String name) {
-    	this(name, null, null);
     }
 
     public String getName() { return name; }

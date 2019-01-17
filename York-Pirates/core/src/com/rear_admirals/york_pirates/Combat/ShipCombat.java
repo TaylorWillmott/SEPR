@@ -422,6 +422,7 @@ public class ShipCombat implements Screen {
                 player.addGold(10);
                 player.addPoints(10);
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
+
                 break;
             case PLAYER_FLEES:
                 textBox.setStyle(main.skin.get("red", TextButton.TextButtonStyle.class));
@@ -429,7 +430,7 @@ public class ShipCombat implements Screen {
             case SCENE_RETURN:
                 System.out.println("END OF COMBAT");
                 toggleAttackStage();
-                textBox.setText("STOP");
+                main.setScreen(new ShipSailing(main));
                 break;
         }
     }

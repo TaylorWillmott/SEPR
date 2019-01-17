@@ -107,5 +107,6 @@ public class GameObject extends Group {
 		this.setPosition(target.getX() + target.getOriginX() - this.getOriginX(),
 				target.getY() + target.getOriginY() - this.getOriginY());
 	}
+
 }
 

@@ -32,6 +32,36 @@ public class Ship extends MoveableObject {
         return healthMax;
     }
 
+    public Ship(ShipType type, College college) {
+        this.name = college.name + " " + type.name;
+        this.attack = type.getAttack();
+        this.defence = type.getDefence();
+        this.accuracy = type.getAccuracy();
+        this.healthMax = defence*20;
+        this.health = healthMax;
+        this.college = college;
+        this.type = type;
+        this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
+        setupShip();
+
+    }
+    public Ship(ShipType type, College college, String texturePath) {
+        this.name = college.name + " " + type.name;
+        this.attack = type.getAttack();
+        this.defence = type.getDefence();
+        this.accuracy = type.getAccuracy();
+        this.healthMax = defence*20;
+        this.health = healthMax;
+        this.college = college;
+        this.type = type;
+        this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
+        setupShip();
+    }
+
+    public Ship(ShipType type, String name, College college) {
+	    this(type, college);
+	    this.name = name;
+    }
 
     public Ship(int attack, int defence, int accuracy, int health, ShipType type, College college) {
         this.attack = attack;
@@ -43,51 +73,16 @@ public class Ship extends MoveableObject {
         this.healthMax = defence*20;
         this.college = college;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
-
-
-
-        this.setOriginCentre();
-        this.setMaxSpeed(200);
-        this.setDeceleration(20);
-        this.setEllipseBoundary();
-        this.setWidth(this.sailingTexture.getWidth());
-        this.setHeight(this.sailingTexture.getHeight());
-
+        setupShip();
     }
 
-    public Ship(ShipType type, College college) {
-    	this(type.getAttack(), type.getDefence(), type.getAccuracy(), 100, type, college);
-
-//        this.attack = type.getAttack();
-//        this.defence = type.getDefence();
-//        this.accuracy = type.getAccuracy();
-//        this.health = type.getDefence()*20;
-//        this.type = type;
-//        this.name = college.name + " " + type.name;
-//        this.healthMax = type.getDefence()*20;
-//        this.college = college;
-//        this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
-
-        this.setOriginCentre();
+    public void setupShip(){
+        this.setWidth(this.sailingTexture.getWidth());
+        this.setHeight(this.sailingTexture.getHeight());
         this.setMaxSpeed(200);
         this.setDeceleration(20);
         this.setEllipseBoundary();
-        this.setWidth(this.sailingTexture.getWidth());
-        this.setHeight(this.sailingTexture.getHeight());
-
-    }
-
-    public Ship(ShipType type, String name, College college) {
-	    this(type, college);
-	    this.name = name;
-
         this.setOriginCentre();
-        this.setMaxSpeed(200);
-        this.setDeceleration(20);
-        this.setEllipseBoundary();
-        this.setWidth(this.sailingTexture.getWidth());
-        this.setHeight(this.sailingTexture.getHeight());
-
     }
 
 //    public void forward(int distance) { angularMove(pos.z, distance); }

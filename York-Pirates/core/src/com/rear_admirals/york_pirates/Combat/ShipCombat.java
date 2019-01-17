@@ -422,12 +422,17 @@ public class ShipCombat implements Screen {
                 player.addGold(10);
                 player.addPoints(10);
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
-
                 break;
             case PLAYER_FLEES:
                 textBox.setStyle(main.skin.get("red", TextButton.TextButtonStyle.class));
+                player.addPoints(-5);
+                combatHandler(BattleEvent.SCENE_RETURN);
                 break;
             case SCENE_RETURN:
+                enemy = null;
+                player.playerShip.setSpeed(0);
+                player.playerShip.setAccelerationXY(0,0);
+                player.playerShip.anchor = true;
                 System.out.println("END OF COMBAT");
                 toggleAttackStage();
                 main.setScreen(new ShipSailing(main));

@@ -70,10 +70,9 @@ public class ShipSailing implements Screen {
         mainStage = new Stage(new FitViewport(viewwidth,viewheight));
         uiStage = new Stage(new FitViewport(viewwidth,viewheight));
 
-        playerShip.setOriginCentre();
         mainStage.addActor(playerShip);
         System.out.println("playerShip added");
-        enemy = new Ship(Brig, Derwent);
+        enemy = new Ship(Brig, Derwent, "ship (2).png");
         mainStage.addActor(enemy);
         System.out.println("enemy added");
 
@@ -114,24 +113,16 @@ public class ShipSailing implements Screen {
 
             if (name.equals("player")){
                 playerShip.setPosition(r.x, r.y);
+                System.out.println(r.x + " " + r.y);
             }
             else if( name.equals("enemy")){
                 enemy.setPosition(r.x, r.y);
+                System.out.println(r.x + " " + r.y);
             }
             else{
                 System.err.println("Unknown tilemap object: " + name);
             }
 
-//            switch (name) {
-//                case "player":
-//                    playerShip.setPosition(r.x, r.y);
-//                    break;
-//                case "enemy":
-//                    enemy.setPosition(r.x, r.y);
-//                    break;
-//                default:
-//                    System.err.println("Unknown tilemap object: " + name);
-//            }
         }
 
         objects = tiledMap.getLayers().get("PhysicsData").getObjects();
@@ -158,10 +149,10 @@ public class ShipSailing implements Screen {
     }
 
 //    @Override
-    public void update(float dt) {
+    public void update(float delta) {
         removeList.clear();
 
-        this.playerShip.playerMove(dt);
+        this.playerShip.playerMove(delta);
 
         for (GameObject obstacle : obstacleList) {
             playerShip.overlaps(obstacle, true);
@@ -195,6 +186,12 @@ public class ShipSailing implements Screen {
         tiledCamera.update();
         tiledMapRenderer.setView(tiledCamera);
 
+        timer += delta;
+        if (timer > 1){
+            main.player.addPoints(1);
+            timer -= 1;
+        }
+
         pointsLabel.setText(Integer.toString(main.player.getPoints()));
     }
 
@@ -224,12 +221,6 @@ public class ShipSailing implements Screen {
         else{
             playerShip.setAccelerationXY(0,0);
             playerShip.setDeceleration(100);
-        }
-
-        timer += delta;
-        if (timer > 1){
-            main.player.addPoints(1);
-            timer -= 1;
         }
 
     }

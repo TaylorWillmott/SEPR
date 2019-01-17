@@ -13,6 +13,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
@@ -51,6 +56,10 @@ public class ShipSailing implements Screen {
     private float viewwidth;
     private float viewheight;
 
+    private Label pointsLabel;
+
+    private Float timer;
+
     public ShipSailing(final PirateGame main){
         this.main = main;
 	    Gdx.graphics.setTitle("Sailing Demo - York Pirates!");
@@ -67,6 +76,23 @@ public class ShipSailing implements Screen {
         enemy = new Ship(Brig, Derwent);
         mainStage.addActor(enemy);
         System.out.println("enemy added");
+
+        Table uiTable = new Table();
+
+        Label pointsTextLabel = new Label("Points: ", main.skin,"default_black");
+        pointsLabel = new Label(Integer.toString(main.player.getPoints()), main.skin, "default_black");
+        pointsLabel.setAlignment(Align.left);
+
+        uiTable.add(pointsTextLabel);
+        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
+        uiTable.align(Align.topRight);
+        uiTable.setFillParent(true);
+
+        uiStage.addActor(uiTable);
+
+        pointsLabel.setDebug(true);
+        uiTable.setDebug(true);
+
 
         obstacleList = new ArrayList<GameObject>();
         removeList = new ArrayList<GameObject>();
@@ -124,6 +150,8 @@ public class ShipSailing implements Screen {
             }
         }
 
+        timer = 0f;
+
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
 
@@ -140,6 +168,8 @@ public class ShipSailing implements Screen {
         }
 
         if (playerShip.overlaps(enemy, true)) {
+            playerShip.setAccelerationXY(0,0);
+            playerShip.setSpeed(0);
             main.setScreen(new ShipCombat(main, enemy));
         }
 
@@ -164,13 +194,13 @@ public class ShipSailing implements Screen {
         tiledCamera.position.y = mainCamera.position.y;
         tiledCamera.update();
         tiledMapRenderer.setView(tiledCamera);
+
+        pointsLabel.setText(Integer.toString(main.player.getPoints()));
     }
 
 
     @Override
     public void render(float delta) {
-        uiStage.act(delta);
-
         // pause only gameplay events, not UI events
         if (true) {
             mainStage.act(delta);
@@ -184,7 +214,10 @@ public class ShipSailing implements Screen {
         mainStage.draw();
 
         tiledMapRenderer.render(foregroundLayers);
+
         uiStage.draw();
+        uiStage.act(delta);
+
         if (!playerShip.isAnchor()){
             playerShip.addAccelerationAS(playerShip.getRotation(), 10000);
         }
@@ -192,6 +225,13 @@ public class ShipSailing implements Screen {
             playerShip.setAccelerationXY(0,0);
             playerShip.setDeceleration(100);
         }
+
+        timer += delta;
+        if (timer > 1){
+            main.player.addPoints(1);
+            timer -= 1;
+        }
+
     }
 
     //TODO implement base screen potentially

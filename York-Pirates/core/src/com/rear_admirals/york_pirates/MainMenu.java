@@ -15,7 +15,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
 import com.sun.scenario.effect.Brightpass;
 
-import static com.rear_admirals.york_pirates.ShipType.Brig;
+import static com.rear_admirals.york_pirates.ShipType.*;
+import static com.rear_admirals.york_pirates.College.*;
 
 public class MainMenu implements Screen {
 
@@ -30,6 +31,7 @@ public class MainMenu implements Screen {
 
     public MainMenu(final PirateGame main){
         this.main = main;
+        Gdx.graphics.setTitle("Main Menu - York Pirates!");
 //        camera = new OrthographicCamera();
 //        camera.setToOrtho(false, 800, 480);
 
@@ -49,8 +51,6 @@ public class MainMenu implements Screen {
         // Debugging
         System.out.println(screen_width + ", " + screen_height);
 
-        final Player player = new Player();
-
         Label title = new Label("Rear Admirals", main.skin, "title");
         title.setAlignment(Align.center);
         TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);
@@ -59,7 +59,7 @@ public class MainMenu implements Screen {
         combat_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new ShipCombat(main, player, new Ship(Brig)));
+                main.setScreen(new ShipCombat(main, new Ship(Brig, Derwent)));
                 dispose();
             }
         });
@@ -75,11 +75,11 @@ public class MainMenu implements Screen {
             }
         });
 
-        table.setDebug(true);
+//        table.setDebug(true);
 
         tableContainer.setActor(table);
 
-        table.add(title).padBottom(screen_height/20).width(screen_width/4);
+        table.add(title).padBottom(screen_height/20).width(screen_width/2);
         table.row(); // Ends the current row
         table.add(combat_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
         table.row();
@@ -96,6 +96,7 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
+        stage.act();
 
     }
     @Override

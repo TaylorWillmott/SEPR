@@ -2,9 +2,22 @@ package com.rear_admirals.york_pirates;
 
 public class College {
 
-    public final String name;
-    public College ally;
-    public College enemy;
+	public final String name;
+	public College ally;
+	public College enemy;
+
+    public String getName() {
+        return name;
+    }
+
+    public String name;
+//    public College ally;
+//    public College enemy;
+
+
+    public College(String name) {
+        this.name = name;
+    }
 
     public College(String name, College ally, College enemy) {
     	this.name = name;
@@ -22,5 +35,7 @@ public class College {
 
     public void setAlly(College ally) { this.ally = ally; }
     public void setEnemy(College enemy) { this.enemy = enemy; }
+
+	public static College Derwent = new College("Derwent");
 
 }

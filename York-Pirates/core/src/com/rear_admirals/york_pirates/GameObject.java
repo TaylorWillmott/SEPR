@@ -1,35 +1,111 @@
 package com.rear_admirals.york_pirates;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
-public class GameObject {
+public class GameObject extends Group {
 
-	protected Vector3 pos;
-	protected Texture tex;
+	public TextureRegion region;
+	public Polygon boundingPolygon;
 
-	public GameObject(int x, int y, int angle, Texture texture) {
-		pos = new Vector3(x,y,angle);
-		this.tex = texture;
+	public GameObject() {
+		super();
+		region = new TextureRegion();
+		boundingPolygon = null;
 	}
 
-	public GameObject() { this(0, 0, 0, new Texture("default.png")); }
-
-	public GameObject(int x, int y, Texture texture) { this(x, y, 0, texture); }
-
-	public GameObject(Texture texture) { this(0, 0, 0, texture); }
-
-	public void draw(SpriteBatch batch) {
-		batch.draw(tex, pos.x, pos.y, tex.getWidth() >> 1, tex.getHeight() >> 1, tex.getWidth(), tex.getHeight(), 1, 1, pos.z, 0,0, tex.getWidth(), tex.getHeight(), false, false);
+	public void setTexture(Texture t) {
+		int w = t.getWidth();
+		int h = t.getHeight();
+		setWidth(w);
+		setHeight(h);
+		region.setRegion(t);
 	}
 
-	public Vector3 getPos() { return pos; }
+	public void act(float dt) {
+		super.act(dt);
+	}
 
-	public void setX(int x) {pos.x = x;}
+	public void draw(Batch batch, float parentAlpha) {
+		Color c = getColor();
+		batch.setColor(c.r, c.g, c.b, c.a);
+		if (isVisible()) batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
+				getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+		super.draw(batch, parentAlpha);
+	}
 
-	public void setY(int y) {pos.y = y;}
+	public void setRectangleBoundary() {
+		float w = getWidth();
+		float h = getHeight();
+		float[] vertices = {0, 0, w, 0, w, h, 0, h};
+		boundingPolygon = new Polygon(vertices);
+		boundingPolygon.setOrigin(getOriginX(), getOriginY());
+	}
 
-	public void setAngle(int angle) {pos.z = angle;}
+	public void setEllipseBoundary() {
+		// number of vertices;
+		int n = 8;
+		float w =getWidth();
+		float h =getHeight();
+		float[] vertices = new float[2*n];
+		for (int i = 0; i < n; i++) {
+			float t = i*6.28f/n;
+			// x-coordinate
+			vertices[2*i] = w/2 * MathUtils.cos(t) + w/2;
+			// y-coordinate
+			vertices[2*i+1] = h/2 * MathUtils.sin(t) + h/2;
+		}
+		boundingPolygon = new Polygon(vertices);
+		boundingPolygon.setOrigin(getOriginX(), getOriginY());
+	}
 
+	public Polygon getBoundingPolygon() {
+		boundingPolygon.setPosition(getX(), getY());
+		boundingPolygon.setRotation(getRotation());
+		return  boundingPolygon;
+	}
+
+	/**
+	 * Determine if the collision polygons of two GameObject
+	 objects overlap.
+	 * If (resolve == true), then when there is overlap, move
+	 this GameObject
+	 * along minimum translation vector until there is no
+	 overlap.
+	 */
+	public boolean overlaps(GameObject other, boolean resolve) {
+		Polygon poly1 = this.getBoundingPolygon();
+		Polygon poly2 = other.getBoundingPolygon();
+
+		if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle())) return false;
+
+		Intersector.MinimumTranslationVector mtv = new Intersector.MinimumTranslationVector();
+		boolean polyOverlap = Intersector.overlapConvexPolygons(poly1, poly2, mtv);
+		if (polyOverlap && resolve) {
+			this.moveBy(mtv.normal.x * mtv.depth,mtv.normal.y * mtv.depth);
+		}
+
+		float significant = 0.5f;
+		return (polyOverlap && (mtv.depth > significant));
+	}
+
+
+	public void setOriginCentre() {
+		if (getWidth() == 0) System.err.println("error: actor size not set");
+		setOrigin(getWidth()/2,getHeight()/2);
+	}
+
+	public void moveToOrigin(GameObject target) {
+		this.setPosition(target.getX() + target.getOriginX() - this.getOriginX(),
+				target.getY() + target.getOriginY() - this.getOriginY());
+	}
 }
+

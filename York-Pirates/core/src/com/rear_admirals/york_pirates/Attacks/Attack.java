@@ -2,6 +2,8 @@ package com.rear_admirals.york_pirates.Attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Attack {
 	protected String name;
 	protected String desc;
@@ -10,32 +12,44 @@ public class Attack {
 	protected double accMultiplier;
 	protected boolean skipMoveStatus;
 	protected boolean skipMove;
+	protected int accPercent;
 
 	protected Attack() {
 		name = "Broadside";
 		desc = "Fire a broadside at your enemy.";
 		dmgMultiplier = 3;
 		accMultiplier = 1;
-		skipMove = true;
+		skipMove = false;
 		skipMoveStatus = skipMove;
 	}
 
-	protected Attack(String name, String desc, int dmgMultiplier, double accMultiplier, boolean skipMove) {
+	protected Attack(String name, String desc, int dmgMultiplier, double accMultiplier, boolean skipMove, int accPercent) {
 		this.name = name;
 		this.desc = desc;
 		this.dmgMultiplier = dmgMultiplier;
 		this.accMultiplier = accMultiplier;
 		this.skipMove = skipMove;
 		this.skipMoveStatus = skipMove;
+		this.accPercent = accPercent;
 	}
 
 	protected boolean doesHit( int accuracy, int mult, int bound) {
-		if ( accuracy * mult > Math.random() * bound ) { return true; }
+		if ( accuracy * mult > Math.random() * bound) { return true; }
 		else { return false; }
 	}
 
+	protected boolean doesHit( int shipAcc, int accPercent) {
+		int random = ThreadLocalRandom.current().nextInt(0, 101);
+		if (accPercent * (1+(shipAcc-3)*0.02) > random){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	public int doAttack(Ship attacker, Ship defender) {
-		if ( doesHit(attacker.getAccuracy(), (int) (10 * accMultiplier), 100) ) {
+		if ( doesHit(attacker.getAccuracy(), accPercent) ) {
 			damage = attacker.getAttack() * dmgMultiplier;
 			defender.damage(damage);
 			return damage;
@@ -56,8 +70,7 @@ public class Attack {
 	}
 
 //	public Attack attackMain = new Attack();
-	public static Attack attackMain = new Attack("Broadside","Fire a broadside at your enemy.",3,1,false);
-	public static Attack attackGrape = new Attack("Grape Shot","Fire a bundle of smaller cannonballs at the enemy.",1,0.5,false);
-	public static Attack attackSwivel = new Attack("Swivel","High accuracy, low damage attack.",2,4,false);
-	public static Attack attackBoard = new Attack("Board","Charge attack over a turn, medium - high damage and high accuracy", 4,6,true);
+	public static Attack attackMain = new Attack("Broadside","Normal cannons. Fire a broadside at your enemy.",3,2,false,60);
+	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. High accuracy, low damage attack.",2,3,false,75);
+	public static Attack attackBoard = new Attack("Board","Board enemy ship. Charges attack over a turn, medium - high damage and very high accuracy", 4,2,true,90);
 }

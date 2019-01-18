@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates;
+package com.rear_admirals.york_pirates.Screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
@@ -21,6 +21,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
+import com.rear_admirals.york_pirates.GameObject;
+import com.rear_admirals.york_pirates.PirateGame;
+import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
 
@@ -265,5 +268,13 @@ public class ShipSailing implements Screen {
 
     @Override
     public void resume() {
+    }
+
+    public Ship getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Ship enemy) {
+        this.enemy = enemy;
     }
 }

@@ -3,18 +3,18 @@ package com.rear_admirals.york_pirates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.rear_admirals.york_pirates.Combat.ShipCombat;
-import com.sun.scenario.effect.Brightpass;
+import com.rear_admirals.york_pirates.Screen.CollegeScreen;
+import com.rear_admirals.york_pirates.Screen.DepartmentScreen;
+import com.rear_admirals.york_pirates.Screen.ShipSailing;
 
+import static com.rear_admirals.york_pirates.Department.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;
 import static com.rear_admirals.york_pirates.College.*;
 
@@ -65,12 +65,29 @@ public class MainMenu implements Screen {
         });
 
         TextButton sailing_mode = new TextButton("Go to Sailing Mode", main.skin);
+        TextButton college_mode = new TextButton("Go to College Screen", main.skin);
+        TextButton department_mode = new TextButton("Go to Department Screen", main.skin);
 
-//        TODO Implement ShipSailing constructor to work with scene switching
         sailing_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                main.setScreen(new ShipSailing(main));
+                main.sailing_scene = new ShipSailing(main);
+                main.setScreen(main.sailing_scene);
+                dispose();
+            }
+        });
+
+        college_mode.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                main.setScreen(new CollegeScreen(main, Derwent));
+                dispose();
+            }
+        });
+        department_mode.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                main.setScreen(new DepartmentScreen(main, Chemistry));
                 dispose();
             }
         });
@@ -83,8 +100,11 @@ public class MainMenu implements Screen {
         table.row(); // Ends the current row
         table.add(combat_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
         table.row();
-        table.add(sailing_mode).uniform().fill();
+        table.add(sailing_mode).uniform().padBottom(screen_height/40).fill();
         table.row();
+        table.add(college_mode).uniform().fill();
+        table.row();
+        table.add(department_mode).uniform().fill();
 
         stage.addActor(tableContainer);
         Gdx.input.setInputProcessor(stage);

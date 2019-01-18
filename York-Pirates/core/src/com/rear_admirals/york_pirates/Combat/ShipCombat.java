@@ -15,7 +15,6 @@ import com.rear_admirals.york_pirates.Attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.Ship;
-import com.rear_admirals.york_pirates.ShipSailing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -268,7 +267,7 @@ public class ShipCombat implements Screen {
 
 	@Override
 	public void render (float delta) {
-//	    Gdx.gl.glClearColor((float) 0.26,(float) 0.52,(float) 0.95,1);
+	    Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
         stage.act();
@@ -429,13 +428,13 @@ public class ShipCombat implements Screen {
                 combatHandler(BattleEvent.SCENE_RETURN);
                 break;
             case SCENE_RETURN:
-                enemy = null;
+                enemy.setVisible(false);
                 player.playerShip.setSpeed(0);
                 player.playerShip.setAccelerationXY(0,0);
                 player.playerShip.anchor = true;
                 System.out.println("END OF COMBAT");
                 toggleAttackStage();
-                main.setScreen(new ShipSailing(main));
+                main.setScreen(main.sailing_scene);
                 break;
         }
     }

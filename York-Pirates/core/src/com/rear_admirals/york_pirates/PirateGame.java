@@ -1,28 +1,19 @@
 package com.rear_admirals.york_pirates;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.rear_admirals.york_pirates.Combat.ShipCombat;
-
-import static com.rear_admirals.york_pirates.ShipType.Brig;
+import com.rear_admirals.york_pirates.Screen.ShipSailing;
 
 public class PirateGame extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
     public Skin skin;
     public Player player;
+	public ShipSailing sailing_scene;
 
 	public void create(){
 		Gdx.graphics.setTitle("York Pirates!");

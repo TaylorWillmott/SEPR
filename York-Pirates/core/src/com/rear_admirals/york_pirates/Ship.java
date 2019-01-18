@@ -16,21 +16,9 @@ public class Ship extends MoveableObject {
     private ShipType type;
     private int healthMax;
     public Texture sailingTexture;
-
-
-    public College getCollege() {
-        return college;
-    }
-
-    public void setCollege(College college) {
-        this.college = college;
-    }
-
     private College college;
 
-    public int getHealthMax() {
-        return healthMax;
-    }
+
 
     public Ship(ShipType type, College college) {
         this.name = college.name + " " + type.name;
@@ -85,6 +73,10 @@ public class Ship extends MoveableObject {
         this.setOriginCentre();
     }
 
+    public void healShip(){
+        setHealth(getHealthMax());
+    }
+
 //    public void forward(int distance) { angularMove(pos.z, distance); }
 //
 //    public void forward() { forward(3); }
@@ -124,11 +116,20 @@ public class Ship extends MoveableObject {
 
     // Getters and Setters
 
-	public String getName() { return name; }
-
-    public int getMaxHealth(){
-		return healthMax;
+    public College getCollege() {
+        return college;
     }
+
+    public void setCollege(College college) {
+        this.college = college;
+    }
+
+    public int getHealthMax() {
+        return healthMax;
+    }
+
+
+    public String getName() { return name; }
 
     public int getAttack() {
         return attack;

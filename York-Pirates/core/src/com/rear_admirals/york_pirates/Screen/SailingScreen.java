@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.rear_admirals.york_pirates.College.*;
+import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
+import static com.rear_admirals.york_pirates.PirateGame.Physics;
 import static com.rear_admirals.york_pirates.ShipType.*;
 
 public class SailingScreen extends AbstractScreen {
@@ -172,16 +174,11 @@ public class SailingScreen extends AbstractScreen {
 
         this.playerShip.playerMove(delta);
 
-        for (GameObject obstacle : obstacleList) {
-            playerShip.overlaps(obstacle, true);
-        }
-
         Boolean x = false;
         for (GameObject region : regionList) {
             String name = region.getName();
             if (playerShip.overlaps(region, false)) {
                 x = true;
-                System.out.println(region.getName());
                 mapMessage.setText("You are in " + capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " territory");
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
@@ -189,15 +186,45 @@ public class SailingScreen extends AbstractScreen {
                     if (name.equals("derwentregion") && !playerShip.getCollege().getAlly().contains(Derwent)) {
                         System.out.println(name);
                         main.setScreen(new CombatScreen(main, new Ship(Brig, Derwent)));
-                    } else if (name.equals("vanbrughregion") && !playerShip.getCollege().getAlly().contains(Derwent)) {
+                    } else if (name.equals("vanbrughregion") && !playerShip.getCollege().getAlly().contains(Vanbrugh)) {
                         System.out.println(name);
                         main.setScreen(new CombatScreen(main, new Ship(Brig, Vanbrugh)));
-                    } else if (name.equals("jamesregion") && !playerShip.getCollege().getAlly().contains(Derwent)) {
+                    } else if (name.equals("jamesregion") && !playerShip.getCollege().getAlly().contains(James)) {
                         System.out.println(name);
                         main.setScreen(new CombatScreen(main, new Ship(Brig, James)));
                     }
                 }
 
+            }
+        }
+
+        for (GameObject obstacle : obstacleList) {
+            if (playerShip.overlaps(obstacle, true)) {
+                String name = obstacle.getName();
+                System.out.println(name);
+                if (name.equals("chemistry")) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.S)) main.setScreen(new DepartmentScreen(main, Chemistry));
+                } else if (name.equals("physics")) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.S)) main.setScreen(new DepartmentScreen(main, Physics));
+                } else if (name.equals("derwent")) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.F) && Derwent.isBossDead() == false) {
+                        main.setScreen(new CombatScreen(main, new Ship(15, 15, 15, 150, Brig, Derwent, "Derwent Boss")));
+                        dispose();
+                    }
+                } else if (name.equals("vanbrugh")) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.F) && Vanbrugh.isBossDead() == false) {
+                        main.setScreen(new CombatScreen(main, new Ship(15, 15, 15, 150, Brig, Vanbrugh, "Vanbrugh Boss")));
+                        dispose();
+                    }
+
+                } else if (name.equals("james")) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.F) && James.isBossDead() == false) {
+                        main.setScreen(new CombatScreen(main, new Ship(15, 15, 15, 150, Brig, James, "James Boss")));
+                        dispose();
+                    }
+                } else {
+                    System.out.println("Pure obstacle");
+                }
             }
         }
         if (!x){

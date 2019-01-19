@@ -31,8 +31,8 @@ public class Ship extends MoveableObject {
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         setupShip();
-
     }
+
     public Ship(ShipType type, College college, String texturePath) {
         this.name = college.name + " " + type.name;
         this.attack = type.getAttack();
@@ -51,13 +51,13 @@ public class Ship extends MoveableObject {
 	    this.name = name;
     }
 
-    public Ship(int attack, int defence, int accuracy, int health, ShipType type, College college) {
+    public Ship(int attack, int defence, int accuracy, int health, ShipType type, College college, String name) {
         this.attack = attack;
         this.defence = defence;
         this.accuracy = accuracy;
         this.health = health;
         this.type = type;
-        this.name = college.name + " " + type.name;
+        this.name = name;
         this.healthMax = defence*20;
         this.college = college;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));

@@ -2,16 +2,18 @@ package com.rear_admirals.york_pirates;
 
 import java.util.ArrayList;
 
-public class College extends GameObject {
+public class College {
 
 	public final String name;
 	private ArrayList<College> ally;
+    private boolean bossDead = false;
 
 
     public College(String name) {
         this.name = name;
         this.ally = new ArrayList<College>();
         this.ally.add(this);
+        this.bossDead = false;
     }
 
 
@@ -21,6 +23,15 @@ public class College extends GameObject {
     }
     public void addAlly(College newAlly){
         ally.add(newAlly);
+    }
+
+
+    public boolean isBossDead() {
+        return bossDead;
+    }
+
+    public void setBossDead(boolean bossDead) {
+        this.bossDead = bossDead;
     }
 
 	public static College Derwent = new College("Derwent");

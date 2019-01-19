@@ -7,6 +7,7 @@ public class GrapeShot extends Attack {
         super(name, desc, dmgMultiplier, accMultiplier, skipMove, accPercent);
     }
 
+    // Grapeshot requires a custom doAttack function and as such has its own class.
     @Override
     public int doAttack(Ship attacker, Ship defender) {
         damage = 0;

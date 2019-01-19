@@ -8,6 +8,7 @@ public class Ram extends Attack {
 		super(name, desc, dmgMultiplier, accMultiplier, skipMove, accPercent);
 	}
 
+	// Ram requires a custom doAttack function and as such has its own class.
 	@Override
 	public int doAttack(Ship attacker, Ship defender) {
 		if ( doesHit(attacker.getAccuracy(), accPercent) ) {
@@ -19,7 +20,6 @@ public class Ram extends Attack {
 		return 0;
 	}
 
-//	public static final Attack attackRam = new Ram();
 	public static Attack attackRam = new Ram("Ram","Ram your ship into your enemy, causing damage to both of you.", 4, 1, false, 85);
 
 

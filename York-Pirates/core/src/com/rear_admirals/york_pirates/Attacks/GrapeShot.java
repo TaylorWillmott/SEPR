@@ -11,7 +11,7 @@ public class GrapeShot extends Attack {
     public int doAttack(Ship attacker, Ship defender) {
         damage = 0;
         for (int i = 0; i < 4; i++) { // Fires 4 shots.
-            if (doesHit(attacker.getAccuracy(), (int) (10 * accMultiplier), 200)) {
+            if (doesHit(attacker.getAccuracy(), accPercent)) {
                 damage += attacker.getAttack() * dmgMultiplier; // Landed shots do half as much damage as a swivel shot.
                 System.out.println("GRAPE HIT");
             }

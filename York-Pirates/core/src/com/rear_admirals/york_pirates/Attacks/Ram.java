@@ -10,7 +10,7 @@ public class Ram extends Attack {
 
 	@Override
 	public int doAttack(Ship attacker, Ship defender) {
-		if ( doesHit(attacker.getAccuracy(), (int)(10*accMultiplier), 200) ) {
+		if ( doesHit(attacker.getAccuracy(), accPercent) ) {
 			damage = attacker.getAttack()*dmgMultiplier;
 			defender.damage(damage);
 			attacker.damage(damage/2);

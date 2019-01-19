@@ -9,12 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.rear_admirals.york_pirates.Combat.ShipCombat;
+import com.rear_admirals.york_pirates.Screen.Combat.CombatScreen;
 import com.rear_admirals.york_pirates.Screen.CollegeScreen;
 import com.rear_admirals.york_pirates.Screen.DepartmentScreen;
-import com.rear_admirals.york_pirates.Screen.ShipSailing;
 
-import static com.rear_admirals.york_pirates.Department.Chemistry;
+import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;
 import static com.rear_admirals.york_pirates.College.*;
 
@@ -27,10 +26,11 @@ public class MainMenu implements Screen {
     float screen_height;
 
     // Screens
-    public ShipCombat combatScreen;
+    public CombatScreen combatScreen;
 
     public MainMenu(final PirateGame main){
         this.main = main;
+
         Gdx.graphics.setTitle("Main Menu - York Pirates!");
 //        camera = new OrthographicCamera();
 //        camera.setToOrtho(false, 800, 480);
@@ -43,7 +43,7 @@ public class MainMenu implements Screen {
         Table table = new Table();
         stage = new Stage(new FitViewport(1920,1080));
 
-        main.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
+
 
         screen_width = stage.getWidth();
         screen_height = stage.getHeight();
@@ -53,25 +53,25 @@ public class MainMenu implements Screen {
 
         Label title = new Label("Rear Admirals", main.skin, "title");
         title.setAlignment(Align.center);
+
         TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);
+        TextButton sailing_mode = new TextButton("Go to Sailing Mode", main.skin);
+        TextButton college_mode = new TextButton("Go to College Screen", main.skin);
+        TextButton department_mode = new TextButton("Go to Department Screen", main.skin);
+
 
         // Allows button to be clickable, and sets process for when clicked.
         combat_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new ShipCombat(main, new Ship(Brig, Derwent)));
+                main.setScreen(new CombatScreen(main, new Ship(Brig, Derwent)));
                 dispose();
             }
         });
 
-        TextButton sailing_mode = new TextButton("Go to Sailing Mode", main.skin);
-        TextButton college_mode = new TextButton("Go to College Screen", main.skin);
-        TextButton department_mode = new TextButton("Go to Department Screen", main.skin);
-
         sailing_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                main.sailing_scene = new ShipSailing(main);
                 main.setScreen(main.sailing_scene);
                 dispose();
             }
@@ -107,14 +107,14 @@ public class MainMenu implements Screen {
         table.add(department_mode).uniform().fill();
 
         stage.addActor(tableContainer);
-        Gdx.input.setInputProcessor(stage);
 
+        Gdx.input.setInputProcessor(stage);
+        System.out.println("IP: stage");
     }
 
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         stage.draw();
         stage.act();
 

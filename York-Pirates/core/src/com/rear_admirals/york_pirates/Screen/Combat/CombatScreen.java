@@ -1,19 +1,17 @@
-package com.rear_admirals.york_pirates.Combat;
+package com.rear_admirals.york_pirates.Screen.Combat;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.*;
-import com.rear_admirals.york_pirates.Attacks.*;
+import com.rear_admirals.york_pirates.Screen.Combat.Attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
+import com.rear_admirals.york_pirates.Screen.AbstractScreen;
 import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
@@ -23,20 +21,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 
-public class ShipCombat implements Screen {
-
-    // Pass instance of main game to scene
-    final PirateGame main;
-
-    // Stages for the Combat Scene
-    private Stage stage;
-    private Stage attackStage;
+public class CombatScreen extends AbstractScreen {
 
     // Screen layout variables
-    float button_pad_bottom;
-    float button_pad_right;
-    public float width;
-    public float height;
+    private float button_pad_bottom;
+    private float button_pad_right;
 
     // Labels changed throughout the scene
     public Label descriptionLabel;
@@ -79,7 +68,9 @@ public class ShipCombat implements Screen {
     private int animationIndex = 0;
     private String displayText = "";
 
-    public ShipCombat (final PirateGame main, Ship enemy){
+    public CombatScreen(final PirateGame main, Ship enemy){
+        // Calls superclass AbstractScreen
+        super(main);
 
         // This constructor also replaces the create function that a stage would typically have.
 
@@ -93,29 +84,22 @@ public class ShipCombat implements Screen {
 
         combatStack = new Stack();
 
-        // Instantiates the different stages in this screen.
-        stage = new Stage(new FitViewport(1920,1080));
-        attackStage = new Stage(new FitViewport(1920,1080));
 
         // Sets size constants for the scene depending on viewport, also sets button padding constants for use in tables
-        height = stage.getHeight();
-        width = stage.getWidth();
-        button_pad_bottom = height/24f;
-        button_pad_right = width/32f;
+
+        button_pad_bottom = viewheight/24f;
+        button_pad_right = viewwidth/32f;
 
         // Insantiate the image textures for use within the scene as backgrounds.
 
 //        bg_texture = new Texture("water_texture.png");
         bg_texture = new Texture("water_texture_sky.png");
         background = new Image(bg_texture);
-        background.setSize(width, height);
+        background.setSize(viewwidth, viewheight);
 
-        //TODO choose best wood textue, then will add it into complete background (or leave as is) - simply uncomment different textures to try
-//        wood_texture = new Texture("wood_texture.png");
-//        wood_texture = new Texture("wood_checkerboard_texture.png");
         wood_texture = new Texture("wood_vertical_board_texture.png");
         background_wood = new Image(wood_texture);
-        background_wood.setSize(width, height);
+        background_wood.setSize(viewwidth, viewheight);
 
         // Create a Container which takes up the whole screen (used for layout purposes)
         tableContainer = new Container<Table>();
@@ -129,8 +113,8 @@ public class ShipCombat implements Screen {
         attackTable = new Table();
 
         // Instantiate both the ships for the battle
-        CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", width/3);
-        CombatShip enemyShip = new CombatShip(enemy,"ship2.png",width/3);
+        CombatShip myShip = new CombatShip(player.playerShip,"ship1.png", viewwidth/3);
+        CombatShip enemyShip = new CombatShip(enemy,"ship2.png",viewwidth/3);
 
         Label shipName = new Label(player.playerShip.getName(),main.skin, "default_black");
         playerHP = new ProgressBar(0, player.playerShip.getHealthMax(),0.1f,false,main.skin);
@@ -149,11 +133,11 @@ public class ShipCombat implements Screen {
         Table playerHPTable = new Table();
         Table enemyHPTable = new Table();
 
-        playerHPTable.add(playerHPLabel).padRight(width/36f);
-        playerHPTable.add(playerHP).width(width/5);
+        playerHPTable.add(playerHPLabel).padRight(viewwidth/36f);
+        playerHPTable.add(playerHP).width(viewwidth/5);
 
-        enemyHPTable.add(enemyHPLabel).padRight(width/36f);
-        enemyHPTable.add(enemyHP).width(width/5);
+        enemyHPTable.add(enemyHPLabel).padRight(viewwidth/36f);
+        enemyHPTable.add(enemyHP).width(viewwidth/5);
 
         Label screenTitle = new Label("Combat Mode", main.skin,"title_black");
         screenTitle.setAlignment(Align.center);
@@ -197,19 +181,19 @@ public class ShipCombat implements Screen {
         descriptionLabel.setAlignment(Align.center);
 
         descriptionTable.center();
-        descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(width/2 - button_pad_right*2, height/12).top();
+        descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(viewwidth/2 - button_pad_right*2, viewheight/12).top();
         descriptionTable.row();
         descriptionTable.add(fleeButton).uniform();
 
         attackTable.row();
-        attackTable.add(button1).uniform().width(width/5).padRight(button_pad_right);
-        attackTable.add(button2).uniform().width(width/5);
+        attackTable.add(button1).uniform().width(viewwidth/5).padRight(button_pad_right);
+        attackTable.add(button2).uniform().width(viewwidth/5);
         attackTable.row().padTop(button_pad_bottom);
-        attackTable.add(button3).uniform().width(width/5).padRight(button_pad_right);
-        attackTable.add(button4).uniform().width(width/5);
+        attackTable.add(button3).uniform().width(viewwidth/5).padRight(button_pad_right);
+        attackTable.add(button4).uniform().width(viewwidth/5);
 
 
-        rootTable.row().width(width*0.8f);
+        rootTable.row().width(viewwidth*0.8f);
         rootTable.add(screenTitle).colspan(2);
         rootTable.row();
         rootTable.add(shipName);
@@ -223,27 +207,27 @@ public class ShipCombat implements Screen {
 //        rootTable.row().height(height/54f);
 //        rootTable.add().colspan(2);
         rootTable.row();
-        rootTable.add(textBox).colspan(2).fillX().height(height/9f).pad(height/12,0,height/12,0);
+        rootTable.add(textBox).colspan(2).fillX().height(viewheight/9f).pad(viewheight/12,0,viewheight/12,0);
         tableContainer.setActor(rootTable);
 
         completeAttackTable = new Table();
         completeAttackTable.setFillParent(true);
         completeAttackTable.align(Align.bottom);
 //        completeAttackTable.row().expandX().padBottom(height/12f);
-        completeAttackTable.row().expandX().padBottom(height/18f);
-        completeAttackTable.add(descriptionTable).width(width/2);
-        completeAttackTable.add(attackTable).width(width/2);
+        completeAttackTable.row().expandX().padBottom(viewheight/18f);
+        completeAttackTable.add(descriptionTable).width(viewwidth/2);
+        completeAttackTable.add(attackTable).width(viewwidth/2);
 
         background_wood.setVisible(false);
         completeAttackTable.setVisible(false);
-        attackStage.addActor(background_wood);
-        attackStage.addActor(completeAttackTable);
+        mainStage.addActor(background_wood);
+        mainStage.addActor(completeAttackTable);
 
 
 //        stage.addActor(myShip);
 //        stage.addActor(enemyShip);
-        stage.addActor(background);
-        stage.addActor(tableContainer);
+        uiStage.addActor(background);
+        uiStage.addActor(tableContainer);
 
         // Setup Enemy Attacks - may need to change this is you want to draw attacks from enemy's class
         enemyAttacks = new ArrayList<Attack>();
@@ -251,7 +235,7 @@ public class ShipCombat implements Screen {
         enemyAttacks.add(GrapeShot.attackGrape);
         enemyAttacks.add(Attack.attackSwivel);
 
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(uiStage);
 
         //Allow debugging of layout
 //        descriptionTable.setDebug(true);
@@ -261,64 +245,44 @@ public class ShipCombat implements Screen {
 //        myShip.setDebug(true);
 //        enemyShip.setDebug(true);
 //        tableContainer.setDebug(true);
-        System.out.println(width + "," + height + " AND " + Gdx.graphics.getWidth() + "," + Gdx.graphics.getHeight());
+        System.out.println(viewwidth + "," + viewheight + " AND " + Gdx.graphics.getWidth() + "," + Gdx.graphics.getHeight());
 
+    }
+
+    @Override
+    public void update(float delta){
     }
 
 	@Override
 	public void render (float delta) {
 	    Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.draw();
-        stage.act();
-        attackStage.draw();
-        attackStage.act();
+        uiStage.draw();
+        uiStage.act();
+        mainStage.draw();
+        mainStage.act();
         labelAnimationUpdate(delta);
-    }
-
-	@Override
-	public void show(){
     }
 	
 	@Override
 	public void dispose () {
-        stage.dispose();
-        attackStage.dispose();
+        uiStage.dispose();
+        mainStage.dispose();
         bg_texture.dispose();
 	}
 
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width,height);
-        attackStage.getViewport().update(width,height);
-        this.width = stage.getWidth();
-        this.height = stage.getHeight();
-
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void hide(){
-    }
-
-    @Override
-    public void resume() {
-    }
 
     public void toggleAttackStage(){
         // This method toggles the visibility of the players attack moves and changes input processor to relevant stage
         if (background_wood.isVisible()) {
             background_wood.setVisible(false);
             completeAttackTable.setVisible(false);
-            Gdx.input.setInputProcessor(stage);
+            Gdx.input.setInputProcessor(uiStage);
         }
         else{
             background_wood.setVisible(true);
             completeAttackTable.setVisible(true);
-            Gdx.input.setInputProcessor(attackStage);
+            Gdx.input.setInputProcessor(mainStage);
         }
     }
 
@@ -495,7 +459,7 @@ public class ShipCombat implements Screen {
     }
 
 
-    //Updates text box
+    // Updates and displays text box
     public void dialog(String message, final BattleEvent nextEvent){
         queuedCombatEvent = nextEvent;
         if (background_wood.isVisible()){

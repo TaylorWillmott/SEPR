@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Attacks;
+package com.rear_admirals.york_pirates.Screen.Combat.Attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 

@@ -1,11 +1,9 @@
 package com.rear_admirals.york_pirates;
 
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.rear_admirals.york_pirates.Attacks.*;
-import com.rear_admirals.york_pirates.Attacks.GrapeShot;
+import com.rear_admirals.york_pirates.Screen.Combat.Attacks.*;
+import com.rear_admirals.york_pirates.Screen.Combat.Attacks.GrapeShot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +49,16 @@ public class Player {
     public int getPoints() { return points; }
 
 	public int getGold() { return gold; }
+
+	public boolean payGold(int amount){
+        if (amount > gold){
+            return false;
+        }
+        else{
+            addGold(-amount);
+            return true;
+        }
+    }
 
 	public List<Attack> getAttacks() { return attacks; }
 

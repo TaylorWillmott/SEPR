@@ -1,28 +1,30 @@
 package com.rear_admirals.york_pirates;
 
-public class College {
+import java.util.ArrayList;
+
+public class College extends GameObject {
 
 	public final String name;
-	public College ally;
-	public College enemy;
+	private ArrayList<College> ally;
+
 
     public College(String name) {
         this.name = name;
+        this.ally = new ArrayList<College>();
+        this.ally.add(this);
     }
 
-    public College(String name, College ally, College enemy) {
-    	this.name = name;
-    	this.ally = ally;
-    	this.enemy = enemy;
-    }
 
     public String getName() { return name; }
-    public College getAlly() { return ally; }
-    public College getEnemy() { return enemy; }
 
-    public void setAlly(College ally) { this.ally = ally; }
-    public void setEnemy(College enemy) { this.enemy = enemy; }
+    public ArrayList<College> getAlly() { return ally;
+    }
+    public void addAlly(College newAlly){
+        ally.add(newAlly);
+    }
 
 	public static College Derwent = new College("Derwent");
+    public static College Vanbrugh = new College("Vanbrugh");
+    public static College James = new College("James");
 
 }

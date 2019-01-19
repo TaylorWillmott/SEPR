@@ -16,10 +16,21 @@ public class GameObject extends Group {
 	public TextureRegion region;
 	public Polygon boundingPolygon;
 
+	public College getCollege() {
+		return college;
+	}
+
+	public void setCollege(College college) {
+		this.college = college;
+	}
+
+	public College college;
+
 	public GameObject() {
 		super();
 		region = new TextureRegion();
 		boundingPolygon = null;
+		college = null;
 	}
 
 	public void setTexture(Texture t) {

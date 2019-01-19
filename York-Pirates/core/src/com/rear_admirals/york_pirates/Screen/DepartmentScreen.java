@@ -1,76 +1,73 @@
 package com.rear_admirals.york_pirates.Screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.College;
 import com.rear_admirals.york_pirates.Department;
 import com.rear_admirals.york_pirates.PirateGame;
+import com.rear_admirals.york_pirates.Ship;
 
-public class DepartmentScreen implements Screen {
+public class DepartmentScreen extends AbstractScreen {
 
-    private Stage menuStage;
-    private float width;
-    private float height;
+    public Ship playerShip;
 
-    public DepartmentScreen(PirateGame main, Department department){
-        width = 1920;
-        height = 1080;
-        menuStage = new Stage(new FitViewport(1920,1080));
+    public DepartmentScreen(final PirateGame main, final Department department){
+        super(main);
+        playerShip = main.player.getPlayerShip();
         Table optionsTable = new Table();
         optionsTable.setFillParent(true);
         Label title = new Label(department.name, main.skin);
-        TextButton upgrade = new TextButton("Upgrade Ship", main.skin);
+        TextButton upgrade = new TextButton("Upgrade Ship "+ department.name, main.skin);
+        TextButton heal = new TextButton("Heal Ship", main.skin);
+        Label message = new Label("", main.skin);
+
+        upgrade.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                department.purchase();
+            }
+        });
+
+        heal.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if (main.player.payGold(10)) {
+                        playerShip.setHealth(playerShip.getHealthMax());
+                    }
+                    else{
+
+                    }
+                }
+            });
 
         optionsTable.add(title);
         optionsTable.row();
         optionsTable.add(upgrade);
-        menuStage.addActor(optionsTable);
+        optionsTable.row();
+        optionsTable.add(heal);
+        mainStage.addActor(optionsTable);
+        Gdx.input.setInputProcessor(mainStage);
 
     }
 
     @Override
-    public void render (float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        menuStage.draw();
-        menuStage.act();
+    public void update(float delta){
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            System.out.println("ESCAPE");
+            main.setScreen(main.sailing_scene);
+        }
     }
 
-    @Override
-    public void show(){
 
-    }
-
-    @Override
-    public void dispose () {
-        menuStage.dispose();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        menuStage.getViewport().update(width,height);
-        this.width = menuStage.getWidth();
-        this.height = menuStage.getHeight();
-
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void hide(){
-    }
-
-    @Override
-    public void resume() {
-    }
 
 }
 

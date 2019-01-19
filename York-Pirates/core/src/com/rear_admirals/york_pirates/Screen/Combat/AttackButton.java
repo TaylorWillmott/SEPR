@@ -1,14 +1,8 @@
-package com.rear_admirals.york_pirates.Combat;
+package com.rear_admirals.york_pirates.Screen.Combat;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.rear_admirals.york_pirates.Attacks.Attack;
-import javafx.scene.text.Text;
+import com.rear_admirals.york_pirates.Screen.Combat.Attacks.Attack;
 
 
 public class AttackButton extends TextButton {

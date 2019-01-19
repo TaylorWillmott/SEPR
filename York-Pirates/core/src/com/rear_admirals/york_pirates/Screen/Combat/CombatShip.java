@@ -1,13 +1,9 @@
-package com.rear_admirals.york_pirates.Combat;
+package com.rear_admirals.york_pirates.Screen.Combat;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.rear_admirals.york_pirates.Ship;
-
-import java.awt.*;
 
 public class CombatShip extends Actor {
 

@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Combat;
+package com.rear_admirals.york_pirates.Screen.Combat;
 
 import com.rear_admirals.york_pirates.Ship;
 import org.junit.jupiter.api.Test;

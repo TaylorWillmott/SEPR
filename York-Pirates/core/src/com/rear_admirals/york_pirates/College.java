@@ -23,6 +23,8 @@ public class College {
     public void setAlly(College ally) { this.ally = ally; }
     public void setEnemy(College enemy) { this.enemy = enemy; }
 
+    // Colleges for use in the game are defined here.
 	public static College Derwent = new College("Derwent");
+    public static College Vanbrugh = new College("Vanbrugh");
 
 }

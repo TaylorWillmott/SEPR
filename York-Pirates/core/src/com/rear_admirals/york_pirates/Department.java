@@ -12,6 +12,8 @@ public class Department {
 
     public String getName() { return name; }
 
+    // Departments for use in the game are defined here.
     public static Department Chemistry = new Department("Chemistry", "+Damage");
+    public static Department Physics = new Department("Physics", "+Defence");
 
 }

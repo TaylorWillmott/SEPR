@@ -1,8 +1,5 @@
 package com.rear_admirals.york_pirates;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.rear_admirals.york_pirates.Attacks.*;
 import com.rear_admirals.york_pirates.Attacks.GrapeShot;

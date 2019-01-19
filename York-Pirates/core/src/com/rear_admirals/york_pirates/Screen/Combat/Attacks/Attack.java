@@ -14,6 +14,7 @@ public class Attack {
 	protected boolean skipMove;
 	protected int accPercent;
 
+	// Generic constructor. Creates simple broadside attack.
 	protected Attack() {
 		name = "Broadside";
 		desc = "Fire a broadside at your enemy.";
@@ -23,6 +24,8 @@ public class Attack {
 		skipMoveStatus = skipMove;
 	}
 
+	// Custom constructor. Can be used to create any attack which applies a multiple of the attacker's damage
+	// to the defender. Can also take a turn to charge and have custom accuracy.
 	protected Attack(String name, String desc, int dmgMultiplier, double accMultiplier, boolean skipMove, int accPercent) {
 		this.name = name;
 		this.desc = desc;
@@ -33,11 +36,14 @@ public class Attack {
 		this.accPercent = accPercent;
 	}
 
+	// Old function used to check if an attack hits the enemy.
+	@Deprecated
 	protected boolean doesHit( int accuracy, int mult, int bound) {
 		if ( accuracy * mult > Math.random() * bound) { return true; }
 		else { return false; }
 	}
 
+	// New function used to check if an attack hits the enemy.
 	protected boolean doesHit( int shipAcc, int accPercent) {
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
 		if (accPercent * (1+(shipAcc-3)*0.02) > random){
@@ -48,6 +54,7 @@ public class Attack {
 		}
 	}
 
+	// Function called to actually perform the attack.
 	public int doAttack(Ship attacker, Ship defender) {
 		if ( doesHit(attacker.getAccuracy(), accPercent) ) {
 			damage = attacker.getAttack() * dmgMultiplier;
@@ -69,7 +76,7 @@ public class Attack {
 		this.skipMoveStatus = skipMoveStatus;
 	}
 
-//	public Attack attackMain = new Attack();
+	// Attacks to be used in the game are defined here.
 	public static Attack attackMain = new Attack("Broadside","Normal cannons. Fire a broadside at your enemy.",3,2,false,60);
 	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. High accuracy, low damage attack.",2,3,false,75);
 	public static Attack attackBoard = new Attack("Board","Board enemy ship. Charges attack over a turn, medium - high damage and very high accuracy", 4,2,true,90);

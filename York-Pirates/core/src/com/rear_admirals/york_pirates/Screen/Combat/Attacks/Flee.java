@@ -11,6 +11,7 @@ public class Flee extends Attack {
         desc = "Attempt to escape enemy.";
     }
 
+    // Flee requires a custom doAttack function and as such has its own class.
     @Override
     public int doAttack(Ship attacker, Ship defender) {
         int fleeSuccess = ThreadLocalRandom.current().nextInt(0, 101);

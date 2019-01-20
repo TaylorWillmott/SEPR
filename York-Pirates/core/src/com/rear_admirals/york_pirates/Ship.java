@@ -67,10 +67,11 @@ public class Ship extends MoveableObject {
     public void setupShip(){
         this.setWidth(this.sailingTexture.getWidth());
         this.setHeight(this.sailingTexture.getHeight());
+        this.setOriginCentre();
         this.setMaxSpeed(200);
         this.setDeceleration(20);
         this.setEllipseBoundary();
-        this.setOriginCentre();
+
     }
 
     public void healShip(){

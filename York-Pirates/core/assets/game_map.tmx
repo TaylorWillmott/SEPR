@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="724">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextobjectid="724">
  <tileset firstgid="1" source="rpg-tiles-64.tsx"/>
  <tileset firstgid="261" source="map-tiles-64.tsx"/>
- <layer id="1" name="Water" width="80" height="80">
+ <layer name="Water" width="80" height="80">
   <data encoding="base64" compression="zlib">
    eJztw0ENAAAMA6GTUv8q52FvSFg1VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV9fUAzKEgLg==
   </data>
  </layer>
- <layer id="2" name="Background" width="80" height="80">
+ <layer name="Background" width="80" height="80">
   <data encoding="base64" compression="zlib">
    eJztnMFuwjAMhukVthdg7M4qdt/Y9v6vtVYjwhgndQq1/zB/UjTEZdYf23Frh9UqCNpj3a1WT8N67srfBTLbQaOXYX0QvaTvUBn3enPa742Dvf1Jq6TXaMcn+24D6I9rwdZxvRrbuGX/v7SQ/DFnt7WNfYV+SBqW7H43tO84/K+3GRp65BpKKW6sY7jWBz32ucZma7tqcqDnPmttbsX/PHNhyWZru1IO3A/ruzIfemk4FTPWMTxq+NOdP9dqaH2eTMWMZ24Z0WqYfPaL6L80Y+3M62aUuKBMabg31IyiPe+8fXDkePItSUcP+zS+h+SDiSOJ06SlR/1XW2t51qg5kk96xG5trYUQwyjUxK5nfkallIvD9/RoYxgx9yGgPUOQzl8UanNgaHjJnHdFkQfP0Hcd2rMkfPCSnpwNCGcJ7QG2sE/0XZEmnpeoA1P/b9Nd9ytb0DBBnyv58+US2uX6po+Ub6mm99JuLfha5FsdtTVT0tC7R4nAHO3iGeiPOdqlusr6nTwac/2u9bPjXrQ4U4DELT3xODfO7xqlmtKjXm+dnulDteV/Q7trqD+GPkEQBEEQBEHwGMTdxdto6e4iIvw+Y2hYB+/nhoZ18Jn1XXd5h7alPr8XkoY7wS+fgHVN/WIve6S7E1xDtN41nYNJvSfPftKUhoeMhtY9nNxsAsJ7/Fwf58D0o7pa7nmpz4nQy9wKmuX8ztr/pnrE3r1Map9GN+uYKfU4EWKX+55kJz9TLGMG6Q43h/reTsh1Uk1jHTNIvyFAKeUVriX3w/C/8r4ehIXof1516NSZdhC09Nh3zXyW9/1UKb9N6Wdls2Zu3SOGe6ZP7nlD0s6qZtDOBnr7Xy7Xpc87YO0Q/E86NyTfs6xVtffH0H8bgupnuc/auUqv+oXfh9HMLaI873rnPonSHKhVzay5c8QXat8h+SfVcWn95v6+GvIstOU86NxZcu9ciELNmSvlbdqrQfTFpUm+npZ0pvF6heftmC0/I2kTugRBEPxPfgGgrpcP
   </data>
  </layer>
- <layer id="3" name="Scenery" width="80" height="80">
+ <layer name="Scenery" width="80" height="80">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA1wBkAAAB
   </data>
  </layer>
- <layer id="4" name="Overlay" width="80" height="80">
+ <layer name="Overlay" width="80" height="80">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA1wBkAAAB
   </data>
  </layer>
- <objectgroup id="5" name="ObjectData">
+ <objectgroup name="ObjectData">
   <object id="1" name="player" x="2598.67" y="2113.33" width="25.3333" height="62.6667"/>
-  <object id="712" name="enemy" x="2778.67" y="2114.67" width="25.3333" height="62.6667"/>
  </objectgroup>
- <objectgroup id="6" name="PhysicsData">
+ <objectgroup name="PhysicsData">
   <object id="8" name="chemistry" x="1348" y="1920" width="92" height="64"/>
   <object id="9" name="chemistry" x="1444" y="1928" width="10.6667" height="157.333"/>
   <object id="10" name="chemistry" x="1220" y="2081.33" width="206.667" height="26.6667"/>
@@ -700,7 +699,7 @@
   <object id="709" name="vanbrugh" x="3561.33" y="3216" width="9.33333" height="46.6667"/>
   <object id="710" name="vanbrugh" x="3569.33" y="3236" width="12" height="29.3333"/>
  </objectgroup>
- <objectgroup id="7" name="RegionData">
+ <objectgroup name="RegionData">
   <object id="721" name="derwentregion" x="16" y="2728" width="2592" height="2392"/>
   <object id="722" name="vanbrughregion" x="2620" y="2584" width="2504" height="2548"/>
   <object id="723" name="jamesregion" x="3152" y="8" width="1976" height="2336"/>

@@ -194,11 +194,10 @@ public class SailingScreen extends AbstractScreen {
         this.playerShip.playerMove(delta);
 
         for (GameObject obstacle : obstacleList) {
+            String name = obstacle.getName();
+            System.out.println(name);
+            mapMessage.setText(capitalizeFirstLetter(name) + " Island");
             if (playerShip.overlaps(obstacle, true)) {
-                String name = obstacle.getName();
-                System.out.println(name);
-                mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-
                 if (!(obstacle.getDepartment() == null)) {
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) main.setScreen(new DepartmentScreen(main, obstacle.getDepartment()));
                 }
@@ -216,7 +215,6 @@ public class SailingScreen extends AbstractScreen {
 
                 }
                 else {
-                    playerShip.overlaps(obstacle, true);
                     System.out.println("Pure obstacle");
                 }
             }
@@ -279,11 +277,11 @@ public class SailingScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        // pause only gameplay events, not UI events
-        if (true) {
-            mainStage.act(delta);
-            update(delta);
-        }
+        uiStage.act(delta);
+
+        mainStage.act(delta);
+        update(delta);
+
 
         // render
         Gdx.gl.glClearColor(0,0,0,1);
@@ -294,7 +292,7 @@ public class SailingScreen extends AbstractScreen {
         tiledMapRenderer.render(foregroundLayers);
 
         uiStage.draw();
-        uiStage.act(delta);
+
 
         if (!playerShip.isAnchor()){
             playerShip.addAccelerationAS(playerShip.getRotation(), 10000);

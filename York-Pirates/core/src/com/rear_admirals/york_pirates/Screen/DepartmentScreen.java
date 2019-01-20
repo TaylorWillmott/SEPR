@@ -11,25 +11,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.Department;
-import com.rear_admirals.york_pirates.PirateGame;
-import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.*;
 
 public class DepartmentScreen extends AbstractScreen {
 
-    public Ship playerShip;
+    private Player player;
 
     public DepartmentScreen(final PirateGame main, final Department department){
         super(main);
-        playerShip = main.player.getPlayerShip();
+        player = main.player;
         Table optionsTable = new Table();
         optionsTable.setFillParent(true);
         Label title = new Label(department.name, main.skin);
         TextButton upgrade = new TextButton("Upgrade Ship "+ department.getProduct() + " for " + department.getPrice() + " gold", main.skin);
-        TextButton heal = new TextButton("Heal Ship for 10 gold", main.skin);
-        Label message = new Label("", main.skin);
-
+        final Label message = new Label("", main.skin);
+        final int toHeal = player.playerShip.getHealthMax() - player.playerShip.getHealth();
+        TextButton heal = new TextButton("Repair Ship for "+Integer.toString(toHeal)+" gold", main.skin);
         upgrade.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -37,17 +34,19 @@ public class DepartmentScreen extends AbstractScreen {
             }
         });
 
+        if (toHeal == 0) { heal.setText("Your ship is already fully repaired!"); }
         heal.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (main.player.payGold(10)) {
-                        playerShip.setHealth(playerShip.getHealthMax());
-                    }
-                    else{
-
-                    }
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (player.payGold(toHeal/10)) {
+                    player.playerShip.setHealth(player.playerShip.getHealthMax());
+                    message.setText("Successful repair");
                 }
-            });
+                else{
+                    message.setText("You don't have the funds to repair your ship");
+                }
+            }
+        });
 
         optionsTable.add(title);
         optionsTable.row();

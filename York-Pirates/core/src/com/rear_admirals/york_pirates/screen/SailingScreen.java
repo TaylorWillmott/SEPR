@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.screen.sailing;
+package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
@@ -14,12 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.screen.CollegeScreen;
-import com.rear_admirals.york_pirates.screen.DepartmentScreen;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;

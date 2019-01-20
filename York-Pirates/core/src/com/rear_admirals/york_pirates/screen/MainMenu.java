@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
-import com.rear_admirals.york_pirates.screen.sailing.Ship;
+import com.rear_admirals.york_pirates.Ship;
 
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;

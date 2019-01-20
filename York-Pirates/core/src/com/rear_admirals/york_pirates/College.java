@@ -6,7 +6,7 @@ public class College {
 
 	public final String name;
 	private ArrayList<College> ally;
-    private boolean bossDead = false;
+    private boolean bossDead;
 
 
     public College(String name) {
@@ -19,8 +19,8 @@ public class College {
 
     public String getName() { return name; }
 
-    public ArrayList<College> getAlly() { return ally;
-    }
+    public ArrayList<College> getAlly() { return ally; }
+
     public void addAlly(College newAlly){
         ally.add(newAlly);
     }

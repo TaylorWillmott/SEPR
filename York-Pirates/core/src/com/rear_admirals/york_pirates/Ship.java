@@ -51,11 +51,10 @@ public class Ship extends MoveableObject {
 	    this.name = name;
     }
 
-    public Ship(int attack, int defence, int accuracy, int health, ShipType type, College college, String name) {
+    public Ship(int attack, int defence, int accuracy, ShipType type, College college, String name) {
         this.attack = attack;
         this.defence = defence;
         this.accuracy = accuracy;
-        this.health = health;
         this.type = type;
         this.name = name;
         this.healthMax = defence*20;

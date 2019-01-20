@@ -13,6 +13,18 @@ public class GameObject extends Group {
 
 	public TextureRegion region;
 	public Polygon boundingPolygon;
+	public College college;
+    public Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+
 
 	public College getCollege() {
 		return college;
@@ -22,13 +34,12 @@ public class GameObject extends Group {
 		this.college = college;
 	}
 
-	public College college;
-
 	public GameObject() {
 		super();
 		region = new TextureRegion();
 		boundingPolygon = null;
 		college = null;
+		department = null;
 	}
 
 	public void setTexture(Texture t) {

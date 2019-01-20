@@ -164,7 +164,7 @@ public class CombatScreen extends AbstractScreen {
         this.queuedCombatEvent = BattleEvent.NONE;
         currentAttack = null;
 
-        // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified by within player class.
+        // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified within player class.
         final AttackButton button1 = new AttackButton(Attack.attackMain, main.skin);
         buttonListener(button1);
         final AttackButton button2 = new AttackButton(player.attacks.get(0), main.skin);
@@ -204,8 +204,6 @@ public class CombatScreen extends AbstractScreen {
         rootTable.row();
         rootTable.add(playerHPTable);
         rootTable.add(enemyHPTable);
-//        rootTable.row().height(height/54f);
-//        rootTable.add().colspan(2);
         rootTable.row();
         rootTable.add(textBox).colspan(2).fillX().height(viewheight/9f).pad(viewheight/12,0,viewheight/12,0);
         tableContainer.setActor(rootTable);
@@ -213,7 +211,6 @@ public class CombatScreen extends AbstractScreen {
         completeAttackTable = new Table();
         completeAttackTable.setFillParent(true);
         completeAttackTable.align(Align.bottom);
-//        completeAttackTable.row().expandX().padBottom(height/12f);
         completeAttackTable.row().expandX().padBottom(viewheight/18f);
         completeAttackTable.add(descriptionTable).width(viewwidth/2);
         completeAttackTable.add(attackTable).width(viewwidth/2);
@@ -223,13 +220,11 @@ public class CombatScreen extends AbstractScreen {
         mainStage.addActor(background_wood);
         mainStage.addActor(completeAttackTable);
 
-
-//        stage.addActor(myShip);
-//        stage.addActor(enemyShip);
         uiStage.addActor(background);
         uiStage.addActor(tableContainer);
 
         // Setup Enemy Attacks - may need to change this is you want to draw attacks from enemy's class
+
         enemyAttacks = new ArrayList<Attack>();
         enemyAttacks.add(Attack.attackMain);
         enemyAttacks.add(GrapeShot.attackGrape);

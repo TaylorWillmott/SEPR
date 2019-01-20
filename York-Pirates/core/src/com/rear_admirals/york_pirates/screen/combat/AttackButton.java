@@ -2,7 +2,7 @@ package com.rear_admirals.york_pirates.screen.combat;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.rear_admirals.york_pirates.screen.combat.Attacks.Attack;
+import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 
 public class AttackButton extends TextButton {
     private String name;

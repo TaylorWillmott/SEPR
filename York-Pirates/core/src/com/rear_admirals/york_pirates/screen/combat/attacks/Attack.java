@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.screen.combat.Attacks;
+package com.rear_admirals.york_pirates.screen.combat.attacks;
 
 import com.rear_admirals.york_pirates.screen.sailing.Ship;
 
@@ -78,7 +78,7 @@ public class Attack {
 		this.skipMoveStatus = skipMoveStatus;
 	}
 
-	// Attacks to be used in the game are defined here.
+	// attacks to be used in the game are defined here.
 	public static Attack attackMain = new Attack("Broadside","Normal cannons. Fire a broadside at your enemy.",3,2,false,60);
 	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. High accuracy, low damage attack.",2,3,false,75);
 	public static Attack attackBoard = new Attack("Board","Board enemy ship. Charges attack over a turn, medium - high damage and very high accuracy", 4,2,true,90);

@@ -1,7 +1,7 @@
 package com.rear_admirals.york_pirates;
 
-import com.rear_admirals.york_pirates.screen.combat.Attacks.*;
-import com.rear_admirals.york_pirates.screen.combat.Attacks.GrapeShot;
+import com.rear_admirals.york_pirates.screen.combat.attacks.*;
+import com.rear_admirals.york_pirates.screen.combat.attacks.GrapeShot;
 import com.rear_admirals.york_pirates.screen.sailing.Ship;
 
 import java.util.ArrayList;

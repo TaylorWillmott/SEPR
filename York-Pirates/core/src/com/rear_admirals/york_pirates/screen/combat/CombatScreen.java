@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.rear_admirals.york_pirates.screen.combat.Attacks.*;
+import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.base.BaseScreen;
@@ -210,7 +210,7 @@ public class CombatScreen extends BaseScreen {
         uiStage.addActor(background);
         uiStage.addActor(tableContainer);
 
-        // Setup Enemy Attacks - may need to change this is you want to draw attacks from enemy's class
+        // Setup Enemy attacks - may need to change this is you want to draw attacks from enemy's class
         enemyAttacks = new ArrayList<Attack>();
         enemyAttacks.add(Attack.attackMain);
         enemyAttacks.add(GrapeShot.attackGrape);
@@ -289,7 +289,7 @@ public class CombatScreen extends BaseScreen {
                     }
                 } else {
                     int damage = currentAttack.doAttack(player.getPlayerShip(), enemy); // Calls the attack function on the player and stores damage output
-                    // This selection statement returns Special Charge Attacks to normal state
+                    // This selection statement returns Special Charge attacks to normal state
                     if (currentAttack.isSkipMove()) {
                         currentAttack.setSkipMoveStatus(true);
                     }

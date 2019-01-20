@@ -2,10 +2,9 @@ package com.rear_admirals.york_pirates.screen.combat;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.rear_admirals.york_pirates.base.BaseActor;
 
-public class CombatShip extends Actor {
-
+public class CombatShip extends BaseActor {
     private float ship_size;
     private Texture texture;
 

@@ -16,23 +16,7 @@ public class GameObject extends Group {
 	public College college;
     public Department department;
 
-    public Department getDepartment() {
-        return department;
-    }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-
-
-	public College getCollege() {
-		return college;
-	}
-
-	public void setCollege(College college) {
-		this.college = college;
-	}
 
 	public GameObject() {
 		super();
@@ -117,6 +101,21 @@ public class GameObject extends Group {
 		return (polyOverlap && (mtv.depth > significant));
 	}
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public College getCollege() {
+        return college;
+    }
+
+    public void setCollege(College college) {
+        this.college = college;
+    }
 
 	public void setOriginCentre() {
 		if (getWidth() == 0) System.err.println("error: actor size not set");

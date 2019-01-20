@@ -143,11 +143,15 @@ public class SailingScreen extends AbstractScreen {
                 solid.setSize(r.width, r.height);
                 solid.setName(object.getName());
                 solid.setRectangleBoundary();
-                if (object.getName().equals("derwent")) solid.setCollege(Derwent);
-                else if (object.getName().equals("james")) solid.setCollege(James);
-                else if (object.getName().equals("vanbrugh")) solid.setCollege(Vanbrugh);
-                else if (object.getName().equals("chemistry")) solid.setDepartment(Chemistry);
-                else if (object.getName().equals("physics")) solid.setDepartment(Physics);
+                String objectName = object.getName();
+                if (objectName.equals("derwent")) solid.setCollege(Derwent);
+                else if (objectName.equals("james")) solid.setCollege(James);
+                else if (objectName.equals("vanbrugh")) solid.setCollege(Vanbrugh);
+                else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
+                else if (objectName.equals("physics")) solid.setDepartment(Physics);
+                else{
+                    System.out.println("Not college/department: " + solid.getName());
+                }
                 obstacleList.add(solid);
             } else {
                 System.err.println("Unknown PhysicsData object.");
@@ -186,8 +190,37 @@ public class SailingScreen extends AbstractScreen {
     @Override
     public void update(float delta) {
         removeList.clear();
-
+        goldLabel.setText(Integer.toString(main.player.getGold()));
         this.playerShip.playerMove(delta);
+
+        for (GameObject obstacle : obstacleList) {
+            if (playerShip.overlaps(obstacle, true)) {
+                String name = obstacle.getName();
+                System.out.println(name);
+                mapMessage.setText(capitalizeFirstLetter(name) + " Island");
+
+                if (!(obstacle.getDepartment() == null)) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.F)) main.setScreen(new DepartmentScreen(main, obstacle.getDepartment()));
+                }
+                // Obstacle must be a college if department is null
+                else if (!(obstacle.getCollege() == null)) {
+                    College college = obstacle.getCollege();
+                    if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+                        if (!playerShip.getCollege().getAlly().contains(college)) {
+                            main.setScreen(new CombatScreen(main, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss")));
+                        }
+                        else{
+                            main.setScreen(new CollegeScreen(main, college));
+                        }
+                    }
+
+                }
+                else {
+                    playerShip.overlaps(obstacle, true);
+                    System.out.println("Pure obstacle");
+                }
+            }
+        }
 
         Boolean x = false;
         for (GameObject region : regionList) {
@@ -208,33 +241,6 @@ public class SailingScreen extends AbstractScreen {
             }
         }
 
-        for (GameObject obstacle : obstacleList) {
-            if (playerShip.overlaps(obstacle, true)) {
-                String name = obstacle.getName();
-                System.out.println(name);
-                mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-                // Obstacle must be a department if college is null
-                if (obstacle.getCollege() == null) {
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) main.setScreen(new DepartmentScreen(main, obstacle.getDepartment()));
-                }
-                // Obstacle must be a college if department is null
-                else if (obstacle.getDepartment() == null) {
-                    College college = obstacle.getCollege();
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-                        if (college.isBossDead() == false) {
-                            main.setScreen(new CombatScreen(main, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss")));
-                        }
-                        else{
-                            main.setScreen(new CollegeScreen(main, James));
-                        }
-                    }
-
-                }
-                else {
-                    System.out.println("Pure obstacle");
-                }
-            }
-        }
         if (!x){
             mapMessage.setText("Neutral territory");
         }

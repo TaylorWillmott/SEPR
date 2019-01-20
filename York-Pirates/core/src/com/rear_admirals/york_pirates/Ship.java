@@ -59,6 +59,7 @@ public class Ship extends MoveableObject {
         this.name = name;
         this.healthMax = defence*20;
         this.college = college;
+        this.health = healthMax;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         setupShip();
     }

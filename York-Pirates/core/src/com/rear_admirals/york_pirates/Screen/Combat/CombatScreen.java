@@ -373,12 +373,14 @@ public class CombatScreen extends AbstractScreen {
                 break;
             case PLAYER_DIES:
                 textBox.setStyle(main.skin.get("red", TextButton.TextButtonStyle.class));
+                player.addGold(-player.getGold()/2);
+                player.playerShip.setHealth(player.playerShip.getHealthMax()/4);
                 dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
                 break;
             case ENEMY_DIES:
                 textBox.setStyle(main.skin.get("default", TextButton.TextButtonStyle.class));
-                player.addGold(10);
-                player.addPoints(10);
+                player.addGold(20);
+                player.addPoints(20);
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
                 break;
             case PLAYER_FLEES:

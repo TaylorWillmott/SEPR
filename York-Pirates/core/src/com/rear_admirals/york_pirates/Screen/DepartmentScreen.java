@@ -26,8 +26,8 @@ public class DepartmentScreen extends AbstractScreen {
         Table optionsTable = new Table();
         optionsTable.setFillParent(true);
         Label title = new Label(department.name, main.skin);
-        TextButton upgrade = new TextButton("Upgrade Ship "+ department.name, main.skin);
-        TextButton heal = new TextButton("Heal Ship", main.skin);
+        TextButton upgrade = new TextButton("Upgrade Ship "+ department.getProduct() + " for " + department.getPrice() + " gold", main.skin);
+        TextButton heal = new TextButton("Heal Ship for 10 gold", main.skin);
         Label message = new Label("", main.skin);
 
         upgrade.addListener(new ClickListener(){

@@ -1,6 +1,5 @@
 package com.rear_admirals.york_pirates;
 
-import com.rear_admirals.york_pirates.screen.sailing.Ship;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

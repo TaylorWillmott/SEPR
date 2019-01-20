@@ -231,7 +231,7 @@ public class SailingScreen extends BaseScreen {
                         System.out.println("A college");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
                             System.out.println("Enemy");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 1, 15, Brig, college, college.getName() + " Boss", true)));
+                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
                         } else {
                             System.out.println("Ally");
                             pirateGame.setScreen(new CollegeScreen(pirateGame, college));

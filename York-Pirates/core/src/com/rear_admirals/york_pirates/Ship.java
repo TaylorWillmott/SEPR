@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Ship extends MoveableObject {
@@ -15,16 +14,12 @@ public class Ship extends MoveableObject {
 	private int health;
     private ShipType type;
     private int healthMax;
-    public Texture sailingTexture;
+    private Texture sailingTexture;
     private College college;
     private boolean isBoss = false;
 
-    public boolean getIsBoss() {
-        return this.isBoss;
-    }
-
     public Ship(ShipType type, College college) {
-        this.name = college.name + " " + type.name;
+        this.name = college.getName() + " " + type.getName();
         this.attack = type.getAttack();
         this.defence = type.getDefence();
         this.accuracy = type.getAccuracy();
@@ -37,7 +32,7 @@ public class Ship extends MoveableObject {
     }
 
     public Ship(ShipType type, College college, String texturePath) {
-        this.name = college.name + " " + type.name;
+        this.name = college.getName() + " " + type.getName();
         this.attack = type.getAttack();
         this.defence = type.getDefence();
         this.accuracy = type.getAccuracy();
@@ -75,16 +70,7 @@ public class Ship extends MoveableObject {
         this.setMaxSpeed(200);
         this.setDeceleration(20);
         this.setEllipseBoundary();
-
     }
-
-    public void healShip(){
-        setHealth(getHealthMax());
-    }
-
-//    public void forward(int distance) { angularMove(pos.z, distance); }
-//
-//    public void forward() { forward(3); }
 
     public void playerMove(float dt) {
         this.setAccelerationXY(0,0);
@@ -95,18 +81,15 @@ public class Ship extends MoveableObject {
             this.rotateBy(-90 * dt );
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            anchor = false;
+            this.setAnchor(false);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            anchor = true;
+            this.setAnchor(true);
         }
     }
 
     public void damage(int amt){
     	health = health - amt;
-    	if (health <= 0) {
-    		sink();
-	    }
     }
 
     @Override
@@ -115,12 +98,7 @@ public class Ship extends MoveableObject {
         batch.draw(new TextureRegion(sailingTexture),getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation());
     }
 
-    public void sink() {
-        //TODO Sinking function.
-    }
-
     // Getters and Setters
-
     public College getCollege() {
         return college;
     }
@@ -153,6 +131,12 @@ public class Ship extends MoveableObject {
 	public String getType() {
 		return type.getName();
 	}
+
+	public Texture getSailingTexture() { return this.sailingTexture; }
+
+    public boolean getIsBoss() {
+        return this.isBoss;
+    }
 
 	public void setName(String name) { this.name = name; }
 

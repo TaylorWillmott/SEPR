@@ -1,13 +1,11 @@
 package com.rear_admirals.york_pirates;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class MoveableObject extends GameObject {
 
-	protected Vector2 velocity;
+	private Vector2 velocity;
 	private Vector2 acceleration;
 
 	// maximum speed
@@ -19,34 +17,19 @@ public class MoveableObject extends GameObject {
 	// should image rotate to match velocity?
 	private boolean autoAngle;
 
-    public boolean isAnchor() {
-        return anchor;
-    }
-
-    public boolean anchor;
+	private boolean anchor;
 
 	public MoveableObject() {
-		velocity = new Vector2();
-		acceleration = new Vector2();
-		maxSpeed = 9999;
-		deceleration = 0;
-		autoAngle = false;
-		anchor = true;
-	}
-
-	// velocity methods
-	public void setVelocityXY(float vx, float vy) {velocity.set(vx, vy);}
-	public void addVelocityXY(float vx, float vy) {velocity.add(vx, vy);}
-
-	// set velocity from angle and speed
-	public void setVelocityAS(float angleDeg, float speed) {
-		velocity.x = speed * MathUtils.cosDeg(angleDeg);
-		velocity.y = speed * MathUtils.sinDeg(angleDeg);
+		this.velocity = new Vector2();
+		this.acceleration = new Vector2();
+		this.maxSpeed = 9999;
+		this.deceleration = 0;
+		this.autoAngle = false;
+		this.anchor = true;
 	}
 
 	// acceleration/deceleration methods
 	public void setAccelerationXY(float ax, float ay) {acceleration.set(ax, ay);}
-	public void addAccelerationXY(float ax, float ay) {acceleration.add(ax, ay);}
 
 	// set acceleration from angle and speed
 	public void setAccelerationAS(float angleDeg, float speed) {
@@ -65,10 +48,6 @@ public class MoveableObject extends GameObject {
 	public float getMotionAngle() {
 		return MathUtils.atan2(velocity.y, velocity.x) * MathUtils.radiansToDegrees;
 	}
-
-	public void setAutoAngle(boolean b) {autoAngle = b;}
-
-	public void accelerateForward(float speed) {setAccelerationAS(getRotation(), speed);}
 
 	public void addAccelerationAS(float angle, float amount) {
 		acceleration.add(amount * MathUtils.cosDeg(angle),amount * MathUtils.sinDeg(angle));
@@ -95,9 +74,11 @@ public class MoveableObject extends GameObject {
 
 		// rotate image when moving
 		if (autoAngle && getSpeed() > 0.1) setRotation(getMotionAngle());
-
 	}
 
+	public void setAnchor(boolean anchor) { this.anchor = anchor; }
 
-
+	public boolean isAnchor() {
+		return anchor;
+	}
 }

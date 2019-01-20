@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 public class College {
 
-	public final String name;
+	private final String name;
 	private ArrayList<College> ally;
     private boolean bossDead;
-
 
     public College(String name) {
         this.name = name;
@@ -16,20 +15,16 @@ public class College {
         this.bossDead = false;
     }
 
-
     public String getName() { return name; }
 
     public ArrayList<College> getAlly() { return ally; }
-
     public void addAlly(College newAlly){
         ally.add(newAlly);
     }
 
-
     public boolean isBossDead() {
         return bossDead;
     }
-
     public void setBossDead(boolean bossDead) {
         this.bossDead = bossDead;
     }
@@ -37,5 +32,4 @@ public class College {
 	public static College Derwent = new College("Derwent");
     public static College Vanbrugh = new College("Vanbrugh");
     public static College James = new College("James");
-
 }

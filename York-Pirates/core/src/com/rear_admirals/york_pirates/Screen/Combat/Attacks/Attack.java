@@ -16,12 +16,12 @@ public class Attack {
 
 	// Generic constructor. Creates simple broadside attack.
 	protected Attack() {
-		name = "Broadside";
-		desc = "Fire a broadside at your enemy.";
-		dmgMultiplier = 3;
-		accMultiplier = 1;
-		skipMove = false;
-		skipMoveStatus = skipMove;
+		this.name = "Broadside";
+		this.desc = "Fire a broadside at your enemy.";
+		this.dmgMultiplier = 3;
+		this.accMultiplier = 1;
+		this.skipMove = false;
+		this.skipMoveStatus = skipMove;
 	}
 
 	// Custom constructor. Can be used to create any attack which applies a multiple of the attacker's damage
@@ -39,8 +39,11 @@ public class Attack {
 	// Old function used to check if an attack hits the enemy.
 	@Deprecated
 	protected boolean doesHit( int accuracy, int mult, int bound) {
-		if ( accuracy * mult > Math.random() * bound) { return true; }
-		else { return false; }
+		if ( accuracy * mult > Math.random() * bound) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// New function used to check if an attack hits the enemy.
@@ -48,29 +51,28 @@ public class Attack {
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
 		if (accPercent * (1+(shipAcc-3)*0.02) > random){
 			return true;
-		}
-		else{
+		} else{
 			return false;
 		}
 	}
 
 	// Function called to actually perform the attack.
 	public int doAttack(Ship attacker, Ship defender) {
-		if ( doesHit(attacker.getAccuracy(), accPercent) ) {
-			damage = attacker.getAttack() * dmgMultiplier;
-			defender.damage(damage);
-			return damage;
+		if ( doesHit(attacker.getAccuracy(), this.accPercent) ) {
+			this.damage = attacker.getAttack() * this.dmgMultiplier;
+			defender.damage(this.damage);
+			return this.damage;
 		}
 		return 0;
 	}
 
-	public String getName() { return name;	}
-	public String getDesc() { return desc; }
+	public String getName() { return this.name;	}
+	public String getDesc() { return this.desc; }
 	public boolean isSkipMove() {
-		return skipMove;
+		return this.skipMove;
 	}
 	public boolean isSkipMoveStatus() {
-		return skipMoveStatus;
+		return this.skipMoveStatus;
 	}
 	public void setSkipMoveStatus(boolean skipMoveStatus) {
 		this.skipMoveStatus = skipMoveStatus;

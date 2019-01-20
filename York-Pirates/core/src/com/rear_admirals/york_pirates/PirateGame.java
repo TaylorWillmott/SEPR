@@ -9,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.rear_admirals.york_pirates.Screen.SailingScreen;
 
 public class PirateGame extends Game {
-    public SpriteBatch batch;
-    public BitmapFont font;
-    public Skin skin;
-    public Player player;
-	public SailingScreen sailing_scene;
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private Skin skin;
+    private Player player;
+	private SailingScreen sailingScene;
 	public static Department Chemistry;
 	public static Department Physics;
 
@@ -26,20 +26,14 @@ public class PirateGame extends Game {
         player = new Player();
 		Chemistry = new Department("Chemistry", "Damage", this);
 		Physics = new Department("Physics", "Defence", this);
-		this.sailing_scene = new SailingScreen(this);
+		this.sailingScene = new SailingScreen(this);
         setScreen(new MainMenu(this));
-
-
-
-
 	}
-
 
 	@Override
 	public void dispose() {
 		batch.dispose();
 		font.dispose();
-
 	}
 
 	@Override
@@ -63,4 +57,12 @@ public class PirateGame extends Game {
 	public void resume() {
 		super.resume();
 	}
+
+	public Skin getSkin() { return this.skin; }
+
+	public void setSkin(Skin skin) { this.skin = skin; }
+
+	public Player getPlayer() { return this.player; }
+
+	public SailingScreen getSailingScene() { return this.sailingScene; }
 }

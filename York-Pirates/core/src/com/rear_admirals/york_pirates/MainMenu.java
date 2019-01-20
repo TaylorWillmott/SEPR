@@ -1,7 +1,6 @@
 package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.rear_admirals.york_pirates.Screen.AbstractScreen;
 import com.rear_admirals.york_pirates.Screen.Combat.CombatScreen;
 import com.rear_admirals.york_pirates.Screen.CollegeScreen;
 import com.rear_admirals.york_pirates.Screen.DepartmentScreen;
@@ -17,23 +17,16 @@ import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;
 import static com.rear_admirals.york_pirates.College.*;
 
-public class MainMenu implements Screen {
+public class MainMenu extends AbstractScreen {
+    private Stage stage;
 
-    final PirateGame main;
-//    OrthographicCamera camera;
-    Stage stage;
-    float screen_width;
-    float screen_height;
+    private float screen_width;
+    private float screen_height;
 
-    // Screens
-    public CombatScreen combatScreen;
-
-    public MainMenu(final PirateGame main){
-        this.main = main;
+    public MainMenu(final PirateGame pirateGame){
+        super(pirateGame);
 
         Gdx.graphics.setTitle("Main Menu - York Pirates!");
-//        camera = new OrthographicCamera();
-//        camera.setToOrtho(false, 800, 480);
 
         // Layout Properties
         Container<Table> tableContainer = new Container<Table>();
@@ -43,28 +36,25 @@ public class MainMenu implements Screen {
         Table table = new Table();
         stage = new Stage(new FitViewport(1920,1080));
 
-
-
         screen_width = stage.getWidth();
         screen_height = stage.getHeight();
 
         // Debugging
         System.out.println(screen_width + ", " + screen_height);
 
-        Label title = new Label("Rear Admirals", main.skin, "title");
+        Label title = new Label("Rear Admirals", pirateGame.getSkin(), "title");
         title.setAlignment(Align.center);
 
-        TextButton combat_mode = new TextButton("Go to Combat Mode", main.skin);
-        TextButton sailing_mode = new TextButton("Go to Sailing Mode", main.skin);
-        TextButton college_mode = new TextButton("Go to College Screen", main.skin);
-        TextButton department_mode = new TextButton("Go to Department Screen", main.skin);
-
+        TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
+        TextButton sailing_mode = new TextButton("Go to Sailing Mode", pirateGame.getSkin());
+        TextButton college_mode = new TextButton("Go to College Screen", pirateGame.getSkin());
+        TextButton department_mode = new TextButton("Go to Department Screen", pirateGame.getSkin());
 
         // Allows button to be clickable, and sets process for when clicked.
         combat_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new CombatScreen(main, new Ship(Brig, Derwent)));
+                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(Brig, Derwent)));
                 dispose();
             }
         });
@@ -72,7 +62,7 @@ public class MainMenu implements Screen {
         sailing_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                main.setScreen(main.sailing_scene);
+                pirateGame.setScreen(pirateGame.getSailingScene());
                 dispose();
             }
         });
@@ -80,31 +70,30 @@ public class MainMenu implements Screen {
         college_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                main.setScreen(new CollegeScreen(main, Derwent));
+                pirateGame.setScreen(new CollegeScreen(pirateGame, Derwent));
                 dispose();
             }
         });
+
         department_mode.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                main.setScreen(new DepartmentScreen(main, Chemistry));
+                pirateGame.setScreen(new DepartmentScreen(pirateGame, Chemistry));
                 dispose();
             }
         });
 
-//        table.setDebug(true);
-
         tableContainer.setActor(table);
 
-        table.add(title).padBottom(screen_height/20).width(screen_width/2);
+        table.add(title).padBottom(viewwidth/20).width(viewwidth/2);
         table.row(); // Ends the current row
-        table.add(sailing_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
+        table.add(sailing_mode).uniform().padBottom(viewheight/40).size(viewwidth/2,viewheight/10);
         table.row();
-        table.add(new Label("These are for demo purposes, to show implementation of combat and colleges.", main.skin));
+        table.add(new Label("These are for demo purposes, to show implementation of combat and colleges.", pirateGame.getSkin()));
         table.row();
-        table.add(combat_mode).uniform().padBottom(screen_height/40).fill();
+        table.add(combat_mode).uniform().padBottom(viewheight/40).fill();
         table.row();
-        table.add(college_mode).uniform().fill().padBottom(screen_height/40);
+        table.add(college_mode).uniform().fill().padBottom(viewheight/40);
         table.row();
         table.add(department_mode).uniform().fill();
 
@@ -114,6 +103,9 @@ public class MainMenu implements Screen {
         System.out.println("IP: stage");
     }
 
+    @Override
+    public void update(float delta) { }
+
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -121,6 +113,7 @@ public class MainMenu implements Screen {
         stage.act();
 
     }
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width,height);

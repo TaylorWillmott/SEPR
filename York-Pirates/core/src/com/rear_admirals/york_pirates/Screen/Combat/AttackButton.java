@@ -4,18 +4,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.rear_admirals.york_pirates.Screen.Combat.Attacks.Attack;
 
-
 public class AttackButton extends TextButton {
-    String name;
-    Skin skin;
-    String desc;
-    Attack attack;
+    private String name;
+    private String desc;
+    private Attack attack;
 
     public AttackButton(Attack attack, Skin skin){
         super(attack.getName(), skin);
         this.attack = attack;
         this.name = attack.getName();
-        this.skin = skin;
         this.desc = attack.getDesc();
     }
 
@@ -23,19 +20,14 @@ public class AttackButton extends TextButton {
         super(attack.getName(), skin, type);
         this.attack = attack;
         this.name = attack.getName();
-        this.skin = skin;
         this.desc = attack.getDesc();
     }
 
-    @Override
     public String getName() {
-        return name;
+        return this.name;
     }
-
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
-
-
-//    public AttackButton setAttack
+    public Attack getAttack() { return this.attack; }
 }

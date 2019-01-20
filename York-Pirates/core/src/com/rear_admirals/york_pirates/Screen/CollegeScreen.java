@@ -2,17 +2,12 @@ package com.rear_admirals.york_pirates.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.College;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
@@ -24,15 +19,16 @@ public class CollegeScreen extends AbstractScreen {
 
     public CollegeScreen(PirateGame main, College college){
         super(main);
-        this.player = main.player;
+        this.player = main.getPlayer();
 
         Table uiTable = new Table();
 
-        Label pointsTextLabel = new Label("Points: ", main.skin);
-        pointsLabel = new Label(Integer.toString(main.player.getPoints()), main.skin);
+        Label pointsTextLabel = new Label("Points: ", main.getSkin());
+        pointsLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin());
         pointsLabel.setAlignment(Align.left);
-        Label goldTextLabel = new Label("Gold:", main.skin);
-        goldLabel = new Label(Integer.toString(main.player.getGold()), main.skin);
+
+        Label goldTextLabel = new Label("Gold:", main.getSkin());
+        goldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin());
         goldLabel.setAlignment(Align.left);
 
         uiTable.add(pointsTextLabel);
@@ -48,36 +44,35 @@ public class CollegeScreen extends AbstractScreen {
 
         Table optionsTable = new Table();
         optionsTable.setFillParent(true);
-        Label title = new Label("Welcome to " + college.name, main.skin, "title");
-        final Label message = new Label("", main.skin);
+        Label title = new Label("Welcome to " + college.getName(), main.getSkin(), "title");
+        final Label message = new Label("", main.getSkin());
         optionsTable.add(title);
         optionsTable.row();
-        if (player.playerShip.getCollege().getAlly().contains(college)){
-            final int toHeal = player.playerShip.getHealthMax() - player.playerShip.getHealth();
-            TextButton heal = new TextButton("Repair Ship for "+Integer.toString(toHeal)+" gold", main.skin);
+
+        if (player.getPlayerShip().getCollege().getAlly().contains(college)){
+            final int toHeal = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();
+            TextButton heal = new TextButton("Repair Ship for "+Integer.toString(toHeal)+" gold", main.getSkin());
+
             if (toHeal == 0) { heal.setText("Your ship is already fully repaired!"); }
+
             heal.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if (player.payGold(toHeal/10)) {
-                        player.playerShip.setHealth(player.playerShip.getHealthMax());
+                        player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax());
                         message.setText("Successful repair");
-                    }
-                    else{
+                    } else {
                         message.setText("You don't have the funds to repair your ship");
                     }
                 }
             });
             optionsTable.add(heal);
         }
+
         optionsTable.row();
         optionsTable.add(message);
 
-
-
-
         mainStage.addActor(optionsTable);
-
         Gdx.input.setInputProcessor(mainStage);
     }
 
@@ -85,10 +80,11 @@ public class CollegeScreen extends AbstractScreen {
     public void update(float delta){
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             System.out.println("ESCAPE");
-            main.setScreen(main.sailing_scene);
+            pirateGame.setScreen(pirateGame.getSailingScene());
             dispose();
         }
-        goldLabel.setText(Integer.toString(main.player.getGold()));
-        pointsLabel.setText(Integer.toString(main.player.getPoints()));
+
+        goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
+        pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
     }
 }

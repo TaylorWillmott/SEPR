@@ -1,7 +1,5 @@
 package com.rear_admirals.york_pirates;
 
-
-import com.badlogic.gdx.graphics.Texture;
 import com.rear_admirals.york_pirates.Screen.Combat.Attacks.*;
 import com.rear_admirals.york_pirates.Screen.Combat.Attacks.GrapeShot;
 
@@ -12,38 +10,32 @@ import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.ShipType.*;
 
 public class Player {
-    public Ship getPlayerShip() {
-        return playerShip;
-    }
-
-    public Ship playerShip;
+    private Ship playerShip;
     private int gold;
     private int points;
     public static List<Attack> attacks = new ArrayList<Attack>();
 
     public Player() {
-	    playerShip = new Ship(Brig, "Your Ship", Derwent);
-        gold = 10000;
-        points = 0;
+	    this.playerShip = new Ship(Brig, "Your Ship", Derwent);
+        this.gold = 0;
+        this.points = 0;
 
         attacks.add(Ram.attackRam);
         attacks.add(GrapeShot.attackSwivel);
         attacks.add(Attack.attackBoard);
-
-
     }
 
     public Player(Ship ship) {
-        playerShip = ship;
-        gold = 0;
-        points = 0;
+        this.playerShip = ship;
+        this.gold = 0;
+        this.points = 0;
 
         attacks.add(Ram.attackRam);
         attacks.add(Attack.attackSwivel);
         attacks.add(Attack.attackBoard);
-
-
     }
+
+    public Ship getPlayerShip() { return this.playerShip; }
 
     public int getPoints() { return points; }
 
@@ -63,12 +55,7 @@ public class Player {
         }
     }
 
-	public List<Attack> getAttacks() { return attacks; }
-
     public void addPoints(int amount) { points += amount; }
 
     public void addGold(int amount) { gold = gold + amount; }
-
-    public void setAttacks( List<Attack> attacks ) { this.attacks = attacks; }
-
 }

@@ -1,7 +1,6 @@
 package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
@@ -11,12 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class GameObject extends Group {
 
-	public TextureRegion region;
-	public Polygon boundingPolygon;
-	public College college;
-    public Department department;
-
-
+	private TextureRegion region;
+	private Polygon boundingPolygon;
+	private College college;
+    private Department department;
 
 	public GameObject() {
 		super();
@@ -24,14 +21,6 @@ public class GameObject extends Group {
 		boundingPolygon = null;
 		college = null;
 		department = null;
-	}
-
-	public void setTexture(Texture t) {
-		int w = t.getWidth();
-		int h = t.getHeight();
-		setWidth(w);
-		setHeight(h);
-		region.setRegion(t);
 	}
 
 	public void act(float dt) {
@@ -121,11 +110,5 @@ public class GameObject extends Group {
 		if (getWidth() == 0) System.err.println("error: actor size not set");
 		setOrigin(getWidth()/2,getHeight()/2);
 	}
-
-	public void moveToOrigin(GameObject target) {
-		this.setPosition(target.getX() + target.getOriginX() - this.getOriginX(),
-				target.getY() + target.getOriginY() - this.getOriginY());
-	}
-
 }
 

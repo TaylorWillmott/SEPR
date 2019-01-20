@@ -7,8 +7,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Flee extends Attack {
 
     protected Flee() {
-        name = "FLEE";
-        desc = "Attempt to escape enemy.";
+        this.name = "FLEE";
+        this.desc = "Attempt to escape enemy.";
     }
 
     // Flee requires a custom doAttack function and as such has its own class.
@@ -23,5 +23,4 @@ public class Flee extends Attack {
     }
 
     public static final Flee attackFlee = new Flee();
-
 }

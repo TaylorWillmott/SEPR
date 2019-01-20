@@ -130,7 +130,7 @@ public class CombatScreen extends BaseScreen {
         enemyHPTable.add(enemyHPLabel).padRight(viewwidth/36f);
         enemyHPTable.add(enemyHP).width(viewwidth/5);
 
-        Label screenTitle = new Label("combat Mode", pirateGame.getSkin(),"title_black");
+        Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
         screenTitle.setAlignment(Align.center);
 
         textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());

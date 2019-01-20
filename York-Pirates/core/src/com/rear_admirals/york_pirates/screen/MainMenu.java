@@ -46,7 +46,7 @@ public class MainMenu extends BaseScreen {
         title.setAlignment(Align.center);
 
         TextButton sailing_mode = new TextButton("Start Game", pirateGame.getSkin()); // Starts sailing mode.
-        TextButton combat_mode = new TextButton("Go to combat Mode", pirateGame.getSkin());
+        TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
         TextButton college_mode = new TextButton("Go to College screen", pirateGame.getSkin());
         TextButton department_mode = new TextButton("Go to Department screen", pirateGame.getSkin());
 

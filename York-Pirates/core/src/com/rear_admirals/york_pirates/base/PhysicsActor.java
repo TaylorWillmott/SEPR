@@ -1,9 +1,10 @@
-package com.rear_admirals.york_pirates;
+package com.rear_admirals.york_pirates.base;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.rear_admirals.york_pirates.base.BaseActor;
 
-public class MoveableObject extends GameObject {
+public class PhysicsActor extends BaseActor {
 
 	private Vector2 velocity;
 	private Vector2 acceleration;
@@ -19,7 +20,7 @@ public class MoveableObject extends GameObject {
 
 	private boolean anchor;
 
-	public MoveableObject() {
+	public PhysicsActor() {
 		this.velocity = new Vector2();
 		this.acceleration = new Vector2();
 		this.maxSpeed = 9999;

@@ -1,6 +1,6 @@
-package com.rear_admirals.york_pirates.Screen.Combat.Attacks;
+package com.rear_admirals.york_pirates.screen.combat.Attacks;
 
-import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.screen.sailing.Ship;
 
 public class GrapeShot extends Attack {
 

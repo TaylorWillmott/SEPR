@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Screen;
+package com.rear_admirals.york_pirates.base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.PirateGame;
 
-public abstract class AbstractScreen implements Screen {
+public abstract class BaseScreen implements Screen {
 
     protected Stage mainStage;
     protected Stage uiStage;
@@ -17,7 +17,7 @@ public abstract class AbstractScreen implements Screen {
     protected final int viewwidth = 1920;
     protected final int viewheight = 1080;
 
-    public AbstractScreen(PirateGame game){
+    public BaseScreen(PirateGame game){
         this.pirateGame = game;
         this.mainStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
         this.uiStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));

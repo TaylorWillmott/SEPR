@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.rear_admirals.york_pirates.Screen.SailingScreen;
+import com.rear_admirals.york_pirates.screen.MainMenu;
+import com.rear_admirals.york_pirates.screen.sailing.SailingScreen;
 
 public class PirateGame extends Game {
     private SpriteBatch batch;

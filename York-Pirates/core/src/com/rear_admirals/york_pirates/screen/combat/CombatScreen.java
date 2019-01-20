@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Screen.Combat;
+package com.rear_admirals.york_pirates.screen.combat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,20 +8,20 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.rear_admirals.york_pirates.Screen.Combat.Attacks.*;
+import com.rear_admirals.york_pirates.screen.combat.Attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
-import com.rear_admirals.york_pirates.Screen.AbstractScreen;
-import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.sailing.Ship;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class CombatScreen extends AbstractScreen {
+public class CombatScreen extends BaseScreen {
 
-    // Screen layout variables
+    // screen layout variables
     private float button_pad_bottom;
     private float button_pad_right;
 
@@ -66,7 +66,7 @@ public class CombatScreen extends AbstractScreen {
     private String displayText = "";
 
     public CombatScreen(final PirateGame pirateGame, Ship enemy){
-        // Calls superclass AbstractScreen
+        // Calls superclass BaseScreen
         super(pirateGame);
 
         // This constructor also replaces the create function that a stage would typically have.
@@ -74,7 +74,7 @@ public class CombatScreen extends AbstractScreen {
         this.player = pirateGame.getPlayer();
         this.enemy = enemy;
 
-        // Load the skin for this Screen
+        // Load the skin for this screen
         pirateGame.setSkin(new Skin(Gdx.files.internal("flat-earth-ui.json")));
 
         combatStack = new Stack();
@@ -130,7 +130,7 @@ public class CombatScreen extends AbstractScreen {
         enemyHPTable.add(enemyHPLabel).padRight(viewwidth/36f);
         enemyHPTable.add(enemyHP).width(viewwidth/5);
 
-        Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
+        Label screenTitle = new Label("combat Mode", pirateGame.getSkin(),"title_black");
         screenTitle.setAlignment(Align.center);
 
         textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());
@@ -256,7 +256,7 @@ public class CombatScreen extends AbstractScreen {
         }
     }
 
-    // Combat Handler
+    // combat Handler
     //  This function handles the ship combat
     public void combatHandler(BattleEvent status){
         //Debugging

@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Screen;
+package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,8 +11,9 @@ import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
+import com.rear_admirals.york_pirates.base.BaseScreen;
 
-public class CollegeScreen extends AbstractScreen {
+public class CollegeScreen extends BaseScreen {
     private Player player;
     private Label pointsLabel;
     private Label goldLabel;

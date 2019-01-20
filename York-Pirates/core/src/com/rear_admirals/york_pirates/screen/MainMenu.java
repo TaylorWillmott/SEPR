@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates;
+package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,16 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.rear_admirals.york_pirates.Screen.AbstractScreen;
-import com.rear_admirals.york_pirates.Screen.Combat.CombatScreen;
-import com.rear_admirals.york_pirates.Screen.CollegeScreen;
-import com.rear_admirals.york_pirates.Screen.DepartmentScreen;
+import com.rear_admirals.york_pirates.PirateGame;
+import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
+import com.rear_admirals.york_pirates.screen.sailing.Ship;
 
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;
 import static com.rear_admirals.york_pirates.College.*;
 
-public class MainMenu extends AbstractScreen {
+public class MainMenu extends BaseScreen {
     private Stage stage;
 
     private float screen_width;
@@ -46,9 +46,9 @@ public class MainMenu extends AbstractScreen {
         title.setAlignment(Align.center);
 
         TextButton sailing_mode = new TextButton("Start Game", pirateGame.getSkin()); // Starts sailing mode.
-        TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
-        TextButton college_mode = new TextButton("Go to College Screen", pirateGame.getSkin());
-        TextButton department_mode = new TextButton("Go to Department Screen", pirateGame.getSkin());
+        TextButton combat_mode = new TextButton("Go to combat Mode", pirateGame.getSkin());
+        TextButton college_mode = new TextButton("Go to College screen", pirateGame.getSkin());
+        TextButton department_mode = new TextButton("Go to Department screen", pirateGame.getSkin());
 
         // Allows button to be clickable, and sets process for when clicked.
         combat_mode.addListener(new ClickListener(){

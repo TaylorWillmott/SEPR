@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Screen;
+package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,8 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.*;
+import com.rear_admirals.york_pirates.base.BaseScreen;
 
-public class DepartmentScreen extends AbstractScreen {
+public class DepartmentScreen extends BaseScreen {
 
     private Player player;
     private Label pointsLabel;

@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Screen;
+package com.rear_admirals.york_pirates.screen.sailing;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
@@ -14,10 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.Screen.Combat.CombatScreen;
-import com.rear_admirals.york_pirates.GameObject;
+import com.rear_admirals.york_pirates.screen.CollegeScreen;
+import com.rear_admirals.york_pirates.screen.DepartmentScreen;
+import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
+import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
-import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.base.BaseScreen;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,14 +29,14 @@ import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.PirateGame.Physics;
 import static com.rear_admirals.york_pirates.ShipType.*;
 
-public class SailingScreen extends AbstractScreen {
+public class SailingScreen extends BaseScreen {
 
     private Ship playerShip;
 
     //Map Variables
-    private ArrayList<GameObject> obstacleList;
-    private ArrayList<GameObject> removeList;
-    private ArrayList<GameObject> regionList;
+    private ArrayList<BaseActor> obstacleList;
+    private ArrayList<BaseActor> removeList;
+    private ArrayList<BaseActor> regionList;
 
     private int tileSize = 64;
     private int tileCountWidth = 80;
@@ -100,9 +102,9 @@ public class SailingScreen extends AbstractScreen {
 
         uiStage.addActor(messageTable);
 
-        obstacleList = new ArrayList<GameObject>();
-        removeList = new ArrayList<GameObject>();
-        regionList = new ArrayList<GameObject>();
+        obstacleList = new ArrayList<BaseActor>();
+        removeList = new ArrayList<BaseActor>();
+        regionList = new ArrayList<BaseActor>();
 
         // set up tile map, renderer and camera
         tiledMap = new TmxMapLoader().load("game_map.tmx");
@@ -133,7 +135,7 @@ public class SailingScreen extends AbstractScreen {
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
                 Rectangle r = rectangleObject.getRectangle();
 
-                GameObject solid = new GameObject();
+                BaseActor solid = new BaseActor();
                 solid.setPosition(r.x, r.y);
                 solid.setSize(r.width, r.height);
                 solid.setName(object.getName());
@@ -160,7 +162,7 @@ public class SailingScreen extends AbstractScreen {
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
                 Rectangle r = rectangleObject.getRectangle();
 
-                GameObject region = new GameObject();
+                BaseActor region = new BaseActor();
                 region.setPosition(r.x, r.y);
                 region.setSize(r.width, r.height);
                 region.setRectangleBoundary();
@@ -189,7 +191,7 @@ public class SailingScreen extends AbstractScreen {
         this.playerShip.playerMove(delta);
 
         Boolean x = false;
-        for (GameObject region : regionList) {
+        for (BaseActor region : regionList) {
             String name = region.getName();
             if (playerShip.overlaps(region, false)) {
                 x = true;
@@ -212,7 +214,7 @@ public class SailingScreen extends AbstractScreen {
 
 
         Boolean y = false;
-        for (GameObject obstacle : obstacleList) {
+        for (BaseActor obstacle : obstacleList) {
             String name = obstacle.getName();
             if (playerShip.overlaps(obstacle, true)) {
                 y = true;
@@ -244,7 +246,7 @@ public class SailingScreen extends AbstractScreen {
 
         if (!y) hintMessage.setText("");
 
-        for (GameObject object : removeList) {
+        for (BaseActor object : removeList) {
             object.remove();
         }
 

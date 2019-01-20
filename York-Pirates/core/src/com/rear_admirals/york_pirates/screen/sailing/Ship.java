@@ -1,15 +1,17 @@
-package com.rear_admirals.york_pirates;
+package com.rear_admirals.york_pirates.screen.sailing;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.ShipType;
+import com.rear_admirals.york_pirates.base.PhysicsActor;
 
 import static com.rear_admirals.york_pirates.College.Derwent;
-import static com.rear_admirals.york_pirates.ShipType.Brig;
 
-public class Ship extends MoveableObject {
+public class Ship extends PhysicsActor {
 	private String name;
     private int attack;
 	private int defence;

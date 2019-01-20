@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.Screen.Combat;
+package com.rear_admirals.york_pirates.screen.combat;
 
 public enum BattleEvent {
     // Non event

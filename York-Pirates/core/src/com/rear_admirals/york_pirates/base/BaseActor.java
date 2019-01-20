@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates;
+package com.rear_admirals.york_pirates.base;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,15 +7,17 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.Department;
 
-public class GameObject extends Group {
+public class BaseActor extends Group {
 
 	private TextureRegion region;
 	private Polygon boundingPolygon;
 	private College college;
     private Department department;
 
-	public GameObject() {
+	public BaseActor() {
 		super();
 		region = new TextureRegion();
 		boundingPolygon = null;
@@ -67,14 +69,14 @@ public class GameObject extends Group {
 	}
 
 	/**
-	 * Determine if the collision polygons of two GameObject
+	 * Determine if the collision polygons of two BaseActor
 	 objects overlap.
 	 * If (resolve == true), then when there is overlap, move
-	 this GameObject
+	 this BaseActor
 	 * along minimum translation vector until there is no
 	 overlap.
 	 */
-	public boolean overlaps(GameObject other, boolean resolve) {
+	public boolean overlaps(BaseActor other, boolean resolve) {
 		Polygon poly1 = this.getBoundingPolygon();
 		Polygon poly2 = other.getBoundingPolygon();
 

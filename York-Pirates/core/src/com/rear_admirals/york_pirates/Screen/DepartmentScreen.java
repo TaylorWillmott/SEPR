@@ -10,16 +10,40 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.*;
 
 public class DepartmentScreen extends AbstractScreen {
 
     private Player player;
+    private Label pointsLabel;
+    private Label goldLabel;
 
     public DepartmentScreen(final PirateGame main, final Department department){
         super(main);
         player = main.player;
+
+        Table uiTable = new Table();
+
+        Label pointsTextLabel = new Label("Points: ", main.skin);
+        pointsLabel = new Label(Integer.toString(main.player.getPoints()), main.skin);
+        pointsLabel.setAlignment(Align.left);
+        Label goldTextLabel = new Label("Gold:", main.skin);
+        goldLabel = new Label(Integer.toString(main.player.getGold()), main.skin);
+        goldLabel.setAlignment(Align.left);
+
+        uiTable.add(pointsTextLabel);
+        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
+        uiTable.row();
+        uiTable.add(goldTextLabel).fill();
+        uiTable.add(goldLabel).fill();
+
+        uiTable.align(Align.topRight);
+        uiTable.setFillParent(true);
+
+        uiStage.addActor(uiTable);
+
         Table optionsTable = new Table();
         optionsTable.setFillParent(true);
         Label title = new Label(department.name, main.skin);
@@ -64,6 +88,8 @@ public class DepartmentScreen extends AbstractScreen {
             System.out.println("ESCAPE");
             main.setScreen(main.sailing_scene);
         }
+        goldLabel.setText(Integer.toString(main.player.getGold()));
+        pointsLabel.setText(Integer.toString(main.player.getPoints()));
     }
 
 

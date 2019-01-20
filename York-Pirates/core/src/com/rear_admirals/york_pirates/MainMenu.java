@@ -98,11 +98,13 @@ public class MainMenu implements Screen {
 
         table.add(title).padBottom(screen_height/20).width(screen_width/2);
         table.row(); // Ends the current row
-        table.add(combat_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
+        table.add(sailing_mode).uniform().padBottom(screen_height/40).size(screen_width/2,screen_height/10);
         table.row();
-        table.add(sailing_mode).uniform().padBottom(screen_height/40).fill();
+        table.add(new Label("These are for demo purposes, to show implementation of combat and colleges.", main.skin));
         table.row();
-        table.add(college_mode).uniform().fill();
+        table.add(combat_mode).uniform().padBottom(screen_height/40).fill();
+        table.row();
+        table.add(college_mode).uniform().fill().padBottom(screen_height/40);
         table.row();
         table.add(department_mode).uniform().fill();
 

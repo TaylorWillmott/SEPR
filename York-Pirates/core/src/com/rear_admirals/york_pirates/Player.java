@@ -20,7 +20,6 @@ public class Player {
     private int gold;
     private int points;
     public static List<Attack> attacks = new ArrayList<Attack>();
-    private Texture sailingTexture;
 
     public Player() {
 	    playerShip = new Ship(Brig, "Your Ship", Derwent);
@@ -49,6 +48,10 @@ public class Player {
     public int getPoints() { return points; }
 
 	public int getGold() { return gold; }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
 	public boolean payGold(int amount){
         if (amount > gold){

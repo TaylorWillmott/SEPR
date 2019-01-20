@@ -54,6 +54,7 @@ public class SailingScreen extends AbstractScreen {
     private Label pointsLabel;
     private Label goldLabel;
     private Label mapMessage;
+    private Label hintMessage;
 
     private Float timer;
 
@@ -79,15 +80,6 @@ public class SailingScreen extends AbstractScreen {
         goldLabel = new Label(Integer.toString(main.player.getGold()), main.skin, "default_black");
         goldLabel.setAlignment(Align.left);
 
-        mapMessage = new Label("", main.skin, "default_black");
-
-        Table messageTable = new Table();
-        messageTable.add(mapMessage);
-        messageTable.setFillParent(true);
-        messageTable.top();
-
-        uiStage.addActor(messageTable);
-
         uiTable.add(pointsTextLabel);
         uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
         uiTable.row();
@@ -98,6 +90,21 @@ public class SailingScreen extends AbstractScreen {
         uiTable.setFillParent(true);
 
         uiStage.addActor(uiTable);
+
+        mapMessage = new Label("", main.skin, "default_black");
+        hintMessage = new Label("", main.skin,"default_black");
+
+        Table messageTable = new Table();
+        messageTable.add(mapMessage);
+        messageTable.row();
+        messageTable.add(hintMessage);
+
+        messageTable.setFillParent(true);
+        messageTable.top();
+
+        uiStage.addActor(messageTable);
+
+
 
         pointsLabel.setDebug(true);
         uiTable.setDebug(true);
@@ -193,33 +200,6 @@ public class SailingScreen extends AbstractScreen {
         goldLabel.setText(Integer.toString(main.player.getGold()));
         this.playerShip.playerMove(delta);
 
-        for (GameObject obstacle : obstacleList) {
-            String name = obstacle.getName();
-            System.out.println(name);
-            mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-            if (playerShip.overlaps(obstacle, true)) {
-                if (!(obstacle.getDepartment() == null)) {
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) main.setScreen(new DepartmentScreen(main, obstacle.getDepartment()));
-                }
-                // Obstacle must be a college if department is null
-                else if (!(obstacle.getCollege() == null)) {
-                    College college = obstacle.getCollege();
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-                        if (!playerShip.getCollege().getAlly().contains(college)) {
-                            main.setScreen(new CombatScreen(main, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss")));
-                        }
-                        else{
-                            main.setScreen(new CollegeScreen(main, college));
-                        }
-                    }
-
-                }
-                else {
-                    System.out.println("Pure obstacle");
-                }
-            }
-        }
-
         Boolean x = false;
         for (GameObject region : regionList) {
             String name = region.getName();
@@ -239,9 +219,43 @@ public class SailingScreen extends AbstractScreen {
             }
         }
 
-        if (!x){
-            mapMessage.setText("Neutral territory");
+        if (!x) mapMessage.setText("Neutral territory");
+
+        Boolean y = false;
+        for (GameObject obstacle : obstacleList) {
+            String name = obstacle.getName();
+            if (playerShip.overlaps(obstacle, true)) {
+                y = true;
+                mapMessage.setText(capitalizeFirstLetter(name) + " island");
+                hintMessage.setText("Press F to interact with island");
+                System.out.println(name);
+                if (!(obstacle.getDepartment() == null)) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.F)) main.setScreen(new DepartmentScreen(main, obstacle.getDepartment()));
+                }
+                // Obstacle must be a college if college not null
+                else if (!(obstacle.getCollege() == null)) {
+                    System.out.println("A college");
+                    College college = obstacle.getCollege();
+                    if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+                        System.out.println("A college");
+                        if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
+                            System.out.println("Enemy");
+                            main.setScreen(new CombatScreen(main, new Ship(15, 1, 15, Brig, college, college.getName() + " Boss", true)));
+                        }
+                        else{
+                            System.out.println("Ally");
+                            main.setScreen(new CollegeScreen(main, college));
+                        }
+                    }
+
+                }
+                else {
+                    System.out.println("Pure obstacle");
+                }
+            }
         }
+
+        if (!y) hintMessage.setText("");
 
         for (GameObject object : removeList) {
             object.remove();

@@ -17,8 +17,11 @@ public class Ship extends MoveableObject {
     private int healthMax;
     public Texture sailingTexture;
     private College college;
+    private boolean isBoss = false;
 
-
+    public boolean getIsBoss() {
+        return this.isBoss;
+    }
 
     public Ship(ShipType type, College college) {
         this.name = college.name + " " + type.name;
@@ -51,7 +54,7 @@ public class Ship extends MoveableObject {
 	    this.name = name;
     }
 
-    public Ship(int attack, int defence, int accuracy, ShipType type, College college, String name) {
+    public Ship(int attack, int defence, int accuracy, ShipType type, College college, String name, boolean isBoss) {
         this.attack = attack;
         this.defence = defence;
         this.accuracy = accuracy;
@@ -61,6 +64,7 @@ public class Ship extends MoveableObject {
         this.college = college;
         this.health = healthMax;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
+        this.isBoss = isBoss;
         setupShip();
     }
 

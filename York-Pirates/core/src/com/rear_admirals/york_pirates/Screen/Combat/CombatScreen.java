@@ -76,7 +76,6 @@ public class CombatScreen extends AbstractScreen {
 
         // Load the skin for this Screen
         pirateGame.setSkin(new Skin(Gdx.files.internal("flat-earth-ui.json")));
-        Gdx.graphics.setTitle("Combat Demo - York Pirates!");
 
         combatStack = new Stack();
 
@@ -134,7 +133,7 @@ public class CombatScreen extends AbstractScreen {
         Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
         screenTitle.setAlignment(Align.center);
 
-        textBox = new TextButton("WELCOME TO THE BATTLE", pirateGame.getSkin());
+        textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());
         textBox.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -165,7 +164,7 @@ public class CombatScreen extends AbstractScreen {
         final AttackButton fleeButton = new AttackButton(Flee.attackFlee, pirateGame.getSkin(), "red");
         buttonListener(fleeButton);
 
-        descriptionLabel = new Label("Please choose your attack option", pirateGame.getSkin());
+        descriptionLabel = new Label("What would you like to do?", pirateGame.getSkin());
         descriptionLabel.setWrap(true);
         descriptionLabel.setAlignment(Align.center);
 
@@ -385,7 +384,7 @@ public class CombatScreen extends AbstractScreen {
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor){
-                descriptionLabel.setText("Please choose your attack option");
+                descriptionLabel.setText("What would you like to do?");
             };
 
             @Override

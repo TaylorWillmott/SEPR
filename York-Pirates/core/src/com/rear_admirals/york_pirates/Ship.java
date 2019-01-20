@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import static com.rear_admirals.york_pirates.College.Derwent;
+import static com.rear_admirals.york_pirates.ShipType.Brig;
+
 public class Ship extends MoveableObject {
 	private String name;
     private int attack;
@@ -17,6 +20,18 @@ public class Ship extends MoveableObject {
     private Texture sailingTexture;
     private College college;
     private boolean isBoss = false;
+
+    // For testing purposes only. Use of this constructor in-game WILL cause errors.
+    @Deprecated
+    public Ship(){
+        this.name = "DEBUG SHIP";
+        this.attack = 5;
+        this.defence = 5;
+        this.accuracy = 5;
+        this.healthMax = defence*20;
+        this.health = healthMax;
+        this.college = Derwent;
+    }
 
     public Ship(ShipType type, College college) {
         this.name = college.getName() + " " + type.getName();
@@ -134,9 +149,7 @@ public class Ship extends MoveableObject {
 
 	public Texture getSailingTexture() { return this.sailingTexture; }
 
-    public boolean getIsBoss() {
-        return this.isBoss;
-    }
+    public boolean getIsBoss() { return this.isBoss; }
 
 	public void setName(String name) { this.name = name; }
 

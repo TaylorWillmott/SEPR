@@ -45,6 +45,8 @@ public class Player {
         this.points = points;
     }
 
+    public void setGold(int gold) { this.gold = gold; }
+
 	public boolean payGold(int amount){
         if (amount > gold){
             return false;

@@ -26,7 +26,7 @@ public class MainMenu extends AbstractScreen {
     public MainMenu(final PirateGame pirateGame){
         super(pirateGame);
 
-        Gdx.graphics.setTitle("Main Menu - York Pirates!");
+        Gdx.graphics.setTitle("York Pirates!");
 
         // Layout Properties
         Container<Table> tableContainer = new Container<Table>();
@@ -45,8 +45,8 @@ public class MainMenu extends AbstractScreen {
         Label title = new Label("Rear Admirals", pirateGame.getSkin(), "title");
         title.setAlignment(Align.center);
 
+        TextButton sailing_mode = new TextButton("Start Game", pirateGame.getSkin()); // Starts sailing mode.
         TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
-        TextButton sailing_mode = new TextButton("Go to Sailing Mode", pirateGame.getSkin());
         TextButton college_mode = new TextButton("Go to College Screen", pirateGame.getSkin());
         TextButton department_mode = new TextButton("Go to Department Screen", pirateGame.getSkin());
 

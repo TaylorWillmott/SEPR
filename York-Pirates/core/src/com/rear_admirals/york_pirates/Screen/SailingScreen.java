@@ -60,8 +60,6 @@ public class SailingScreen extends AbstractScreen {
     public SailingScreen(final PirateGame main){
         super(main);
 
-	    Gdx.graphics.setTitle("Sailing Demo - York Pirates!");
-
         playerShip = main.getPlayer().getPlayerShip();
         System.out.println(playerShip.getName());
 
@@ -101,9 +99,6 @@ public class SailingScreen extends AbstractScreen {
         messageTable.top();
 
         uiStage.addActor(messageTable);
-
-        pointsLabel.setDebug(true);
-        uiTable.setDebug(true);
 
         obstacleList = new ArrayList<GameObject>();
         removeList = new ArrayList<GameObject>();
@@ -198,7 +193,7 @@ public class SailingScreen extends AbstractScreen {
             String name = region.getName();
             if (playerShip.overlaps(region, false)) {
                 x = true;
-                mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " territory");
+                mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
                     System.out.println("Enemy Found in " + name);
@@ -211,15 +206,18 @@ public class SailingScreen extends AbstractScreen {
             }
         }
 
-        if (!x) mapMessage.setText("Neutral territory");
+        if (!x) {
+            mapMessage.setText("Neutral Territory");
+        }
+
 
         Boolean y = false;
         for (GameObject obstacle : obstacleList) {
             String name = obstacle.getName();
             if (playerShip.overlaps(obstacle, true)) {
                 y = true;
-                mapMessage.setText(capitalizeFirstLetter(name) + " island");
-                hintMessage.setText("Press F to interact with island");
+                mapMessage.setText(capitalizeFirstLetter(name) + " Island");
+                hintMessage.setText("Press F to interact");
                 System.out.println(name);
                 if (!(obstacle.getDepartment() == null)) {
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) pirateGame.setScreen(new DepartmentScreen(pirateGame, obstacle.getDepartment()));

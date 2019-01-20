@@ -22,7 +22,8 @@ public class Department {
             if (product == "Defence") {
                 pirateGame.getPlayer().getPlayerShip().setDefence(pirateGame.getPlayer().getPlayerShip().getDefence() + 1);
                 return true;
-            } else {
+            }
+            else {
                 pirateGame.getPlayer().getPlayerShip().setAttack(pirateGame.getPlayer().getPlayerShip().getAttack() + 1);
                 return true;
             }

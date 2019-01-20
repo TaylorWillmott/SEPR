@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.screen.sailing;
+package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
@@ -14,12 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.screen.CollegeScreen;
-import com.rear_admirals.york_pirates.screen.DepartmentScreen;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.sailing.Ship;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -232,7 +231,7 @@ public class SailingScreen extends BaseScreen {
                         System.out.println("A college");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
                             System.out.println("Enemy");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 1, 15, Brig, college, college.getName() + " Boss", true)));
+                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
                         } else {
                             System.out.println("Ally");
                             pirateGame.setScreen(new CollegeScreen(pirateGame, college));

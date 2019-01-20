@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.rear_admirals.york_pirates.base.BaseActor;
 
 public class CombatShip extends BaseActor {
+
     private float ship_size;
     private Texture texture;
 

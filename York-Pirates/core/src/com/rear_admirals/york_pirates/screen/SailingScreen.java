@@ -18,7 +18,7 @@ import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
-import com.rear_admirals.york_pirates.screen.sailing.Ship;
+import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;

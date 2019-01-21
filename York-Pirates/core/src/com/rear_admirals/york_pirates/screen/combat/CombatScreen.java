@@ -257,7 +257,7 @@ public class CombatScreen extends BaseScreen {
     }
 
     // combat Handler
-    //  This function handles the ship combat
+    //  This function handles the ship combat using BattleEvent enum type
     public void combatHandler(BattleEvent status){
         //Debugging
         System.out.println("Running combatHandler with status: " + status.toString());
@@ -374,7 +374,8 @@ public class CombatScreen extends BaseScreen {
         }
     }
 
-    // Button Listener Classes
+    // Button Listener Classes - creates a hover listener for any button passed through
+
     public void buttonListener(final AttackButton button){
         button.addListener(new ClickListener(){
             @Override
@@ -414,6 +415,7 @@ public class CombatScreen extends BaseScreen {
         });
     }
 
+    // This method updates the player HP bar and text values
     public void updateHP(){
         enemyHP.setAnimateDuration(1);
         playerHP.setAnimateDuration(1);
@@ -446,6 +448,7 @@ public class CombatScreen extends BaseScreen {
         textAnimation = true;
     }
 
+    // This method controls the animation of the dialog label
     public void labelAnimationUpdate(float dt){
         if (textAnimation) {
             delayTime += dt;

@@ -122,7 +122,6 @@ public class SailingScreen extends BaseScreen {
 
             if (name.equals("player")){
                 playerShip.setPosition(r.x, r.y);
-                System.out.println(r.x + " " + r.y);
             } else{
                 System.err.println("Unknown tilemap object: " + name);
             }
@@ -180,7 +179,9 @@ public class SailingScreen extends BaseScreen {
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
-        System.out.println("IP: im");
+
+        // Debug processor
+//        System.out.println("IP: im");
     }
 
     @Override
@@ -217,15 +218,16 @@ public class SailingScreen extends BaseScreen {
             String name = obstacle.getName();
             if (playerShip.overlaps(obstacle, true)) {
                 y = true;
-                mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-                hintMessage.setText("Press F to interact");
-                System.out.println(name);
                 if (!(obstacle.getDepartment() == null)) {
+                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
+                    hintMessage.setText("Press F to interact");
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) pirateGame.setScreen(new DepartmentScreen(pirateGame, obstacle.getDepartment()));
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
-                    System.out.println("A college");
+                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
+                    hintMessage.setText("Press F to interact");
+//                    System.out.println("A college");
                     College college = obstacle.getCollege();
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                         System.out.println("A college");
@@ -238,7 +240,7 @@ public class SailingScreen extends BaseScreen {
                         }
                     }
                 } else {
-                    System.out.println("Pure obstacle");
+//                    System.out.println("Pure obstacle");
                 }
             }
         }

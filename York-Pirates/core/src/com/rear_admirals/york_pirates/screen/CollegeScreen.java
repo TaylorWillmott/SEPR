@@ -17,6 +17,7 @@ public class CollegeScreen extends BaseScreen {
     private Player player;
     private Label pointsLabel;
     private Label goldLabel;
+    private int toHeal;
 
     public CollegeScreen(PirateGame main, College college){
         super(main);
@@ -50,25 +51,31 @@ public class CollegeScreen extends BaseScreen {
         optionsTable.add(title);
         optionsTable.row();
 
-        if (player.getPlayerShip().getCollege().getAlly().contains(college)){
-            final int toHeal = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();
-            TextButton heal = new TextButton("Repair Ship for "+Integer.toString(toHeal)+" gold", main.getSkin());
 
-            if (toHeal == 0) { heal.setText("Your ship is already fully repaired!"); }
+        toHeal = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();
+        final TextButton heal = new TextButton("Repair Ship for "+ Integer.toString(toHeal/10) +" gold", main.getSkin());
 
-            heal.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (player.payGold(toHeal/10)) {
+        if (toHeal == 0) { heal.setText("Your ship is already fully repaired!"); }
+
+        heal.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (toHeal==0){
+                    heal.setText("Your ship is already fully repaired!");
+                }
+                else {
+                    if (player.payGold(toHeal / 10)) {
+                        System.out.println("charged");
                         player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax());
                         message.setText("Successful repair");
                     } else {
                         message.setText("You don't have the funds to repair your ship");
                     }
                 }
-            });
-            optionsTable.add(heal);
-        }
+            }
+        });
+        optionsTable.add(heal);
+
 
         optionsTable.row();
         optionsTable.add(message);
@@ -85,6 +92,7 @@ public class CollegeScreen extends BaseScreen {
             dispose();
         }
 
+        toHeal = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();
         goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
     }

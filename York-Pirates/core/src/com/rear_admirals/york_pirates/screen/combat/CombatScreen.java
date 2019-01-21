@@ -149,6 +149,7 @@ public class CombatScreen extends BaseScreen {
             }
         });
 
+        // Control combat
         this.queuedCombatEvent = BattleEvent.NONE;
         currentAttack = null;
 
@@ -210,7 +211,7 @@ public class CombatScreen extends BaseScreen {
         uiStage.addActor(background);
         uiStage.addActor(tableContainer);
 
-        // Setup Enemy attacks - may need to change this is you want to draw attacks from enemy's class
+        // Setup Enemy attacks - may need to be modified if you want to draw attacks from enemy's class
         enemyAttacks = new ArrayList<Attack>();
         enemyAttacks.add(Attack.attackMain);
         enemyAttacks.add(GrapeShot.attackGrape);

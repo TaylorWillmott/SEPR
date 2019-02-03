@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import game_manager.GameManager;
 
 public abstract class BaseScreen implements Screen {
@@ -15,7 +16,7 @@ public abstract class BaseScreen implements Screen {
     public BaseScreen(GameManager pirateGame){
         this.game = pirateGame;
         this.stage = new Stage();
-        }
+    }
 
     public abstract void update(float delta);
 

@@ -21,9 +21,6 @@ public class MenuScreen extends BaseScreen{
     private BitmapFont titleFont = new BitmapFont(); //Sets titleFont to Libgdx default font
     private Color titleColor = new Color(226F/255F, 223F/255F,164F/255F, 1);
 
-    //Stage used to display buttons
-    private Stage stage = new Stage();
-
     //Menu buttons, their font, style and texture
     private BitmapFont buttonFont = new BitmapFont();
     private TextButton.TextButtonStyle myTextButtonStyle = new TextButton.TextButtonStyle();

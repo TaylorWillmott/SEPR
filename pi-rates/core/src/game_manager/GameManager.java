@@ -132,6 +132,7 @@ public class GameManager extends Game {
         return difficulty;
     }
 
+
     public GameManager(String playerName, Difficulty difficulty) {
         this.playerName = playerName;
         this.difficulty = difficulty;
@@ -143,8 +144,6 @@ public class GameManager extends Game {
     /**
      * Creates an Instance of Screen and all the different Screens used
      */
-
-
     @Override
     public void create() { //Called when the application is
         System.out.println("Initialise");

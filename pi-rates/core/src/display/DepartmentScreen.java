@@ -34,6 +34,13 @@ public class DepartmentScreen extends BaseScreen {
      */
     public DepartmentScreen(GameManager game){
         super(game);
+        buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
+        skin.addRegions(buttonAtlas);
+
+        textButtonStyle.font = buttonFont;
+        textButtonStyle.up = skin.getDrawable("buttonUp");
+        textButtonStyle.down = skin.getDrawable("buttonDown");
+        setUpTextures();
     }
 
     /**
@@ -92,6 +99,43 @@ public class DepartmentScreen extends BaseScreen {
         shopBackground = createShopBackground();
     }
 
+    private Texture background;
+    private TextureAtlas roomSpriteAtlas;
+
+    private Texture computerScienceTexture;
+    private Sprite computerScienceSprite;
+    private Texture lawAndManagementTexture;
+    private Sprite lawAndManagementSprite;
+    private TextButton toMenu;
+    private Texture hpBar;
+    private Texture hpBackground;
+    private BitmapFont indicatorFont;
+    private List<TextButton> buyButtonList;
+    private List<TextButton> buyResourceButtonList;
+    private List<Weapon> buyWeaponList;
+    private List<TextButton> sellButtonList;
+    private List<Weapon> sellWeaponList;
+    private List<RoomUpgrade> roomUpgradeList;
+
+    public void setUpTextures(){
+        background = new Texture("battleBackground.png");
+        roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
+        computerScienceTexture = new Texture("ComputerScIsland.png");
+        computerScienceSprite = new Sprite(computerScienceTexture);
+        lawAndManagementTexture = new Texture("LMI.png");
+        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
+        toMenu = new TextButton("To Menu", textButtonStyle);
+        hpBar = new Texture("background.png");
+        hpBackground = new Texture("disabledBackground.png");
+        indicatorFont = new BitmapFont();
+        buyButtonList = new ArrayList<TextButton>();
+        buyWeaponList = new ArrayList<Weapon>();
+        sellButtonList = new ArrayList<TextButton>();
+        sellWeaponList = new ArrayList<Weapon>();
+        roomUpgradeList = new ArrayList<RoomUpgrade>();
+        buyResourceButtonList = new ArrayList<TextButton>();
+    }
+
     @Override
     public void render(float delta) {
         Gdx.input.setInputProcessor(stage);
@@ -102,7 +146,7 @@ public class DepartmentScreen extends BaseScreen {
         drawFriendlyShip();
         drawDepartment(randInt);
 
-        buttonToMenu(textButtonStyle);
+        buttonToMenu();
 
         drawHealthBar();
         drawIndicators();
@@ -158,7 +202,6 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the Shop background
      */
     public void drawBackground() {
-        Texture background = new Texture("battleBackground.png");
         batch.draw(background, 0, 0);
     }
 
@@ -166,8 +209,6 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the friendly ship from room textures and constant coordinates
      */
     public void drawFriendlyShip(){
-        TextureAtlas roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
-
         Sprite friendlyCrewQuaters = roomSpriteAtlas.createSprite("crewQuaters");
         friendlyCrewQuaters.setPosition(CoordBank.FRIENDLY_CREWQUATERS.getX(),CoordBank.FRIENDLY_CREWQUATERS.getY());
 
@@ -224,13 +265,9 @@ public class DepartmentScreen extends BaseScreen {
     public void drawDepartment(int randInt) {
         switch (randInt) {
             case 0:
-                Texture computerScienceTexture = new Texture("ComputerScIsland.png");
-                Sprite computerScienceSprite = new Sprite(computerScienceTexture);
                 batch.draw(computerScienceSprite,500,256);
                 break;
             case 1:
-                Texture lawAndManagementTexture = new Texture("LMI.png");
-                Sprite lawAndManagementSprite = new Sprite(lawAndManagementTexture);
                 batch.draw(lawAndManagementSprite,400,200);
                 break;
         }
@@ -240,9 +277,6 @@ public class DepartmentScreen extends BaseScreen {
      * Draws Hp bars for both ships
      */
     public void drawHealthBar() {
-        Texture hpBar = new Texture("background.png");
-        Texture hpBackground = new Texture("disabledBackground.png");
-
         double defaultWidth = 320;
         int width = (int)(defaultWidth * ((double)playerShip.getHullHP() / (double)playerShip.getBaseHullHP()));
 
@@ -254,7 +288,6 @@ public class DepartmentScreen extends BaseScreen {
      * Draws resource indicators for player
      */
     public void drawIndicators(){
-        BitmapFont indicatorFont = new BitmapFont();
         indicatorFont.setColor(1,1,1,1);
 
         indicatorFont.draw(batch, "Score: " + gameManager.getPoints(), 25, 965);
@@ -265,15 +298,12 @@ public class DepartmentScreen extends BaseScreen {
 
     /**
      * Draws the Button returning to menu, taking the style button
-     * @param textButtonStyle
      */
-    public void buttonToMenu(TextButton.TextButtonStyle textButtonStyle){
-        TextButton toMenu = new TextButton("To Menu", textButtonStyle);
+    public void buttonToMenu(){
         toMenu.setPosition(880, 980);
         toMenu.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 game.setScreen(new MenuScreen(game));
-                dispose();
                 return true;
             }
         });
@@ -286,7 +316,7 @@ public class DepartmentScreen extends BaseScreen {
      */
     public Sprite createShopBackground(){
         Texture shopBackgroundTexture = new Texture("shopBackground.png");
-       return new Sprite(shopBackgroundTexture);
+        return new Sprite(shopBackgroundTexture);
     }
 
     /**
@@ -307,45 +337,40 @@ public class DepartmentScreen extends BaseScreen {
      * @param textButtonStyle
      */
     public void drawBuyWeaponFeatures(BitmapFont titleFont, BitmapFont bodyFont, TextButton.TextButtonStyle textButtonStyle) {
-        List<TextButton> buyButtonList = new ArrayList<TextButton>();
-        List<Weapon> weaponList = new ArrayList<Weapon>();
-
         int i = 0;
         while (i <= department.getWeaponStock().size() - 1 && department.getWeaponStock().get(i) instanceof Weapon) {
-            weaponList.add(department.getWeaponStock().get(i));
+            buyWeaponList.add(department.getWeaponStock().get(i));
             i++;
         }
 
         int j = 0;
-        while (j <= weaponList.size() - 1){
-            titleFont.draw(batch, weaponList.get(j).getName(), 160, 880 - (150 * j));
-            bodyFont.draw(batch, "Damage: " + df.format(weaponList.get(j).getBaseDamage()), 160, 850 - (150 * j));
-            bodyFont.draw(batch, "Crit Chance: " + df.format(weaponList.get(j).getCritChance()), 160, 830 - (150 * j));
-            bodyFont.draw(batch, "Hit Chance: " + df.format(weaponList.get(j).getAccuracy()), 160, 810 - (150 * j));
-            bodyFont.draw(batch, "Cooldown: " + df.format(weaponList.get(j).getCooldown()), 160, 790 - (150 * j));
+        while (j <= buyWeaponList.size() - 1){
+            titleFont.draw(batch, buyWeaponList.get(j).getName(), 160, 880 - (150 * j));
+            bodyFont.draw(batch, "Damage: " + df.format(buyWeaponList.get(j).getBaseDamage()), 160, 850 - (150 * j));
+            bodyFont.draw(batch, "Crit Chance: " + df.format(buyWeaponList.get(j).getCritChance()), 160, 830 - (150 * j));
+            bodyFont.draw(batch, "Hit Chance: " + df.format(buyWeaponList.get(j).getAccuracy()), 160, 810 - (150 * j));
+            bodyFont.draw(batch, "Cooldown: " + df.format(buyWeaponList.get(j).getCooldown()), 160, 790 - (150 * j));
 
-            buyButtonList.add(new TextButton("Buy (" + weaponList.get(j).getCost() + "g)", textButtonStyle));
-            buyButtonList.get(j).setPosition(160, 740 - (j * 150));
-            stage.addActor(buyButtonList.get(j));
+            buyResourceButtonList.add(new TextButton("Buy (" + buyWeaponList.get(j).getCost() + "g)", textButtonStyle));
+            buyResourceButtonList.get(j).setPosition(160, 740 - (j * 150));
+            stage.addActor(buyResourceButtonList.get(j));
             j++;
         }
 
-        buyWeaponButtonListener(buyButtonList, weaponList);
+        buyWeaponButtonListener();
     }
 
     /**
      * Adds listeners to all weapon buy buttons
-     * @param buyButtonList
-     * @param weaponList
      */
-    public void buyWeaponButtonListener(final List<TextButton> buyButtonList, final List<Weapon> weaponList) {
+    public void buyWeaponButtonListener() {
         int i = 0;
         while (i <= buyButtonList.size() - 1) {
             final int j = i;
             buyButtonList.get(j).addListener(new InputListener() {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     try {
-                        department.buyWeapon(weaponList.get(j));
+                        department.buyWeapon(sellWeaponList.get(j));
                         stage.clear();
                     } catch (IllegalStateException e) {
                         buyButtonList.get(j).setText("Insufficient Gold!");
@@ -372,29 +397,26 @@ public class DepartmentScreen extends BaseScreen {
      * @param textButtonStyle
      */
     public void drawSellWeaponFeatures(BitmapFont titleFont, BitmapFont bodyFont, TextButton.TextButtonStyle textButtonStyle) {
-        List<TextButton> sellButtonList = new ArrayList<TextButton>();
-        List<Weapon> weaponList = new ArrayList<Weapon>();
-
         int i = 0;
         while (i <= playerShip.getWeapons().size() - 1 && playerShip.getWeapons().get(i) instanceof Weapon) {
-            weaponList.add(playerShip.getWeapons().get(i));
+            buyWeaponList.add(playerShip.getWeapons().get(i));
             i++;
         }
 
         int j = 0;
-        while (j <= weaponList.size() - 1){
-            titleFont.draw(batch, weaponList.get(j).getName(), 360, 880 - (150 * j));
-            bodyFont.draw(batch, "Damage: " + df.format(weaponList.get(j).getBaseDamage()), 360, 850 - (150 * j));
-            bodyFont.draw(batch, "Crit Chance: " + df.format(weaponList.get(j).getCritChance()), 360, 830 - (150 * j));
-            bodyFont.draw(batch, "Hit Chance: " + df.format(weaponList.get(j).getAccuracy()), 360, 810 - (150 * j));
-            bodyFont.draw(batch, "Cooldown: " + df.format(weaponList.get(j).getCooldown()), 360, 790 - (150 * j));
+        while (j <= buyWeaponList.size() - 1){
+            titleFont.draw(batch, buyWeaponList.get(j).getName(), 360, 880 - (150 * j));
+            bodyFont.draw(batch, "Damage: " + df.format(buyWeaponList.get(j).getBaseDamage()), 360, 850 - (150 * j));
+            bodyFont.draw(batch, "Crit Chance: " + df.format(buyWeaponList.get(j).getCritChance()), 360, 830 - (150 * j));
+            bodyFont.draw(batch, "Hit Chance: " + df.format(buyWeaponList.get(j).getAccuracy()), 360, 810 - (150 * j));
+            bodyFont.draw(batch, "Cooldown: " + df.format(buyWeaponList.get(j).getCooldown()), 360, 790 - (150 * j));
 
-            sellButtonList.add(new TextButton("Sell (" + df.format(weaponList.get(j).getCost() * STORE_SELL_PRICE_MULTIPLIER) + "g)", textButtonStyle));
+            sellButtonList.add(new TextButton("Sell (" + df.format(buyWeaponList.get(j).getCost() * STORE_SELL_PRICE_MULTIPLIER) + "g)", textButtonStyle));
             sellButtonList.get(j).setPosition(360, 740 - (j * 150));
             stage.addActor(sellButtonList.get(j));
             j++;
         }
-        sellButtonListener(sellButtonList, weaponList);
+        sellButtonListener(sellButtonList, buyWeaponList);
     }
 
     /**
@@ -410,7 +432,7 @@ public class DepartmentScreen extends BaseScreen {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
                     try {
-                        department.sellWeapon(weaponList.get(j));
+                        department.sellWeapon(sellWeaponList.get(j));
                         stage.clear();
                     } catch (IllegalArgumentException e) {
                         buyButtonList.get(j).setText("Empty Slot!");
@@ -431,8 +453,6 @@ public class DepartmentScreen extends BaseScreen {
      * @param textButtonStyle
      */
     public void drawBuyRoomUpgradeFeatures(BitmapFont titleFont, BitmapFont bodyFont, TextButton.TextButtonStyle textButtonStyle) {
-        List<TextButton> buyButtonList = new ArrayList<TextButton>();
-        List<RoomUpgrade> roomUpgradeList = new ArrayList<RoomUpgrade>();
         int i = 0;
         while (i <= department.getUpgradeStock().size() - 1 && department.getUpgradeStock().get(i) instanceof RoomUpgrade) {
             roomUpgradeList.add(department.getUpgradeStock().get(i));
@@ -445,12 +465,12 @@ public class DepartmentScreen extends BaseScreen {
             bodyFont.draw(batch, "Room: " + roomUpgradeList.get(j).getAffectsRoom(), 560, 830 - (150 * j));
             bodyFont.draw(batch, "Multiplier: " + df.format(roomUpgradeList.get(j).getMultiplier()), 560, 850 - (150 * j));
 
-            buyButtonList.add(new TextButton("Buy (" + df.format(roomUpgradeList.get(j).getCost()) + "g)", textButtonStyle));
-            buyButtonList.get(j).setPosition(560, 740 - (j * 150));
-            stage.addActor(buyButtonList.get(j));
+            buyResourceButtonList.add(new TextButton("Buy (" + df.format(roomUpgradeList.get(j).getCost()) + "g)", textButtonStyle));
+            buyResourceButtonList.get(j).setPosition(560, 740 - (j * 150));
+            stage.addActor(buyResourceButtonList.get(j));
             j++;
         }
-        buyRoomUpgradeButtonListener(buyButtonList, roomUpgradeList);
+        buyRoomUpgradeButtonListener(buyResourceButtonList, roomUpgradeList);
     }
 
     /**
@@ -491,25 +511,23 @@ public class DepartmentScreen extends BaseScreen {
      * @param titleFont
      */
     public void drawBuyResourceFeatures(BitmapFont titleFont){
-        List<TextButton> buyButtonList = new ArrayList<TextButton>();
-
         titleFont.draw(batch, "Crew", 160, 200);
         titleFont.draw(batch, "Food", 360, 200);
         titleFont.draw(batch, "Repair", 560, 200);
 
-        buyButtonList.add(new TextButton("Buy (" + CREW_COST + "g)", textButtonStyle));
-        buyButtonList.get(0).setPosition(220, 180);
-        stage.addActor(buyButtonList.get(0));
+        buyResourceButtonList.add(new TextButton("Buy (" + CREW_COST + "g)", textButtonStyle));
+        buyResourceButtonList.get(0).setPosition(220, 180);
+        stage.addActor(buyResourceButtonList.get(0));
 
-        buyButtonList.add(new TextButton("Buy (" + FOOD_COST + "g)", textButtonStyle));
-        buyButtonList.get(1).setPosition(420, 180);
-        stage.addActor(buyButtonList.get(1));
+        buyResourceButtonList.add(new TextButton("Buy (" + FOOD_COST + "g)", textButtonStyle));
+        buyResourceButtonList.get(1).setPosition(420, 180);
+        stage.addActor(buyResourceButtonList.get(1));
 
-        buyButtonList.add(new TextButton("Buy (" + REPAIR_COST + "g)", textButtonStyle));
-        buyButtonList.get(2).setPosition(620, 180);
-        stage.addActor(buyButtonList.get(2));
+        buyResourceButtonList.add(new TextButton("Buy (" + REPAIR_COST + "g)", textButtonStyle));
+        buyResourceButtonList.get(2).setPosition(620, 180);
+        stage.addActor(buyResourceButtonList.get(2));
 
-        buyResourceButtonListener(buyButtonList);
+        buyResourceButtonListener(buyResourceButtonList);
     }
 
     /**

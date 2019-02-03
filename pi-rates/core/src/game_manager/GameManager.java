@@ -6,11 +6,9 @@ import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
 import other.Difficulty;
-import other.Screen;
 import display.*;
 
 import static banks.ShipBank.COLLEGE_SHIP;
-import static banks.ShipBank.DEFAULT_BRIG;
 import static banks.ShipBank.STARTER_SHIP;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
@@ -48,7 +46,8 @@ public class GameManager extends Game {
     /**
      * Instance of LIBGDX Game used to allow setScreen to be used
      */
-    private Game game;
+    // DONT NEED THIS THIS CLASS EXTENDS GAME
+//    private Game game;
 
     /**
      * Creates Instances of enemyShip, playerShip and their Actors to be used in the game
@@ -63,8 +62,6 @@ public class GameManager extends Game {
     private CombatEnemy combatCollege = new CombatEnemy(collegeShip);
 
     private CombatManager combatManager = new CombatManager(combatPlayer, combatEnemy);
-
-    public Game getGame() { return game; }
 
 
     public CombatManager getCombatManager() { return combatManager; }
@@ -141,23 +138,18 @@ public class GameManager extends Game {
         this.gold = STARTING_GOLD;
         this.food = STARTING_FOOD;
         this.points = 0;
-        game = this;
     }
 
     /**
      * Creates an Instance of Screen and all the different Screens used
      */
-    private menuScreen menuScreen;
+    private MenuScreen menuScreen;
 
     @Override
-    public void create() { //Called when the application is created
-        combatScreen defaultCombatScreen = new combatScreen(game,false);
-        combatScreen collegeCombatScreen = new combatScreen(game,true);
-        departmentScreen departmentScreen = new departmentScreen(game);
-        menuScreen =  new menuScreen(game);
+    public void create() { //Called when the application is
+        System.out.println("Initialise");
+        menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);
-
-
     }
 
     @Override
@@ -167,7 +159,6 @@ public class GameManager extends Game {
 
     @Override
     public void dispose() { //Called when the application is destroyed, resources must be disposed of from Memory
-
     }
 
 

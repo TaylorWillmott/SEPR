@@ -1,9 +1,7 @@
 package display;
 
 import banks.CoordBank;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,13 +28,12 @@ import static banks.WeaponSetBank.COMP_SCI_WEPS;
 import static banks.WeaponSetBank.LMB_WEPS;
 import static other.Constants.*;
 
-public class departmentScreen implements Screen {
+public class DepartmentScreen extends BaseScreen {
     /**
      * Constructor for DepartmentScreen requiring game to switch screen
      */
-    private Game game;
-    public departmentScreen(Game game){
-        this.game = game;
+    public DepartmentScreen(GameManager game){
+        super(game);
     }
 
     /**
@@ -76,6 +73,9 @@ public class departmentScreen implements Screen {
     private Sprite shopBackground;
     private BitmapFont titleFont = new BitmapFont();
     private BitmapFont bodyFont = new BitmapFont();
+
+    @Override
+    public void update(float delta){ }
 
     @Override
     public void show() {
@@ -274,7 +274,8 @@ public class departmentScreen implements Screen {
         toMenu.setPosition(880, 980);
         toMenu.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new menuScreen(game));
+                game.setScreen(new MenuScreen(game));
+                dispose();
                 return true;
             }
         });

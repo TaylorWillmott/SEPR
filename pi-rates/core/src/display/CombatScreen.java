@@ -1,28 +1,19 @@
 package display;
 
 import banks.CoordBank;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
-import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 import combat.manager.CombatManager;
 import combat.ship.Room;
 import combat.ship.RoomFunction;
 import combat.ship.Ship;
 import game_manager.GameManager;
-import javafx.util.Pair;
-import location.College;
-import location.Department;
-import other.Difficulty;
-import other.Resource;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -34,29 +25,21 @@ import java.util.concurrent.TimeUnit;
 import static banks.CoordBank.*;
 import static combat.ship.RoomFunction.*;
 import static other.Constants.COOLDOWN_TICKS_PER_TURN;
-import static other.Constants.DIFF_SCORE_MULTIPLIER;
 import static other.Constants.EASY_SCORE_MULTIPLIER;
 
-public class combatScreen implements Screen {
-    /**
-     * Constructor requiring Game (to switch screen) and is college battle
-     */
-    private Game game;
-    private Boolean isCollegeBattle;
-    public combatScreen(Game game, Boolean isCollegeBattle){
-        this.game = game;
-        this.isCollegeBattle = isCollegeBattle;
-    }
+public class CombatScreen extends BaseScreen {
 
     /**
      * Sets up all required managers to access Methods and Cause Combat
      */
-    private GameManager gameManager = new GameManager(null, null);
-    private Ship playerShip = gameManager.getPlayerShip();
-    private CombatPlayer combatPlayer = gameManager.getCombatPlayer();
+
+    //NOT SURE WHY YOU WOULD EVER CREATE A NEW SHIP
+//    private GameManager gameManager = new GameManager(null, null);
+    private Ship playerShip;
+    private CombatPlayer combatPlayer = game.getCombatPlayer();
     private Ship enemyShip;
     private CombatEnemy combatEnemy;
-    private CombatManager combatManager = gameManager.getCombatManager();
+    private CombatManager combatManager = game.getCombatManager();
 
     private int randInt = pickRandom(3);
 
@@ -111,15 +94,29 @@ public class combatScreen implements Screen {
      */
     private DecimalFormat df;
 
+    /**
+     * Constructor requiring instance of GameManager (to switch screen) and is college battle
+     */
+
+    private Boolean isCollegeBattle;
+    public CombatScreen(GameManager game, Boolean isCollegeBattle){
+        super(game);
+        playerShip = game.getPlayerShip();
+        this.isCollegeBattle = isCollegeBattle;
+    }
+
+    @Override
+    public void update(float delta){ }
+
     @Override
     public void show() {
         //Sets the Appropriate ship for if a College or Standard battle are happening
         if (isCollegeBattle) {
-            enemyShip = gameManager.getCollegeShip();
-            combatEnemy = gameManager.getCombatCollege();
+            enemyShip = game.getCollegeShip();
+            combatEnemy = game.getCombatCollege();
         } else {
-            enemyShip = gameManager.getEnemyShip();
-            combatEnemy = gameManager.getCombatEnemy();
+            enemyShip = game.getEnemyShip();
+            combatEnemy = game.getCombatEnemy();
         }
 
         df = new DecimalFormat("#.##");
@@ -169,11 +166,11 @@ public class combatScreen implements Screen {
                 youWin.setVisible(true);
 
                 if (isCollegeBattle){
-                    gameManager.addPoints((int)(1000 * EASY_SCORE_MULTIPLIER));
-                    gameManager.addGold((int)(1000 * EASY_SCORE_MULTIPLIER));
+                    game.addPoints((int)(1000 * EASY_SCORE_MULTIPLIER));
+                    game.addGold((int)(1000 * EASY_SCORE_MULTIPLIER));
                 } else {
-                    gameManager.addPoints((int)(100 * EASY_SCORE_MULTIPLIER));
-                    gameManager.addGold((int)(100 * EASY_SCORE_MULTIPLIER));
+                    game.addPoints((int)(100 * EASY_SCORE_MULTIPLIER));
+                    game.addGold((int)(100 * EASY_SCORE_MULTIPLIER));
                 }
             } else {
                 youLose.setVisible(true);
@@ -186,7 +183,7 @@ public class combatScreen implements Screen {
                 } catch (InterruptedException e) {
 
                 }
-                game.setScreen(new menuScreen(game));
+                game.setScreen(new MenuScreen(game));
             }
             a++;
         }
@@ -348,9 +345,9 @@ public class combatScreen implements Screen {
         BitmapFont indicatorFont = new BitmapFont();
         indicatorFont.setColor(1,1,1,1);
 
-        indicatorFont.draw(batch, "Score: " + gameManager.getPoints(), 25, 890);
-        indicatorFont.draw(batch, "Gold: " + gameManager.getGold(), 110, 890);
-        indicatorFont.draw(batch, "Food: " + gameManager.getFood(), 195, 890);
+        indicatorFont.draw(batch, "Score: " + game.getPoints(), 25, 890);
+        indicatorFont.draw(batch, "Gold: " + game.getGold(), 110, 890);
+        indicatorFont.draw(batch, "Food: " + game.getFood(), 195, 890);
         indicatorFont.draw(batch, "Crew: " + playerShip.getCrew(), 280, 890);
     }
 
@@ -363,7 +360,7 @@ public class combatScreen implements Screen {
         toMenu.setPosition(880, 980);
         toMenu.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new menuScreen(game));
+                game.setScreen(new MenuScreen(game));
                 return true;
             }
         });

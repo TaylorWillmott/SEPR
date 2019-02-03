@@ -142,6 +142,12 @@ public class DepartmentScreen extends BaseScreen {
 
         batch.begin();
 
+        buyWeaponList.clear();
+        buyResourceButtonList.clear();
+        buyWeaponList.clear();
+        sellButtonList.clear();
+        sellWeaponList.clear();
+
         drawBackground();
         drawFriendlyShip();
         drawDepartment(randInt);

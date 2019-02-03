@@ -143,12 +143,12 @@ public class GameManager extends Game {
     /**
      * Creates an Instance of Screen and all the different Screens used
      */
-    private MenuScreen menuScreen;
+
 
     @Override
     public void create() { //Called when the application is
         System.out.println("Initialise");
-        menuScreen =  new MenuScreen(this);
+        MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);
     }
 

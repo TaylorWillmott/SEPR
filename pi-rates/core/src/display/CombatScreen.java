@@ -53,8 +53,8 @@ public class CombatScreen extends BaseScreen {
      * Main style used for buttons
      */
     private BitmapFont buttonFont = new BitmapFont();
-    private TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-    private TextureAtlas buttonAtlas;
+    private TextButton.TextButtonStyle textButtonStyle;
+
     private Skin skin = new Skin();
 
     /**
@@ -103,6 +103,13 @@ public class CombatScreen extends BaseScreen {
         super(game);
         playerShip = game.getPlayerShip();
         this.isCollegeBattle = isCollegeBattle;
+        TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
+        skin.addRegions(buttonAtlas);
+        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = buttonFont;
+        textButtonStyle.up = skin.getDrawable("buttonUp");
+        textButtonStyle.down = skin.getDrawable("buttonDown");
+        setUpTextures();
     }
 
     @Override
@@ -121,8 +128,7 @@ public class CombatScreen extends BaseScreen {
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
-
-        buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
+        TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin.addRegions(buttonAtlas);
 
         textButtonStyle.font = buttonFont;
@@ -130,11 +136,59 @@ public class CombatScreen extends BaseScreen {
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
         drawEnemyShip();
-
         drawWeaponButtons();
         drawEndButtons();
-
         drawHitMissButtons();
+    }
+
+    private Texture background;
+    private TextureAtlas roomSpriteAtlas;
+    private TextButton toMenu;
+    private Texture hpBackground;
+    private Texture hpBar;
+    private BitmapFont indicatorFont;
+    private BitmapFont collegeFont;
+
+    private Texture constantineTexture;
+    private Sprite constantineSprite;
+    private Texture constantineShipBackground;
+
+    private Texture langwithTexture;
+    private Sprite langwithSprite;
+    private Texture langwithShipBackground;
+
+    private Texture goodrickeTexture;
+    private Sprite goodrickeSprite;
+    private Texture goodrickeShipBackground;
+
+    private BitmapFont roomHealthFont;
+    private BitmapFont cooldownFont;
+
+    public void setUpTextures(){
+        background = new Texture("battleBackground.png");
+        roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
+        toMenu = new TextButton("To Menu", textButtonStyle);
+        hpBar = new Texture("background.png");
+        hpBackground = new Texture("disabledBackground.png");
+        indicatorFont = new BitmapFont();
+        collegeFont = new BitmapFont();
+
+        constantineTexture = new Texture("Constantine.png");
+        constantineSprite = new Sprite(constantineTexture);
+        constantineShipBackground = new Texture("constantineShipBackground.png");
+
+        langwithTexture = new Texture("langwidth.png");
+        langwithSprite = new Sprite(langwithTexture);
+        langwithShipBackground = new Texture("langwidthShipBackground.png");
+
+        goodrickeTexture = new Texture("goodricke.png");
+        goodrickeSprite = new Sprite(goodrickeTexture);
+        goodrickeShipBackground = new Texture("goodrickeShipBackground.png");
+
+        roomHealthFont = new BitmapFont();
+        cooldownFont = new BitmapFont();
+
+
     }
 
     @Override
@@ -230,43 +284,32 @@ public class CombatScreen extends BaseScreen {
      */
     private int pickRandom(int max){
         Random rand = new Random();
-        int randInt = rand.nextInt(max);
-        return randInt;
+        return rand.nextInt(max);
     }
 
     /**
      * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
      */
     private void drawCollege(){
-        BitmapFont collegeFont = new BitmapFont();
         collegeFont.getData().setScale(2);
-        
         switch (randInt) {
             case 0:
-                Texture constantineTexture = new Texture("Constantine.png");
-                Sprite constantineSprite = new Sprite(constantineTexture);
                 batch.draw(constantineSprite, 375, 750, 256, 256);
                 collegeFont.draw(batch, "Constantine Defender", 690, 850);
-
-                Texture constantineShipBackground = new Texture("constantineShipBackground.png");
                 batch.draw(constantineShipBackground,636,207);
                 break;
             case 1:
-                Texture langwithTexture = new Texture("langwidth.png");
-                Sprite langwithSprite = new Sprite(langwithTexture);
+
                 batch.draw(langwithSprite, 375, 750, 256, 256);
                 collegeFont.draw(batch, "Langwith Defender", 690, 850);
 
-                Texture langwithShipBackground = new Texture("langwidthShipBackground.png");
+
                 batch.draw(langwithShipBackground,636,207);
                 break;
             case 2:
-                Texture goodrickeTexture = new Texture("goodricke.png");
-                Sprite goodrickeSprite = new Sprite(goodrickeTexture);
                 batch.draw(goodrickeSprite, 375, 750, 256, 256);
                 collegeFont.draw(batch, "Goodricke Defender", 690, 850);
 
-                Texture goodrickeShipBackground = new Texture("goodrickeShipBackground.png");
                 batch.draw(goodrickeShipBackground,636,207);
                 break;
         }
@@ -276,7 +319,6 @@ public class CombatScreen extends BaseScreen {
      * Creates and Draws the Combat Background
      */
     private void drawBackground() {
-        Texture background = new Texture("battleBackground.png");
         batch.draw(background, 0, 0);
     }
 
@@ -284,8 +326,6 @@ public class CombatScreen extends BaseScreen {
      * Draws the friendly ship from room textures and constant coordinates
      */
     private void drawFriendlyShip(){
-        TextureAtlas roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
-
         Sprite friendlyCrewQuaters = roomSpriteAtlas.createSprite("crewQuaters");
         friendlyCrewQuaters.setPosition(CoordBank.FRIENDLY_CREWQUATERS.getX(),CoordBank.FRIENDLY_CREWQUATERS.getY());
 
@@ -324,8 +364,7 @@ public class CombatScreen extends BaseScreen {
      * Draws Hp bars for both ships
      */
     private void drawHealthBar() {
-        Texture hpBar = new Texture("background.png");
-        Texture hpBackground = new Texture("disabledBackground.png");
+
 
         double defaultWidth = 320;
         int playerWidth = (int)(defaultWidth * ((double)playerShip.getHullHP() / (double)playerShip.getBaseHullHP()));
@@ -342,7 +381,7 @@ public class CombatScreen extends BaseScreen {
      * Draws resource indicators for player
      */
     private void drawIndicators(){
-        BitmapFont indicatorFont = new BitmapFont();
+
         indicatorFont.setColor(1,1,1,1);
 
         indicatorFont.draw(batch, "Score: " + game.getPoints(), 25, 890);
@@ -356,7 +395,6 @@ public class CombatScreen extends BaseScreen {
      * @param textButtonStyle
      */
     private void buttonToMenu(TextButton.TextButtonStyle textButtonStyle){
-        TextButton toMenu = new TextButton("To Menu", textButtonStyle);
         toMenu.setPosition(880, 980);
         toMenu.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -606,7 +644,6 @@ public class CombatScreen extends BaseScreen {
      * Draws Text displaying weapon cooldowns to the user
      */
     private void drawWeaponCooldowns() {
-        BitmapFont cooldownFont = new BitmapFont();
         cooldownFont.getData().setScale(0.9f);
 
         int i = 0;
@@ -627,7 +664,7 @@ public class CombatScreen extends BaseScreen {
      * Draws the Player Room HP and a Stats display of Room Effectivness
      */
     private void drawRoomHPEffectivness(){
-        BitmapFont roomHealthFont = new BitmapFont();
+
         roomHealthFont.setColor(1,1,1,1);
 
         roomHealthFont.draw(batch, "HP:" + playerShip.getRoom(CREW_QUARTERS).getHp(),FRIENDLY_CREWQUATERS.getX() + 10,FRIENDLY_CREWQUATERS.getY() + 22);
@@ -650,7 +687,6 @@ public class CombatScreen extends BaseScreen {
      * Draws the Enemy Room Effectivness Stats
      */
     private void drawEnemyEffectivness() {
-        BitmapFont roomHealthFont = new BitmapFont();
         roomHealthFont.setColor(1,1,1,1);
 
         roomHealthFont.draw(batch, "Ship Functionality",700,250);

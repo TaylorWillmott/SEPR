@@ -151,9 +151,7 @@ public class DepartmentScreen extends BaseScreen {
      */
     public int pickRandom(int max) {
         Random rand = new Random();
-        int randInt = rand.nextInt(max);
-
-        return randInt;
+        return rand.nextInt(max);
     }
 
     /**
@@ -288,9 +286,7 @@ public class DepartmentScreen extends BaseScreen {
      */
     public Sprite createShopBackground(){
         Texture shopBackgroundTexture = new Texture("shopBackground.png");
-        Sprite shopBackgroundSprite = new Sprite(shopBackgroundTexture);
-
-        return shopBackgroundSprite;
+       return new Sprite(shopBackgroundTexture);
     }
 
     /**

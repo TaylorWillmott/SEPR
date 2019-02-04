@@ -1,6 +1,8 @@
 package game_manager;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
@@ -132,6 +134,11 @@ public class GameManager extends Game {
         return difficulty;
     }
 
+    public Skin getSkin() {
+        return skin;
+    }
+
+    private Skin skin;
 
     public GameManager(String playerName, Difficulty difficulty) {
         this.playerName = playerName;
@@ -147,6 +154,7 @@ public class GameManager extends Game {
     @Override
     public void create() { //Called when the application is
         System.out.println("Initialise");
+        this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);
     }

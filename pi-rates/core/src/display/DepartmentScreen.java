@@ -430,8 +430,7 @@ public class DepartmentScreen extends BaseScreen {
             buyWeaponButtonList.get(j).addListener(new InputListener() {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     try {
-                        department.buyWeapon(sellWeaponList.get(j));
-                        stage.clear();
+                        department.buyWeapon(buyWeaponList.get(j));
                     } catch (IllegalStateException e) {
                         buyWeaponButtonList.get(j).setText("Insufficient Gold!");
                     } catch (IllegalArgumentException e) {
@@ -528,10 +527,10 @@ public class DepartmentScreen extends BaseScreen {
             roomTableList.get(j).add(new Label("Room: " + roomUpgradeList.get(j).getAffectsRoom(), skin));
             roomTableList.get(j).row();
             roomTableList.get(j).add(new Label("Multiplier: " + df.format(roomUpgradeList.get(j).getMultiplier()), skin));
-            roomTableList.get(j).row();
-            roomTableList.get(j).add().expand().fill();
-            roomTableList.get(j).row();
-            roomTableList.get(j).add().expand().fill();
+            roomTableList.get(j).row().uniform();
+            roomTableList.get(j).add(new Label("", skin));
+            roomTableList.get(j).row().uniform();
+            roomTableList.get(j).add(new Label("", skin));
             roomTableList.get(j).row();
             roomTableList.get(j).add(new TextButton("Buy (" + df.format(roomUpgradeList.get(j).getCost()) + "g)", textButtonStyle));
             j++;

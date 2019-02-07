@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import combat.items.RoomUpgrade;
 import combat.items.Weapon;
@@ -86,6 +87,7 @@ public class DepartmentScreen extends BaseScreen {
         buttonTable.align(Align.center);
         buttonTable.setDebug(false);
 
+        buttonToMenu();
 
         drawBuyWeaponFeatures(titleFont, bodyFont, textButtonStyle);
         drawSellWeaponFeatures(titleFont, bodyFont, textButtonStyle);
@@ -202,8 +204,6 @@ public class DepartmentScreen extends BaseScreen {
         drawBackground();
         drawFriendlyShip();
         drawDepartment(randInt);
-
-        buttonToMenu();
 
         drawHealthBar();
         drawIndicators();
@@ -354,11 +354,10 @@ public class DepartmentScreen extends BaseScreen {
      */
     public void buttonToMenu(){
         toMenu.setPosition(880, 980);
-        toMenu.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        toMenu.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button Pressed");
                 game.setScreen(new MenuScreen(game));
-                return true;
             }
         });
         stage.addActor(toMenu);

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.items.Weapon;
@@ -110,6 +111,7 @@ public class CombatScreen extends BaseScreen {
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
         setUpTextures();
+        buttonToMenu();
     }
 
     @Override
@@ -199,7 +201,6 @@ public class CombatScreen extends BaseScreen {
 
         drawBackground();
         drawFriendlyShip();
-        buttonToMenu(textButtonStyle);
 
         drawHealthBar();
         drawIndicators();
@@ -392,19 +393,17 @@ public class CombatScreen extends BaseScreen {
 
     /**
      * Draws the Button returning to menu, taking the style button
-     * @param textButtonStyle
      */
-    private void buttonToMenu(TextButton.TextButtonStyle textButtonStyle){
+    public void buttonToMenu(){
         toMenu.setPosition(880, 980);
-        toMenu.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        toMenu.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Button Pressed");
                 game.setScreen(new MenuScreen(game));
-                return true;
             }
         });
         stage.addActor(toMenu);
     }
-
     /**
      * Draws the Enemy Ship of buttonsFrom Textures using Constant Coordinates, adds listeners which track the selected room
      */

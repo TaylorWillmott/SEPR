@@ -1,18 +1,12 @@
 package display;
 
-import com.badlogic.gdx.Audio;
-import base.BaseActor;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -40,8 +34,6 @@ public class MenuScreen extends BaseScreen{
     private TextButton runDepartment;
     private TextButton exitGame;
 
-    private Music mainMusic;
-
     public MenuScreen(GameManager game){
         super(game);
     }
@@ -68,9 +60,9 @@ public class MenuScreen extends BaseScreen{
         this.titleText.setPosition(viewwidth/2f - 160, (viewheight*900)/1024);
         stage.addActor(this.titleText);
 
-        mainMusic = makeMusic("the-buccaneers-haul.mp3");
+        setMusic(makeMusic("the-buccaneers-haul.mp3"));
 
-        playMusic(mainMusic, true);
+        playMusic(getMusic(), true);
 
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
@@ -127,15 +119,12 @@ public class MenuScreen extends BaseScreen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.input.setInputProcessor(stage);
-
-        stage.draw();
+        super.render(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     @Override
@@ -156,14 +145,12 @@ public class MenuScreen extends BaseScreen{
 
     @Override
     public void dispose() {
+        super.dispose();
         menuBackground.dispose();
-        mainMusic.stop();
-        mainMusic.dispose();
         titleFont.dispose();
         buttonFont.dispose();
         skin.dispose();
         buttonAtlas.dispose();
         batch.dispose();
-        stage.dispose();
     }
 }

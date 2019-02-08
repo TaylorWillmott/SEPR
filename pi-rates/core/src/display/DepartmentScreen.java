@@ -50,6 +50,9 @@ public class DepartmentScreen extends BaseScreen {
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
 
+        setMusic(makeMusic("the-buccaneers-haul.mp3"));
+
+
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin = game.getSkin();
         skin.addRegions(buttonAtlas);
@@ -137,8 +140,6 @@ public class DepartmentScreen extends BaseScreen {
      * Sprite for Shopbackground and Fonts for Shop Information
      */
     private Sprite shopBackground;
-    private BitmapFont titleFont = new BitmapFont();
-    private BitmapFont bodyFont = new BitmapFont();
 
     @Override
     public void update(float delta){ }
@@ -225,7 +226,7 @@ public class DepartmentScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     @Override
@@ -245,7 +246,7 @@ public class DepartmentScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+        super.dispose();
         batch.dispose();
     }
 

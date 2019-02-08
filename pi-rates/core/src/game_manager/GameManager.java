@@ -165,11 +165,15 @@ public class GameManager extends Game {
         musicVolume = volume;
     }
 
-    public float getMasterVolume() { return masterVolume; }
+    public float getMasterValue() { return masterVolume; }
 
     public float getMusicVolume() { return musicVolume * masterVolume; }
 
     public float getSoundVolume() { return soundVolume * masterVolume; }
+
+    public float getMusicValue() { return musicVolume; }
+
+    public float getSoundValue() { return soundVolume; }
 
     public GameManager(String playerName, Difficulty difficulty) {
         this.playerName = playerName;
@@ -177,9 +181,9 @@ public class GameManager extends Game {
         this.gold = STARTING_GOLD;
         this.food = STARTING_FOOD;
         this.points = 0;
-        this.masterVolume = 1;
-        this.soundVolume = 1;
-        this.musicVolume = 0.1f;
+        this.masterVolume = 0.5f;
+        this.soundVolume = 0.5f;
+        this.musicVolume = 0.5f;
     }
 
     /**

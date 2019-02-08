@@ -98,7 +98,7 @@ public class DepartmentScreen extends BaseScreen {
             weaponSellTableList.get(i).clearChildren();
             roomTableList.get(i).clearChildren();
         }
-        drawBuyWeaponFeatures(titleFont, bodyFont, textButtonStyle);
+        drawBuyWeaponFeatures(textButtonStyle);
         drawSellWeaponFeatures(textButtonStyle);
         drawBuyRoomUpgradeFeatures(textButtonStyle);
     }
@@ -393,11 +393,9 @@ public class DepartmentScreen extends BaseScreen {
 
     /**
      * Takes button styles and Fonts, draws buttons to buy items in the shop and the item information
-     * @param titleFont
-     * @param bodyFont
      * @param textButtonStyle
      */
-    public void drawBuyWeaponFeatures(BitmapFont titleFont, BitmapFont bodyFont, TextButton.TextButtonStyle textButtonStyle) {
+    public void drawBuyWeaponFeatures(TextButton.TextButtonStyle textButtonStyle) {
         buyWeaponList.clear();
         sellWeaponList.clear();
         roomUpgradeList.clear();
@@ -442,7 +440,7 @@ public class DepartmentScreen extends BaseScreen {
                     department.buyWeapon(weapon);
                     drawShop();
                 } catch (IllegalStateException e) {
-                    textButton.setText("Insufficient Gold!");
+                    textButton.setText("No space");
                 } catch (IllegalArgumentException e) {
                     if (e.getMessage() == "Weapon does not exist") {
                         textButton.setText("Out of Stock :(");

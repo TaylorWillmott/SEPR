@@ -1,18 +1,12 @@
 package display;
 
-import com.badlogic.gdx.Audio;
-import base.BaseActor;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -40,8 +34,6 @@ public class MenuScreen extends BaseScreen{
     private TextButton runDepartment;
     private TextButton exitGame;
 
-    private Music mainMusic;
-
     public MenuScreen(GameManager game){
         super(game);
     }
@@ -68,9 +60,9 @@ public class MenuScreen extends BaseScreen{
         this.titleText.setPosition(viewwidth/2f - 160, 900);
         stage.addActor(this.titleText);
 
-        mainMusic = makeMusic("the-buccaneers-haul.mp3");
+        setMusic(makeMusic("the-buccaneers-haul.mp3"));
 
-        playMusic(mainMusic, true);
+        playMusic(getMusic(), true);
 
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
@@ -82,8 +74,8 @@ public class MenuScreen extends BaseScreen{
 
         stage.addActor(runCombat);
         runCombat.setPosition(viewwidth/2f - 175, 700);
-        runCombat.setTransform(true); //Allows the Button to be Scaled
-        runCombat.setScale(3);
+//        runCombat.setTransform(true); //Allows the Button to be Scaled
+//        runCombat.setScale(3);
         runCombat.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 changeScreen(new CombatScreen(game,false));
@@ -93,8 +85,8 @@ public class MenuScreen extends BaseScreen{
 
         stage.addActor(runCollege);
         runCollege.setPosition(viewwidth/2f - 175, 580);
-        runCollege.setTransform(true); //Allows the Button to be Scaled
-        runCollege.setScale(3);
+//        runCollege.setTransform(true); //Allows the Button to be Scaled
+//        runCollege.setScale(3);
         runCollege.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 changeScreen(new CombatScreen(game,true));
@@ -104,8 +96,8 @@ public class MenuScreen extends BaseScreen{
 
         stage.addActor(runDepartment);
         runDepartment.setPosition(viewwidth/2f - 175, 460);
-        runDepartment.setTransform(true); //Allows the Button to be Scaled
-        runDepartment.setScale(3);
+//        runDepartment.setTransform(true); //Allows the Button to be Scaled
+//        runDepartment.setScale(3);
         runDepartment.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 changeScreen(new DepartmentScreen(game));
@@ -115,8 +107,8 @@ public class MenuScreen extends BaseScreen{
 
         stage.addActor(exitGame);
         exitGame.setPosition(viewwidth/2f - 175, 340);
-        exitGame.setTransform(true); //Allows the Button to be Scaled
-        exitGame.setScale(3);
+//        exitGame.setTransform(true); //Allows the Button to be Scaled
+//        exitGame.setScale(3);
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 System.exit(0);
@@ -127,15 +119,12 @@ public class MenuScreen extends BaseScreen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.input.setInputProcessor(stage);
-
-        stage.draw();
+        super.render(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     @Override
@@ -156,14 +145,12 @@ public class MenuScreen extends BaseScreen{
 
     @Override
     public void dispose() {
+        super.dispose();
         menuBackground.dispose();
-        mainMusic.stop();
-        mainMusic.dispose();
         titleFont.dispose();
         buttonFont.dispose();
         skin.dispose();
         buttonAtlas.dispose();
         batch.dispose();
-        stage.dispose();
     }
 }

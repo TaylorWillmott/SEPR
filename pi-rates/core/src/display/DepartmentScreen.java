@@ -137,8 +137,6 @@ public class DepartmentScreen extends BaseScreen {
      * Sprite for Shopbackground and Fonts for Shop Information
      */
     private Sprite shopBackground;
-    private BitmapFont titleFont = new BitmapFont();
-    private BitmapFont bodyFont = new BitmapFont();
 
     @Override
     public void update(float delta){ }
@@ -225,7 +223,7 @@ public class DepartmentScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     @Override

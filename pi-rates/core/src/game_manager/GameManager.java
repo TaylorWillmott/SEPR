@@ -65,6 +65,13 @@ public class GameManager extends Game {
 
     private CombatManager combatManager = new CombatManager(combatPlayer, combatEnemy);
 
+    /**
+     * Variables to manage the global volume of sounds/music in the game
+     */
+    private float masterVolume;
+    private float soundVolume;
+    private float musicVolume;
+
 
     public CombatManager getCombatManager() { return combatManager; }
 
@@ -140,12 +147,39 @@ public class GameManager extends Game {
 
     private Skin skin;
 
+    public void setMasterVolume(float volume) {
+        if (volume < 0) { volume = 0; }
+        else if (volume > 1) {volume = 1;}
+        masterVolume = volume;
+    }
+
+    public void setSoundVolume(float volume) {
+        if (volume < 0) { volume = 0; }
+        else if (volume > 1) {volume = 1;}
+        soundVolume = volume;
+    }
+
+    public void setMusicVolume(float volume) {
+        if (volume < 0) { volume = 0; }
+        else if (volume > 1) {volume = 1;}
+        musicVolume = volume;
+    }
+
+    public float getMasterVolume() { return masterVolume; }
+
+    public float getMusicVolume() { return musicVolume * masterVolume; }
+
+    public float getSoundVolume() { return soundVolume * masterVolume; }
+
     public GameManager(String playerName, Difficulty difficulty) {
         this.playerName = playerName;
         this.difficulty = difficulty;
         this.gold = STARTING_GOLD;
         this.food = STARTING_FOOD;
         this.points = 0;
+        this.masterVolume = 1;
+        this.soundVolume = 1;
+        this.musicVolume = 0.1f;
     }
 
     /**

@@ -96,20 +96,7 @@ public abstract class BaseScreen implements Screen {
             update(delta);
         }
         else{
-//            System.out.println("Stage Draw");
-            Gdx.input.setInputProcessor(pauseStage);
-            pauseStage.draw();
-            pauseStage.act();
-
-            game.setMasterVolume(masterSlider.getValue());
-            game.setMusicVolume(musicSlider.getValue());
-            game.setSoundVolume(soundSlider.getValue());
-
-            masterLabel.setText((int)(game.getMasterValue() * 100) + " / " + 100);
-            soundLabel.setText((int)(game.getSoundValue() * 100) + " / " + 100);
-            musicLabel.setText((int)(game.getMusicValue() * 100) + " / " + 100);
-
-            music.setVolume(game.getMusicVolume());
+            pauseProcess();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -117,15 +104,29 @@ public abstract class BaseScreen implements Screen {
             toggleGamePaused();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-            this.game.setScreen(new CombatScreen(game, false));
+            changeScreen(new CombatScreen(game, false));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
-            this.game.setScreen(new DepartmentScreen(game));
+            changeScreen(new DepartmentScreen(game));
         }
 
     }
 
+    public void pauseProcess(){
+        Gdx.input.setInputProcessor(pauseStage);
+        pauseStage.draw();
+        pauseStage.act();
 
+        game.setMasterVolume(masterSlider.getValue());
+        game.setMusicVolume(musicSlider.getValue());
+        game.setSoundVolume(soundSlider.getValue());
+
+        masterLabel.setText((int)(game.getMasterValue() * 100) + " / " + 100);
+        soundLabel.setText((int)(game.getSoundValue() * 100) + " / " + 100);
+        musicLabel.setText((int)(game.getMusicValue() * 100) + " / " + 100);
+
+        music.setVolume(game.getMusicVolume());
+    }
 
     public void changeScreen(BaseScreen screen) {
         game.setScreen(screen);
@@ -170,7 +171,8 @@ public abstract class BaseScreen implements Screen {
     public void pause() { }
 
     @Override
-    public void hide(){ }
+    public void hide(){
+    }
 
     @Override
     public void resume() {}

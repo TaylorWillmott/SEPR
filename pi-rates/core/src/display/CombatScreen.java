@@ -2,7 +2,9 @@ package display;
 
 import banks.CoordBank;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
@@ -139,6 +141,8 @@ public class CombatScreen extends BaseScreen {
         cannon_2 = makeSound("cannon_2.mp3");
         cannon_3 = makeSound("cannon_3.mp3");
 
+        setMusic(makeMusic("the-buccaneers-haul.mp3"));
+
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
@@ -206,64 +210,76 @@ public class CombatScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        this.stage.draw();
+        this.stage.act();
+        if (!gamePaused) {
+            Gdx.input.setInputProcessor(stage);
+            batch.begin();
 
-        batch.begin();
+            drawBackground();
+            drawFriendlyShip();
 
-        drawBackground();
-        drawFriendlyShip();
+            drawHealthBar();
+            drawIndicators();
 
-        drawHealthBar();
-        drawIndicators();
+            if (isCollegeBattle) {
+                drawCollege();
+            }
 
-        if (isCollegeBattle) {
-            drawCollege();
-        }
+            drawRoomHPEffectivness();
+            drawEnemyEffectivness();
+            drawWeaponCooldowns();
 
-        drawRoomHPEffectivness();
-        drawEnemyEffectivness();
-        drawWeaponCooldowns();
+            batch.end();
 
-        batch.end();
+            //Checks if the Game is Over and Displays Message if You Won/Lost
+            if (gameOver) {
+                if (gameWon) {
+                    youWin.setVisible(true);
 
-        //Checks if the Game is Over and Displays Message if You Won/Lost
-        if (gameOver){
-            if (gameWon){
-                youWin.setVisible(true);
-
-                if (isCollegeBattle){
-                    game.addPoints((int)(1000 * EASY_SCORE_MULTIPLIER));
-                    game.addGold((int)(1000 * EASY_SCORE_MULTIPLIER));
+                    if (isCollegeBattle) {
+                        game.addPoints((int) (1000 * EASY_SCORE_MULTIPLIER));
+                        game.addGold((int) (1000 * EASY_SCORE_MULTIPLIER));
+                    } else {
+                        game.addPoints((int) (100 * EASY_SCORE_MULTIPLIER));
+                        game.addGold((int) (100 * EASY_SCORE_MULTIPLIER));
+                    }
                 } else {
-                    game.addPoints((int)(100 * EASY_SCORE_MULTIPLIER));
-                    game.addGold((int)(100 * EASY_SCORE_MULTIPLIER));
+                    youLose.setVisible(true);
                 }
-            } else {
-                youLose.setVisible(true);
+
+                //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
+                if (a == 5) {
+                    try {
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) {
+
+                    }
+                    changeScreen(new MenuScreen(game));
+                }
+                a++;
             }
 
-            //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
-            if (a == 5) {
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-
-                }
-                changeScreen(new MenuScreen(game));
+            //Used to control how long the Hit/Miss messages are displayed, hides them after the time
+            if (hitFeedbackTime == 25) {
+                youHit.setVisible(false);
+                youMissed.setVisible(false);
+                enemyHit.setVisible(false);
+                enemyMissed.setVisible(false);
             }
-            a++;
+            hitFeedbackTime++;
+        }
+        else {
+            pauseProcess();
         }
 
-        stage.draw();
-
-        //Used to control how long the Hit/Miss messages are displayed, hides them after the time
-        if (hitFeedbackTime == 25){
-            youHit.setVisible(false);
-            youMissed.setVisible(false);
-            enemyHit.setVisible(false);
-            enemyMissed.setVisible(false);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            System.out.println("Toggle");
+            toggleGamePaused();
         }
-        hitFeedbackTime++;
+
     }
 
     @Override
@@ -288,12 +304,11 @@ public class CombatScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+        super.dispose();
         cannon_1.dispose();
         cannon_2.dispose();
         cannon_3.dispose();
         batch.dispose();
-        stage.dispose();
-
     }
 
     /**

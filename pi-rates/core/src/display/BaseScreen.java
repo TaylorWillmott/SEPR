@@ -3,6 +3,8 @@ package display;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -66,6 +68,25 @@ public abstract class BaseScreen implements Screen {
     }
 
 
+
+    public void changeScreen(BaseScreen screen) {
+        game.setScreen(screen);
+        dispose();
+    }
+
+    public Sound makeSound(String filename) { return Gdx.audio.newSound(Gdx.files.internal(filename)); }
+
+    public void playSound(Sound sound) { sound.setVolume(sound.play(), game.getSoundVolume()); }
+
+    public Music makeMusic(String filename) { return Gdx.audio.newMusic(Gdx.files.internal(filename)); }
+
+    public void playMusic(Music music, boolean loop) {
+        music.setVolume(game.getMusicVolume());
+        music.setLooping(loop);
+        music.play();
+    }
+
+    public void playMusic(Music music) { playMusic(music, false); }
 
     @Override
     public void dispose () {

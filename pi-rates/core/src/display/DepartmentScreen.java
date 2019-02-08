@@ -365,7 +365,7 @@ public class DepartmentScreen extends BaseScreen {
         toMenu.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button Pressed");
-                game.setScreen(new MenuScreen(game));
+                changeScreen(new MenuScreen(game));
             }
         });
         stage.addActor(toMenu);

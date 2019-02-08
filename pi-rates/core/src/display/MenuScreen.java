@@ -1,6 +1,9 @@
 package display;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,6 +34,8 @@ public class MenuScreen extends BaseScreen{
     private TextButton runDepartment;
     private TextButton exitGame;
 
+    private Music mainMusic;
+
     public MenuScreen(GameManager game){
         super(game);
     }
@@ -49,6 +54,10 @@ public class MenuScreen extends BaseScreen{
         myTextButtonStyle.up = skin.getDrawable("buttonUp");
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
 
+        mainMusic = makeMusic("the-buccaneers-haul.mp3");
+
+        playMusic(mainMusic, true);
+
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
          */
@@ -63,7 +72,7 @@ public class MenuScreen extends BaseScreen{
         runCombat.setScale(3);
         runCombat.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                game.setScreen(new CombatScreen(game,false));
+                changeScreen(new CombatScreen(game,false));
                 return true;
             }
         });
@@ -74,7 +83,7 @@ public class MenuScreen extends BaseScreen{
         runCollege.setScale(3);
         runCollege.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                game.setScreen(new CombatScreen(game,true));
+                changeScreen(new CombatScreen(game,true));
                 return true;
             }
         });
@@ -85,7 +94,7 @@ public class MenuScreen extends BaseScreen{
         runDepartment.setScale(3);
         runDepartment.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                game.setScreen(new DepartmentScreen(game));
+                changeScreen(new DepartmentScreen(game));
                 return true;
             }
         });
@@ -129,6 +138,7 @@ public class MenuScreen extends BaseScreen{
     @Override
     public void resume() {
 
+
     }
 
     @Override
@@ -139,6 +149,8 @@ public class MenuScreen extends BaseScreen{
     @Override
     public void dispose() {
         menuBackground.dispose();
+        mainMusic.stop();
+        mainMusic.dispose();
         titleFont.dispose();
         buttonFont.dispose();
         skin.dispose();

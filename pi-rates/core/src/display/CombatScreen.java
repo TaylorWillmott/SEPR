@@ -249,7 +249,7 @@ public class CombatScreen extends BaseScreen {
                 } catch (InterruptedException e) {
 
                 }
-                game.setScreen(new MenuScreen(game));
+                changeScreen(new MenuScreen(game));
             }
             a++;
         }
@@ -415,7 +415,7 @@ public class CombatScreen extends BaseScreen {
         toMenu.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button Pressed");
-                game.setScreen(new MenuScreen(game));
+                changeScreen(new MenuScreen(game));
             }
         });
         stage.addActor(toMenu);

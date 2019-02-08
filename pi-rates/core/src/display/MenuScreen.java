@@ -72,7 +72,7 @@ public class MenuScreen extends BaseScreen{
         runCombat.setScale(3);
         runCombat.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                game.setScreen(new CombatScreen(game,false));
+                changeScreen(new CombatScreen(game,false));
                 return true;
             }
         });
@@ -83,7 +83,7 @@ public class MenuScreen extends BaseScreen{
         runCollege.setScale(3);
         runCollege.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                game.setScreen(new CombatScreen(game,true));
+                changeScreen(new CombatScreen(game,true));
                 return true;
             }
         });
@@ -94,7 +94,7 @@ public class MenuScreen extends BaseScreen{
         runDepartment.setScale(3);
         runDepartment.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                game.setScreen(new DepartmentScreen(game));
+                changeScreen(new DepartmentScreen(game));
                 return true;
             }
         });
@@ -137,6 +137,7 @@ public class MenuScreen extends BaseScreen{
 
     @Override
     public void resume() {
+
 
     }
 

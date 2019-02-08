@@ -8,11 +8,6 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		config.height = 1024;
-		config.width = 1024;
-		config.fullscreen = false;
-		config.foregroundFPS = 60;
-
 		new LwjglApplication(new GameManager(null,null), config);
 	}
 }

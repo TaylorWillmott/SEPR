@@ -1,5 +1,6 @@
 package display;
 
+import base.BaseActor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import game_manager.GameManager;
@@ -17,9 +20,13 @@ import game_manager.GameManager;
 public class MenuScreen extends BaseScreen{
     private SpriteBatch batch = new SpriteBatch();
 
+
     private Texture menuBackground = new Texture("menuBackground.png");
     private BitmapFont titleFont = new BitmapFont(); //Sets titleFont to Libgdx default font
     private Color titleColor = new Color(226F/255F, 223F/255F,164F/255F, 1);
+
+    private Image background = new Image(menuBackground);
+    private Label titleText;
 
     //Menu buttons, their font, style and texture
     private BitmapFont buttonFont = new BitmapFont();
@@ -49,6 +56,14 @@ public class MenuScreen extends BaseScreen{
         myTextButtonStyle.up = skin.getDrawable("buttonUp");
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
 
+        //Draws Menu Title and Background
+        stage.addActor(background);
+        this.background.setSize(viewwidth, viewheight);
+
+        this.titleText = new Label("SEPR GAME", new Label.LabelStyle(titleFont, titleColor));
+        this.titleText.setPosition(viewwidth/2f - 160, 900);
+        stage.addActor(this.titleText);
+
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
          */
@@ -58,7 +73,7 @@ public class MenuScreen extends BaseScreen{
         exitGame = new TextButton("Exit Game", myTextButtonStyle);
 
         stage.addActor(runCombat);
-        runCombat.setPosition(Gdx.graphics.getWidth()/2f - 175, 700);
+        runCombat.setPosition(viewwidth/2f - 175, 700);
         runCombat.setTransform(true); //Allows the Button to be Scaled
         runCombat.setScale(3);
         runCombat.addListener(new InputListener() {
@@ -69,7 +84,7 @@ public class MenuScreen extends BaseScreen{
         });
 
         stage.addActor(runCollege);
-        runCollege.setPosition(Gdx.graphics.getWidth()/2f - 175, 580);
+        runCollege.setPosition(viewwidth/2f - 175, 580);
         runCollege.setTransform(true); //Allows the Button to be Scaled
         runCollege.setScale(3);
         runCollege.addListener(new InputListener() {
@@ -80,7 +95,7 @@ public class MenuScreen extends BaseScreen{
         });
 
         stage.addActor(runDepartment);
-        runDepartment.setPosition(Gdx.graphics.getWidth()/2f - 175, 460);
+        runDepartment.setPosition(viewwidth/2f - 175, 460);
         runDepartment.setTransform(true); //Allows the Button to be Scaled
         runDepartment.setScale(3);
         runDepartment.addListener(new InputListener() {
@@ -91,7 +106,7 @@ public class MenuScreen extends BaseScreen{
         });
 
         stage.addActor(exitGame);
-        exitGame.setPosition(Gdx.graphics.getWidth()/2f - 175, 340);
+        exitGame.setPosition(viewwidth/2f - 175, 340);
         exitGame.setTransform(true); //Allows the Button to be Scaled
         exitGame.setScale(3);
         exitGame.addListener(new InputListener() {
@@ -106,12 +121,6 @@ public class MenuScreen extends BaseScreen{
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.input.setInputProcessor(stage);
-
-        //Draws Menu Title and Background
-        batch.begin();
-        batch.draw(menuBackground,0,0);
-        titleFont.draw(batch, "SEPR GAME", Gdx.graphics.getWidth()/2f - 160, 900);
-        batch.end();
 
         stage.draw();
     }

@@ -13,9 +13,12 @@ public abstract class BaseScreen implements Screen {
 
     protected Stage stage;
 
+    protected final int viewwidth = 1920;
+    protected final int viewheight = 1080;
+
     public BaseScreen(GameManager pirateGame){
         this.game = pirateGame;
-        this.stage = new Stage();
+        this.stage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
     }
 
     public abstract void update(float delta);

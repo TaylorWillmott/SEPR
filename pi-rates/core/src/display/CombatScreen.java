@@ -2,6 +2,7 @@ package display;
 
 import banks.CoordBank;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
@@ -96,6 +97,13 @@ public class CombatScreen extends BaseScreen {
     private DecimalFormat df;
 
     /**
+     * Initialising sounds used in combat
+     */
+    private Sound cannon_1;
+    private Sound cannon_2;
+    private Sound cannon_3;
+
+    /**
      * Constructor requiring instance of GameManager (to switch screen) and is college battle
      */
 
@@ -127,6 +135,9 @@ public class CombatScreen extends BaseScreen {
             enemyShip = game.getEnemyShip();
             combatEnemy = game.getCombatEnemy();
         }
+        cannon_1 = makeSound("cannon_1.mp3");
+        cannon_2 = makeSound("cannon_2.mp3");
+        cannon_3 = makeSound("cannon_3.mp3");
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
@@ -277,6 +288,11 @@ public class CombatScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+        cannon_1.dispose();
+        cannon_2.dispose();
+        cannon_3.dispose();
+        batch.dispose();
+        stage.dispose();
 
     }
 
@@ -593,6 +609,7 @@ public class CombatScreen extends BaseScreen {
                     } else {
                         //Runs the players Combat Loop
                         combatManager.combatLoop(combatPlayer, combatEnemy, roomSelected, weaponSelected);
+                        playSound(cannon_1);
                         //Displays if the Player Hit or Missed
                         if (combatManager.getShotHit()){
                             youHit.setVisible(true);

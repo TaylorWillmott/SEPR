@@ -1,6 +1,9 @@
 package display;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,6 +34,8 @@ public class MenuScreen extends BaseScreen{
     private TextButton runDepartment;
     private TextButton exitGame;
 
+    private Music mainMusic;
+
     public MenuScreen(GameManager game){
         super(game);
     }
@@ -48,6 +53,10 @@ public class MenuScreen extends BaseScreen{
         myTextButtonStyle.font = buttonFont;
         myTextButtonStyle.up = skin.getDrawable("buttonUp");
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
+
+        mainMusic = makeMusic("the-buccaneers-haul.mp3");
+
+        playMusic(mainMusic, true);
 
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
@@ -139,6 +148,8 @@ public class MenuScreen extends BaseScreen{
     @Override
     public void dispose() {
         menuBackground.dispose();
+        mainMusic.stop();
+        mainMusic.dispose();
         titleFont.dispose();
         buttonFont.dispose();
         skin.dispose();

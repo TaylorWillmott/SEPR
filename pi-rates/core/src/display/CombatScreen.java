@@ -1,13 +1,16 @@
 package display;
 
 import banks.CoordBank;
+import base.BaseActor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.items.Weapon;
@@ -49,7 +52,7 @@ public class CombatScreen extends BaseScreen {
      * Used to Draw Assets on the Screen
      */
     private SpriteBatch batch = new SpriteBatch();
-    private Stage stage = new Stage();
+//    private Stage stage = new Stage();
 
     /**
      * Main style used for buttons
@@ -308,26 +311,26 @@ public class CombatScreen extends BaseScreen {
      * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
      */
     private void drawCollege(){
-        collegeFont.getData().setScale(2);
+//        collegeFont.getData().setScale(2);
         switch (randInt) {
             case 0:
-                batch.draw(constantineSprite, 375, 750, 256, 256);
-                collegeFont.draw(batch, "Constantine Defender", 690, 850);
-                batch.draw(constantineShipBackground,636,207);
+                batch.draw(constantineSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewheight/4);
+                collegeFont.draw(batch, "Constantine Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
+                batch.draw(constantineShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
                 break;
             case 1:
 
-                batch.draw(langwithSprite, 375, 750, 256, 256);
-                collegeFont.draw(batch, "Langwith Defender", 690, 850);
+                batch.draw(langwithSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
+                collegeFont.draw(batch, "Langwith Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
 
 
-                batch.draw(langwithShipBackground,636,207);
+                batch.draw(langwithShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
                 break;
             case 2:
-                batch.draw(goodrickeSprite, 375, 750, 256, 256);
-                collegeFont.draw(batch, "Goodricke Defender", 690, 850);
+                batch.draw(goodrickeSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
+                collegeFont.draw(batch, "Goodricke Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
 
-                batch.draw(goodrickeShipBackground,636,207);
+                batch.draw(goodrickeShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
                 break;
         }
     }
@@ -343,38 +346,38 @@ public class CombatScreen extends BaseScreen {
      * Draws the friendly ship from room textures and constant coordinates
      */
     private void drawFriendlyShip(){
-        Sprite friendlyCrewQuaters = roomSpriteAtlas.createSprite("crewQuaters");
+
+        Image friendlyCrewQuaters = new Image(roomSpriteAtlas.findRegion("crewQuaters"));
         friendlyCrewQuaters.setPosition(CoordBank.FRIENDLY_CREWQUATERS.getX(),CoordBank.FRIENDLY_CREWQUATERS.getY());
+        stage.addActor(friendlyCrewQuaters);
 
-        Sprite friendlyEmptyRoom1 = roomSpriteAtlas.createSprite("EmptyRoom");
+        Image friendlyEmptyRoom1 = new Image(roomSpriteAtlas.createSprite("EmptyRoom"));
         friendlyEmptyRoom1.setPosition(CoordBank.FRIENDLY_EMPTYROOM1.getX(),CoordBank.FRIENDLY_EMPTYROOM1.getY());
+        stage.addActor(friendlyEmptyRoom1);
 
-        Sprite friendlyCrowsNest = roomSpriteAtlas.createSprite("crowsNest");
+        Image friendlyCrowsNest = new Image(roomSpriteAtlas.createSprite("crowsNest"));
         friendlyCrowsNest.setPosition(CoordBank.FRIENDLY_CROWSNEST.getX(),CoordBank.FRIENDLY_CROWSNEST.getY());
+        stage.addActor(friendlyCrowsNest);
 
-        Sprite friendlyGunDeck = roomSpriteAtlas.createSprite("gunDeck");
+        Image friendlyGunDeck = new Image(roomSpriteAtlas.createSprite("gunDeck"));
         friendlyGunDeck.setPosition(CoordBank.FRIENDLY_GUNDECK.getX(),CoordBank.FRIENDLY_GUNDECK.getY());
+        stage.addActor(friendlyGunDeck);
 
-        Sprite friendlyEmptyRoom2 = roomSpriteAtlas.createSprite("EmptyRoom");
+        Image friendlyEmptyRoom2 = new Image(roomSpriteAtlas.createSprite("EmptyRoom"));
         friendlyEmptyRoom2.setPosition(CoordBank.FRIENDLY_EMPTYROOM2.getX(),CoordBank.FRIENDLY_EMPTYROOM2.getY());
+        stage.addActor(friendlyEmptyRoom2);
 
-        Sprite friendlyHelm = roomSpriteAtlas.createSprite("helm");
+        Image friendlyHelm = new Image(roomSpriteAtlas.createSprite("helm"));
         friendlyHelm.setPosition(CoordBank.FRIENDLY_HELM.getX(),CoordBank.FRIENDLY_HELM.getY());
+        stage.addActor(friendlyHelm);
 
-        Sprite friendlyEmptyRoom3 = roomSpriteAtlas.createSprite("EmptyRoom");
+        Image friendlyEmptyRoom3 = new Image(roomSpriteAtlas.createSprite("EmptyRoom"));
         friendlyEmptyRoom3.setPosition(CoordBank.FRIENDLY_EMPTYROOM3.getX(),CoordBank.FRIENDLY_EMPTYROOM3.getY());
+        stage.addActor(friendlyEmptyRoom3);
 
-        Sprite friendlyEmptyRoom4 = roomSpriteAtlas.createSprite("EmptyRoom");
+        Image friendlyEmptyRoom4 = new Image(roomSpriteAtlas.createSprite("EmptyRoom"));
         friendlyEmptyRoom4.setPosition(CoordBank.FRIENDLY_EMPTYROOM4.getX(),CoordBank.FRIENDLY_EMPTYROOM4.getY());
-
-        friendlyCrewQuaters.draw(batch);
-        friendlyCrowsNest.draw(batch);
-        friendlyGunDeck.draw(batch);
-        friendlyHelm.draw(batch);
-        friendlyEmptyRoom1.draw(batch);
-        friendlyEmptyRoom2.draw(batch);
-        friendlyEmptyRoom3.draw(batch);
-        friendlyEmptyRoom4.draw(batch);
+        stage.addActor(friendlyEmptyRoom4);
     }
 
     /**
@@ -387,11 +390,11 @@ public class CombatScreen extends BaseScreen {
         int playerWidth = (int)(defaultWidth * ((double)playerShip.getHullHP() / (double)playerShip.getBaseHullHP()));
         int enemyWidth = (int)(defaultWidth * ((double)enemyShip.getHullHP() / (double)enemyShip.getBaseHullHP()));
 
-        batch.draw(hpBackground,25, 900, 320, 16);
-        batch.draw(hpBar,25, 900, playerWidth, 16);
+        batch.draw(hpBackground,(viewwidth*25)/1024, (viewheight*900)/1024, 320, 16);
+        batch.draw(hpBar,(viewwidth*25)/1024, (viewheight*900)/1024, playerWidth, 16);
 
-        batch.draw(hpBackground, 675, 900, 320, 16);
-        batch.draw(hpBar,675, 900, enemyWidth, 16);
+        batch.draw(hpBackground, (viewwidth*675)/1024, (viewheight*900)/1024, 320, 16);
+        batch.draw(hpBar,(viewwidth*675)/1024, (viewheight*900)/1024, enemyWidth, 16);
     }
 
     /**
@@ -401,17 +404,17 @@ public class CombatScreen extends BaseScreen {
 
         indicatorFont.setColor(1,1,1,1);
 
-        indicatorFont.draw(batch, "Score: " + game.getPoints(), 25, 890);
-        indicatorFont.draw(batch, "Gold: " + game.getGold(), 110, 890);
-        indicatorFont.draw(batch, "Food: " + game.getFood(), 195, 890);
-        indicatorFont.draw(batch, "Crew: " + playerShip.getCrew(), 280, 890);
+        indicatorFont.draw(batch, "Score: " + game.getPoints(), (viewwidth*25)/1024, (viewheight*890)/1024);
+        indicatorFont.draw(batch, "Gold: " + game.getGold(), (viewwidth*110)/1024, (viewheight*890)/1024);
+        indicatorFont.draw(batch, "Food: " + game.getFood(), (viewwidth*195)/1024, (viewheight*890)/1024);
+        indicatorFont.draw(batch, "Crew: " + playerShip.getCrew(), (viewwidth*280)/1024, (viewheight*890)/1024);
     }
 
     /**
      * Draws the Button returning to menu, taking the style button
      */
     public void buttonToMenu(){
-        toMenu.setPosition(880, 980);
+        toMenu.setPosition((viewwidth*880)/1024, (viewheight*980)/1024);
         toMenu.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Button Pressed");
@@ -545,11 +548,11 @@ public class CombatScreen extends BaseScreen {
                 weaponButtons.get(i).setDisabled(true);
             }
             weaponButtons.get(i).setTransform(true);
-            weaponButtons.get(i).setScale(1, 1.5f);
+//            weaponButtons.get(i).setScale(1, 1.5f);
 
             weaponButtonGroup.add(weaponButtons.get(i));
 
-            weaponButtons.get(i).setPosition(50 + (125 * i), 50);
+            weaponButtons.get(i).setPosition(( viewwidth*(50 + (125 * i)))/1024, (viewheight*50)/1024);
             stage.addActor(weaponButtons.get(i));
             i++;
         }
@@ -557,8 +560,8 @@ public class CombatScreen extends BaseScreen {
 
         final TextButton fire = new TextButton("Fire", weaponButtonStyle);
         fire.setTransform(true);
-        fire.setScale(1,1.5f);
-        fire.setPosition(575,50);
+//        fire.setScale(1,1.5f);
+        fire.setPosition((viewwidth*575)/1024,(viewheight*50)/1024);
         stage.addActor(fire);
 
         weaponButtons.get(0).addListener(new InputListener() {
@@ -666,10 +669,10 @@ public class CombatScreen extends BaseScreen {
         for  (Weapon weapon : playerShip.getWeapons())
         {
             if (weapon.getCurrentCooldown() <= 0){
-                cooldownFont.draw(batch, "Ready!", 55 + (i * 125) ,115);
+                cooldownFont.draw(batch, "Ready!", ( viewwidth*(55 + (125 * i)))/1024 ,(viewheight*115)/1024);
                 weaponButtons.get(i).setTouchable(Touchable.enabled);
             } else {
-                cooldownFont.draw(batch, "Cooldown: " + (weapon.getCurrentCooldown() / COOLDOWN_TICKS_PER_TURN) + "Turns", 55 + (i * 125),115);
+                cooldownFont.draw(batch, "Cooldown: " + (weapon.getCurrentCooldown() / COOLDOWN_TICKS_PER_TURN) + "Turns", ( viewwidth*(55 + (125 * i)))/1024,(viewheight*115)/1024);
                 weaponButtons.get(i).setTouchable(Touchable.disabled);
             }
             i++;
@@ -692,11 +695,11 @@ public class CombatScreen extends BaseScreen {
         roomHealthFont.draw(batch, "HP:" + playerShip.getRoom(NON_FUNCTIONAL).getHp(),FRIENDLY_EMPTYROOM3.getX() + 10,FRIENDLY_EMPTYROOM3.getY() + 22);
         roomHealthFont.draw(batch, "HP:" + playerShip.getRoom(NON_FUNCTIONAL).getHp(),FRIENDLY_EMPTYROOM4.getX() + 10,FRIENDLY_EMPTYROOM4.getY() + 22);
 
-        roomHealthFont.draw(batch, "Ship Functionality",100,250);
-        roomHealthFont.draw(batch, "Evade: " + df.format(playerShip.calculateShipEvade() * 100) + "%",100,230);
-        roomHealthFont.draw(batch, "Accuracy:" + df.format(playerShip.calculateShipAccuracy() * 100) + "%",100,210);
-        roomHealthFont.draw(batch, "Weapon Effectivness: " + df.format(playerShip.getRoom(RoomFunction.GUN_DECK).getMultiplier() * 100) + "%",100,190);
-        roomHealthFont.draw(batch, "Repair % Per Turn: " + df.format(playerShip.calculateRepair()) + "%",100,170);
+        roomHealthFont.draw(batch, "Ship Functionality",(viewwidth*100)/1024,(viewheight*250)/1024);
+        roomHealthFont.draw(batch, "Evade: " + df.format(playerShip.calculateShipEvade() * 100) + "%",(viewwidth*100)/1024,(viewheight*230)/1024);
+        roomHealthFont.draw(batch, "Accuracy:" + df.format(playerShip.calculateShipAccuracy() * 100) + "%",(viewwidth*100)/1024,(viewheight*210)/1024);
+        roomHealthFont.draw(batch, "Weapon Effectivness: " + df.format(playerShip.getRoom(RoomFunction.GUN_DECK).getMultiplier() * 100) + "%",(viewwidth*100)/1024,(viewheight*190)/1024);
+        roomHealthFont.draw(batch, "Repair % Per Turn: " + df.format(playerShip.calculateRepair()) + "%",(viewwidth*100)/1024,(viewheight*170)/1024);
     }
 
     /**
@@ -705,11 +708,11 @@ public class CombatScreen extends BaseScreen {
     private void drawEnemyEffectivness() {
         roomHealthFont.setColor(1,1,1,1);
 
-        roomHealthFont.draw(batch, "Ship Functionality",700,250);
-        roomHealthFont.draw(batch, "Evade: " + df.format(enemyShip.calculateShipEvade() * 100) + "%",700,230);
-        roomHealthFont.draw(batch, "Accuracy:" + df.format(enemyShip.calculateShipAccuracy() * 100) + "%",700,210);
-        roomHealthFont.draw(batch, "Weapon Effectivness: " + df.format(enemyShip.getRoom(RoomFunction.GUN_DECK).getMultiplier() * 100) + "%",700,190);
-        roomHealthFont.draw(batch, "Repair % Per Turn: " + df.format(enemyShip.calculateRepair()) + "%",700,170);
+        roomHealthFont.draw(batch, "Ship Functionality",(viewwidth*700)/1024,(viewheight*250)/1024);
+        roomHealthFont.draw(batch, "Evade: " + df.format(enemyShip.calculateShipEvade() * 100) + "%",(viewwidth*700)/1024,(viewheight*230)/1024);
+        roomHealthFont.draw(batch, "Accuracy:" + df.format(enemyShip.calculateShipAccuracy() * 100) + "%",(viewwidth*700)/1024,(viewheight*210)/1024);
+        roomHealthFont.draw(batch, "Weapon Effectivness: " + df.format(enemyShip.getRoom(RoomFunction.GUN_DECK).getMultiplier() * 100) + "%",(viewwidth*700)/1024,(viewheight*190)/1024);
+        roomHealthFont.draw(batch, "Repair % Per Turn: " + df.format(enemyShip.calculateRepair()) + "%",(viewwidth*700)/1024,(viewheight*170)/1024);
     }
 
     /**
@@ -718,15 +721,15 @@ public class CombatScreen extends BaseScreen {
     private void drawEndButtons(){
         youWin = new TextButton("You win!", textButtonStyle);
         youWin.setTransform(true);
-        youWin.setScale(3);
-        youWin.setPosition((Gdx.graphics.getWidth() / 2) - (175) ,(Gdx.graphics.getHeight() / 2));
+//        youWin.setScale(3);
+        youWin.setPosition((viewwidth/2)-175 ,(viewheight/2));
         stage.addActor(youWin);
         youWin.setVisible(false);
 
         youLose = new TextButton("You Lose :(", textButtonStyle);
         youLose.setTransform(true);
-        youLose.setScale(3);
-        youLose.setPosition((Gdx.graphics.getWidth()/2) - (175),(Gdx.graphics.getHeight() / 2));
+//        youLose.setScale(3);
+        youLose.setPosition((viewwidth/2)-175,(viewheight/2));
         stage.addActor(youLose);
         youLose.setVisible(false);
     }
@@ -737,29 +740,29 @@ public class CombatScreen extends BaseScreen {
     private void drawHitMissButtons(){
         youHit = new TextButton("You hit!", textButtonStyle);
         youHit.setTransform(true);
-        youHit.setScale(2);
-        youHit.setPosition(700,512);
+//        youHit.setScale(2);
+        youHit.setPosition((viewwidth*700)/1024,(viewheight*512)/1024);
         stage.addActor(youHit);
         youHit.setVisible(false);
 
         youMissed = new TextButton("You Missed!", textButtonStyle);
         youMissed.setTransform(true);
-        youMissed.setScale(2);
-        youMissed.setPosition(700,512);
+//        youMissed.setScale(2);
+        youMissed.setPosition((viewwidth*700)/1024,(viewheight*512)/1024);
         stage.addActor(youMissed);
         youMissed.setVisible(false);
 
         enemyHit = new TextButton("Enemy hit!", textButtonStyle);
         enemyHit.setTransform(true);
-        enemyHit.setScale(2);
-        enemyHit.setPosition(100,512);
+//        enemyHit.setScale(2);
+        enemyHit.setPosition((viewwidth*700)/1024,(viewheight*512)/1024);
         stage.addActor(enemyHit);
         enemyHit.setVisible(false);
 
         enemyMissed = new TextButton("Enemy Missed!", textButtonStyle);
         enemyMissed.setTransform(true);
-        enemyMissed.setScale(2);
-        enemyMissed.setPosition(100,512);
+//        enemyMissed.setScale(2);
+        enemyMissed.setPosition((viewwidth*700)/1024,(viewheight*512)/1024);
         stage.addActor(enemyMissed);
         enemyMissed.setVisible(false);
     }

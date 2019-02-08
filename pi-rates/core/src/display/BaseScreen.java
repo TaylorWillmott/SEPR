@@ -98,7 +98,7 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void resize(int width, int height) {
-        this.stage.getViewport().update(width, height);
+        this.stage.getViewport().update(width, height, true);
     }
 
     @Override

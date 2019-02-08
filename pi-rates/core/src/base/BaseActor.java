@@ -1,6 +1,7 @@
 package base;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
@@ -17,6 +18,10 @@ public class BaseActor extends Group {
         super();
         region = new TextureRegion();
         boundingPolygon = null;
+    }
+
+    public void setTexture(TextureRegion textureRegion) {
+        region.setRegion(textureRegion);
     }
 
     public void act(float dt) {

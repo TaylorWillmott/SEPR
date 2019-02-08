@@ -17,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import game_manager.GameManager;
 
 public class MenuScreen extends BaseScreen{
     private SpriteBatch batch = new SpriteBatch();
-
 
     private Texture menuBackground = new Texture("menuBackground.png");
     private BitmapFont titleFont = new BitmapFont(); //Sets titleFont to Libgdx default font
@@ -65,7 +65,7 @@ public class MenuScreen extends BaseScreen{
         this.background.setSize(viewwidth, viewheight);
 
         this.titleText = new Label("SEPR GAME", new Label.LabelStyle(titleFont, titleColor));
-        this.titleText.setPosition(viewwidth/2f - 160, 900);
+        this.titleText.setPosition(viewwidth/2f - 160, (viewheight*900)/1024);
         stage.addActor(this.titleText);
 
         mainMusic = makeMusic("the-buccaneers-haul.mp3");
@@ -81,7 +81,7 @@ public class MenuScreen extends BaseScreen{
         exitGame = new TextButton("Exit Game", myTextButtonStyle);
 
         stage.addActor(runCombat);
-        runCombat.setPosition(viewwidth/2f - 175, 700);
+        runCombat.setPosition(viewwidth/2f - 175, (viewheight*700)/1024);
         runCombat.setTransform(true); //Allows the Button to be Scaled
         runCombat.setScale(3);
         runCombat.addListener(new InputListener() {
@@ -92,7 +92,7 @@ public class MenuScreen extends BaseScreen{
         });
 
         stage.addActor(runCollege);
-        runCollege.setPosition(viewwidth/2f - 175, 580);
+        runCollege.setPosition(viewwidth/2f - 175, (viewheight*580)/1024);
         runCollege.setTransform(true); //Allows the Button to be Scaled
         runCollege.setScale(3);
         runCollege.addListener(new InputListener() {
@@ -103,7 +103,7 @@ public class MenuScreen extends BaseScreen{
         });
 
         stage.addActor(runDepartment);
-        runDepartment.setPosition(viewwidth/2f - 175, 460);
+        runDepartment.setPosition(viewwidth/2f - 175, (viewheight*460)/1024);
         runDepartment.setTransform(true); //Allows the Button to be Scaled
         runDepartment.setScale(3);
         runDepartment.addListener(new InputListener() {
@@ -114,7 +114,7 @@ public class MenuScreen extends BaseScreen{
         });
 
         stage.addActor(exitGame);
-        exitGame.setPosition(viewwidth/2f - 175, 340);
+        exitGame.setPosition(viewwidth/2f - 175, (viewheight*340)/1024);
         exitGame.setTransform(true); //Allows the Button to be Scaled
         exitGame.setScale(3);
         exitGame.addListener(new InputListener() {

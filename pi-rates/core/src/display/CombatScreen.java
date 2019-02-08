@@ -133,15 +133,16 @@ public class CombatScreen extends BaseScreen {
         if (isCollegeBattle) {
             enemyShip = game.getCollegeShip();
             combatEnemy = game.getCombatCollege();
+            setMusic(makeMusic("the-buccaneers-haul.mp3"));
         } else {
             enemyShip = game.getEnemyShip();
             combatEnemy = game.getCombatEnemy();
+            setMusic(makeMusic("the-buccaneers-haul.mp3"));
         }
+
         cannon_1 = makeSound("cannon_1.mp3");
         cannon_2 = makeSound("cannon_2.mp3");
         cannon_3 = makeSound("cannon_3.mp3");
-
-        setMusic(makeMusic("the-buccaneers-haul.mp3"));
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);

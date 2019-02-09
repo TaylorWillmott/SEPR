@@ -24,6 +24,7 @@ public abstract class BaseScreen implements Screen {
 
     protected final int viewwidth = 1920;
     protected final int viewheight = 1080;
+    protected final Skin skin;
     private Texture pauseBackgroundTexture;
     private Image pauseBackgroundImage;
 
@@ -44,7 +45,7 @@ public abstract class BaseScreen implements Screen {
 
 
         // Sets up PauseStage
-        Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
         pauseBackgroundTexture = new Texture("shopBackground.png");
         pauseBackgroundImage = new Image(pauseBackgroundTexture);
         pauseBackgroundImage.getColor().set(1f,1f,1f,0.75f);
@@ -83,7 +84,11 @@ public abstract class BaseScreen implements Screen {
         pauseStage.addActor(table);
     }
 
-    public abstract void update(float delta);
+    public void update(float delta){
+        Gdx.input.setInputProcessor(stage);
+        this.stage.act(delta);
+        update(delta);
+    }
 
     public void render (float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
@@ -91,8 +96,6 @@ public abstract class BaseScreen implements Screen {
         this.stage.draw();
         this.stage.act();
         if (!gamePaused){
-            Gdx.input.setInputProcessor(stage);
-            this.stage.act(delta);
             update(delta);
         }
         else{

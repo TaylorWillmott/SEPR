@@ -3,11 +3,17 @@ package display;
 import banks.CoordBank;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import combat.items.RoomUpgrade;
@@ -142,7 +148,24 @@ public class DepartmentScreen extends BaseScreen {
     private Sprite shopBackground;
 
     @Override
-    public void update(float delta){ }
+    public void update(float delta){
+        Gdx.input.setInputProcessor(stage);
+
+        batch.begin();
+
+        drawBackground();
+        drawFriendlyShip();
+        drawDepartment(randInt);
+
+        drawHealthBar();
+        drawIndicators();
+
+        drawShopBackground(shopBackground);
+
+        batch.end();
+
+        stage.draw();
+    }
 
     @Override
     public void show() {
@@ -206,22 +229,7 @@ public class DepartmentScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.input.setInputProcessor(stage);
-
-        batch.begin();
-
-        drawBackground();
-        drawFriendlyShip();
-        drawDepartment(randInt);
-
-        drawHealthBar();
-        drawIndicators();
-
-        drawShopBackground(shopBackground);
-
-        batch.end();
-
-        stage.draw();
+        super.render(delta);
     }
 
     @Override

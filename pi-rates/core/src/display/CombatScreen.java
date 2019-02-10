@@ -139,23 +139,27 @@ public class CombatScreen extends BaseScreen {
         enemyShipTable = new Table();
         attackTable = new Table();
 
+
+
+        Texture backgroundTex = new Texture("battleBackground.png");
+        Image backgroundImg = new Image(backgroundTex);
+        backgroundImg.setSize(viewwidth, viewheight);
+        stage.addActor(backgroundImg);
+        setUpTextures();
+        groupEnemyBar.addActor(hpEnemyImage);
+        groupEnemyBar.addActor(enemyHpBar);
+
         fullTable.row().uniformX().width(viewwidth/3);
         fullTable.add(playerHealthTable);
-        fullTable.add(groupEnemyBar).align(Align.top);
+        fullTable.add(groupEnemyBar).align(Align.top).width(hpImage.getPrefWidth());
         fullTable.row().uniform();
         fullTable.add(playerShipTable);
         fullTable.add(enemyShipTable);
         fullTable.row();
         fullTable.add(attackTable).colspan(2);
 
-        Texture backgroundTex = new Texture("battleBackground.png");
-        Image backgroundImg = new Image(backgroundTex);
-        backgroundImg.setSize(viewwidth, viewheight);
-        stage.addActor(backgroundImg);
         stage.addActor(fullTable);
-        setUpTextures();
-        groupEnemyBar.addActor(hpImage);
-        groupEnemyBar.addActor(enemyHpBar);
+
 
         // ALL TABLE DEBUGGING
         fullTable.debugAll();
@@ -205,10 +209,9 @@ public class CombatScreen extends BaseScreen {
     private Sprite goodrickeSprite;
     private Texture goodrickeShipBackground;
 
-    private BitmapFont roomHealthFont;
-    private BitmapFont cooldownFont;
 
     private Image hpImage;
+    private Image hpEnemyImage;
     private Image playerHpBar;
     private Image enemyHpBar;
 
@@ -225,6 +228,7 @@ public class CombatScreen extends BaseScreen {
 
         hpBackground = new Texture("disabledBackground.png");
         hpImage = new Image(hpBackground);
+        hpEnemyImage = new Image(hpBackground);
 
         collegeFont = new BitmapFont();
 
@@ -239,9 +243,6 @@ public class CombatScreen extends BaseScreen {
         goodrickeTexture = new Texture("goodricke.png");
         goodrickeSprite = new Sprite(goodrickeTexture);
         goodrickeShipBackground = new Texture("goodrickeShipBackground.png");
-
-        roomHealthFont = new BitmapFont();
-        cooldownFont = new BitmapFont();
 
         drawFriendlyShip();
         setupHealthBar();
@@ -396,7 +397,6 @@ public class CombatScreen extends BaseScreen {
         hpLabelE4 = labelMaker(NON_FUNCTIONAL);
 
 
-
         Stack groupCQ = roomSetup("crewQuaters", hpLabelCQ);
         Stack groupE1 = roomSetup("EmptyRoom", hpLabelE1);
         Stack groupCN = roomSetup("crowsNest", hpLabelCN);
@@ -493,6 +493,10 @@ public class CombatScreen extends BaseScreen {
         hpLabelCQ.setText("HP:" + playerShip.getRoom(CREW_QUARTERS).getHp());
         hpLabelCN.setText("HP:" + playerShip.getRoom(CROWS_NEST).getHp());
         hpLabelGD.setText("HP:" + playerShip.getRoom(GUN_DECK).getHp());
+
+        hpImage.setWidth(hpImage.getPrefWidth());
+        playerHpBar.setWidth(hpImage.getPrefWidth() * playerShip.getHullHP()/playerShip.getBaseHullHP());
+        enemyHpBar.setWidth(hpImage.getPrefWidth() * enemyShip.getHullHP()/enemyShip.getBaseHullHP());
 
         int i = 0;
         for  (Weapon weapon : playerShip.getWeapons()) {

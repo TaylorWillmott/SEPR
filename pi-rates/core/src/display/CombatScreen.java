@@ -139,8 +139,6 @@ public class CombatScreen extends BaseScreen {
         enemyShipTable = new Table();
         attackTable = new Table();
 
-
-
         Texture backgroundTex = new Texture("battleBackground.png");
         Image backgroundImg = new Image(backgroundTex);
         backgroundImg.setSize(viewwidth, viewheight);
@@ -159,7 +157,7 @@ public class CombatScreen extends BaseScreen {
         fullTable.add(attackTable).colspan(2);
 
         stage.addActor(fullTable);
-
+        drawHitMissButtons();
 
         // ALL TABLE DEBUGGING
         fullTable.debugAll();
@@ -250,7 +248,6 @@ public class CombatScreen extends BaseScreen {
         drawRoomHPEffectivness();
         drawWeaponButtons();
         drawEndButtons();
-        drawHitMissButtons();
     }
 
     @Override
@@ -641,8 +638,12 @@ public class CombatScreen extends BaseScreen {
                         playSound(cannon_1);
                         //Displays if the Player Hit or Missed
                         if (combatManager.getShotHit()){
+                            System.out.println("Hit");
+                            hitFeedbackTime = 0;
                             youHit.setVisible(true);
                         } else {
+                            System.out.println("Miss");
+                            hitFeedbackTime = 0;
                             youMissed.setVisible(true);
                         }
                     }
@@ -655,8 +656,10 @@ public class CombatScreen extends BaseScreen {
                         combatManager.enemyCombatLoop(combatEnemy, combatPlayer);
                         //Displays if Enemy Hit or Missed
                         if (combatManager.getShotHit()){
+                            hitFeedbackTime = 0;
                             enemyHit.setVisible(true);
                         } else {
+                            hitFeedbackTime = 0;
                             enemyMissed.setVisible(true);
                         }
                     } else {
@@ -755,6 +758,8 @@ public class CombatScreen extends BaseScreen {
         }
         stage.addActor(button);
         button.setVisible(false);
+        System.out.println(button);
+        button.setDebug(true);
         return button;
     }
 

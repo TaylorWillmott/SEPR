@@ -112,6 +112,9 @@ public abstract class BaseScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
             changeScreen(new DepartmentScreen(game));
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+            changeScreen(new MinigameScreen(game));
+        }
 
     }
 

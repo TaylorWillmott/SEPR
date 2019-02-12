@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -143,6 +142,10 @@ public class CombatScreen extends BaseScreen {
         Image backgroundImg = new Image(backgroundTex);
         backgroundImg.setSize(viewwidth, viewheight);
         stage.addActor(backgroundImg);
+
+        if (isCollegeBattle) {
+            drawCollege("constantine");
+        }
         setUpTextures();
         groupEnemyBar.addActor(hpEnemyImage);
         groupEnemyBar.addActor(enemyHpBar);
@@ -160,7 +163,7 @@ public class CombatScreen extends BaseScreen {
         drawHitMissButtons();
 
         // ALL TABLE DEBUGGING
-        fullTable.debugAll();
+//        fullTable.debugAll();
 
 
 
@@ -195,19 +198,6 @@ public class CombatScreen extends BaseScreen {
     private Texture hpBar;
     private BitmapFont collegeFont;
 
-    private Texture constantineTexture;
-    private Sprite constantineSprite;
-    private Texture constantineShipBackground;
-
-    private Texture langwithTexture;
-    private Sprite langwithSprite;
-    private Texture langwithShipBackground;
-
-    private Texture goodrickeTexture;
-    private Sprite goodrickeSprite;
-    private Texture goodrickeShipBackground;
-
-
     private Image hpImage;
     private Image hpEnemyImage;
     private Image playerHpBar;
@@ -230,18 +220,6 @@ public class CombatScreen extends BaseScreen {
 
         collegeFont = new BitmapFont();
 
-        constantineTexture = new Texture("Constantine.png");
-        constantineSprite = new Sprite(constantineTexture);
-        constantineShipBackground = new Texture("constantineShipBackground.png");
-
-        langwithTexture = new Texture("langwidth.png");
-        langwithSprite = new Sprite(langwithTexture);
-        langwithShipBackground = new Texture("langwidthShipBackground.png");
-
-        goodrickeTexture = new Texture("goodricke.png");
-        goodrickeSprite = new Sprite(goodrickeTexture);
-        goodrickeShipBackground = new Texture("goodrickeShipBackground.png");
-
         drawFriendlyShip();
         setupHealthBar();
         drawEnemyShip();
@@ -255,10 +233,6 @@ public class CombatScreen extends BaseScreen {
         Gdx.input.setInputProcessor(stage);
         batch.begin();
         updateInfo();
-
-        if (isCollegeBattle) {
-            drawCollege();
-        }
 
         batch.end();
 
@@ -345,29 +319,42 @@ public class CombatScreen extends BaseScreen {
     /**
      * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
      */
-    private void drawCollege(){
-//        collegeFont.getData().setScale(2);
-        switch (randInt) {
-            case 0:
-                batch.draw(constantineSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewheight/4);
-                collegeFont.draw(batch, "Constantine Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
-                batch.draw(constantineShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
-                break;
-            case 1:
+    private void drawCollege(String college){
+        Texture collegeShipTexture = new Texture(college + "ShipBackground.png");
+        Image collegeShipImage = new Image(collegeShipTexture);
 
-                batch.draw(langwithSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
-                collegeFont.draw(batch, "Langwith Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
+        collegeShipImage.setPosition(viewwidth/2,viewheight/1.5f, Align.center);
+        collegeShipImage.setColor(1,1,1, 0.8f);
+        Label label = new Label(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender",skin, "title");
+        label.setPosition(viewwidth/2,viewheight*900/1024, Align.center);
 
+        stage.addActor(collegeShipImage);
+        stage.addActor(label);
 
-                batch.draw(langwithShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
-                break;
-            case 2:
-                batch.draw(goodrickeSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
-                collegeFont.draw(batch, "Goodricke Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
-
-                batch.draw(goodrickeShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
-                break;
-        }
+//
+//        switch (randInt) {
+//            case 0:
+//                batch.draw(constantineSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewheight/4);
+//                collegeFont.draw(batch, "Constantine Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
+//                batch.draw(constantineShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
+//
+//
+//                break;
+//            case 1:
+//
+//                batch.draw(langwithSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
+//                collegeFont.draw(batch, "Langwith Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
+//
+//
+//                batch.draw(langwithShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
+//                break;
+//            case 2:
+//                batch.draw(goodrickeSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
+//                collegeFont.draw(batch, "Goodricke Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
+//
+//                batch.draw(goodrickeShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
+//                break;
+//        }
     }
 
     private Label hpLabelCQ;
@@ -468,7 +455,7 @@ public class CombatScreen extends BaseScreen {
 
 
         playerHealthTable.row().left();
-        playerHealthTable.add(groupPlayerBar).colspan(4).fillX();
+        playerHealthTable.add(groupPlayerBar).colspan(4).center();
         playerHealthTable.row().fill();
         playerHealthTable.add(pointsLabel);
         playerHealthTable.add(goldLabel);
@@ -759,7 +746,6 @@ public class CombatScreen extends BaseScreen {
         stage.addActor(button);
         button.setVisible(false);
         System.out.println(button);
-        button.setDebug(true);
         return button;
     }
 

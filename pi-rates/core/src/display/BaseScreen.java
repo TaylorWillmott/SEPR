@@ -109,6 +109,9 @@ public abstract class BaseScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             changeScreen(new CombatScreen(game, false));
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+            changeScreen(new CombatScreen(game, true));
+        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
             changeScreen(new DepartmentScreen(game));
         }

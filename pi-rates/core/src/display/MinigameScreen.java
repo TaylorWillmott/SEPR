@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import combat.ship.RoomFunction;
 import game_manager.GameManager;
 
 import java.util.Random;
@@ -22,7 +26,6 @@ public class MinigameScreen extends BaseScreen {
 	 * Used to Draw Assets on the Screen
 	 */
 	private SpriteBatch batch = new SpriteBatch();
-//    private Stage stage = new Stage();
 
 	/**
 	 * Booleans used to track if the Game is over and won/lost, plus buttons to display the info
@@ -53,69 +56,52 @@ public class MinigameScreen extends BaseScreen {
 	 */
 	public MinigameScreen(GameManager game){
 		super(game);
-		TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
-		skin.addRegions(buttonAtlas);
-		textButtonStyle = new TextButton.TextButtonStyle();
-		textButtonStyle.font = buttonFont;
-		textButtonStyle.up = skin.getDrawable("buttonUp");
-		textButtonStyle.down = skin.getDrawable("buttonDown");
 
 		Texture backgroundTex = new Texture("battleBackground.png");
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
 		stage.addActor(backgroundImg);
-		setUpTextures();
+
+		pickRock = new TextButton("Rock", skin, "button");
+		pickPaper = new TextButton("Paper", skin, "button");
+		pickScissors = new TextButton("Scissors", skin, "button");
+
+		Table table = new Table();
+		table.setFillParent(true);
+		stage.addActor(table);
+
+		ImageButton musket = createImageButton("musket.png", 0);
+		ImageButton map = createImageButton("map.png", 1);
+		ImageButton hook = createImageButton("hook.png", 2);
+
+		table.row();
+		table.add(musket);
+		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
+		table.add(hook);
+
+		drawEndButtons();
 	}
 
 	@Override
 	public void show() {
 		musicSetup("the-buccaneers-haul.mp3");
-		TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
-		skin.addRegions(buttonAtlas);
-
 		/**
 		 * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
 		 */
-		pickRock = new TextButton("Rock", textButtonStyle);
-		pickPaper = new TextButton("Paper", textButtonStyle);
-		pickScissors = new TextButton("Scissors", textButtonStyle);
 
-		stage.addActor(pickRock);
-		pickRock.setPosition(viewwidth/2f - 175, (viewheight*700)/1024);
-		pickRock.setTransform(true); //Allows the Button to be Scaled
-		pickRock.setScale(3);
-		pickRock.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-				playMinigame(50, 0);
-				return true;
-			}
-		});
 
-		stage.addActor(pickPaper);
-		pickPaper.setPosition(viewwidth/2f - 175, (viewheight*580)/1024);
-		pickPaper.setTransform(true); //Allows the Button to be Scaled
-		pickPaper.setScale(3);
-		pickPaper.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-				playMinigame(50, 1);
-				return true;
-			}
-		});
-
-		stage.addActor(pickScissors);
-		pickScissors.setPosition(viewwidth/2f - 175, (viewheight*460)/1024);
-		pickScissors.setTransform(true); //Allows the Button to be Scaled
-		pickScissors.setScale(3);
-		pickScissors.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-				playMinigame(50, 2);
-				return true;
-			}
-		});
 	}
 
-	public void setUpTextures(){
-		drawEndButtons();
+	public ImageButton createImageButton(String file, final int choice){
+		Drawable texture = new TextureRegionDrawable(new TextureRegion(new Texture(file)));
+		ImageButton button = new ImageButton(texture);
+		button.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+				playMinigame(50, choice);
+				return true;
+			}
+		});
+		return button;
 	}
 
 	@Override
@@ -165,26 +151,16 @@ public class MinigameScreen extends BaseScreen {
 		return rand.nextInt(max);
 	}
 
-
-	private void addButtonListener(final RoomFunction room, ImageButton button){
-		button.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				//TODO Fill in listener code or remove function.
-				return true;
-			}
-		});
-	}
-
 	/**
 	 * Draws buttons which display if you Win or Lose
 	 */
 	private void drawEndButtons(){
-		youWin = new TextButton("You win", textButtonStyle);
+		youWin = new TextButton("You Win", skin);
 		youWin.align(Align.center);
 		stage.addActor(youWin);
 		youWin.setVisible(false);
 
-		youLose = new TextButton("You Lose", textButtonStyle);
+		youLose = new TextButton("You Lose", skin);
 		youLose.align(Align.center);
 		stage.addActor(youLose);
 		youLose.setVisible(false);

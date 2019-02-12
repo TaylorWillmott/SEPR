@@ -60,9 +60,7 @@ public class MenuScreen extends BaseScreen{
         this.titleText.setPosition(viewwidth/2f - 160, (viewheight*900)/1024);
         stage.addActor(this.titleText);
 
-        setMusic(makeMusic("the-buccaneers-haul.mp3"));
-
-        playMusic(getMusic(), true);
+        musicSetup("the-buccaneers-haul.mp3", true);
 
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen

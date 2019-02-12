@@ -112,6 +112,9 @@ public abstract class BaseScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
             changeScreen(new DepartmentScreen(game));
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+            changeScreen(new MinigameScreen(game));
+        }
 
     }
 
@@ -148,11 +151,27 @@ public abstract class BaseScreen implements Screen {
         music.play();
     }
 
-    public void playMusic(Music music) { playMusic(music, false); }
+    public void playMusic(Music music) { playMusic(music, true); }
 
     public void setMusic(Music music) {this.music = music;}
 
     public Music getMusic() {return music;}
+
+    /**
+     * Sets up the music and beings playing it immediately.
+     * @param filename
+     * @param loop
+     */
+    public void musicSetup(String filename, Boolean loop) {
+        setMusic(makeMusic(filename));
+        playMusic(getMusic(), loop);
+    }
+
+    /**
+     * Sets up the music and beings playing it immediately. Loop defaults to true.
+     * @param filename
+     */
+    public void musicSetup(String filename) { musicSetup(filename, true); }
 
     @Override
     public void dispose () {

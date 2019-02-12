@@ -83,11 +83,23 @@ public class GameManager extends Game {
         this.gold += amount;
     }
 
+    @Deprecated // This function is deprecated. Use payGold instead where possible.
     public void deductGold(int amount) {
         this.gold -= amount;
         if (gold < 0) {
             gold = 0;
         }
+    }
+
+    /**
+     * Checks if the player can afford to pay the amount given. Charges them and returns true if they can, just returns false if they cannot.
+     * @param amount
+     * @return
+     */
+    public boolean payGold(int amount) {
+        if (gold < amount) { return false; }
+        gold = gold - amount;
+        return true;
     }
 
     public int getFood() {

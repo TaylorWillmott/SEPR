@@ -57,7 +57,7 @@ public class MinigameScreen extends BaseScreen {
 	public MinigameScreen(GameManager game){
 		super(game);
 
-		Texture backgroundTex = new Texture("battleBackground.png");
+		Texture backgroundTex = new Texture("menuBackground.png");
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
 		stage.addActor(backgroundImg);
@@ -70,12 +70,12 @@ public class MinigameScreen extends BaseScreen {
 		table.setFillParent(true);
 		stage.addActor(table);
 
-		ImageButton musket = createImageButton("musket.png", 0);
+		ImageButton pistol = createImageButton("pistol.png", 0);
 		ImageButton map = createImageButton("map.png", 1);
 		ImageButton hook = createImageButton("hook.png", 2);
 
 		table.row();
-		table.add(musket);
+		table.add(pistol);
 		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
 		table.add(hook);
 

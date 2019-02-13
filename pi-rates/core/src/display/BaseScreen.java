@@ -28,6 +28,8 @@ public abstract class BaseScreen implements Screen {
     private Texture pauseBackgroundTexture;
     private Image pauseBackgroundImage;
 
+    private boolean fullscreen = false;
+
     private Slider masterSlider;
     private Slider soundSlider;
     private Slider musicSlider;
@@ -117,6 +119,14 @@ public abstract class BaseScreen implements Screen {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             changeScreen(new MinigameScreen(game));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            if (fullscreen) {
+                Gdx.graphics.setWindowedMode((int)(Gdx.graphics.getDisplayMode().width*0.8), (int)(Gdx.graphics.getDisplayMode().height*0.8));
+            } else {
+                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            }
+            fullscreen = !fullscreen;
         }
 
     }

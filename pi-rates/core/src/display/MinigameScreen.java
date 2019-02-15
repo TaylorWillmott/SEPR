@@ -40,7 +40,7 @@ public class MinigameScreen extends BaseScreen {
 
 		betAmount = 1;
 
-		Texture backgroundTex = new Texture("menuBackground.png");
+		Texture backgroundTex = new Texture("logoBackground.png");
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
 		mainStage.addActor(backgroundImg);

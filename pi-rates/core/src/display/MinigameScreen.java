@@ -2,14 +2,10 @@ package display;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -22,10 +18,6 @@ import static java.lang.Math.round;
 public class MinigameScreen extends BaseScreen {
 
 	/**
-	 * Used to Draw Assets on the Screen
-	 */
-
-	/**
 	 * Booleans used to track if the Game is over and won/lost, plus buttons to display the info
 	 */
 	private TextButton youWin;
@@ -36,18 +28,8 @@ public class MinigameScreen extends BaseScreen {
 	 */
 	private float mult = 1.5f; // Odds of winning are 1/3 so a 50% return is pretty generous.
 
-	/**
-	 * Main style used for buttons
-	 */
-	private BitmapFont buttonFont = new BitmapFont();
-	private TextButton.TextButtonStyle textButtonStyle;
-
-	/**
-	 * TextButtons for the three choices.
-	 */
-	private TextButton pickRock;
-	private TextButton pickPaper;
-	private TextButton pickScissors;
+	private int betAmount;
+	private Slider betSlider;
 
 	/**
 	 * Constructor
@@ -55,14 +37,13 @@ public class MinigameScreen extends BaseScreen {
 	public MinigameScreen(GameManager game){
 		super(game);
 
+		betAmount = 1;
+
 		Texture backgroundTex = new Texture("menuBackground.png");
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
 		mainStage.addActor(backgroundImg);
 
-		pickRock = new TextButton("Rock", skin, "button");
-		pickPaper = new TextButton("Paper", skin, "button");
-		pickScissors = new TextButton("Scissors", skin, "button");
 
 		Table table = new Table();
 		table.setFillParent(true);
@@ -72,10 +53,14 @@ public class MinigameScreen extends BaseScreen {
 		ImageButton map = createImageButton("map.png", 1);
 		ImageButton hook = createImageButton("hook.png", 2);
 
+		betSlider = new Slider(1, betAmount, 1, false, skin);
+
 		table.row();
 		table.add(pistol);
 		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
 		table.add(hook);
+		table.row();
+		table.add(betSlider);
 
 		drawEndButtons();
 	}

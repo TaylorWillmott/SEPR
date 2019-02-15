@@ -9,11 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import combat.items.RoomUpgrade;
@@ -69,7 +65,6 @@ public class DepartmentScreen extends BaseScreen {
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
         setUpTextures();
-        drawBuyResourceFeatures();
 
         weaponBuyTableList = new ArrayList<Table>();
         weaponSellTableList = new ArrayList<Table>();
@@ -90,13 +85,16 @@ public class DepartmentScreen extends BaseScreen {
         buttonTable.add(resource2);
         buttonTable.add(resource3);
 
-        stage.addActor(buttonTable);
+        drawBackground();
+        drawShopBackground(createShopBackground());
+        drawBuyResourceFeatures();
+        mainStage.addActor(buttonTable);
+
         buttonTable.setFillParent(true);
         buttonTable.align(Align.center);
         buttonTable.setDebug(false);
 
         buttonToMenu();
-
         drawShop();
 
     }
@@ -122,7 +120,6 @@ public class DepartmentScreen extends BaseScreen {
      * Used to Draw Assets on the Screen
      */
     private SpriteBatch batch = new SpriteBatch();
-    private Stage stage = new Stage();
 
     /**
      * Used to set values to the same no. decimal places
@@ -142,29 +139,23 @@ public class DepartmentScreen extends BaseScreen {
     private TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas;
 
-    /**
-     * Sprite for Shopbackground and Fonts for Shop Information
-     */
-    private Sprite shopBackground;
 
     @Override
     public void update(float delta){
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(mainStage);
 
         batch.begin();
 
-        drawBackground();
         drawFriendlyShip();
         drawDepartment(randInt);
 
         drawHealthBar();
         drawIndicators();
 
-        drawShopBackground(shopBackground);
 
         batch.end();
 
-        stage.draw();
+        mainStage.draw();
     }
 
     @Override
@@ -179,7 +170,6 @@ public class DepartmentScreen extends BaseScreen {
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
-        shopBackground = createShopBackground();
     }
 
 
@@ -272,7 +262,9 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the Shop background
      */
     public void drawBackground() {
-        batch.draw(background, 0, 0);
+        Image backgroundImage = new Image(background);
+        backgroundImage.setSize(viewwidth, viewheight);
+        mainStage.addActor(backgroundImage);
     }
 
     /**
@@ -377,27 +369,27 @@ public class DepartmentScreen extends BaseScreen {
                 changeScreen(new MenuScreen(game));
             }
         });
-        stage.addActor(toMenu);
+        mainStage.addActor(toMenu);
     }
 
     /**
      * Generates the shopBackground
      * @return return shop background sprite
      */
-    public Sprite createShopBackground(){
+    public Image createShopBackground(){
         Texture shopBackgroundTexture = new Texture("shopBackground.png");
-        return new Sprite(shopBackgroundTexture);
+        return new Image(shopBackgroundTexture);
     }
 
     /**
      * Draws the shop background from given Sprite
      * @param shopBackground
      */
-    public void drawShopBackground(Sprite shopBackground) {
-        shopBackground.draw(batch);
-        shopBackground.setScale(1.5f, 1.5f);
-        shopBackground.setPosition(256, 256);
-        shopBackground.setAlpha(0.85f);
+    public void drawShopBackground(Image shopBackground) {
+        shopBackground.setSize(shopBackground.getPrefWidth()*1.5f, shopBackground.getPrefHeight()*1.5f);
+        shopBackground.setPosition(viewwidth/2, viewheight/2, Align.center);
+        shopBackground.setColor(1, 1,1,0.85f);
+        mainStage.addActor(shopBackground);
     }
 
     /**

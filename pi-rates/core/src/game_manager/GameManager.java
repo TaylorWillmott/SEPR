@@ -19,6 +19,9 @@ import static banks.ShipBank.STARTER_SHIP;
 import static banks.WeaponSetBank.COMP_SCI_WEPS;
 import static banks.WeaponSetBank.LMB_WEPS;
 import static banks.WeaponSetBank.PHYS_WEPS;
+import static com.badlogic.gdx.Application.LOG_DEBUG;
+import static com.badlogic.gdx.Application.LOG_INFO;
+import static com.badlogic.gdx.Application.LOG_ERROR;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
 
@@ -220,7 +223,8 @@ public class GameManager extends Game {
      */
     @Override
     public void create() { //Called when the application is
-        System.out.println("Initialise");
+        Gdx.app.setLogLevel(LOG_DEBUG); // Sets level of logs to display.
+        Gdx.app.debug("Game DEBUG","Initialising Application");
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);

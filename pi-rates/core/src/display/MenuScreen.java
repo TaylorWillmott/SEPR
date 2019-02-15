@@ -1,5 +1,6 @@
 package display;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import game_manager.GameManager;
 
 import static game_manager.GameManager.ComputerScience;
@@ -88,7 +88,8 @@ public class MenuScreen extends BaseScreen{
         startGame.setScale(3);
         startGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                changeScreen(new CombatScreen(game,true));
+	            Gdx.app.debug("Menu DEBUG", "Start button pressed");
+            	changeScreen(new CombatScreen(game,true));
                 return true;
             }
         });
@@ -99,6 +100,7 @@ public class MenuScreen extends BaseScreen{
         exitGame.setScale(3);
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+                Gdx.app.debug("Menu DEBUG", "Exit button pressed");
                 changeScreen(new DepartmentScreen(game, ComputerScience));
                 return true;
             }
@@ -119,9 +121,7 @@ public class MenuScreen extends BaseScreen{
     }
 
     @Override
-    public void render(float delta) {
-        super.render(delta);
-    }
+    public void render(float delta) { super.render(delta); }
 
     @Override
     public void resize(int width, int height) {

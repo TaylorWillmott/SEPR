@@ -9,11 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import combat.items.RoomUpgrade;
@@ -88,7 +84,6 @@ public class DepartmentScreen extends BaseScreen {
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
         setUpTextures();
-        drawBuyResourceFeatures();
 
         weaponBuyTableList = new ArrayList<Table>();
         weaponSellTableList = new ArrayList<Table>();
@@ -109,13 +104,16 @@ public class DepartmentScreen extends BaseScreen {
         buttonTable.add(resource2);
         buttonTable.add(resource3);
 
+        drawBackground();
+        drawShopBackground(createShopBackground());
+        drawBuyResourceFeatures();
         mainStage.addActor(buttonTable);
+
         buttonTable.setFillParent(true);
         buttonTable.align(Align.center);
         buttonTable.setDebug(false);
 
         buttonToMenu();
-
         drawShop();
 
     }
@@ -148,10 +146,6 @@ public class DepartmentScreen extends BaseScreen {
     private TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas;
 
-    /**
-     * Sprite for Shopbackground and Fonts for Shop Information
-     */
-    private Sprite shopBackground;
 
     @Override
     public void update(float delta){
@@ -159,14 +153,12 @@ public class DepartmentScreen extends BaseScreen {
 
         batch.begin();
 
-        drawBackground();
         drawFriendlyShip();
 //        drawDepartment(randInt);
 
         drawHealthBar();
         drawIndicators();
 
-        drawShopBackground(shopBackground);
 
         batch.end();
 
@@ -185,7 +177,6 @@ public class DepartmentScreen extends BaseScreen {
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
-        shopBackground = createShopBackground();
     }
 
 
@@ -284,7 +275,9 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the Shop background
      */
     public void drawBackground() {
-        batch.draw(background, 0, 0);
+        Image backgroundImage = new Image(background);
+        backgroundImage.setSize(viewwidth, viewheight);
+        mainStage.addActor(backgroundImage);
     }
 
     /**
@@ -385,7 +378,7 @@ public class DepartmentScreen extends BaseScreen {
         toMenu.setPosition(880, 980);
         toMenu.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Button Pressed");
+                Gdx.app.debug("Department DEBUG", "Button Pressed");
                 changeScreen(new MenuScreen(game));
             }
         });
@@ -396,20 +389,20 @@ public class DepartmentScreen extends BaseScreen {
      * Generates the shopBackground
      * @return return shop background sprite
      */
-    public Sprite createShopBackground(){
+    public Image createShopBackground(){
         Texture shopBackgroundTexture = new Texture("shopBackground.png");
-        return new Sprite(shopBackgroundTexture);
+        return new Image(shopBackgroundTexture);
     }
 
     /**
      * Draws the shop background from given Sprite
      * @param shopBackground
      */
-    public void drawShopBackground(Sprite shopBackground) {
-        shopBackground.draw(batch);
-        shopBackground.setScale(1.5f, 1.5f);
-        shopBackground.setPosition(256, 256);
-        shopBackground.setAlpha(0.85f);
+    public void drawShopBackground(Image shopBackground) {
+        shopBackground.setSize(shopBackground.getPrefWidth()*1.5f, shopBackground.getPrefHeight()*1.5f);
+        shopBackground.setPosition(viewwidth/2, viewheight/2, Align.center);
+        shopBackground.setColor(1, 1,1,0.85f);
+        mainStage.addActor(shopBackground);
     }
 
     /**
@@ -423,17 +416,17 @@ public class DepartmentScreen extends BaseScreen {
         int i = 0;
         while (i <= department.getWeaponStock().size() - 1 && department.getWeaponStock().get(i) instanceof Weapon) {
             buyWeaponList.add(department.getWeaponStock().get(i));
-            System.out.println(i + ": " + department.getWeaponStock().get(i).getName());
+            Gdx.app.log("Weapon Stock", i + ": " + department.getWeaponStock().get(i).getName());
             i++;
         }
 
-        System.out.println(buyWeaponList.size() - 1);
+        Gdx.app.debug("Weapon Stock", Integer.toString(buyWeaponList.size() - 1));
 
         int j = 0;
         while (j <= buyWeaponList.size() - 1){
             TextButton textButton = new TextButton("Buy (" + buyWeaponList.get(j).getCost() + "g)", textButtonStyle);
             buyWeaponButtonListener(textButton, buyWeaponList.get(j));
-            System.out.println(buyWeaponList.get(j).getName() + " " + j);
+            Gdx.app.log("Weapon Stock", buyWeaponList.get(j).getName() + " " + j);
             weaponBuyTableList.get(j).add(new Label(buyWeaponList.get(j).getName(), skin));
             weaponBuyTableList.get(j).row();
             weaponBuyTableList.get(j).add(new Label("Damage: " + df.format(buyWeaponList.get(j).getBaseDamage()), skin));
@@ -491,7 +484,7 @@ public class DepartmentScreen extends BaseScreen {
 
         int j = 0;
         while (j <= sellWeaponList.size() - 1){
-            System.out.println(sellWeaponList.get(j).getName() + " " + j);
+            Gdx.app.log("Weapon Stock", sellWeaponList.get(j).getName() + " " + j);
             TextButton textButton = new TextButton("Sell (" + df.format(sellWeaponList.get(j).getCost() * STORE_SELL_PRICE_MULTIPLIER) + "g)", textButtonStyle);
             sellButtonListener(textButton, sellWeaponList.get(j));
             weaponSellTableList.get(j).add(new Label(sellWeaponList.get(j).getName(), skin));
@@ -544,7 +537,7 @@ public class DepartmentScreen extends BaseScreen {
 
         int j = 0;
         while (j <= roomUpgradeList.size() - 1){
-            System.out.println(roomUpgradeList.get(j).getName() + " " + j);
+            Gdx.app.log("Room Upgrades", roomUpgradeList.get(j).getName() + " " + j);
             TextButton textButton = new TextButton("Buy (" + df.format(roomUpgradeList.get(j).getCost()) + "g)", textButtonStyle);
             buyRoomUpgradeButtonListener(textButton, roomUpgradeList.get(j));
 

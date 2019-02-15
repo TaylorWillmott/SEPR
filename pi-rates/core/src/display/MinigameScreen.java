@@ -53,14 +53,19 @@ public class MinigameScreen extends BaseScreen {
 		ImageButton map = createImageButton("map.png", 1);
 		ImageButton hook = createImageButton("hook.png", 2);
 
-		betSlider = new Slider(1, betAmount, 1, false, skin);
+		betSlider = new Slider(1, 1000, 1, false, skin);
+//        betSlider.setColor(Color.YELLOW);
 
 		table.row();
 		table.add(pistol);
 		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
 		table.add(hook);
 		table.row();
-		table.add(betSlider);
+		table.add(betSlider).colspan(3).fill();
+		table.row();
+		table.add(new Label("1", skin)).left();
+		table.add();
+		table.add(new Label("1000", skin)).right();
 
 		drawEndButtons();
 	}

@@ -243,21 +243,21 @@ public class SailingScreen extends BaseScreen {
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
-//                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-//                    hintMessage.setText("Press F to interact");
-                    Gdx.app.debug("Sailing DEBUG","Encountered a College");
                     College college = obstacle.getCollege();
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-                        Gdx.app.debug("Sailing DEBUG","Interacted with College");
-                        if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
-                            Gdx.app.debug("College DEBUG","College is Active");
-                            // TODO Check this actually works
-                            gameManager.setScreen(new CombatScreen(game, true));
-                        } else {
-                            Gdx.app.debug("College DEBUG","College is Sacked");
-//                            gameManager.setScreen(new CollegeScreen(pirateGame, college));
+                    if (!playerShip.getCollege().getAlly().contains(college)) { // TODO Make winning boss battle actually add college to allys list.
+                        mapMessage.setText(capitalizeFirstLetter(name) + " Island");
+                        hintMessage.setText("Press F to interact");
+                        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+                            Gdx.app.debug("Sailing DEBUG","Interacted with College");
+                            gameManager.setScreen(new CombatScreen(game, true)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
                         }
+                    } else {
+                        mapMessage.setText(capitalizeFirstLetter(name) + " Island (Sacked)");
+                        hintMessage.setText("");
                     }
+
+                    Gdx.app.debug("Sailing DEBUG","Encountered a College");
+
                 } else {
 //                    Gdx.app.debug("Sailing DEBUG", "Pure obstacle");
                 }

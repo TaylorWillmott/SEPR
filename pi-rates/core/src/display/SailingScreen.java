@@ -56,14 +56,14 @@ public class SailingScreen extends BaseScreen {
     public SailingScreen(final GameManager main){
         super(main);
 
-        System.out.println(playerShip.getName());
+        Gdx.app.debug("Sailing DEBUG", playerShip.getName());
 
         mainStage.addActor(playerShip);
-        System.out.println("playerShip added");
+        Gdx.app.debug("Sailing DEBUG", "playerShip added");
 
         Table uiTable = new Table();
 
-        // TODO GOLD ANND POINT
+        // TODO GOLD AND POINT
 //        Label pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
 //        pointsLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
 //        pointsLabel.setAlignment(Align.left);
@@ -144,7 +144,7 @@ public class SailingScreen extends BaseScreen {
 //                else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
 //                else if (objectName.equals("physics")) solid.setDepartment(Physics);
                 else{
-                    System.out.println("Not college/department: " + solid.getName());
+                    Gdx.app.debug("Sailing DEBUG", "Not college/department: " + solid.getName());
                 }
                 obstacleList.add(solid);
             } else {
@@ -180,9 +180,6 @@ public class SailingScreen extends BaseScreen {
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
-
-        // Debug processor
-//        System.out.println("IP: im");
     }
 
     @Override
@@ -205,10 +202,9 @@ public class SailingScreen extends BaseScreen {
 
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
-                    System.out.println("Enemy Found in " + name);
+                    Gdx.app.log("Sailing", "Enemy Found in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
-                        System.out.println(name);
                         this.changeScreen(new CombatScreen(game, true));
                     }
                 }
@@ -217,7 +213,7 @@ public class SailingScreen extends BaseScreen {
 
         if (!x) {
 //            mapMessage.setText("Neutral Territory");
-            System.out.println("Neutral Territory");
+            Gdx.app.debug("Sailing Location","Neutral Territory");
         }
 
 
@@ -236,21 +232,21 @@ public class SailingScreen extends BaseScreen {
                 else if (!(obstacle.getCollege() == null)) {
 //                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
 //                    hintMessage.setText("Press F to interact");
-//                    System.out.println("A college");
+                    Gdx.app.debug("Sailing DEBUG","Encountered a College");
                     College college = obstacle.getCollege();
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-                        System.out.println("A college");
+                        Gdx.app.debug("Sailing DEBUG","Interacted with College");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
-                            System.out.println("Enemy");
-                            // TODO IMPLEMENT THIS
-//                            this.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
+                            Gdx.app.debug("College DEBUG","College is Active");
+                            // TODO Check this actually works
+                            changeScreen(new CombatScreen(game, true));
                         } else {
-                            System.out.println("Ally");
-//                            pirateGame.setScreen(new CollegeScreen(pirateGame, college));
+                            Gdx.app.debug("College DEBUG","College is Sacked");
+//                            changeScreen(new CollegeScreen(pirateGame, college));
                         }
                     }
                 } else {
-//                    System.out.println("Pure obstacle");
+//                    Gdx.app.debug("Sailing DEBUG", "Pure obstacle");
                 }
             }
         }

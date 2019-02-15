@@ -86,7 +86,8 @@ public class MenuScreen extends BaseScreen{
         startGame.setScale(3);
         startGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                changeScreen(new CombatScreen(game,true));
+	            Gdx.app.debug("Menu DEBUG", "Start button pressed");
+            	changeScreen(new CombatScreen(game,true));
                 return true;
             }
         });
@@ -97,6 +98,7 @@ public class MenuScreen extends BaseScreen{
         exitGame.setScale(3);
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+                Gdx.app.debug("Menu DEBUG", "Exit button pressed");
                 changeScreen(new DepartmentScreen(game));
                 return true;
             }

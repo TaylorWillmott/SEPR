@@ -113,7 +113,7 @@ public abstract class BaseScreen implements Screen {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            System.out.println("Toggle");
+            Gdx.app.debug("Pause Menu", "Toggled");
             toggleGamePaused();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {

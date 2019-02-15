@@ -373,7 +373,7 @@ public class DepartmentScreen extends BaseScreen {
         toMenu.setPosition(880, 980);
         toMenu.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Button Pressed");
+                Gdx.app.debug("Department DEBUG", "Button Pressed");
                 changeScreen(new MenuScreen(game));
             }
         });
@@ -411,17 +411,17 @@ public class DepartmentScreen extends BaseScreen {
         int i = 0;
         while (i <= department.getWeaponStock().size() - 1 && department.getWeaponStock().get(i) instanceof Weapon) {
             buyWeaponList.add(department.getWeaponStock().get(i));
-            System.out.println(i + ": " + department.getWeaponStock().get(i).getName());
+            Gdx.app.log("Weapon Stock", i + ": " + department.getWeaponStock().get(i).getName());
             i++;
         }
 
-        System.out.println(buyWeaponList.size() - 1);
+        Gdx.app.debug("Weapon Stock", Integer.toString(buyWeaponList.size() - 1));
 
         int j = 0;
         while (j <= buyWeaponList.size() - 1){
             TextButton textButton = new TextButton("Buy (" + buyWeaponList.get(j).getCost() + "g)", textButtonStyle);
             buyWeaponButtonListener(textButton, buyWeaponList.get(j));
-            System.out.println(buyWeaponList.get(j).getName() + " " + j);
+            Gdx.app.log("Weapon Stock", buyWeaponList.get(j).getName() + " " + j);
             weaponBuyTableList.get(j).add(new Label(buyWeaponList.get(j).getName(), skin));
             weaponBuyTableList.get(j).row();
             weaponBuyTableList.get(j).add(new Label("Damage: " + df.format(buyWeaponList.get(j).getBaseDamage()), skin));
@@ -479,7 +479,7 @@ public class DepartmentScreen extends BaseScreen {
 
         int j = 0;
         while (j <= sellWeaponList.size() - 1){
-            System.out.println(sellWeaponList.get(j).getName() + " " + j);
+            Gdx.app.log("Weapon Stock", sellWeaponList.get(j).getName() + " " + j);
             TextButton textButton = new TextButton("Sell (" + df.format(sellWeaponList.get(j).getCost() * STORE_SELL_PRICE_MULTIPLIER) + "g)", textButtonStyle);
             sellButtonListener(textButton, sellWeaponList.get(j));
             weaponSellTableList.get(j).add(new Label(sellWeaponList.get(j).getName(), skin));
@@ -532,7 +532,7 @@ public class DepartmentScreen extends BaseScreen {
 
         int j = 0;
         while (j <= roomUpgradeList.size() - 1){
-            System.out.println(roomUpgradeList.get(j).getName() + " " + j);
+            Gdx.app.log("Room Upgrades", roomUpgradeList.get(j).getName() + " " + j);
             TextButton textButton = new TextButton("Buy (" + df.format(roomUpgradeList.get(j).getCost()) + "g)", textButtonStyle);
             buyRoomUpgradeButtonListener(textButton, roomUpgradeList.get(j));
 

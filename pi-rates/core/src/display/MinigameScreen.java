@@ -176,15 +176,15 @@ public class MinigameScreen extends BaseScreen {
 			else { AIChoice = 2; }
 
 			if (playerChoice == AIChoice) { // Player and AI draw.
-				System.out.println("Player has won!");
+				Gdx.app.log("Minigame", "Player has won.");
 				//TODO What should happen when there's a draw? Currently returns the bet.
 				game.addGold(betAmount);
 			} else if ((playerChoice == 0 && AIChoice == 2) || (playerChoice == 1 && AIChoice == 0) || (playerChoice == 2 && AIChoice == 1)) { // Player wins.
-				System.out.println("Player has drawn.");
+				Gdx.app.log("Minigame", "Player has drawn.");
 				game.addGold(round(betAmount * mult));
 				//TODO Display "You win" text
 			} else { // Player loses.
-				System.out.println("Player has lost...");
+				Gdx.app.log("Minigame", "Player has lost.");
 				//TODO Display "You lose" text or something.
 			}
 		}

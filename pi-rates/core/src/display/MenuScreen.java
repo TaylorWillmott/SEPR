@@ -1,5 +1,6 @@
 package display;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -119,9 +120,7 @@ public class MenuScreen extends BaseScreen{
     }
 
     @Override
-    public void render(float delta) {
-        super.render(delta);
-    }
+    public void render(float delta) { super.render(delta); }
 
     @Override
     public void resize(int width, int height) {

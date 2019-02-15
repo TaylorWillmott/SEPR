@@ -75,7 +75,6 @@ public class GameManager extends Game {
     private float soundVolume;
     private float musicVolume;
 
-
     public CombatManager getCombatManager() { return combatManager; }
 
     public int getGold() {

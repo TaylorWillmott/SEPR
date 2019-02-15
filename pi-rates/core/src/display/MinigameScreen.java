@@ -3,7 +3,6 @@ package display;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -25,7 +24,6 @@ public class MinigameScreen extends BaseScreen {
 	/**
 	 * Used to Draw Assets on the Screen
 	 */
-	private SpriteBatch batch = new SpriteBatch();
 
 	/**
 	 * Booleans used to track if the Game is over and won/lost, plus buttons to display the info
@@ -107,9 +105,6 @@ public class MinigameScreen extends BaseScreen {
 	@Override
 	public void update(float delta){
 		Gdx.input.setInputProcessor(mainStage);
-		batch.begin();
-
-		batch.end();
 	}
 
 	@Override
@@ -140,7 +135,6 @@ public class MinigameScreen extends BaseScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
-		batch.dispose();
 	}
 
 	/**

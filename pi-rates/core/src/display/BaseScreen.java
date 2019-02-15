@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import game_manager.GameManager;
 
 import static game_manager.GameManager.ComputerScience;
+import static location.College.Goodricke;
 
 public abstract class BaseScreen implements Screen {
 
@@ -119,10 +120,10 @@ public abstract class BaseScreen implements Screen {
             toggleGamePaused();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-            changeScreen(new CombatScreen(game, false));
+            changeScreen(new CombatScreen(game, false, Goodricke));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-            changeScreen(new CombatScreen(game, true));
+            changeScreen(new CombatScreen(game, true, Goodricke));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
             changeScreen(new DepartmentScreen(game, ComputerScience));

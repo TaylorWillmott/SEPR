@@ -7,21 +7,15 @@ import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
+import display.MenuScreen;
 import location.Department;
 import other.Difficulty;
-import display.*;
 
-import static banks.RoomUpgradeSetBank.COMP_SCI_UPGRADES;
-import static banks.RoomUpgradeSetBank.LMB_UPGRADES;
-import static banks.RoomUpgradeSetBank.PHYS_UPGRADES;
+import static banks.RoomUpgradeSetBank.*;
 import static banks.ShipBank.COLLEGE_SHIP;
 import static banks.ShipBank.STARTER_SHIP;
-import static banks.WeaponSetBank.COMP_SCI_WEPS;
-import static banks.WeaponSetBank.LMB_WEPS;
-import static banks.WeaponSetBank.PHYS_WEPS;
+import static banks.WeaponSetBank.*;
 import static com.badlogic.gdx.Application.LOG_DEBUG;
-import static com.badlogic.gdx.Application.LOG_INFO;
-import static com.badlogic.gdx.Application.LOG_ERROR;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
 
@@ -209,7 +203,7 @@ public class GameManager extends Game {
         this.gold = STARTING_GOLD;
         this.food = STARTING_FOOD;
         this.points = 0;
-        this.masterVolume = 0.5f;
+        this.masterVolume = 0.0f;
         this.soundVolume = 0.5f;
         this.musicVolume = 0.5f;
 

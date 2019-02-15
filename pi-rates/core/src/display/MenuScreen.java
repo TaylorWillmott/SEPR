@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import game_manager.GameManager;
 
 import static game_manager.GameManager.ComputerScience;
+import static location.College.Goodricke;
 
 public class MenuScreen extends BaseScreen{
     private SpriteBatch batch = new SpriteBatch();
@@ -24,42 +24,29 @@ public class MenuScreen extends BaseScreen{
     private Color titleColor = new Color(226F/255F, 223F/255F,164F/255F, 1);
 
     private Image background = new Image(menuBackground);
-    private Label titleText;
 
     //Menu buttons, their font, style and texture
     private BitmapFont buttonFont = new BitmapFont();
     private TextButton.TextButtonStyle myTextButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
-    private Skin skin = new Skin();
     private TextButton startGame;
     private TextButton exitGame;
 
-    public MenuScreen(GameManager game){
+    public MenuScreen(final GameManager game){
         super(game);
-    }
-
-    @Override
-    public void update(float delta){ }
-
-    @Override
-    public void show() {
         titleFont.setColor(titleColor);
         titleFont.getData().setScale(4);
 
         //Adds textures to the Skin, sets Skin for Button Up and Down
         skin.addRegions(buttonAtlas);
-        myTextButtonStyle.font = buttonFont;
+        myTextButtonStyle.font = skin.getFont("buttonTitle");
+//        myTextButtonStyle.fontColor = Color.BLACK;
         myTextButtonStyle.up = skin.getDrawable("buttonUp");
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
 
         //Draws Menu Title and Background
         mainStage.addActor(background);
         this.background.setSize(viewwidth, viewheight);
-
-        // This label is no longer needed as the title is now built into the background image.
-        // this.titleText = new Label("SEPR GAME", new Label.LabelStyle(titleFont, titleColor));
-        // this.titleText.setPosition(viewwidth/2f - 160, (viewheight*900)/1024);
-        // stage.addActor(this.titleText);
 
         musicSetup("the-buccaneers-haul.mp3", true);
 
@@ -68,56 +55,38 @@ public class MenuScreen extends BaseScreen{
          */
         startGame = new TextButton("Start Game", myTextButtonStyle);
         exitGame = new TextButton("Exit Game", myTextButtonStyle);
+        Table table = new Table();
 
-        /**
-        stage.addActor(runCombat);
-        runCombat.setPosition(viewwidth/2f - 175, (viewheight*600)/1024);
-        runCombat.setTransform(true); //Allows the Button to be Scaled
-        runCombat.setScale(3);
-        runCombat.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                changeScreen(new CombatScreen(game,false));
-                return true;
-            }
-        });
-         */
+        table.row().size(viewwidth/8f, viewheight/10f).padBottom(viewheight/24f);
+        table.add(startGame);
+        table.row().size(viewwidth/8f, viewheight/10f).fill();
+        table.add(exitGame);
 
-        mainStage.addActor(startGame);
-        startGame.setPosition(viewwidth/2f - 175, (viewheight*480)/1024);
-        startGame.setTransform(true); //Allows the Button to be Scaled
-        startGame.setScale(3);
-        startGame.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-	            Gdx.app.debug("Menu DEBUG", "Start button pressed");
-            	changeScreen(new CombatScreen(game,true));
-                return true;
+        table.setFillParent(true);
+        table.center();
+        mainStage.addActor(table);
+
+        startGame.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.debug("Menu DEBUG", "Start button pressed");
+                changeScreen(new CombatScreen(game,true, Goodricke));
             }
         });
 
-        mainStage.addActor(exitGame);
-        exitGame.setPosition(viewwidth/2f - 175, (viewheight*360)/1024);
-        exitGame.setTransform(true); //Allows the Button to be Scaled
-        exitGame.setScale(3);
-        exitGame.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+        exitGame.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y){
                 Gdx.app.debug("Menu DEBUG", "Exit button pressed");
                 changeScreen(new DepartmentScreen(game, ComputerScience));
-                return true;
             }
         });
+    }
 
-        /**
-        stage.addActor(exitGame);
-        exitGame.setPosition(viewwidth/2f - 175, (viewheight*240)/1024);
-        exitGame.setTransform(true); //Allows the Button to be Scaled
-        exitGame.setScale(3);
-        exitGame.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                System.exit(0);
-                return true;
-            }
-        });
-         */
+    @Override
+    public void update(float delta){ }
+
+    @Override
+    public void show() {
+
     }
 
     @Override

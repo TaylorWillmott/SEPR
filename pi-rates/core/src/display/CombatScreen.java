@@ -20,6 +20,7 @@ import combat.ship.Room;
 import combat.ship.RoomFunction;
 import combat.ship.Ship;
 import game_manager.GameManager;
+import location.College;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -47,6 +48,7 @@ public class CombatScreen extends BaseScreen {
     private CombatManager combatManager = game.getCombatManager();
 
     private int randInt = pickRandom(3);
+    private College college;
 
     /**
      * Used to Draw Assets on the Screen
@@ -114,12 +116,13 @@ public class CombatScreen extends BaseScreen {
     private Table attackTable;
 
     /**
-     * Constructor requiring instance of GameManager (to switch screen) and is college battle
+     * Constructor requiring instance of GameManager (to switch screen) and is college battle, also takes a college parameter
      */
 
     private Boolean isCollegeBattle;
-    public CombatScreen(GameManager game, Boolean isCollegeBattle){
+    public CombatScreen(GameManager game, Boolean isCollegeBattle, College college){
         super(game);
+        this.college = college;
         playerShip = game.getPlayerShip();
         this.isCollegeBattle = isCollegeBattle;
         TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
@@ -144,7 +147,7 @@ public class CombatScreen extends BaseScreen {
         mainStage.addActor(backgroundImg);
 
         if (isCollegeBattle) {
-            drawCollege("constantine");
+            drawCollege(college.getName());
         }
         setUpTextures();
         groupEnemyBar.addActor(hpEnemyImage);

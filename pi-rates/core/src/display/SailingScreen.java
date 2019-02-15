@@ -218,7 +218,7 @@ public class SailingScreen extends BaseScreen {
                     Gdx.app.log("Sailing", "Enemy Found in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
-                        gameManager.setScreen(new CombatScreen(game, true));
+                        gameManager.setScreen(new CombatScreen(game, true, college));
                     }
                 }
             }
@@ -252,7 +252,7 @@ public class SailingScreen extends BaseScreen {
                         hintMessage.setText("Press F to interact");
                         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                             Gdx.app.debug("Sailing DEBUG","Interacted with College");
-                            gameManager.setScreen(new CombatScreen(game, true)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
+                            gameManager.setScreen(new CombatScreen(game, true, college)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
                         }
                     } else {
                         mapMessage.setText(capitalizeFirstLetter(name) + " Island (Sacked)");

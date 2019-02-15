@@ -71,38 +71,37 @@ public class SailingScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
-        // TODO GOLD AND POINT
-//        Label pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
-//        pointsLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
-//        pointsLabel.setAlignment(Align.left);
-//
-//        Label goldTextLabel = new Label("Gold:", main.getSkin(),"default_black");
-//        goldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
-//        goldLabel.setAlignment(Align.left);
+        Label pointsTextLabel = new Label("Points: ", main.getSkin());
+        pointsLabel = new Label(Integer.toString(gameManager.getPoints()), main.getSkin());
+        pointsLabel.setAlignment(Align.left);
 
-//        uiTable.add(pointsTextLabel);
-//        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
-//        uiTable.row();
-//        uiTable.add(goldTextLabel).fill();
-//        uiTable.add(goldLabel).fill();
+        Label goldTextLabel = new Label("Gold:", main.getSkin());
+        goldLabel = new Label(Integer.toString(gameManager.getGold()), main.getSkin());
+        goldLabel.setAlignment(Align.left);
+
+        uiTable.add(pointsTextLabel);
+        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
+        uiTable.row();
+        uiTable.add(goldTextLabel).fill();
+        uiTable.add(goldLabel).fill();
 
         uiTable.align(Align.topRight);
         uiTable.setFillParent(true);
 
         uiStage.addActor(uiTable);
 
-//        mapMessage = new Label("", main.getSkin(), "default_black");
-//        hintMessage = new Label("", main.getSkin(),"default_black");
+        mapMessage = new Label("", main.getSkin());
+        hintMessage = new Label("", main.getSkin());
 
-//        Table messageTable = new Table();
-//        messageTable.add(mapMessage);
-//        messageTable.row();
-//        messageTable.add(hintMessage);
-//
-//        messageTable.setFillParent(true);
-//        messageTable.top();
-//
-//        uiStage.addActor(messageTable);
+        Table messageTable = new Table();
+        messageTable.add(mapMessage);
+        messageTable.row();
+        messageTable.add(hintMessage);
+
+        messageTable.setFillParent(true);
+        messageTable.top();
+
+        uiStage.addActor(messageTable);
 
         obstacleList = new ArrayList<BaseActor>();
         removeList = new ArrayList<BaseActor>();
@@ -199,7 +198,7 @@ public class SailingScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         removeList.clear();
-//        goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
+        goldLabel.setText(Integer.toString(gameManager.getGold()));
         this.playerShip.playerMove(delta);
 
         Boolean x = false;
@@ -209,7 +208,7 @@ public class SailingScreen extends BaseScreen {
                 x = true;
 
 
-//                mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
+                mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
 
 
 
@@ -226,7 +225,7 @@ public class SailingScreen extends BaseScreen {
         }
 
         if (!x) {
-//            mapMessage.setText("Neutral Territory");
+            mapMessage.setText("Neutral Territory");
             Gdx.app.debug("Sailing Location","Neutral Territory");
         }
 
@@ -237,8 +236,8 @@ public class SailingScreen extends BaseScreen {
             if (playerShip.overlaps(obstacle, true)) {
                 y = true;
                 if (!(obstacle.getDepartment() == null)) {
-//                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-//                    hintMessage.setText("Press F to interact");
+                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
+                    hintMessage.setText("Press F to interact");
 
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) gameManager.setScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
                 }
@@ -265,7 +264,7 @@ public class SailingScreen extends BaseScreen {
             }
         }
 
-//        if (!y) hintMessage.setText("");
+        if (!y) hintMessage.setText("");
 
         for (BaseActor object : removeList) {
             object.remove();
@@ -291,11 +290,11 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
-//            pirateGame.getPlayer().addPoints(1);
+	        gameManager.addPoints(1);
             timer -= 1;
         }
 
-//        pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
+        pointsLabel.setText(Integer.toString(gameManager.getPoints()));
     }
 
     @Override

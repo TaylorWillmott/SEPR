@@ -613,6 +613,7 @@ public class CombatScreen extends BaseScreen {
 
         fire.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                fire.setChecked(true);
                 if (weaponSelected instanceof Weapon && roomSelected instanceof  Room) {
                     if (weaponSelected.getCurrentCooldown() > 0) {
                         for (Weapon weapon : playerShip.getWeapons()) {
@@ -637,6 +638,8 @@ public class CombatScreen extends BaseScreen {
 
                     weaponButtonGroup.uncheckAll();
                     roomButtonGroup.uncheckAll();
+                    weaponSelected = null;
+                    roomSelected = null;
 
                     //Runs enemy Combat Loop
                     if (combatEnemy.hasWepaonsReady()){
@@ -663,8 +666,6 @@ public class CombatScreen extends BaseScreen {
                         gameOver = true;
                         gameWon = true;
                     }
-
-                    fire.toggle();
                     hitFeedbackTime = 0;
 
                 }
@@ -672,6 +673,7 @@ public class CombatScreen extends BaseScreen {
             }
         });
 
+        fire.setChecked(false);
         weaponButtonGroup.uncheckAll();
     }
 

@@ -202,7 +202,7 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void dispose () {
-        System.out.println("About to dispose uistage");
+        Gdx.app.debug("BaseScreen DEBUG", "About to dispose uiStage");
         this.uiStage.dispose();
         this.mainStage.dispose();
         this.pauseStage.dispose();

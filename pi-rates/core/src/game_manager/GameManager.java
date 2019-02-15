@@ -16,6 +16,7 @@ import static banks.ShipBank.COLLEGE_SHIP;
 import static banks.ShipBank.STARTER_SHIP;
 import static banks.WeaponSetBank.*;
 import static com.badlogic.gdx.Application.LOG_DEBUG;
+import static com.badlogic.gdx.Application.LOG_INFO;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
 

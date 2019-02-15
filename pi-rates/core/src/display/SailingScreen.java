@@ -190,9 +190,6 @@ public class SailingScreen extends BaseScreen {
         Gdx.input.setInputProcessor(im);
 
         setMusic(makeMusic("the-buccaneers-haul.mp3"));
-
-        // Debug processor
-//        System.out.println("IP: im");
     }
 
     @Override

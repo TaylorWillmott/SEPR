@@ -1,5 +1,6 @@
 package location;
 
+import com.badlogic.gdx.Gdx;
 import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 import game_manager.GameManager;
@@ -138,6 +139,8 @@ public class Department {
     public void sellWeapon(Weapon weapon) {
         if (!gameManager.getPlayerShip().getWeapons().contains(weapon)) {
             throw new IllegalArgumentException("You do not own this weapon");
+        } else if (weaponStock.size() == 4) {
+            Gdx.app.log("Department", "Sale refused as shop is full");
         } else {
             gameManager.getPlayerShip().getWeapons().remove(weapon);
             weaponStock.add(weapon);

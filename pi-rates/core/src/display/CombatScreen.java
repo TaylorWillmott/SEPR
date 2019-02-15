@@ -141,7 +141,7 @@ public class CombatScreen extends BaseScreen {
         Texture backgroundTex = new Texture("battleBackground.png");
         Image backgroundImg = new Image(backgroundTex);
         backgroundImg.setSize(viewwidth, viewheight);
-        stage.addActor(backgroundImg);
+        mainStage.addActor(backgroundImg);
 
         if (isCollegeBattle) {
             drawCollege("constantine");
@@ -159,7 +159,7 @@ public class CombatScreen extends BaseScreen {
         fullTable.row();
         fullTable.add(attackTable).colspan(2);
 
-        stage.addActor(fullTable);
+        mainStage.addActor(fullTable);
         drawHitMissButtons();
 
         // ALL TABLE DEBUGGING
@@ -230,7 +230,7 @@ public class CombatScreen extends BaseScreen {
 
     @Override
     public void update(float delta){
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(mainStage);
         batch.begin();
         updateInfo();
 
@@ -328,8 +328,8 @@ public class CombatScreen extends BaseScreen {
         Label label = new Label(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender",skin, "title");
         label.setPosition(viewwidth/2,viewheight*900/1024, Align.center);
 
-        stage.addActor(collegeShipImage);
-        stage.addActor(label);
+        mainStage.addActor(collegeShipImage);
+        mainStage.addActor(label);
 
 //
 //        switch (randInt) {
@@ -716,12 +716,12 @@ public class CombatScreen extends BaseScreen {
     private void drawEndButtons(){
         youWin = new TextButton("You win!", textButtonStyle);
         youWin.align(Align.center);
-        stage.addActor(youWin);
+        mainStage.addActor(youWin);
         youWin.setVisible(false);
 
         youLose = new TextButton("You Lose :(", textButtonStyle);
         youLose.align(Align.center);
-        stage.addActor(youLose);
+        mainStage.addActor(youLose);
         youLose.setVisible(false);
     }
 
@@ -743,7 +743,7 @@ public class CombatScreen extends BaseScreen {
         else{
             button.setPosition(viewwidth/3,viewheight/2);
         }
-        stage.addActor(button);
+        mainStage.addActor(button);
         button.setVisible(false);
         System.out.println(button);
         return button;

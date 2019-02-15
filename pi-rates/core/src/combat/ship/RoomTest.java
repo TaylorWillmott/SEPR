@@ -1,12 +1,10 @@
 package combat.ship;
 
-import com.sun.deploy.util.ArrayUtil;
 import combat.items.RoomUpgrade;
 import org.junit.Before;
 import org.junit.Test;
 import testing_tools.SampleObjects;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;

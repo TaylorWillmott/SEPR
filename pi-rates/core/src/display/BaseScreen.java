@@ -17,7 +17,8 @@ public abstract class BaseScreen implements Screen {
 
     protected GameManager game;
 
-    protected Stage stage;
+    protected Stage mainStage;
+    protected Stage uiStage;
     protected Stage pauseStage;
     protected boolean gamePaused;
 
@@ -27,6 +28,8 @@ public abstract class BaseScreen implements Screen {
     protected final Skin skin;
     private Texture pauseBackgroundTexture;
     private Image pauseBackgroundImage;
+
+    private boolean fullscreen = false;
 
     private Slider masterSlider;
     private Slider soundSlider;
@@ -39,7 +42,8 @@ public abstract class BaseScreen implements Screen {
 
     public BaseScreen(GameManager pirateGame){
         this.game = pirateGame;
-        this.stage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
+        this.mainStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
+        this.uiStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
         this.pauseStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
         this.gamePaused = false;
 
@@ -85,16 +89,22 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void update(float delta){
-        Gdx.input.setInputProcessor(stage);
-        this.stage.act(delta);
+        Gdx.input.setInputProcessor(mainStage);
+        this.uiStage.act(delta);
+        this.mainStage.act(delta);
         update(delta);
     }
 
     public void render (float delta) {
+        this.uiStage.act(delta);
+        this.mainStage.act(delta);
+        update(delta);
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        this.stage.draw();
-        this.stage.act();
+        this.mainStage.draw();
+        this.uiStage.draw();
+
         if (!gamePaused){
             update(delta);
         }
@@ -117,6 +127,17 @@ public abstract class BaseScreen implements Screen {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             changeScreen(new MinigameScreen(game));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            changeScreen(new SailingScreen(game));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            if (fullscreen) {
+                Gdx.graphics.setWindowedMode((int)(Gdx.graphics.getDisplayMode().width*0.8), (int)(Gdx.graphics.getDisplayMode().height*0.8));
+            } else {
+                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            }
+            fullscreen = !fullscreen;
         }
 
     }
@@ -178,7 +199,7 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void dispose () {
-        this.stage.dispose();
+        this.mainStage.dispose();
         this.pauseStage.dispose();
         this.music.stop();
         this.music.dispose();
@@ -186,7 +207,7 @@ public abstract class BaseScreen implements Screen {
 
     public void resize(int width, int height) {
         this.pauseStage.getViewport().update(width, height, true);
-        this.stage.getViewport().update(width, height, true);
+        this.mainStage.getViewport().update(width, height, true);
     }
 
     @Override

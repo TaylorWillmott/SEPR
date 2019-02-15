@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import game_manager.GameManager;
 
 public class MenuScreen extends BaseScreen{
@@ -29,9 +28,7 @@ public class MenuScreen extends BaseScreen{
     private TextButton.TextButtonStyle myTextButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
     private Skin skin = new Skin();
-    private TextButton runCombat;
-    private TextButton runCollege;
-    private TextButton runDepartment;
+    private TextButton startGame;
     private TextButton exitGame;
 
     public MenuScreen(GameManager game){
@@ -53,25 +50,25 @@ public class MenuScreen extends BaseScreen{
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
 
         //Draws Menu Title and Background
-        stage.addActor(background);
+        mainStage.addActor(background);
         this.background.setSize(viewwidth, viewheight);
 
-        this.titleText = new Label("SEPR GAME", new Label.LabelStyle(titleFont, titleColor));
-        this.titleText.setPosition(viewwidth/2f - 160, (viewheight*900)/1024);
-        stage.addActor(this.titleText);
+        // This label is no longer needed as the title is now built into the background image.
+        // this.titleText = new Label("SEPR GAME", new Label.LabelStyle(titleFont, titleColor));
+        // this.titleText.setPosition(viewwidth/2f - 160, (viewheight*900)/1024);
+        // stage.addActor(this.titleText);
 
         musicSetup("the-buccaneers-haul.mp3", true);
 
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
          */
-        runCombat = new TextButton("Run Combat", myTextButtonStyle);
-        runCollege = new TextButton("Run College", myTextButtonStyle);
-        runDepartment = new TextButton("Run Department", myTextButtonStyle);
+        startGame = new TextButton("Start Game", myTextButtonStyle);
         exitGame = new TextButton("Exit Game", myTextButtonStyle);
 
+        /**
         stage.addActor(runCombat);
-        runCombat.setPosition(viewwidth/2f - 175, (viewheight*700)/1024);
+        runCombat.setPosition(viewwidth/2f - 175, (viewheight*600)/1024);
         runCombat.setTransform(true); //Allows the Button to be Scaled
         runCombat.setScale(3);
         runCombat.addListener(new InputListener() {
@@ -80,31 +77,33 @@ public class MenuScreen extends BaseScreen{
                 return true;
             }
         });
+         */
 
-        stage.addActor(runCollege);
-        runCollege.setPosition(viewwidth/2f - 175, (viewheight*580)/1024);
-        runCollege.setTransform(true); //Allows the Button to be Scaled
-        runCollege.setScale(3);
-        runCollege.addListener(new InputListener() {
+        mainStage.addActor(startGame);
+        startGame.setPosition(viewwidth/2f - 175, (viewheight*480)/1024);
+        startGame.setTransform(true); //Allows the Button to be Scaled
+        startGame.setScale(3);
+        startGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 changeScreen(new CombatScreen(game,true));
                 return true;
             }
         });
 
-        stage.addActor(runDepartment);
-        runDepartment.setPosition(viewwidth/2f - 175, (viewheight*460)/1024);
-        runDepartment.setTransform(true); //Allows the Button to be Scaled
-        runDepartment.setScale(3);
-        runDepartment.addListener(new InputListener() {
+        mainStage.addActor(exitGame);
+        exitGame.setPosition(viewwidth/2f - 175, (viewheight*360)/1024);
+        exitGame.setTransform(true); //Allows the Button to be Scaled
+        exitGame.setScale(3);
+        exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 changeScreen(new DepartmentScreen(game));
                 return true;
             }
         });
 
+        /**
         stage.addActor(exitGame);
-        exitGame.setPosition(viewwidth/2f - 175, (viewheight*340)/1024);
+        exitGame.setPosition(viewwidth/2f - 175, (viewheight*240)/1024);
         exitGame.setTransform(true); //Allows the Button to be Scaled
         exitGame.setScale(3);
         exitGame.addListener(new InputListener() {
@@ -113,6 +112,7 @@ public class MenuScreen extends BaseScreen{
                 return true;
             }
         });
+         */
     }
 
     @Override

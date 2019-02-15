@@ -39,24 +39,24 @@ public class MinigameScreen extends BaseScreen {
 
 		betAmount = 1;
 
-		Texture backgroundTex = new Texture("battleBackground.png");
+		Texture backgroundTex = new Texture("menuBackground.png");
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
-		stage.addActor(backgroundImg);
+		mainStage.addActor(backgroundImg);
 
 
 		Table table = new Table();
 		table.setFillParent(true);
-		stage.addActor(table);
+		mainStage.addActor(table);
 
-		ImageButton musket = createImageButton("musket.png", 0);
+		ImageButton pistol = createImageButton("pistol.png", 0);
 		ImageButton map = createImageButton("map.png", 1);
 		ImageButton hook = createImageButton("hook.png", 2);
 
 		betSlider = new Slider(1, betAmount, 1, false, skin);
 
 		table.row();
-		table.add(musket);
+		table.add(pistol);
 		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
 		table.add(hook);
 		table.row();
@@ -89,7 +89,7 @@ public class MinigameScreen extends BaseScreen {
 
 	@Override
 	public void update(float delta){
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(mainStage);
 	}
 
 	@Override
@@ -136,12 +136,12 @@ public class MinigameScreen extends BaseScreen {
 	private void drawEndButtons(){
 		youWin = new TextButton("You Win", skin);
 		youWin.align(Align.center);
-		stage.addActor(youWin);
+		mainStage.addActor(youWin);
 		youWin.setVisible(false);
 
 		youLose = new TextButton("You Lose", skin);
 		youLose.align(Align.center);
-		stage.addActor(youLose);
+		mainStage.addActor(youLose);
 		youLose.setVisible(false);
 	}
 

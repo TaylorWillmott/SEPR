@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import game_manager.GameManager;
 
+import javax.xml.soap.Text;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -32,6 +34,7 @@ public class MinigameScreen extends BaseScreen {
 	private Slider betSlider;
 	private Label betAmountLabel;
     private Label goldLabel;
+	private ArrayList<Image> blankCardList;
 	/**
 	 * Constructor
 	 */
@@ -44,6 +47,18 @@ public class MinigameScreen extends BaseScreen {
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
 		mainStage.addActor(backgroundImg);
+
+		Texture blankCardTexture = new Texture("card_back.png");
+
+		blankCardList = new ArrayList<Image>();
+
+		for (int i=0; i<=2; i++){
+			Image blankCard = new Image(blankCardTexture);
+			blankCard.setOrigin(Align.center);
+			blankCard.rotateBy(180);
+			blankCardList.add(blankCard);
+		}
+
 
 
 		Table table = new Table();
@@ -59,9 +74,9 @@ public class MinigameScreen extends BaseScreen {
 //        betSlider.setColor(Color.YELLOW);
 
 		Table bankerTable = new Table();
-		bankerTable.add();
-		bankerTable.add();
-		bankerTable.add();
+		bankerTable.add(blankCardList.get(0));
+		bankerTable.add(blankCardList.get(1)).pad(0, viewwidth/15, 0, viewwidth/15);
+		bankerTable.add(blankCardList.get(2));
 
 		Table cardTable = new Table();
 		cardTable.add(pistol);
@@ -79,8 +94,10 @@ public class MinigameScreen extends BaseScreen {
 		betTable.add(new Label("Bet Amount: ", skin));
 		betTable.add(betAmountLabel);
 
-		table.add(bankerTable);
+		table.add(new Label("Banker", skin, "default-button")).colspan(2);
 		table.row();
+		table.add(bankerTable).colspan(2);
+		table.row().padTop(viewheight/24f);
 		table.add(cardTable).colspan(2);
 		table.row();
 		table.add(betSlider).fill().colspan(2);
@@ -177,11 +194,8 @@ public class MinigameScreen extends BaseScreen {
 	private void playMinigame(int betAmount, int playerChoice) {
 		// Choices are represented by the numbers 0-2 (0 = Rock, 1 = Paper, 2 = Scissors).
 		if (game.payGold(betAmount)) { // If the player can actually afford the bet...
-
-			int AIChoice = pickRandom(100); // AI picks a choice at random.
-			if (AIChoice < 33) { AIChoice = 0; }
-			else if (AIChoice < 66) { AIChoice = 1; }
-			else { AIChoice = 2; }
+			int AIChoice = pickRandom(2); // AI picks a choice at random.
+			blankCardList.get(AIChoice);
 
 			if (playerChoice == AIChoice) { // Player and AI draw.
 				Gdx.app.log("Minigame", "Player has won.");

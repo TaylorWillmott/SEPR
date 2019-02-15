@@ -69,14 +69,14 @@ public class MenuScreen extends BaseScreen{
         startGame.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){
                 Gdx.app.debug("Menu DEBUG", "Start button pressed");
-                changeScreen(new CombatScreen(game,true, Goodricke));
+                changeScreen(new SailingScreen(game));
             }
         });
 
         exitGame.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){
                 Gdx.app.debug("Menu DEBUG", "Exit button pressed");
-                changeScreen(new DepartmentScreen(game, ComputerScience));
+                Gdx.app.exit();
             }
         });
     }
@@ -90,7 +90,10 @@ public class MenuScreen extends BaseScreen{
     }
 
     @Override
-    public void render(float delta) { super.render(delta); }
+    public void render(float delta) {
+        super.render(delta);
+        Gdx.input.setInputProcessor(mainStage);
+    }
 
     @Override
     public void resize(int width, int height) {

@@ -30,6 +30,7 @@ public class MinigameScreen extends BaseScreen {
 
 	private int betAmount;
 	private Slider betSlider;
+	private Label betAmountLabel;
 
 	/**
 	 * Constructor
@@ -54,19 +55,29 @@ public class MinigameScreen extends BaseScreen {
 		ImageButton hook = createImageButton("hook.png", 2);
 
 		betSlider = new Slider(1, 1000, 1, false, skin);
+		betAmountLabel = new Label("" + betAmount, skin);
 //        betSlider.setColor(Color.YELLOW);
 
-		table.row();
-		table.add(pistol);
-		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
-		table.add(hook);
-		table.row();
-		table.add(betSlider).colspan(3).fill();
-		table.row();
-		table.add(new Label("1", skin)).left();
-		table.add();
-		table.add(new Label("1000", skin)).right();
+		Table bankerTable = new Table();
+		bankerTable.add();
+		bankerTable.add();
+		bankerTable.add();
 
+		Table cardTable = new Table();
+		cardTable.add(pistol);
+		cardTable.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
+		cardTable.add(hook);
+
+		table.add(bankerTable);
+		table.row();
+		table.add(cardTable).colspan(2);
+		table.row();
+		table.add(betSlider).fill().colspan(2);
+		table.row().uniform();
+		table.add(new Label("Bet Amount: ", skin)).right();
+		table.add(betAmountLabel).left();
+
+		table.setDebug(true);
 		drawEndButtons();
 	}
 
@@ -94,12 +105,14 @@ public class MinigameScreen extends BaseScreen {
 
 	@Override
 	public void update(float delta){
-		Gdx.input.setInputProcessor(mainStage);
+		betAmount = Math.round(betSlider.getValue());
+		betAmountLabel.setText("" + betAmount);
 	}
 
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		Gdx.input.setInputProcessor(mainStage);
 	}
 
 	@Override

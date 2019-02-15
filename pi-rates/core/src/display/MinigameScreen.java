@@ -31,7 +31,7 @@ public class MinigameScreen extends BaseScreen {
 	private int betAmount;
 	private Slider betSlider;
 	private Label betAmountLabel;
-
+    private Label goldLabel;
 	/**
 	 * Constructor
 	 */
@@ -68,14 +68,25 @@ public class MinigameScreen extends BaseScreen {
 		cardTable.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
 		cardTable.add(hook);
 
+		goldLabel = new Label("" + game.getGold(), skin);
+
+		Table goldTable = new Table();
+		Table betTable = new Table();
+
+		goldTable.add(new Label("Your Gold: ", skin));
+		goldTable.add(goldLabel);
+
+		betTable.add(new Label("Bet Amount: ", skin));
+		betTable.add(betAmountLabel);
+
 		table.add(bankerTable);
 		table.row();
 		table.add(cardTable).colspan(2);
 		table.row();
 		table.add(betSlider).fill().colspan(2);
 		table.row().uniform();
-		table.add(new Label("Bet Amount: ", skin)).right();
-		table.add(betAmountLabel).left();
+		table.add(goldTable).right().padRight(viewwidth/48f);
+		table.add(betTable).left().padLeft(viewwidth/48f);
 
 		table.setDebug(true);
 		drawEndButtons();
@@ -107,6 +118,7 @@ public class MinigameScreen extends BaseScreen {
 	public void update(float delta){
 		betAmount = Math.round(betSlider.getValue());
 		betAmountLabel.setText("" + betAmount);
+		goldLabel.setText("" + game.getGold());
 	}
 
 	@Override
@@ -147,7 +159,6 @@ public class MinigameScreen extends BaseScreen {
 		Random rand = new Random();
 		return rand.nextInt(max);
 	}
-
 	/**
 	 * Draws buttons which display if you Win or Lose
 	 */

@@ -240,7 +240,7 @@ public class SailingScreen extends BaseScreen {
 //                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
 //                    hintMessage.setText("Press F to interact");
 
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) this.changeScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
+                    if (Gdx.input.isKeyPressed(Input.Keys.F)) gameManager.setScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
@@ -256,7 +256,7 @@ public class SailingScreen extends BaseScreen {
                             gameManager.setScreen(new CombatScreen(game, true));
                         } else {
                             Gdx.app.debug("College DEBUG","College is Sacked");
-//                            changeScreen(new CollegeScreen(pirateGame, college));
+//                            gameManager.setScreen(new CollegeScreen(pirateGame, college));
                         }
                     }
                 } else {

@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import game_manager.GameManager;
 
+import javax.xml.soap.Text;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -30,7 +32,9 @@ public class MinigameScreen extends BaseScreen {
 
 	private int betAmount;
 	private Slider betSlider;
-
+	private Label betAmountLabel;
+    private Label goldLabel;
+	private ArrayList<Image> blankCardList;
 	/**
 	 * Constructor
 	 */
@@ -44,6 +48,18 @@ public class MinigameScreen extends BaseScreen {
 		backgroundImg.setSize(viewwidth, viewheight);
 		mainStage.addActor(backgroundImg);
 
+		Texture blankCardTexture = new Texture("card_back.png");
+
+		blankCardList = new ArrayList<Image>();
+
+		for (int i=0; i<=2; i++){
+			Image blankCard = new Image(blankCardTexture);
+			blankCard.setOrigin(Align.center);
+			blankCard.rotateBy(180);
+			blankCardList.add(blankCard);
+		}
+
+
 
 		Table table = new Table();
 		table.setFillParent(true);
@@ -54,19 +70,42 @@ public class MinigameScreen extends BaseScreen {
 		ImageButton hook = createImageButton("hook.png", 2);
 
 		betSlider = new Slider(1, 1000, 1, false, skin);
+		betAmountLabel = new Label("" + betAmount, skin);
 //        betSlider.setColor(Color.YELLOW);
 
-		table.row();
-		table.add(pistol);
-		table.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
-		table.add(hook);
-		table.row();
-		table.add(betSlider).colspan(3).fill();
-		table.row();
-		table.add(new Label("1", skin)).left();
-		table.add();
-		table.add(new Label("1000", skin)).right();
+		Table bankerTable = new Table();
+		bankerTable.add(blankCardList.get(0));
+		bankerTable.add(blankCardList.get(1)).pad(0, viewwidth/15, 0, viewwidth/15);
+		bankerTable.add(blankCardList.get(2));
 
+		Table cardTable = new Table();
+		cardTable.add(pistol);
+		cardTable.add(map).pad(0, viewwidth/15, 0, viewwidth/15);
+		cardTable.add(hook);
+
+		goldLabel = new Label("" + game.getGold(), skin);
+
+		Table goldTable = new Table();
+		Table betTable = new Table();
+
+		goldTable.add(new Label("Your Gold: ", skin));
+		goldTable.add(goldLabel);
+
+		betTable.add(new Label("Bet Amount: ", skin));
+		betTable.add(betAmountLabel);
+
+		table.add(new Label("Banker", skin, "default-button")).colspan(2);
+		table.row();
+		table.add(bankerTable).colspan(2);
+		table.row().padTop(viewheight/24f);
+		table.add(cardTable).colspan(2);
+		table.row();
+		table.add(betSlider).fill().colspan(2);
+		table.row().uniform();
+		table.add(goldTable).right().padRight(viewwidth/48f);
+		table.add(betTable).left().padLeft(viewwidth/48f);
+
+		table.setDebug(true);
 		drawEndButtons();
 	}
 
@@ -94,12 +133,15 @@ public class MinigameScreen extends BaseScreen {
 
 	@Override
 	public void update(float delta){
-		Gdx.input.setInputProcessor(mainStage);
+		betAmount = Math.round(betSlider.getValue());
+		betAmountLabel.setText("" + betAmount);
+		goldLabel.setText("" + game.getGold());
 	}
 
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		Gdx.input.setInputProcessor(mainStage);
 	}
 
 	@Override
@@ -134,7 +176,6 @@ public class MinigameScreen extends BaseScreen {
 		Random rand = new Random();
 		return rand.nextInt(max);
 	}
-
 	/**
 	 * Draws buttons which display if you Win or Lose
 	 */
@@ -153,11 +194,8 @@ public class MinigameScreen extends BaseScreen {
 	private void playMinigame(int betAmount, int playerChoice) {
 		// Choices are represented by the numbers 0-2 (0 = Rock, 1 = Paper, 2 = Scissors).
 		if (game.payGold(betAmount)) { // If the player can actually afford the bet...
-
-			int AIChoice = pickRandom(100); // AI picks a choice at random.
-			if (AIChoice < 33) { AIChoice = 0; }
-			else if (AIChoice < 66) { AIChoice = 1; }
-			else { AIChoice = 2; }
+			int AIChoice = pickRandom(2); // AI picks a choice at random.
+			blankCardList.get(AIChoice);
 
 			if (playerChoice == AIChoice) { // Player and AI draw.
 				Gdx.app.log("Minigame", "Player has won.");

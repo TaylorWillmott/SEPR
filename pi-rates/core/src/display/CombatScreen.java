@@ -199,7 +199,6 @@ public class CombatScreen extends BaseScreen {
     private TextureAtlas roomSpriteAtlas;
     private Texture hpBackground;
     private Texture hpBar;
-    private BitmapFont collegeFont;
 
     private Image hpImage;
     private Image hpEnemyImage;
@@ -220,8 +219,6 @@ public class CombatScreen extends BaseScreen {
         hpBackground = new Texture("disabledBackground.png");
         hpImage = new Image(hpBackground);
         hpEnemyImage = new Image(hpBackground);
-
-        collegeFont = new BitmapFont();
 
         drawFriendlyShip();
         setupHealthBar();
@@ -323,41 +320,17 @@ public class CombatScreen extends BaseScreen {
      * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
      */
     private void drawCollege(String college){
-        Texture collegeShipTexture = new Texture(college + "ShipBackground.png");
-        Image collegeShipImage = new Image(collegeShipTexture);
+//        Texture collegeShipTexture = new Texture(college + "ShipBackground.png");
+//        Image collegeShipImage = new Image(collegeShipTexture);
+//
+//        collegeShipImage.setPosition(viewwidth/2,viewheight/1.5f, Align.center);
+//        collegeShipImage.setColor(1,1,1, 0.8f);
+//        mainStage.addActor(collegeShipImage);
 
-        collegeShipImage.setPosition(viewwidth/2,viewheight/1.5f, Align.center);
-        collegeShipImage.setColor(1,1,1, 0.8f);
         Label label = new Label(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender",skin, "title");
         label.setPosition(viewwidth/2,viewheight*900/1024, Align.center);
 
-        mainStage.addActor(collegeShipImage);
         mainStage.addActor(label);
-
-//
-//        switch (randInt) {
-//            case 0:
-//                batch.draw(constantineSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewheight/4);
-//                collegeFont.draw(batch, "Constantine Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
-//                batch.draw(constantineShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
-//
-//
-//                break;
-//            case 1:
-//
-//                batch.draw(langwithSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
-//                collegeFont.draw(batch, "Langwith Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
-//
-//
-//                batch.draw(langwithShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
-//                break;
-//            case 2:
-//                batch.draw(goodrickeSprite, (viewwidth*375)/1024, (viewheight*750)/1024, viewwidth/4, viewwidth/4);
-//                collegeFont.draw(batch, "Goodricke Defender", (viewwidth*690)/1024, (viewheight*850)/1024);
-//
-//                batch.draw(goodrickeShipBackground,(viewwidth*636)/1024,(viewheight*207)/1024);
-//                break;
-//        }
     }
 
     private Label hpLabelCQ;

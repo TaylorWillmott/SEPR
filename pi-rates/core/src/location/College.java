@@ -5,19 +5,20 @@ import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
 
+import java.util.ArrayList;
+
 
 public class College {
     String name;
-    Ship opponent;
+    private ArrayList<College> ally;
+    private boolean bossDead;
 
-    public College(String name, Ship opponent, Ship player) {
+    public College(String name) {
         this.name = name;
-        this.opponent = opponent;
-        this.player = player;
+        this.ally = new ArrayList<College>();
+        this.ally.add(this);
+        this.bossDead = false;
     }
-
-    Ship player;
-
 
     public String getName() {
         return name;
@@ -27,21 +28,22 @@ public class College {
         this.name = name;
     }
 
-    public Ship getOpponent() {
-        return opponent;
+    public ArrayList<College> getAlly() { return ally; }
+    public void addAlly(College newAlly){
+        ally.add(newAlly);
     }
 
-    public void setOpponent(Ship opponent) {
-        this.opponent = opponent;
+    public boolean isBossDead() {
+        return bossDead;
+    }
+    public void setBossDead(boolean bossDead) {
+        this.bossDead = bossDead;
     }
 
-
-    public College(String name, Ship opponent) {
-        this.name = name;
-        this.opponent = opponent;
-    }
-
-    public void arrive() {
-        CombatManager cm = new CombatManager(new CombatPlayer(player), new CombatEnemy(opponent));
-    }
+    public static College Derwent = new College("Derwent");
+    public static College Vanbrugh = new College("Vanbrugh");
+    public static College James = new College("James");
+    public static College Alcuin = new College("Alcuin");
+    public static College Langwith = new College("Langwith");
+    public static College Goodricke = new College("Goodricke");
 }

@@ -60,7 +60,7 @@ public class MinigameScreen extends BaseScreen {
 		Texture backgroundTex = new Texture("menuBackground.png");
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
-		stage.addActor(backgroundImg);
+		mainStage.addActor(backgroundImg);
 
 		pickRock = new TextButton("Rock", skin, "button");
 		pickPaper = new TextButton("Paper", skin, "button");
@@ -68,7 +68,7 @@ public class MinigameScreen extends BaseScreen {
 
 		Table table = new Table();
 		table.setFillParent(true);
-		stage.addActor(table);
+		mainStage.addActor(table);
 
 		ImageButton pistol = createImageButton("pistol.png", 0);
 		ImageButton map = createImageButton("map.png", 1);
@@ -106,7 +106,7 @@ public class MinigameScreen extends BaseScreen {
 
 	@Override
 	public void update(float delta){
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(mainStage);
 		batch.begin();
 
 		batch.end();
@@ -157,12 +157,12 @@ public class MinigameScreen extends BaseScreen {
 	private void drawEndButtons(){
 		youWin = new TextButton("You Win", skin);
 		youWin.align(Align.center);
-		stage.addActor(youWin);
+		mainStage.addActor(youWin);
 		youWin.setVisible(false);
 
 		youLose = new TextButton("You Lose", skin);
 		youLose.align(Align.center);
-		stage.addActor(youLose);
+		mainStage.addActor(youLose);
 		youLose.setVisible(false);
 	}
 

@@ -8,11 +8,16 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import location.College;
+import location.Department;
 
 public class BaseActor extends Group {
 
     private TextureRegion region;
     private Polygon boundingPolygon;
+
+    private College college;
+    private Department department;
 
     public BaseActor() {
         super();
@@ -94,5 +99,21 @@ public class BaseActor extends Group {
     public void setOriginCentre() {
         if (getWidth() == 0) System.err.println("error: actor size not set");
         setOrigin(getWidth()/2,getHeight()/2);
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public College getCollege() {
+        return college;
+    }
+
+    public void setCollege(College college) {
+        this.college = college;
     }
 }

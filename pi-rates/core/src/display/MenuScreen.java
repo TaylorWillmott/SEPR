@@ -51,7 +51,7 @@ public class MenuScreen extends BaseScreen{
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
 
         //Draws Menu Title and Background
-        stage.addActor(background);
+        mainStage.addActor(background);
         this.background.setSize(viewwidth, viewheight);
 
         // This label is no longer needed as the title is now built into the background image.
@@ -80,7 +80,7 @@ public class MenuScreen extends BaseScreen{
         });
          */
 
-        stage.addActor(startGame);
+        mainStage.addActor(startGame);
         startGame.setPosition(viewwidth/2f - 175, (viewheight*480)/1024);
         startGame.setTransform(true); //Allows the Button to be Scaled
         startGame.setScale(3);
@@ -91,7 +91,7 @@ public class MenuScreen extends BaseScreen{
             }
         });
 
-        stage.addActor(exitGame);
+        mainStage.addActor(exitGame);
         exitGame.setPosition(viewwidth/2f - 175, (viewheight*360)/1024);
         exitGame.setTransform(true); //Allows the Button to be Scaled
         exitGame.setScale(3);

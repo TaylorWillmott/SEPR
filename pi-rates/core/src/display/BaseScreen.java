@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import game_manager.GameManager;
 
+import static game_manager.GameManager.ComputerScience;
+
 public abstract class BaseScreen implements Screen {
 
     protected GameManager game;
@@ -123,7 +125,7 @@ public abstract class BaseScreen implements Screen {
             changeScreen(new CombatScreen(game, true));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
-            changeScreen(new DepartmentScreen(game));
+            changeScreen(new DepartmentScreen(game, ComputerScience));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             changeScreen(new MinigameScreen(game));
@@ -159,8 +161,8 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void changeScreen(BaseScreen screen) {
-        game.setScreen(screen);
         dispose();
+        game.setScreen(screen);
     }
 
     public Sound makeSound(String filename) { return Gdx.audio.newSound(Gdx.files.internal(filename)); }
@@ -199,6 +201,8 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void dispose () {
+        System.out.println("About to dispose uistage");
+        this.uiStage.dispose();
         this.mainStage.dispose();
         this.pauseStage.dispose();
         this.music.stop();

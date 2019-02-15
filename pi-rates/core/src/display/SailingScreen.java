@@ -21,11 +21,17 @@ import location.College;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static game_manager.GameManager.*;
 import static location.College.*;
 
 public class SailingScreen extends BaseScreen {
 
     private sailingShip playerShip = new sailingShip(Derwent);
+
+    /**
+     * Sets up gameManager to retrieve values
+     */
+    private GameManager gameManager;
 
     //Map Variables
     private ArrayList<BaseActor> obstacleList;
@@ -53,10 +59,12 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
 
-    public SailingScreen(final GameManager main){
+    public SailingScreen(final GameManager main) {
         super(main);
 
         System.out.println(playerShip.getName());
+
+        this.gameManager = main;
 
         mainStage.addActor(playerShip);
         System.out.println("playerShip added");
@@ -141,8 +149,9 @@ public class SailingScreen extends BaseScreen {
                 else if (objectName.equals("alcuin")) solid.setCollege(Alcuin);
                 else if (objectName.equals("langwith")) solid.setCollege(Langwith);
                 else if (objectName.equals("goodricke")) solid.setCollege(Goodricke);
-//                else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
-//                else if (objectName.equals("physics")) solid.setDepartment(Physics);
+                else if (objectName.equals("computerscience"))solid.setDepartment(ComputerScience);
+                else if (objectName.equals("physics")) solid.setDepartment(Physics);
+                else if (objectName.equals("lawandmanagement")) solid.setDepartment(LawAndManagement);
                 else{
                     System.out.println("Not college/department: " + solid.getName());
                 }
@@ -180,6 +189,8 @@ public class SailingScreen extends BaseScreen {
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
+
+        setMusic(makeMusic("the-buccaneers-haul.mp3"));
 
         // Debug processor
 //        System.out.println("IP: im");
@@ -229,8 +240,8 @@ public class SailingScreen extends BaseScreen {
                 if (!(obstacle.getDepartment() == null)) {
 //                    mapMessage.setText(capitalizeFirstLetter(name) + " Island");
 //                    hintMessage.setText("Press F to interact");
-                    //TODO IMPLEMENT DEPARTMENT ON THIS SCREEN
-//                    if (Gdx.input.isKeyPressed(Input.Keys.F)) this.changeScreen(new DepartmentScreen(pirateGame, obstacle.getDepartment()));
+
+                    if (Gdx.input.isKeyPressed(Input.Keys.F)) this.changeScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
@@ -315,9 +326,8 @@ public class SailingScreen extends BaseScreen {
 
     @Override
     public void dispose () {
-        mainStage.dispose();
-        uiStage.dispose();
-        playerShip.getSailingTexture().dispose();
+       super.dispose();
+       playerShip.getSailingTexture().dispose();
     }
 
     public String capitalizeFirstLetter(String original) {

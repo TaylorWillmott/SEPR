@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 import game_manager.GameManager;
 
+import static game_manager.GameManager.ComputerScience;
+
 public class MenuScreen extends BaseScreen{
     private SpriteBatch batch = new SpriteBatch();
 
@@ -97,7 +99,7 @@ public class MenuScreen extends BaseScreen{
         exitGame.setScale(3);
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                changeScreen(new DepartmentScreen(game));
+                changeScreen(new DepartmentScreen(game, ComputerScience));
                 return true;
             }
         });

@@ -20,6 +20,7 @@ import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 import combat.ship.Ship;
 import game_manager.GameManager;
+import location.College;
 import location.Department;
 import other.Resource;
 
@@ -47,17 +48,35 @@ public class DepartmentScreen extends BaseScreen {
     private Table resource3 = new Table();
 
     private Skin skin;
+
+    /**
+     * Sets up department to retrieve values
+     */
+    private Department department;
+
+    /**
+     * Sets up gameManager to retrieve values and the playerShip
+     */
+    private GameManager gameManager;
+    private Ship playerShip;
+
     /**
      * Constructor for DepartmentScreen requiring game to switch screen
      */
-    public DepartmentScreen(GameManager game){
+    public DepartmentScreen(GameManager game, Department department) {
         super(game);
+
+        this.department = department;
+
+
+        this.gameManager = game;
+        this.playerShip = game.getPlayerShip();
+
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
 
         setMusic(makeMusic("the-buccaneers-haul.mp3"));
-
 
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin = game.getSkin();
@@ -90,7 +109,7 @@ public class DepartmentScreen extends BaseScreen {
         buttonTable.add(resource2);
         buttonTable.add(resource3);
 
-        stage.addActor(buttonTable);
+        mainStage.addActor(buttonTable);
         buttonTable.setFillParent(true);
         buttonTable.align(Align.center);
         buttonTable.setDebug(false);
@@ -113,27 +132,14 @@ public class DepartmentScreen extends BaseScreen {
     }
 
     /**
-     * Sets up gameManager to retrieve values and the playerShip
-     */
-    private GameManager gameManager = new GameManager(null, null);
-    private Ship playerShip = gameManager.getPlayerShip();
-
-    /**
      * Used to Draw Assets on the Screen
      */
     private SpriteBatch batch = new SpriteBatch();
-    private Stage stage = new Stage();
 
     /**
      * Used to set values to the same no. decimal places
      */
     private DecimalFormat df;
-
-    /**
-     * Used to pick a random department to display
-     */
-    private int randInt = pickRandom(2);
-    private Department department = assignDepartment(randInt);
 
     /**
      * Main style used for buttons
@@ -149,13 +155,13 @@ public class DepartmentScreen extends BaseScreen {
 
     @Override
     public void update(float delta){
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(mainStage);
 
         batch.begin();
 
         drawBackground();
         drawFriendlyShip();
-        drawDepartment(randInt);
+//        drawDepartment(randInt);
 
         drawHealthBar();
         drawIndicators();
@@ -164,7 +170,7 @@ public class DepartmentScreen extends BaseScreen {
 
         batch.end();
 
-        stage.draw();
+        mainStage.draw();
     }
 
     @Override
@@ -187,10 +193,12 @@ public class DepartmentScreen extends BaseScreen {
     private Texture background;
     private TextureAtlas roomSpriteAtlas;
 
-    private Texture computerScienceTexture;
-    private Sprite computerScienceSprite;
-    private Texture lawAndManagementTexture;
-    private Sprite lawAndManagementSprite;
+//    private Texture computerScienceTexture;
+//    private Sprite computerScienceSprite;
+//    private Texture lawAndManagementTexture;
+//    private Sprite lawAndManagementSprite;
+
+
     private TextButton toMenu;
     private Texture hpBar;
     private Texture hpBackground;
@@ -206,10 +214,14 @@ public class DepartmentScreen extends BaseScreen {
     public void setUpTextures(){
         background = new Texture("battleBackground.png");
         roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
-        computerScienceTexture = new Texture("ComputerScIsland.png");
-        computerScienceSprite = new Sprite(computerScienceTexture);
-        lawAndManagementTexture = new Texture("LMI.png");
-        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
+
+
+//        computerScienceTexture = new Texture("ComputerScIsland.png");
+//        computerScienceSprite = new Sprite(computerScienceTexture);
+//        lawAndManagementTexture = new Texture("LMI.png");
+//        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
+
+
         toMenu = new TextButton("To Menu", textButtonStyle);
         hpBar = new Texture("background.png");
         hpBackground = new Texture("disabledBackground.png");
@@ -332,16 +344,16 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the Department generated above
      * @param randInt
      */
-    public void drawDepartment(int randInt) {
-        switch (randInt) {
-            case 0:
-                batch.draw(computerScienceSprite,500,256);
-                break;
-            case 1:
-                batch.draw(lawAndManagementSprite,400,200);
-                break;
-        }
-    }
+//    public void drawDepartment(int randInt) {
+//        switch (randInt) {
+//            case 0:
+//                batch.draw(computerScienceSprite,500,256);
+//                break;
+//            case 1:
+//                batch.draw(lawAndManagementSprite,400,200);
+//                break;
+//        }
+//    }
 
     /**
      * Draws Hp bars for both ships
@@ -377,7 +389,7 @@ public class DepartmentScreen extends BaseScreen {
                 changeScreen(new MenuScreen(game));
             }
         });
-        stage.addActor(toMenu);
+        mainStage.addActor(toMenu);
     }
 
     /**
@@ -635,7 +647,5 @@ public class DepartmentScreen extends BaseScreen {
             }
         });
     }
-
-
 }
 

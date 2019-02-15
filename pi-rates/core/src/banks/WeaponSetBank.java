@@ -15,8 +15,9 @@ public enum WeaponSetBank {
     STARTER_WEAPONS(STARTER_WEAPON, STARTER_WEAPON, STARTER_WEAPON, null),
     MED_1(STORM, STORM, null, null),
     COLLEGE_WEPS(LAWBRINGER, SEPR, CRITTER, MORTAR),
-    COMP_SCI_WEPS(SEPR, SCATTER, CRITTER,null),
-    LMB_WEPS(LAWBRINGER, MORTAR, BOOM, null);
+    COMP_SCI_WEPS(SEPR, SCATTER, CRITTER, null),
+    LMB_WEPS(LAWBRINGER, MORTAR, BOOM, null),
+    PHYS_WEPS(STORM, TREB, SEPR, null);
 
     // Internal workings of the enum
     private WeaponBank w1;

@@ -613,6 +613,7 @@ public class CombatScreen extends BaseScreen {
 
         fire.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                fire.setChecked(true);
                 if (weaponSelected instanceof Weapon && roomSelected instanceof  Room) {
                     if (weaponSelected.getCurrentCooldown() > 0) {
                         for (Weapon weapon : playerShip.getWeapons()) {
@@ -625,11 +626,11 @@ public class CombatScreen extends BaseScreen {
                         playSound(cannon_1);
                         //Displays if the Player Hit or Missed
                         if (combatManager.getShotHit()){
-                            System.out.println("Hit");
+                            Gdx.app.log("Combat", "Attack Hit");
                             hitFeedbackTime = 0;
                             youHit.setVisible(true);
                         } else {
-                            System.out.println("Miss");
+                            Gdx.app.log("Combat", "Attack Missed");
                             hitFeedbackTime = 0;
                             youMissed.setVisible(true);
                         }
@@ -637,6 +638,8 @@ public class CombatScreen extends BaseScreen {
 
                     weaponButtonGroup.uncheckAll();
                     roomButtonGroup.uncheckAll();
+                    weaponSelected = null;
+                    roomSelected = null;
 
                     //Runs enemy Combat Loop
                     if (combatEnemy.hasWepaonsReady()){
@@ -663,8 +666,6 @@ public class CombatScreen extends BaseScreen {
                         gameOver = true;
                         gameWon = true;
                     }
-
-                    fire.toggle();
                     hitFeedbackTime = 0;
 
                 }
@@ -672,6 +673,7 @@ public class CombatScreen extends BaseScreen {
             }
         });
 
+        fire.setChecked(false);
         weaponButtonGroup.uncheckAll();
     }
 
@@ -681,13 +683,11 @@ public class CombatScreen extends BaseScreen {
      * Draws Text displaying weapon cooldowns to the user
      */
     private void drawWeaponCooldowns() {
-        System.out.println("PREV");
         cooldownList = new ArrayList<Label>();
         for  (int i = 0; i < playerShip.getWeapons().size() + 1; i++) {
             cooldownList.add(new Label("", skin));
-            System.out.println(i);
+            Gdx.app.debug("Combat DEBUG", "Cooldown drawn for weapon "+i);
         }
-        System.out.println("NEXT");
     }
 
     private ArrayList<Label> playerRoomList;
@@ -745,7 +745,6 @@ public class CombatScreen extends BaseScreen {
         }
         mainStage.addActor(button);
         button.setVisible(false);
-        System.out.println(button);
         return button;
     }
 

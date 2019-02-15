@@ -16,6 +16,7 @@ import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 import combat.ship.Ship;
 import game_manager.GameManager;
+import location.College;
 import location.Department;
 import other.Resource;
 
@@ -43,17 +44,35 @@ public class DepartmentScreen extends BaseScreen {
     private Table resource3 = new Table();
 
     private Skin skin;
+
+    /**
+     * Sets up department to retrieve values
+     */
+    private Department department;
+
+    /**
+     * Sets up gameManager to retrieve values and the playerShip
+     */
+    private GameManager gameManager;
+    private Ship playerShip;
+
     /**
      * Constructor for DepartmentScreen requiring game to switch screen
      */
-    public DepartmentScreen(GameManager game){
+    public DepartmentScreen(GameManager game, Department department) {
         super(game);
+
+        this.department = department;
+
+
+        this.gameManager = game;
+        this.playerShip = game.getPlayerShip();
+
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
 
         setMusic(makeMusic("the-buccaneers-haul.mp3"));
-
 
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin = game.getSkin();
@@ -111,12 +130,6 @@ public class DepartmentScreen extends BaseScreen {
     }
 
     /**
-     * Sets up gameManager to retrieve values and the playerShip
-     */
-    private GameManager gameManager = new GameManager(null, null);
-    private Ship playerShip = gameManager.getPlayerShip();
-
-    /**
      * Used to Draw Assets on the Screen
      */
     private SpriteBatch batch = new SpriteBatch();
@@ -125,12 +138,6 @@ public class DepartmentScreen extends BaseScreen {
      * Used to set values to the same no. decimal places
      */
     private DecimalFormat df;
-
-    /**
-     * Used to pick a random department to display
-     */
-    private int randInt = pickRandom(2);
-    private Department department = assignDepartment(randInt);
 
     /**
      * Main style used for buttons
@@ -147,7 +154,7 @@ public class DepartmentScreen extends BaseScreen {
         batch.begin();
 
         drawFriendlyShip();
-        drawDepartment(randInt);
+//        drawDepartment(randInt);
 
         drawHealthBar();
         drawIndicators();
@@ -177,10 +184,12 @@ public class DepartmentScreen extends BaseScreen {
     private Texture background;
     private TextureAtlas roomSpriteAtlas;
 
-    private Texture computerScienceTexture;
-    private Sprite computerScienceSprite;
-    private Texture lawAndManagementTexture;
-    private Sprite lawAndManagementSprite;
+//    private Texture computerScienceTexture;
+//    private Sprite computerScienceSprite;
+//    private Texture lawAndManagementTexture;
+//    private Sprite lawAndManagementSprite;
+
+
     private TextButton toMenu;
     private Texture hpBar;
     private Texture hpBackground;
@@ -196,10 +205,14 @@ public class DepartmentScreen extends BaseScreen {
     public void setUpTextures(){
         background = new Texture("battleBackground.png");
         roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
-        computerScienceTexture = new Texture("ComputerScIsland.png");
-        computerScienceSprite = new Sprite(computerScienceTexture);
-        lawAndManagementTexture = new Texture("LMI.png");
-        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
+
+
+//        computerScienceTexture = new Texture("ComputerScIsland.png");
+//        computerScienceSprite = new Sprite(computerScienceTexture);
+//        lawAndManagementTexture = new Texture("LMI.png");
+//        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
+
+
         toMenu = new TextButton("To Menu", textButtonStyle);
         hpBar = new Texture("background.png");
         hpBackground = new Texture("disabledBackground.png");
@@ -324,16 +337,16 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the Department generated above
      * @param randInt
      */
-    public void drawDepartment(int randInt) {
-        switch (randInt) {
-            case 0:
-                batch.draw(computerScienceSprite,500,256);
-                break;
-            case 1:
-                batch.draw(lawAndManagementSprite,400,200);
-                break;
-        }
-    }
+//    public void drawDepartment(int randInt) {
+//        switch (randInt) {
+//            case 0:
+//                batch.draw(computerScienceSprite,500,256);
+//                break;
+//            case 1:
+//                batch.draw(lawAndManagementSprite,400,200);
+//                break;
+//        }
+//    }
 
     /**
      * Draws Hp bars for both ships
@@ -365,7 +378,7 @@ public class DepartmentScreen extends BaseScreen {
         toMenu.setPosition(880, 980);
         toMenu.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Button Pressed");
+                Gdx.app.debug("Department DEBUG", "Button Pressed");
                 changeScreen(new MenuScreen(game));
             }
         });
@@ -403,17 +416,17 @@ public class DepartmentScreen extends BaseScreen {
         int i = 0;
         while (i <= department.getWeaponStock().size() - 1 && department.getWeaponStock().get(i) instanceof Weapon) {
             buyWeaponList.add(department.getWeaponStock().get(i));
-            System.out.println(i + ": " + department.getWeaponStock().get(i).getName());
+            Gdx.app.log("Weapon Stock", i + ": " + department.getWeaponStock().get(i).getName());
             i++;
         }
 
-        System.out.println(buyWeaponList.size() - 1);
+        Gdx.app.debug("Weapon Stock", Integer.toString(buyWeaponList.size() - 1));
 
         int j = 0;
         while (j <= buyWeaponList.size() - 1){
             TextButton textButton = new TextButton("Buy (" + buyWeaponList.get(j).getCost() + "g)", textButtonStyle);
             buyWeaponButtonListener(textButton, buyWeaponList.get(j));
-            System.out.println(buyWeaponList.get(j).getName() + " " + j);
+            Gdx.app.log("Weapon Stock", buyWeaponList.get(j).getName() + " " + j);
             weaponBuyTableList.get(j).add(new Label(buyWeaponList.get(j).getName(), skin));
             weaponBuyTableList.get(j).row();
             weaponBuyTableList.get(j).add(new Label("Damage: " + df.format(buyWeaponList.get(j).getBaseDamage()), skin));
@@ -471,7 +484,7 @@ public class DepartmentScreen extends BaseScreen {
 
         int j = 0;
         while (j <= sellWeaponList.size() - 1){
-            System.out.println(sellWeaponList.get(j).getName() + " " + j);
+            Gdx.app.log("Weapon Stock", sellWeaponList.get(j).getName() + " " + j);
             TextButton textButton = new TextButton("Sell (" + df.format(sellWeaponList.get(j).getCost() * STORE_SELL_PRICE_MULTIPLIER) + "g)", textButtonStyle);
             sellButtonListener(textButton, sellWeaponList.get(j));
             weaponSellTableList.get(j).add(new Label(sellWeaponList.get(j).getName(), skin));
@@ -524,7 +537,7 @@ public class DepartmentScreen extends BaseScreen {
 
         int j = 0;
         while (j <= roomUpgradeList.size() - 1){
-            System.out.println(roomUpgradeList.get(j).getName() + " " + j);
+            Gdx.app.log("Room Upgrades", roomUpgradeList.get(j).getName() + " " + j);
             TextButton textButton = new TextButton("Buy (" + df.format(roomUpgradeList.get(j).getCost()) + "g)", textButtonStyle);
             buyRoomUpgradeButtonListener(textButton, roomUpgradeList.get(j));
 
@@ -627,7 +640,5 @@ public class DepartmentScreen extends BaseScreen {
             }
         });
     }
-
-
 }
 

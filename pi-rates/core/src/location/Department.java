@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static banks.RoomUpgradeSetBank.COMP_SCI_UPGRADES;
+import static banks.RoomUpgradeSetBank.LMB_UPGRADES;
+import static banks.WeaponSetBank.COMP_SCI_WEPS;
+import static banks.WeaponSetBank.LMB_WEPS;
 import static other.Constants.*;
 
 /**
@@ -155,5 +159,4 @@ public class Department {
             gameManager.addGold((int) (upgrade.getCost() * Constants.STORE_SELL_PRICE_MULTIPLIER));
         }
     }
-
 }

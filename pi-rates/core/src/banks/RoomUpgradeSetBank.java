@@ -13,7 +13,8 @@ import static banks.RoomUpgradeBank.*;
 public enum RoomUpgradeSetBank {
     COMP_SCI_UPGRADES(REF_GUN, LOOK, STITCH, null),
     //NEW_ROOM_UPGRADE_SET_TEMPLATE(up1, up2, up3, up4)
-    LMB_UPGRADES(BED, SIGHT, ORANGES, null);
+    LMB_UPGRADES(BED, SIGHT, ORANGES, null),
+    PHYS_UPGRADES(BED, SIGHT, ORANGES, null);
 
     // Internal workings of the enum
     private RoomUpgradeBank r1;

@@ -7,11 +7,21 @@ import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
+import location.Department;
 import other.Difficulty;
 import display.*;
 
+import static banks.RoomUpgradeSetBank.COMP_SCI_UPGRADES;
+import static banks.RoomUpgradeSetBank.LMB_UPGRADES;
+import static banks.RoomUpgradeSetBank.PHYS_UPGRADES;
 import static banks.ShipBank.COLLEGE_SHIP;
 import static banks.ShipBank.STARTER_SHIP;
+import static banks.WeaponSetBank.COMP_SCI_WEPS;
+import static banks.WeaponSetBank.LMB_WEPS;
+import static banks.WeaponSetBank.PHYS_WEPS;
+import static com.badlogic.gdx.Application.LOG_DEBUG;
+import static com.badlogic.gdx.Application.LOG_INFO;
+import static com.badlogic.gdx.Application.LOG_ERROR;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
 
@@ -72,6 +82,12 @@ public class GameManager extends Game {
     private float soundVolume;
     private float musicVolume;
 
+    /**
+     * Different departments in the game
+     */
+    public static Department ComputerScience;
+    public static Department LawAndManagement;
+    public static Department Physics;
 
     public CombatManager getCombatManager() { return combatManager; }
 
@@ -196,6 +212,10 @@ public class GameManager extends Game {
         this.masterVolume = 0.5f;
         this.soundVolume = 0.5f;
         this.musicVolume = 0.5f;
+
+        this.ComputerScience = new Department(COMP_SCI_WEPS.getWeaponList(), COMP_SCI_UPGRADES.getRoomUpgradeList(), this);
+        this.LawAndManagement = new Department(LMB_WEPS.getWeaponList(), LMB_UPGRADES.getRoomUpgradeList(), this);
+        this.Physics = new Department(PHYS_WEPS.getWeaponList(), PHYS_UPGRADES.getRoomUpgradeList(), this);
     }
 
     /**
@@ -203,7 +223,8 @@ public class GameManager extends Game {
      */
     @Override
     public void create() { //Called when the application is
-        System.out.println("Initialise");
+        Gdx.app.setLogLevel(LOG_DEBUG); // Sets level of logs to display.
+        Gdx.app.debug("Game DEBUG","Initialising Application");
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);

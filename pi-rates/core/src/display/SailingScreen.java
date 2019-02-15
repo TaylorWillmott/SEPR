@@ -219,7 +219,7 @@ public class SailingScreen extends BaseScreen {
                     Gdx.app.log("Sailing", "Enemy Found in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
-                        this.changeScreen(new CombatScreen(game, true));
+                        gameManager.setScreen(new CombatScreen(game, false));
                     }
                 }
             }
@@ -253,7 +253,7 @@ public class SailingScreen extends BaseScreen {
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
                             Gdx.app.debug("College DEBUG","College is Active");
                             // TODO Check this actually works
-                            changeScreen(new CombatScreen(game, true));
+                            gameManager.setScreen(new CombatScreen(game, true));
                         } else {
                             Gdx.app.debug("College DEBUG","College is Sacked");
 //                            changeScreen(new CollegeScreen(pirateGame, college));

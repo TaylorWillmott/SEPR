@@ -1,5 +1,6 @@
 package location;
 
+import com.badlogic.gdx.Gdx;
 import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 import game_manager.GameManager;
@@ -10,10 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static banks.RoomUpgradeSetBank.COMP_SCI_UPGRADES;
-import static banks.RoomUpgradeSetBank.LMB_UPGRADES;
-import static banks.WeaponSetBank.COMP_SCI_WEPS;
-import static banks.WeaponSetBank.LMB_WEPS;
 import static other.Constants.*;
 
 /**
@@ -138,6 +135,8 @@ public class Department {
     public void sellWeapon(Weapon weapon) {
         if (!gameManager.getPlayerShip().getWeapons().contains(weapon)) {
             throw new IllegalArgumentException("You do not own this weapon");
+        } else if (weaponStock.size() == 4) {
+            Gdx.app.log("Department", "Sale refused as shop is full");
         } else {
             gameManager.getPlayerShip().getWeapons().remove(weapon);
             weaponStock.add(weapon);

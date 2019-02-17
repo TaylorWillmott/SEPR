@@ -1,4 +1,4 @@
-package display;
+package base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,6 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import display.CombatScreen;
+import display.DepartmentScreen;
+import display.MinigameScreen;
+import display.SailingScreen;
 import game_manager.GameManager;
 
 import static game_manager.GameManager.ComputerScience;

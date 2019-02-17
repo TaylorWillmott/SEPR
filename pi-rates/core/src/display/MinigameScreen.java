@@ -1,5 +1,6 @@
 package display;
 
+import base.BaseScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.round;
-
-//import javax.xml.soap.Text;
 
 public class MinigameScreen extends BaseScreen {
 
@@ -78,8 +77,6 @@ public class MinigameScreen extends BaseScreen {
 			blankCardList.add(blankCard);
 		}
 
-
-
 		Table table = new Table();
 		table.setFillParent(true);
 		mainStage.addActor(table);
@@ -92,7 +89,6 @@ public class MinigameScreen extends BaseScreen {
 
 		betSlider = new Slider(1, 1000, 1, false, skin);
 		betAmountLabel = new Label("" + betAmount, skin, "title");
-//        betSlider.setColor(Color.YELLOW);
 
 		Table bankerTable = new Table();
 		bankerTable.add(stackList.get(0));

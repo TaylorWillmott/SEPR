@@ -17,10 +17,6 @@ public class College {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isBossAlive() {
         return bossAlive;
     }

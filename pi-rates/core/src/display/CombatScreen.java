@@ -1,5 +1,6 @@
 package display;
 
+import base.BaseScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,7 +42,6 @@ public class CombatScreen extends BaseScreen {
      */
 
     //NOT SURE WHY YOU WOULD EVER CREATE A NEW SHIP
-//    private GameManager gameManager = new GameManager(null, null);
     private Ship playerShip;
     private CombatPlayer combatPlayer = game.getCombatPlayer();
     private Ship enemyShip;
@@ -55,7 +55,6 @@ public class CombatScreen extends BaseScreen {
      * Used to Draw Assets on the Screen
      */
     private SpriteBatch batch = new SpriteBatch();
-//    private Stage stage = new Stage();
 
     /**
      * Main style used for buttons
@@ -322,12 +321,6 @@ public class CombatScreen extends BaseScreen {
      * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
      */
     private void drawCollege(String college){
-//        Texture collegeShipTexture = new Texture(college + "ShipBackground.png");
-//        Image collegeShipImage = new Image(collegeShipTexture);
-//
-//        collegeShipImage.setPosition(viewwidth/2,viewheight/1.5f, Align.center);
-//        collegeShipImage.setColor(1,1,1, 0.8f);
-//        mainStage.addActor(collegeShipImage);
         Label label = new Label("", skin, "title");
         if (isCollegeBattle){
             label.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Boss");
@@ -730,5 +723,4 @@ public class CombatScreen extends BaseScreen {
         button.setVisible(false);
         return button;
     }
-
 }

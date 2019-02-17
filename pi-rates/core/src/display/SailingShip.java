@@ -26,19 +26,6 @@ public class SailingShip extends PhysicsActor {
         setupShip();
     }
 
-    public SailingShip(College college, String texturePath) {
-        this.college = college;
-        this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
-        setupShip();
-    }
-
-    public SailingShip(College college, boolean isBoss) {
-        this.college = college;
-        this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
-        this.isBoss = isBoss;
-        setupShip();
-    }
-
     public void setupShip(){
         this.setWidth(this.sailingTexture.getWidth());
         this.setHeight(this.sailingTexture.getHeight());
@@ -80,6 +67,4 @@ public class SailingShip extends PhysicsActor {
     }
 
     public Texture getSailingTexture() { return this.sailingTexture; }
-
-    public boolean getIsBoss() { return this.isBoss; }
 }

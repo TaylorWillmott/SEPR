@@ -1,11 +1,6 @@
 package combat.actors;
 
-import combat.items.Weapon;
-import combat.ship.Room;
 import combat.ship.Ship;
-import javafx.util.Pair;
-
-import java.util.List;
 
 /**
  * An abstract class which defines the architecture of CombatEnemy and CombatPlayer

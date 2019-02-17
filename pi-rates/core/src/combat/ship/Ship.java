@@ -3,7 +3,6 @@ package combat.ship;
 import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 
-import java.util.Hashtable;
 import java.util.List;
 
 import static java.lang.Math.log;

@@ -18,9 +18,6 @@ import static location.College.Goodricke;
 
 public abstract class BaseScreen implements Screen {
 
-    /**
-     * Sets up gameManager to retrieve values
-     */
     protected GameManager game;
 
     protected Stage mainStage;

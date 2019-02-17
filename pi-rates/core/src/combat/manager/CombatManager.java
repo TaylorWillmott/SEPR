@@ -106,25 +106,6 @@ public class CombatManager {
         return damageReport;
     }
 
-    /**
-     * Find out if the fight is finished either by a ship being destroyed or the minigame being started.
-     *
-     * @return Boolean - Fight ended or fight still going.
-     */
-    public boolean checkFightEnd() {
-        if (player.getShip().getHullHP() <= 0) {
-            return true;
-
-        } else if (enemy.getShip().getHullHP() <= 0) {
-            return true;
-
-        } else if (enemy.getShip().getHullHP() < (enemy.getShip().getBaseHullHP() * SHIP_BOARD_PERCENTAGE)) {
-            //TODO Minigame option to start here. The below is just a placeholder.
-            return false;
-        }
-        return false;
-    }
-
     public Boolean getShotHit(){
         return shotHit;
     }

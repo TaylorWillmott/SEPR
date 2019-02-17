@@ -8,6 +8,7 @@ import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
 import display.MenuScreen;
+import display.SailingScreen;
 import location.Department;
 import other.Difficulty;
 

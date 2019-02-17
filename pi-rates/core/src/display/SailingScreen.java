@@ -208,15 +208,12 @@ public class SailingScreen extends BaseScreen {
 
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
 
-
-
-
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
                     Gdx.app.log("Sailing", "Enemy Found in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
-                        gameManager.setScreen(new CombatScreen(game, true, college));
+                        gameManager.setScreen(new CombatScreen(game, false, college));
                     }
                 }
             }

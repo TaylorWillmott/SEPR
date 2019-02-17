@@ -326,8 +326,13 @@ public class CombatScreen extends BaseScreen {
 //        collegeShipImage.setPosition(viewwidth/2,viewheight/1.5f, Align.center);
 //        collegeShipImage.setColor(1,1,1, 0.8f);
 //        mainStage.addActor(collegeShipImage);
-
-        Label label = new Label(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender",skin, "title");
+        Label label = new Label("", skin, "title");
+        if (isCollegeBattle){
+            label.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Boss");
+        }
+        else{
+            label.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender");
+        }
         label.setPosition(viewwidth/2,viewheight*900/1024, Align.center);
 
         mainStage.addActor(label);

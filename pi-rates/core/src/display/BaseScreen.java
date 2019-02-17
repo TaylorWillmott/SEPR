@@ -131,7 +131,7 @@ public abstract class BaseScreen implements Screen {
             changeScreen(new MinigameScreen(game));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            changeScreen(new SailingScreen(game));
+            changeScreen(new SailingScreen(game, true));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             if (fullscreen) {

@@ -257,7 +257,7 @@ public class CombatScreen extends BaseScreen {
                 } catch (InterruptedException e) {
 
                 }
-                changeScreen(new SailingScreen(game));
+                changeScreen(new SailingScreen(game, false));
             }
             a++;
         }

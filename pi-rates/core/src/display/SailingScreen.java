@@ -54,7 +54,7 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
 
-    public SailingScreen(GameManager game) {
+    public SailingScreen(GameManager game, boolean isFirstSailingInstance) {
         super(game);
 
         Gdx.app.debug("Sailing DEBUG", playerShip.getName());
@@ -115,8 +115,11 @@ public class SailingScreen extends BaseScreen {
             RectangleMapObject rectangleObject = (RectangleMapObject)object;
             Rectangle r = rectangleObject.getRectangle();
 
-            if (name.equals("player")){
+            if (name.equals("player") && isFirstSailingInstance){
                 playerShip.setPosition(r.x, r.y);
+            } else if (name.equals("player") && !isFirstSailingInstance) {
+                playerShip.setPosition(game.getSailingShipX(), game.getSailingShipY());
+                playerShip.setRotation(game.getSailingShipRotation());
             } else{
                 System.err.println("Unknown tilemap object: " + name);
             }
@@ -206,6 +209,9 @@ public class SailingScreen extends BaseScreen {
                     Gdx.app.log("Sailing", "Enemy Found in " + name);
                     College college = region.getCollege();
                     if (college.isBossAlive() && !playerShip.getCollege().equals(college)) {
+                        game.setSailingShipX(this.playerShip.getX());
+                        game.setSailingShipY(this.playerShip.getY());
+                        game.setSailingShipRotation(this.playerShip.getRotation());
                         game.setScreen(new CombatScreen(game, false, college));
                     }
                 }
@@ -227,7 +233,12 @@ public class SailingScreen extends BaseScreen {
                     mapMessage.setText(capitalizeFirstLetter(name) + " Island");
                     hintMessage.setText("Press Enter to interact");
 
-                    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) game.setScreen(new DepartmentScreen(game, obstacle.getDepartment()));
+                    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                        game.setSailingShipX(this.playerShip.getX());
+                        game.setSailingShipY(this.playerShip.getY());
+                        game.setSailingShipRotation(this.playerShip.getRotation());
+                        game.setScreen(new DepartmentScreen(game, obstacle.getDepartment()));
+                    }
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
@@ -240,6 +251,9 @@ public class SailingScreen extends BaseScreen {
                         hintMessage.setText("Press Enter to play Minigame");
                         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                             Gdx.app.debug("Sailing DEBUG","Interacted with College");
+                            game.setSailingShipX(this.playerShip.getX());
+                            game.setSailingShipY(this.playerShip.getY());
+                            game.setSailingShipRotation(this.playerShip.getRotation());
                             game.setScreen(new MinigameScreen(game));
                         }
                     } else if (college.isBossAlive()) { // TODO Make winning boss battle actually add college to allys list.
@@ -247,6 +261,9 @@ public class SailingScreen extends BaseScreen {
                         hintMessage.setText("Press Enter to interact");
                         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                             Gdx.app.debug("Sailing DEBUG","Interacted with College");
+                            game.setSailingShipX(this.playerShip.getX());
+                            game.setSailingShipY(this.playerShip.getY());
+                            game.setSailingShipRotation(this.playerShip.getRotation());
                             game.setScreen(new CombatScreen(game, true, college)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
                         }
                     } else {

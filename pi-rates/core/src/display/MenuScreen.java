@@ -66,7 +66,7 @@ public class MenuScreen extends BaseScreen{
         startGame.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){
                 Gdx.app.debug("Menu DEBUG", "Start button pressed");
-                changeScreen(new SailingScreen(game));
+                changeScreen(new SailingScreen(game, true));
             }
         });
 

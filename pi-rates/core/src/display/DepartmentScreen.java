@@ -16,7 +16,6 @@ import combat.items.RoomUpgrade;
 import combat.items.Weapon;
 import combat.ship.Ship;
 import game_manager.GameManager;
-import location.College;
 import location.Department;
 import other.Resource;
 
@@ -190,7 +189,7 @@ public class DepartmentScreen extends BaseScreen {
 //    private Sprite lawAndManagementSprite;
 
 
-    private TextButton toMenu;
+    private TextButton backButton;
     private Texture hpBar;
     private Texture hpBackground;
     private BitmapFont indicatorFont;
@@ -213,7 +212,7 @@ public class DepartmentScreen extends BaseScreen {
 //        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
 
 
-        toMenu = new TextButton("To Menu", textButtonStyle);
+        backButton = new TextButton("Back", textButtonStyle);
         hpBar = new Texture("background.png");
         hpBackground = new Texture("disabledBackground.png");
         indicatorFont = new BitmapFont();
@@ -375,14 +374,14 @@ public class DepartmentScreen extends BaseScreen {
      * Draws the Button returning to menu, taking the style button
      */
     public void buttonToMenu(){
-        toMenu.setPosition(880, 980);
-        toMenu.addListener(new ClickListener(){
+        backButton.setPosition(880, 980);
+        backButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.debug("Department DEBUG", "Button Pressed");
-                changeScreen(new MenuScreen(game));
+                changeScreen(new SailingScreen(game));
             }
         });
-        mainStage.addActor(toMenu);
+        mainStage.addActor(backButton);
     }
 
     /**

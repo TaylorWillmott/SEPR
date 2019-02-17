@@ -37,6 +37,9 @@ public class MinigameScreen extends BaseScreen {
     private Label goldLabel;
 	private ArrayList<Image> blankCardList;
 	private Label messageLabel;
+	private float timer;
+	private boolean startTimer;
+
 	/**
 	 * Constructor
 	 */
@@ -115,7 +118,7 @@ public class MinigameScreen extends BaseScreen {
 		betTable.add(new Label("Bet Amount: ", skin, "title"));
 		betTable.add(betAmountLabel);
 
-		table.add(new Label("Banker", skin, "default-button")).colspan(2);
+		table.add(new Label("Banker", skin, "title")).colspan(2);
 		table.row();
 		table.add(bankerTable).colspan(2);
 		table.row();
@@ -130,6 +133,8 @@ public class MinigameScreen extends BaseScreen {
 
 		table.setDebug(true);
 		drawEndButtons();
+		timer = 0;
+		startTimer = false;
 	}
 
 	@Override
@@ -159,6 +164,18 @@ public class MinigameScreen extends BaseScreen {
 		betAmount = Math.round(betSlider.getValue());
 		betAmountLabel.setText("" + betAmount);
 		goldLabel.setText("" + game.getGold());
+
+		if (startTimer) {
+            Gdx.input.setInputProcessor(null);
+            timer = timer + delta;
+            if (timer > 3){
+                for (int i=0; i < blankCardList.size(); i++){
+                    blankCardList.get(i).setVisible(true);
+                }
+                messageLabel.setText("");
+                startTimer = false;
+            }
+		}
 	}
 
 	@Override
@@ -238,5 +255,7 @@ public class MinigameScreen extends BaseScreen {
 		else {
 			messageLabel.setText("You can't afford that bet!");
 		}
+        startTimer = true;
+		timer = 0;
 	}
 }

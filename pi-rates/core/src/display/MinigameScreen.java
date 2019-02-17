@@ -47,6 +47,7 @@ public class MinigameScreen extends BaseScreen {
 		Image backgroundImg = new Image(backgroundTex);
 		backgroundImg.setSize(viewwidth, viewheight);
 		mainStage.addActor(backgroundImg);
+		musicSetup("one-eyed-maestro.mp3");
 
 		Texture blankCardTexture = new Texture("card_back.png");
 
@@ -111,11 +112,6 @@ public class MinigameScreen extends BaseScreen {
 
 	@Override
 	public void show() {
-		musicSetup("the-buccaneers-haul.mp3");
-		/**
-		 * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
-		 */
-
 
 	}
 

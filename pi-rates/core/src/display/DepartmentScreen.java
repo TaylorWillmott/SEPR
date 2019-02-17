@@ -62,6 +62,8 @@ public class DepartmentScreen extends BaseScreen {
 
         this.department = department;
 
+        musicSetup("heroic-age.mp3", true);
+
         this.playerShip = game.getPlayerShip();
 
         df = new DecimalFormat("#.##");

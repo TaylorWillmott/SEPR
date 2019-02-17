@@ -182,7 +182,7 @@ public class SailingScreen extends BaseScreen {
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
 
-        setMusic(makeMusic("the-buccaneers-haul.mp3"));
+        musicSetup("glorious-morning.mp3");
     }
 
     @Override

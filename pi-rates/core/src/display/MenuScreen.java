@@ -45,7 +45,7 @@ public class MenuScreen extends BaseScreen{
         mainStage.addActor(background);
         this.background.setSize(viewwidth, viewheight);
 
-        musicSetup("the-buccaneers-haul.mp3", true);
+        musicSetup("heroic-age.mp3", true);
 
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen

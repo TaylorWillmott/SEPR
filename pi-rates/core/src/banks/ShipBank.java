@@ -17,7 +17,7 @@ import static other.Constants.DEFAULT_SHIP_HP;
 public enum ShipBank {
     //NEW_SHIP_TEMPLATE(crew, list of rooms, list of weapons, hp),
     STARTER_SHIP(DEFAULT_SHIP_CREW, RoomSetBank.STARTER_ROOMS.getRoomList(),
-            WeaponSetBank.STARTER_WEAPONS.getWeaponList(), (int) (DEFAULT_SHIP_HP * 0.75)),
+            WeaponSetBank.STARTER_WEAPONS.getWeaponList(), (int) (DEFAULT_SHIP_HP * 999999)),
     DEFAULT_BRIG(DEFAULT_SHIP_CREW, RoomSetBank.STARTER_ROOMS.getRoomList(),
             WeaponSetBank.STARTER_WEAPONS.getWeaponList(), DEFAULT_SHIP_HP),
     COLLEGE_SHIP(DEFAULT_SHIP_CREW * 2, RoomSetBank.STARTER_ROOMS.getRoomList(),

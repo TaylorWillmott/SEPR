@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static combat.ship.RoomFunction.*;
+import static location.College.colleges;
 import static other.Constants.COOLDOWN_TICKS_PER_TURN;
 import static other.Constants.EASY_SCORE_MULTIPLIER;
 
@@ -242,6 +243,7 @@ public class CombatScreen extends BaseScreen {
                     game.addPoints((int) (1000 * EASY_SCORE_MULTIPLIER));
                     game.addGold((int) (1000 * EASY_SCORE_MULTIPLIER));
                     college.setBossAlive(false);
+                    colleges.remove(college);
                 } else {
                     game.addPoints((int) (100 * EASY_SCORE_MULTIPLIER));
                     game.addGold((int) (100 * EASY_SCORE_MULTIPLIER));
@@ -250,16 +252,18 @@ public class CombatScreen extends BaseScreen {
                 youLose.setVisible(true);
             }
 
-            //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
-            if (a == 5) {
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-
+            if (colleges.isEmpty()) {
+                System.out.println("VICTORYYYYYYYYYYYY");
+            } else {
+                //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
+                if (a == 5) {
+                    try {
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) { }
+                    changeScreen(new SailingScreen(game, false));
                 }
-                changeScreen(new SailingScreen(game, false));
+                a++;
             }
-            a++;
         }
 
         //Used to control how long the Hit/Miss messages are displayed, hides them after the time

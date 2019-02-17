@@ -74,7 +74,8 @@ public class DepartmentScreen extends BaseScreen {
         skin.addRegions(buttonAtlas);
         buttonTable = new Table();
 
-        textButtonStyle.font = buttonFont;
+
+        textButtonStyle.font = skin.getFont("default-font");
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
@@ -137,7 +138,6 @@ public class DepartmentScreen extends BaseScreen {
     /**
      * Main style used for buttons
      */
-    private BitmapFont buttonFont = new BitmapFont();
     private TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas;
 
@@ -149,7 +149,6 @@ public class DepartmentScreen extends BaseScreen {
         batch.begin();
 
         drawFriendlyShip();
-//        drawDepartment(randInt);
 
         drawHealthBar();
         drawIndicators();
@@ -168,7 +167,7 @@ public class DepartmentScreen extends BaseScreen {
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin.addRegions(buttonAtlas);
 
-        textButtonStyle.font = buttonFont;
+//        textButtonStyle.fontColor = Color.BLACK;
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
 

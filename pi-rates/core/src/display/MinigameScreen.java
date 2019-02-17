@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -29,7 +30,7 @@ public class MinigameScreen extends BaseScreen {
 	/**
 	 * Variables for the minigame.
 	 */
-	private float mult = 1.5f; // Odds of winning are 1/3 so a 50% return is pretty generous.
+	private float mult = 2f; // Odds of winning are 1/3 so a 50% return is pretty generous.
 
 	private int betAmount;
 	private Slider betSlider;
@@ -43,9 +44,8 @@ public class MinigameScreen extends BaseScreen {
 	/**
 	 * Constructor
 	 */
-	public MinigameScreen(GameManager game){
+	public MinigameScreen(final GameManager game){
 		super(game);
-
 		betAmount = 1;
 
 		Texture backgroundTex = new Texture("logoBackground.png");
@@ -118,6 +118,17 @@ public class MinigameScreen extends BaseScreen {
 		betTable.add(new Label("Bet Amount: ", skin, "title"));
 		betTable.add(betAmountLabel);
 
+		TextButton toSailing = new TextButton("Return to Sailing", skin);
+
+		toSailing.addListener(new ClickListener(){
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.debug("Sailing DEBUG", "Button Pressed");
+				changeScreen(new SailingScreen(game, false));
+			}
+		});
+
+		table.add(toSailing).colspan(2);
+		table.row();
 		table.add(new Label("Banker", skin, "title")).colspan(2);
 		table.row();
 		table.add(bankerTable).colspan(2);
@@ -244,7 +255,7 @@ public class MinigameScreen extends BaseScreen {
 			} else if ((playerChoice == 0 && AIChoice == 2) || (playerChoice == 1 && AIChoice == 0) || (playerChoice == 2 && AIChoice == 1)) { // Player wins.
 				Gdx.app.log("Minigame", "Player has won.");
 				game.addGold(round(betAmount * mult));
-				messageLabel.setText("You won "+ round(betAmount * mult) + " gold.");
+				messageLabel.setText("You won your bet.");
 				//TODO Display "You win" text
 			} else { // Player loses.
 				Gdx.app.log("Minigame", "Player has lost.");

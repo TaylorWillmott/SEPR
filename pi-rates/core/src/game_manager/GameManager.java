@@ -8,7 +8,6 @@ import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
 import display.MenuScreen;
-import display.SailingScreen;
 import location.Department;
 import other.Difficulty;
 
@@ -17,7 +16,6 @@ import static banks.ShipBank.COLLEGE_SHIP;
 import static banks.ShipBank.STARTER_SHIP;
 import static banks.WeaponSetBank.*;
 import static com.badlogic.gdx.Application.LOG_DEBUG;
-import static com.badlogic.gdx.Application.LOG_INFO;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
 
@@ -50,12 +48,6 @@ public class GameManager extends Game {
      * The difficulty that the player is playing on.
      */
     private Difficulty difficulty;
-
-    /**
-     * Instance of LIBGDX Game used to allow setScreen to be used
-     */
-    // DONT NEED THIS THIS CLASS EXTENDS GAME
-//    private Game game;
 
     /**
      * Creates Instances of enemyShip, playerShip and their Actors to be used in the game
@@ -249,6 +241,4 @@ public class GameManager extends Game {
     @Override
     public void dispose() { //Called when the application is destroyed, resources must be disposed of from Memory
     }
-
-
 }

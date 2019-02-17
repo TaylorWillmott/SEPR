@@ -1,5 +1,6 @@
 package display;
 
+import base.BaseScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,6 +31,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static combat.ship.RoomFunction.*;
+import static location.College.colleges;
 import static other.Constants.COOLDOWN_TICKS_PER_TURN;
 import static other.Constants.EASY_SCORE_MULTIPLIER;
 
@@ -40,7 +42,6 @@ public class CombatScreen extends BaseScreen {
      */
 
     //NOT SURE WHY YOU WOULD EVER CREATE A NEW SHIP
-//    private GameManager gameManager = new GameManager(null, null);
     private Ship playerShip;
     private CombatPlayer combatPlayer = game.getCombatPlayer();
     private Ship enemyShip;
@@ -54,7 +55,6 @@ public class CombatScreen extends BaseScreen {
      * Used to Draw Assets on the Screen
      */
     private SpriteBatch batch = new SpriteBatch();
-//    private Stage stage = new Stage();
 
     /**
      * Main style used for buttons
@@ -242,6 +242,7 @@ public class CombatScreen extends BaseScreen {
                     game.addPoints((int) (1000 * EASY_SCORE_MULTIPLIER));
                     game.addGold((int) (1000 * EASY_SCORE_MULTIPLIER));
                     college.setBossAlive(false);
+                    colleges.remove(college);
                 } else {
                     game.addPoints((int) (100 * EASY_SCORE_MULTIPLIER));
                     game.addGold((int) (100 * EASY_SCORE_MULTIPLIER));
@@ -250,16 +251,18 @@ public class CombatScreen extends BaseScreen {
                 youLose.setVisible(true);
             }
 
-            //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
-            if (a == 5) {
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-
+            if (colleges.isEmpty()) {
+                System.out.println("VICTORYYYYYYYYYYYY");
+            } else {
+                //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
+                if (a == 5) {
+                    try {
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) { }
+                    changeScreen(new SailingScreen(game, false));
                 }
-                changeScreen(new SailingScreen(game, false));
+                a++;
             }
-            a++;
         }
 
         //Used to control how long the Hit/Miss messages are displayed, hides them after the time
@@ -318,12 +321,6 @@ public class CombatScreen extends BaseScreen {
      * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
      */
     private void drawCollege(String college){
-//        Texture collegeShipTexture = new Texture(college + "ShipBackground.png");
-//        Image collegeShipImage = new Image(collegeShipTexture);
-//
-//        collegeShipImage.setPosition(viewwidth/2,viewheight/1.5f, Align.center);
-//        collegeShipImage.setColor(1,1,1, 0.8f);
-//        mainStage.addActor(collegeShipImage);
         Label label = new Label("", skin, "title");
         if (isCollegeBattle){
             label.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Boss");
@@ -726,5 +723,4 @@ public class CombatScreen extends BaseScreen {
         button.setVisible(false);
         return button;
     }
-
 }

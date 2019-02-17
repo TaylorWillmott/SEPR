@@ -1,12 +1,7 @@
 package combat.actors;
 
 import combat.items.Weapon;
-import combat.ship.Room;
 import combat.ship.Ship;
-import javafx.util.Pair;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static other.Constants.COOLDOWN_TICKS_PER_TURN;
 

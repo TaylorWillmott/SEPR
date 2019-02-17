@@ -1,7 +1,5 @@
 package combat.manager;
 
-import com.badlogic.gdx.math.Interpolation;
-import combat.actors.CombatActor;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.items.Weapon;
@@ -15,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 
 import static other.Constants.NON_FUNCTIONAL_ROOM_MULTIPLIER;
-import static other.Constants.SHIP_BOARD_PERCENTAGE;
 
 @SuppressWarnings("FieldCanBeLocal")
 /**

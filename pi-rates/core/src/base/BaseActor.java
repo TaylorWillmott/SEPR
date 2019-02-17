@@ -24,10 +24,6 @@ public class BaseActor extends Group {
         boundingPolygon = null;
     }
 
-    public void setTexture(TextureRegion textureRegion) {
-        region.setRegion(textureRegion);
-    }
-
     public void act(float dt) {
         super.act(dt);
     }

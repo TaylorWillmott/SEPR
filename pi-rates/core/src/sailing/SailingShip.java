@@ -1,4 +1,4 @@
-package display;
+package sailing;
 
 import base.PhysicsActor;
 import com.badlogic.gdx.Gdx;
@@ -23,19 +23,6 @@ public class SailingShip extends PhysicsActor {
 
     public SailingShip(College college) {
         this.college = college;
-        setupShip();
-    }
-
-    public SailingShip(College college, String texturePath) {
-        this.college = college;
-        this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
-        setupShip();
-    }
-
-    public SailingShip(College college, boolean isBoss) {
-        this.college = college;
-        this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
-        this.isBoss = isBoss;
         setupShip();
     }
 
@@ -80,6 +67,4 @@ public class SailingShip extends PhysicsActor {
     }
 
     public Texture getSailingTexture() { return this.sailingTexture; }
-
-    public boolean getIsBoss() { return this.isBoss; }
 }

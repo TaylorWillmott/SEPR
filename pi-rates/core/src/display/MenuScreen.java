@@ -1,5 +1,6 @@
 package display;
 
+import base.BaseScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import game_manager.GameManager;
 
-public class MenuScreen extends BaseScreen{
+public class MenuScreen extends BaseScreen {
     private SpriteBatch batch = new SpriteBatch();
 
     private Texture menuBackground = new Texture("menuBackground.png");
@@ -37,7 +38,6 @@ public class MenuScreen extends BaseScreen{
         //Adds textures to the Skin, sets Skin for Button Up and Down
         skin.addRegions(buttonAtlas);
         myTextButtonStyle.font = skin.getFont("buttonTitle");
-//        myTextButtonStyle.fontColor = Color.BLACK;
         myTextButtonStyle.up = skin.getDrawable("buttonUp");
         myTextButtonStyle.down = skin.getDrawable("buttonDown");
 

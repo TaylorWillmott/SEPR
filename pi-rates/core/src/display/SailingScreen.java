@@ -1,6 +1,7 @@
 package display;
 
 import base.BaseActor;
+import base.BaseScreen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.MapObject;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.utils.Align;
 
 import game_manager.GameManager;
 import location.College;
+import sailing.SailingShip;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -314,8 +316,6 @@ public class SailingScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-
-
         // render
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -341,7 +341,6 @@ public class SailingScreen extends BaseScreen {
         else{
             pauseProcess();
         }
-
         super.inputForScreen();
     }
 

@@ -8,6 +8,7 @@ import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
 import display.MenuScreen;
+import display.SailingScreen;
 import location.Department;
 import other.Difficulty;
 
@@ -83,6 +84,21 @@ public class GameManager extends Game {
     public static Department ComputerScience;
     public static Department LawAndManagement;
     public static Department Physics;
+
+    /**
+     * Keep track of the coordinates and angle of the player on the map
+     */
+    private float sailingShipX;
+    private float sailingShipY;
+    private float sailingShipRotation;
+
+    public float getSailingShipX() { return this.sailingShipX; }
+    public float getSailingShipY() { return this.sailingShipY; }
+    public float getSailingShipRotation() { return this.sailingShipRotation; }
+
+    public void setSailingShipX(float sailingShipX) { this.sailingShipX = sailingShipX; }
+    public void setSailingShipY(float sailingShipY) { this.sailingShipY = sailingShipY; }
+    public void setSailingShipRotation(float sailingShipRotation) { this.sailingShipRotation = sailingShipRotation; }
 
     public CombatManager getCombatManager() { return combatManager; }
 

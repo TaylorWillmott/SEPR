@@ -10,14 +10,13 @@ import java.util.ArrayList;
 
 public class College {
     String name;
-    private ArrayList<College> ally;
-    private boolean bossDead;
+//    private ArrayList<College> ally;
+    private boolean bossAlive;
 
     public College(String name) {
         this.name = name;
-        this.ally = new ArrayList<College>();
-        this.ally.add(this);
-        this.bossDead = false;
+//        this.ally = new ArrayList<College>();
+        this.bossAlive = true;
     }
 
     public String getName() {
@@ -28,16 +27,16 @@ public class College {
         this.name = name;
     }
 
-    public ArrayList<College> getAlly() { return ally; }
-    public void addAlly(College newAlly){
-        ally.add(newAlly);
-    }
+//    public ArrayList<College> getAlly() { return ally; }
+//    public void addAlly(College newAlly){
+//        ally.add(newAlly);
+//    }
 
-    public boolean isBossDead() {
-        return bossDead;
+    public boolean isBossAlive() {
+        return bossAlive;
     }
-    public void setBossDead(boolean bossDead) {
-        this.bossDead = bossDead;
+    public void setBossAlive(boolean bossAlive) {
+        this.bossAlive = bossAlive;
     }
 
     public static College Derwent = new College("Derwent");

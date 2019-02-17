@@ -52,7 +52,6 @@ public class DepartmentScreen extends BaseScreen {
     /**
      * Sets up gameManager to retrieve values and the playerShip
      */
-    private GameManager gameManager;
     private Ship playerShip;
 
     /**
@@ -63,10 +62,7 @@ public class DepartmentScreen extends BaseScreen {
 
         this.department = department;
 
-
-        this.gameManager = game;
         this.playerShip = game.getPlayerShip();
-
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
@@ -325,27 +321,12 @@ public class DepartmentScreen extends BaseScreen {
     public Department assignDepartment(int randInt) {
         switch (randInt) {
             case 0:
-                return (new Department(COMP_SCI_WEPS.getWeaponList(), COMP_SCI_UPGRADES.getRoomUpgradeList(), gameManager));
+                return (new Department(COMP_SCI_WEPS.getWeaponList(), COMP_SCI_UPGRADES.getRoomUpgradeList(), game));
             case 1:
-                return (new Department(LMB_WEPS.getWeaponList(), LMB_UPGRADES.getRoomUpgradeList(), gameManager));
+                return (new Department(LMB_WEPS.getWeaponList(), LMB_UPGRADES.getRoomUpgradeList(), game));
         }
         return null;
     }
-
-    /**
-     * Draws the Department generated above
-     * @param randInt
-     */
-//    public void drawDepartment(int randInt) {
-//        switch (randInt) {
-//            case 0:
-//                batch.draw(computerScienceSprite,500,256);
-//                break;
-//            case 1:
-//                batch.draw(lawAndManagementSprite,400,200);
-//                break;
-//        }
-//    }
 
     /**
      * Draws Hp bars for both ships
@@ -364,9 +345,9 @@ public class DepartmentScreen extends BaseScreen {
     public void drawIndicators(){
         indicatorFont.setColor(1,1,1,1);
 
-        indicatorFont.draw(batch, "Score: " + gameManager.getPoints(), 25, 965);
-        indicatorFont.draw(batch, "Gold: " + gameManager.getGold(), 110, 965);
-        indicatorFont.draw(batch, "Food: " + gameManager.getFood(), 195, 965);
+        indicatorFont.draw(batch, "Score: " + game.getPoints(), 25, 965);
+        indicatorFont.draw(batch, "Gold: " + game.getGold(), 110, 965);
+        indicatorFont.draw(batch, "Food: " + game.getFood(), 195, 965);
         indicatorFont.draw(batch, "Crew: " + playerShip.getCrew(), 280, 965);
     }
 
@@ -378,7 +359,7 @@ public class DepartmentScreen extends BaseScreen {
         backButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.debug("Department DEBUG", "Button Pressed");
-                changeScreen(new SailingScreen(game));
+                changeScreen(new SailingScreen(game, false));
             }
         });
         mainStage.addActor(backButton);
@@ -463,8 +444,6 @@ public class DepartmentScreen extends BaseScreen {
                 }
             }
         });
-
-
     }
 
     /**

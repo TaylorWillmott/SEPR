@@ -167,9 +167,6 @@ public class CombatScreen extends BaseScreen {
 
         // ALL TABLE DEBUGGING
 //        fullTable.debugAll();
-
-
-
     }
 
     @Override
@@ -244,6 +241,7 @@ public class CombatScreen extends BaseScreen {
                 if (isCollegeBattle) {
                     game.addPoints((int) (1000 * EASY_SCORE_MULTIPLIER));
                     game.addGold((int) (1000 * EASY_SCORE_MULTIPLIER));
+                    college.setBossAlive(false);
                 } else {
                     game.addPoints((int) (100 * EASY_SCORE_MULTIPLIER));
                     game.addGold((int) (100 * EASY_SCORE_MULTIPLIER));
@@ -259,7 +257,7 @@ public class CombatScreen extends BaseScreen {
                 } catch (InterruptedException e) {
 
                 }
-                changeScreen(new MenuScreen(game));
+                changeScreen(new SailingScreen(game, false));
             }
             a++;
         }
@@ -640,10 +638,10 @@ public class CombatScreen extends BaseScreen {
                         enemyShip.combatRepair();
                     }
 
-                    if (combatManager.checkFightEnd() && playerShip.getHullHP() <= 0) {
+                    if (playerShip.getHullHP() <= 0) {
                         gameOver = true;
                         gameWon = false;
-                    } else if (combatManager.checkFightEnd() && enemyShip.getHullHP() <= 0) {
+                    } else if (enemyShip.getHullHP() <= 0) {
                         gameOver = true;
                         gameWon = true;
                     }

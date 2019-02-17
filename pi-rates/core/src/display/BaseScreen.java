@@ -91,17 +91,11 @@ public abstract class BaseScreen implements Screen {
         pauseStage.addActor(table);
     }
 
-    public void update(float delta){
-        Gdx.input.setInputProcessor(mainStage);
-        this.uiStage.act(delta);
-        this.mainStage.act(delta);
-        update(delta);
-    }
+    public abstract void update(float delta);
 
     public void render (float delta) {
         this.uiStage.act(delta);
         this.mainStage.act(delta);
-        update(delta);
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -109,6 +103,7 @@ public abstract class BaseScreen implements Screen {
         this.uiStage.draw();
 
         if (!gamePaused){
+            Gdx.input.setInputProcessor(mainStage);
             update(delta);
         }
         else{

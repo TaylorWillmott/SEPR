@@ -13,9 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import game_manager.GameManager;
 
-import static game_manager.GameManager.ComputerScience;
-import static location.College.Goodricke;
-
 public class MenuScreen extends BaseScreen{
     private SpriteBatch batch = new SpriteBatch();
 
@@ -79,6 +76,7 @@ public class MenuScreen extends BaseScreen{
                 Gdx.app.exit();
             }
         });
+
     }
 
     @Override
@@ -92,7 +90,6 @@ public class MenuScreen extends BaseScreen{
     @Override
     public void render(float delta) {
         super.render(delta);
-        Gdx.input.setInputProcessor(mainStage);
     }
 
     @Override

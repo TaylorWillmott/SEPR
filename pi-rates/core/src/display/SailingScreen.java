@@ -194,6 +194,7 @@ public class SailingScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
+        System.out.println("Update is called");
         removeList.clear();
         goldLabel.setText(Integer.toString(gameManager.getGold()));
         this.playerShip.playerMove(delta);
@@ -299,25 +300,32 @@ public class SailingScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-        uiStage.act(delta);
-        mainStage.act(delta);
-        update(delta);
+
 
         // render
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render(backgroundLayers);
         mainStage.draw();
-
         tiledMapRenderer.render(foregroundLayers);
-
         uiStage.draw();
 
-        if (!playerShip.isAnchor()){
-            playerShip.addAccelerationAS(playerShip.getRotation(), 10000);
-        } else{
-            playerShip.setAccelerationXY(0,0);
-            playerShip.setDeceleration(100);
+        if (!gamePaused){
+            System.out.println(playerShip.isAnchor());
+            uiStage.act(delta);
+            mainStage.act(delta);
+            update(delta);
+
+            if (!playerShip.isAnchor()){
+                playerShip.addAccelerationAS(playerShip.getRotation(), 10000);
+            } else{
+                playerShip.setAccelerationXY(0,0);
+                playerShip.setDeceleration(100);
+            }
+            Gdx.input.setInputProcessor(mainStage);
+        }
+        else{
+            pauseProcess();
         }
 
         super.inputForScreen();

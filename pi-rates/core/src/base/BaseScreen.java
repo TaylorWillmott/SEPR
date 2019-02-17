@@ -1,4 +1,4 @@
-package display;
+package base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,6 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import display.CombatScreen;
+import display.DepartmentScreen;
+import display.MinigameScreen;
+import display.SailingScreen;
 import game_manager.GameManager;
 
 import static game_manager.GameManager.ComputerScience;
@@ -18,9 +22,6 @@ import static location.College.Goodricke;
 
 public abstract class BaseScreen implements Screen {
 
-    /**
-     * Sets up gameManager to retrieve values
-     */
     protected GameManager game;
 
     protected Stage mainStage;
@@ -134,7 +135,7 @@ public abstract class BaseScreen implements Screen {
             changeScreen(new MinigameScreen(game));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            changeScreen(new SailingScreen(game));
+            changeScreen(new SailingScreen(game, true));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             if (fullscreen) {

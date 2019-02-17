@@ -1,6 +1,7 @@
 package display;
 
 import banks.CoordBank;
+import base.BaseScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -76,7 +77,8 @@ public class DepartmentScreen extends BaseScreen {
         skin.addRegions(buttonAtlas);
         buttonTable = new Table();
 
-        textButtonStyle.font = buttonFont;
+
+        textButtonStyle.font = skin.getFont("default-font");
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
@@ -139,7 +141,6 @@ public class DepartmentScreen extends BaseScreen {
     /**
      * Main style used for buttons
      */
-    private BitmapFont buttonFont = new BitmapFont();
     private TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas;
 
@@ -151,7 +152,6 @@ public class DepartmentScreen extends BaseScreen {
         batch.begin();
 
         drawFriendlyShip();
-//        drawDepartment(randInt);
 
         drawHealthBar();
         drawIndicators();
@@ -170,22 +170,15 @@ public class DepartmentScreen extends BaseScreen {
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin.addRegions(buttonAtlas);
 
-        textButtonStyle.font = buttonFont;
+//        textButtonStyle.fontColor = Color.BLACK;
         textButtonStyle.up = skin.getDrawable("buttonUp");
         textButtonStyle.down = skin.getDrawable("buttonDown");
 
     }
 
-
     // THIS IS NEW
     private Texture background;
     private TextureAtlas roomSpriteAtlas;
-
-//    private Texture computerScienceTexture;
-//    private Sprite computerScienceSprite;
-//    private Texture lawAndManagementTexture;
-//    private Sprite lawAndManagementSprite;
-
 
     private TextButton backButton;
     private Texture hpBar;
@@ -202,13 +195,6 @@ public class DepartmentScreen extends BaseScreen {
     public void setUpTextures(){
         background = new Texture("battleBackground.png");
         roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
-
-
-//        computerScienceTexture = new Texture("ComputerScIsland.png");
-//        computerScienceSprite = new Sprite(computerScienceTexture);
-//        lawAndManagementTexture = new Texture("LMI.png");
-//        lawAndManagementSprite = new Sprite(lawAndManagementTexture);
-
 
         backButton = new TextButton("Back", textButtonStyle);
         hpBar = new Texture("background.png");
@@ -361,7 +347,7 @@ public class DepartmentScreen extends BaseScreen {
         backButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.debug("Department DEBUG", "Button Pressed");
-                changeScreen(new SailingScreen(game));
+                changeScreen(new SailingScreen(game, false));
             }
         });
         mainStage.addActor(backButton);
@@ -422,8 +408,6 @@ public class DepartmentScreen extends BaseScreen {
             weaponBuyTableList.get(j).add(textButton);
             j++;
         }
-
-
     }
 
     /**
@@ -563,10 +547,6 @@ public class DepartmentScreen extends BaseScreen {
      * Draws buttons and information for buying resources
      */
     public void drawBuyResourceFeatures(){
-//        titleFont.draw(batch, "Crew", 160, 200);
-//        titleFont.draw(batch, "Food", 360, 200);
-//        titleFont.draw(batch, "Repair", 560, 200);
-
         buyResourceButtonList.add(new TextButton("Buy (" + CREW_COST + "g)", textButtonStyle));
         resource1.add(new Label("Crew", skin));
         resource1.row();

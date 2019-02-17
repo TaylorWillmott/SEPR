@@ -1,7 +1,5 @@
 package combat.manager;
 
-import com.badlogic.gdx.math.Interpolation;
-import combat.actors.CombatActor;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.items.Weapon;
@@ -15,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 
 import static other.Constants.NON_FUNCTIONAL_ROOM_MULTIPLIER;
-import static other.Constants.SHIP_BOARD_PERCENTAGE;
 
 @SuppressWarnings("FieldCanBeLocal")
 /**
@@ -104,25 +101,6 @@ public class CombatManager {
         }
 
         return damageReport;
-    }
-
-    /**
-     * Find out if the fight is finished either by a ship being destroyed or the minigame being started.
-     *
-     * @return Boolean - Fight ended or fight still going.
-     */
-    public boolean checkFightEnd() {
-        if (player.getShip().getHullHP() <= 0) {
-            return true;
-
-        } else if (enemy.getShip().getHullHP() <= 0) {
-            return true;
-
-        } else if (enemy.getShip().getHullHP() < (enemy.getShip().getBaseHullHP() * SHIP_BOARD_PERCENTAGE)) {
-            //TODO Minigame option to start here. The below is just a placeholder.
-            return false;
-        }
-        return false;
     }
 
     public Boolean getShotHit(){

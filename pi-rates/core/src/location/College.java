@@ -1,43 +1,27 @@
 package location;
 
-import combat.actors.CombatEnemy;
-import combat.actors.CombatPlayer;
-import combat.manager.CombatManager;
-import combat.ship.Ship;
-
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.List;
 
 public class College {
     String name;
-    private ArrayList<College> ally;
-    private boolean bossDead;
+    private boolean bossAlive;
 
     public College(String name) {
         this.name = name;
-        this.ally = new ArrayList<College>();
-//        this.ally.add(this);
-        this.bossDead = false;
+        this.bossAlive = true;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean isBossAlive() {
+        return bossAlive;
     }
-
-    public ArrayList<College> getAlly() { return ally; }
-    public void addAlly(College newAlly){
-        ally.add(newAlly);
-    }
-
-    public boolean isBossDead() {
-        return bossDead;
-    }
-    public void setBossDead(boolean bossDead) {
-        this.bossDead = bossDead;
+    public void setBossAlive(boolean bossAlive) {
+        this.bossAlive = bossAlive;
     }
 
     public static College Derwent = new College("Derwent");
@@ -46,4 +30,12 @@ public class College {
     public static College Alcuin = new College("Alcuin");
     public static College Langwith = new College("Langwith");
     public static College Goodricke = new College("Goodricke");
+
+    // List to check for game win condition
+    // No Derwent as that is home college
+    public static List<College> colleges = new ArrayList<College>(
+            Arrays.asList(
+                    Vanbrugh, James, Alcuin, Langwith, Goodricke
+            )
+    );
 }

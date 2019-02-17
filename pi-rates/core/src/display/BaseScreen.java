@@ -110,6 +110,10 @@ public abstract class BaseScreen implements Screen {
             pauseProcess();
         }
 
+        this.inputForScreen();
+    }
+
+    public void inputForScreen() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.debug("Pause Menu", "Toggled");
             toggleGamePaused();
@@ -137,7 +141,6 @@ public abstract class BaseScreen implements Screen {
             }
             fullscreen = !fullscreen;
         }
-
     }
 
     public void pauseProcess(){

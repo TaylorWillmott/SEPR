@@ -234,20 +234,20 @@ public class SailingScreen extends BaseScreen {
                 y = true;
                 if (!(obstacle.getDepartment() == null)) {
                     mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-                    hintMessage.setText("Press F to interact");
+                    hintMessage.setText("Press Enter to interact");
 
-                    if (Gdx.input.isKeyPressed(Input.Keys.F)) gameManager.setScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
+                    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) gameManager.setScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
                     mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-                    hintMessage.setText("Press F to interact");
+                    hintMessage.setText("Press Enter to interact");
                     Gdx.app.debug("Sailing DEBUG","Encountered a College");
                     College college = obstacle.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) { // TODO Make winning boss battle actually add college to allys list.
                         mapMessage.setText(capitalizeFirstLetter(name) + " Island");
-                        hintMessage.setText("Press F to interact");
-                        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+                        hintMessage.setText("Press Enter to interact");
+                        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                             Gdx.app.debug("Sailing DEBUG","Interacted with College");
                             gameManager.setScreen(new CombatScreen(game, true, college)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
                         }
@@ -300,7 +300,6 @@ public class SailingScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         uiStage.act(delta);
-
         mainStage.act(delta);
         update(delta);
 
@@ -320,6 +319,8 @@ public class SailingScreen extends BaseScreen {
             playerShip.setAccelerationXY(0,0);
             playerShip.setDeceleration(100);
         }
+
+        super.inputForScreen();
     }
 
     @Override

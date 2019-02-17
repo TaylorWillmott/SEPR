@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Align;
 
 import game_manager.GameManager;
 import location.College;
+import sailing.SailingShip;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;

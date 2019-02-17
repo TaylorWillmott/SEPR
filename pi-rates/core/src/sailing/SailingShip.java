@@ -1,4 +1,4 @@
-package display;
+package sailing;
 
 import base.PhysicsActor;
 import com.badlogic.gdx.Gdx;

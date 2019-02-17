@@ -84,7 +84,7 @@ public class MinigameScreen extends BaseScreen {
 		table.setFillParent(true);
 		mainStage.addActor(table);
 
-		messageLabel = new Label("", skin, "title");
+		messageLabel = new Label("Use the Slider to change your bet. Select a card to play.", skin, "title");
 
 		ImageButton pistol = createImageButton("pistol.png", 0);
 		ImageButton map = createImageButton("map.png", 1);
@@ -123,6 +123,7 @@ public class MinigameScreen extends BaseScreen {
 			}
 		});
 
+		table.row().padBottom(viewheight/24f);
 		table.add(toSailing).colspan(2);
 		table.row();
 		table.add(new Label("Banker", skin, "title")).colspan(2);
@@ -179,7 +180,7 @@ public class MinigameScreen extends BaseScreen {
                 for (int i=0; i < blankCardList.size(); i++){
                     blankCardList.get(i).setVisible(true);
                 }
-                messageLabel.setText("");
+                messageLabel.setText("Use the Slider to change your bet. Select a card to play.");
                 startTimer = false;
             }
 		}

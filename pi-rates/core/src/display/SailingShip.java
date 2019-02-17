@@ -10,29 +10,29 @@ import location.College;
 
 import static location.College.Derwent;
 
-public class sailingShip extends PhysicsActor {
+public class SailingShip extends PhysicsActor {
     private Texture sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
     private College college;
     private boolean isBoss = false;
 
     // For testing purposes only. Use of this constructor in-game WILL cause errors.
     @Deprecated
-    public sailingShip(){
+    public SailingShip(){
         this.college = Derwent;
     }
 
-    public sailingShip(College college) {
+    public SailingShip(College college) {
         this.college = college;
         setupShip();
     }
 
-    public sailingShip(College college, String texturePath) {
+    public SailingShip(College college, String texturePath) {
         this.college = college;
         this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
         setupShip();
     }
 
-    public sailingShip(College college, boolean isBoss) {
+    public SailingShip(College college, boolean isBoss) {
         this.college = college;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         this.isBoss = isBoss;

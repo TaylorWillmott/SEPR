@@ -16,7 +16,7 @@ public class College {
     public College(String name) {
         this.name = name;
         this.ally = new ArrayList<College>();
-        this.ally.add(this);
+//        this.ally.add(this);
         this.bossDead = false;
     }
 

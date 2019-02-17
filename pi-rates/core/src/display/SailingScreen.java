@@ -26,12 +26,7 @@ import static location.College.*;
 
 public class SailingScreen extends BaseScreen {
 
-    private sailingShip playerShip = new sailingShip(Derwent);
-
-    /**
-     * Sets up gameManager to retrieve values
-     */
-    private GameManager gameManager;
+    private SailingShip playerShip = new SailingShip(Derwent);
 
     //Map Variables
     private ArrayList<BaseActor> obstacleList;
@@ -64,19 +59,17 @@ public class SailingScreen extends BaseScreen {
 
         Gdx.app.debug("Sailing DEBUG", playerShip.getName());
 
-        this.gameManager = main;
-
         mainStage.addActor(playerShip);
         Gdx.app.debug("Sailing DEBUG", "playerShip added");
 
         Table uiTable = new Table();
 
         Label pointsTextLabel = new Label("Points: ", skin, "default_black");
-        pointsLabel = new Label(Integer.toString(gameManager.getPoints()), skin, "default_black");
+        pointsLabel = new Label(Integer.toString(game.getPoints()), skin, "default_black");
         pointsLabel.setAlignment(Align.left);
 
         Label goldTextLabel = new Label("Gold:", skin, "default_black");
-        goldLabel = new Label(Integer.toString(gameManager.getGold()), skin, "default_black");
+        goldLabel = new Label(Integer.toString(game.getGold()), skin, "default_black");
         goldLabel.setAlignment(Align.left);
 
         uiTable.add(pointsTextLabel);
@@ -196,7 +189,7 @@ public class SailingScreen extends BaseScreen {
     public void update(float delta) {
         System.out.println("Update is called");
         removeList.clear();
-        goldLabel.setText(Integer.toString(gameManager.getGold()));
+        goldLabel.setText(Integer.toString(game.getGold()));
         this.playerShip.playerMove(delta);
 
         Boolean x = false;
@@ -212,8 +205,8 @@ public class SailingScreen extends BaseScreen {
                 if (enemyChance <= 10) {
                     Gdx.app.log("Sailing", "Enemy Found in " + name);
                     College college = region.getCollege();
-                    if (!playerShip.getCollege().getAlly().contains(college)) {
-                        gameManager.setScreen(new CombatScreen(game, false, college));
+                    if (!playerShip.getCollege().getAlly().contains(college) && !playerShip.getCollege().equals(college)) {
+                        game.setScreen(new CombatScreen(game, false, college));
                     }
                 }
             }
@@ -234,7 +227,7 @@ public class SailingScreen extends BaseScreen {
                     mapMessage.setText(capitalizeFirstLetter(name) + " Island");
                     hintMessage.setText("Press Enter to interact");
 
-                    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) gameManager.setScreen(new DepartmentScreen(gameManager, obstacle.getDepartment()));
+                    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) game.setScreen(new DepartmentScreen(game, obstacle.getDepartment()));
                 }
                 // Obstacle must be a college if college not null
                 else if (!(obstacle.getCollege() == null)) {
@@ -242,12 +235,19 @@ public class SailingScreen extends BaseScreen {
                     hintMessage.setText("Press Enter to interact");
                     Gdx.app.debug("Sailing DEBUG","Encountered a College");
                     College college = obstacle.getCollege();
-                    if (!playerShip.getCollege().getAlly().contains(college)) { // TODO Make winning boss battle actually add college to allys list.
+                    if (playerShip.getCollege().equals(college)) {
+                        mapMessage.setText(capitalizeFirstLetter(name) + " Island (Home)");
+                        hintMessage.setText("Press Enter to play Minigame");
+                        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                            Gdx.app.debug("Sailing DEBUG","Interacted with College");
+                            game.setScreen(new MinigameScreen(game));
+                        }
+                    } else if (!playerShip.getCollege().getAlly().contains(college)) { // TODO Make winning boss battle actually add college to allys list.
                         mapMessage.setText(capitalizeFirstLetter(name) + " Island");
                         hintMessage.setText("Press Enter to interact");
                         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                             Gdx.app.debug("Sailing DEBUG","Interacted with College");
-                            gameManager.setScreen(new CombatScreen(game, true, college)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
+                            game.setScreen(new CombatScreen(game, true, college)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
                         }
                     } else {
                         mapMessage.setText(capitalizeFirstLetter(name) + " Island (Sacked)");
@@ -288,11 +288,11 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
-	        gameManager.addPoints(1);
+	        game.addPoints(1);
             timer -= 1;
         }
 
-        pointsLabel.setText(Integer.toString(gameManager.getPoints()));
+        pointsLabel.setText(Integer.toString(game.getPoints()));
     }
 
     @Override

@@ -3,7 +3,7 @@ package combat.items;
 /**
  * A weapon that can be bought from departments and applied to ships to use in combat.
  */
-public class Weapon {
+public class Weapon implements java.io.Serializable{
     /**
      * Name that appears in departments
      */

@@ -2,6 +2,7 @@ package base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -11,11 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import combat.ship.Ship;
 import display.CombatScreen;
 import display.DepartmentScreen;
 import display.MinigameScreen;
 import display.SailingScreen;
 import game_manager.GameManager;
+import org.apache.commons.lang3.SerializationUtils;
+import other.Difficulty;
+
+import java.util.Base64;
 
 import static game_manager.GameManager.ComputerScience;
 import static location.College.Goodricke;
@@ -145,6 +151,12 @@ public abstract class BaseScreen implements Screen {
             }
             fullscreen = !fullscreen;
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
+            saveGame(game.getPrefs());
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            loadGame(game.getPrefs());
+        }
     }
 
     public void pauseProcess(){
@@ -242,5 +254,39 @@ public abstract class BaseScreen implements Screen {
         gamePaused = !gamePaused;
     }
 
+    public void saveGame(Preferences prefs){
+        System.out.println("Saving game");
+
+        byte[] shipData = SerializationUtils.serialize(game.getPlayerShip());
+        String encodedPlayerShip = Base64.getEncoder().encodeToString(shipData);
+        byte[] difficultyData = SerializationUtils.serialize(game.getDifficulty());
+        String encodedDifficulty = Base64.getEncoder().encodeToString(difficultyData);
+
+        prefs.putString("ship", encodedPlayerShip);
+        prefs.putInteger("points", game.getPoints());
+        prefs.putInteger("gold", game.getGold());
+        prefs.putInteger("food", game.getFood());
+        prefs.putString("name", game.getPlayerName());
+        prefs.putString("difficulty", encodedDifficulty);
+        prefs.putFloat("shipX", game.getSailingShipX());
+        prefs.putFloat("shipY", game.getSailingShipY());
+        prefs.putFloat("shipRotation", game.getSailingShipRotation());
+        prefs.flush();
+    }
+
+
+    public void loadGame(Preferences prefs){
+        System.out.println("Loading game");
+
+        game.setPlayerShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("ship"))));
+        game.setPoints(prefs.getInteger("points"));
+        game.setGold(prefs.getInteger("gold"));
+        game.setFood(prefs.getInteger("food"));
+        game.setPlayerName(prefs.getString("name"));
+        game.setDifficulty((Difficulty) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("difficulty"))));
+        game.setSailingShipX(prefs.getFloat("shipX"));
+        game.setSailingShipY(prefs.getFloat("shipY"));
+        game.setSailingShipRotation(prefs.getFloat("shipRotation"));
+    }
 
 }

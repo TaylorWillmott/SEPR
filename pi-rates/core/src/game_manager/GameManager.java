@@ -2,7 +2,7 @@ package game_manager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.Preferences;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
@@ -24,11 +24,13 @@ import static other.Constants.STARTING_GOLD;
  * It also stores the information about the game which will be needed in lots of places, eg the amount of gold the
  * player has or the points.
  */
-public class GameManager extends Game {
+public class GameManager extends Game implements java.io.Serializable {
     /**
      * Currency of the game
      */
     private int gold;
+
+
     /**
      * A resource tied to crew and travelling. As you travel you use up food. The more crew you have, the faster you use
      * it. This stops you ending up with a massive crew and means that you cant stay at sea for ever, progressing the
@@ -48,6 +50,26 @@ public class GameManager extends Game {
      * The difficulty that the player is playing on.
      */
     private Difficulty difficulty;
+
+    public void setPlayerShip(Ship playerShip) {
+        this.playerShip = playerShip;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 
     /**
      * Creates Instances of enemyShip, playerShip and their Actors to be used in the game
@@ -172,12 +194,6 @@ public class GameManager extends Game {
         return difficulty;
     }
 
-    public Skin getSkin() {
-        return skin;
-    }
-
-    private Skin skin;
-
     public void setMasterVolume(float volume) {
         if (volume < 0) { volume = 0; }
         else if (volume > 1) {volume = 1;}
@@ -222,6 +238,22 @@ public class GameManager extends Game {
         this.Physics = new Department(PHYS_WEPS.getWeaponList(), PHYS_UPGRADES.getRoomUpgradeList(), this);
     }
 
+    public void saveGame(Preferences prefs){
+//        prefs.putInteger("points", this.getPoints());
+//        prefs.putInteger("gold", this.getGold());
+//        prefs.putInteger("food", this.getFood());
+//        prefs.put("ship", this.playerShip);
+    }
+    public void loadGame(Preferences prefs){
+
+    }
+
+    public Preferences getPrefs() {
+        return prefs;
+    }
+
+    private Preferences prefs;
+
     /**
      * Creates an Instance of Screen and all the different Screens used
      */
@@ -229,10 +261,12 @@ public class GameManager extends Game {
     public void create() { //Called when the application is
         Gdx.app.setLogLevel(LOG_DEBUG); // Sets level of logs to display.
         Gdx.app.debug("Game DEBUG","Initialising Application");
-        this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);
+        prefs = Gdx.app.getPreferences("save_file");
     }
+
+
 
     @Override
     public void render() { //Called when the Application should render, Called continuously

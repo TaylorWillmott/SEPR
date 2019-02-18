@@ -6,14 +6,12 @@ import combat.items.Weapon;
 import java.util.List;
 
 import static java.lang.Math.log;
-import static other.Constants.BASE_SHIP_ACCURACY;
-import static other.Constants.BASE_SHIP_EVADE;
-import static other.Constants.BASE_SHIP_REPAIR;
+import static other.Constants.*;
 
 /**
  * The ship which has new weapons or upgrades applied to it. Also the ship which is damaged in combat.
  */
-public class Ship {
+public class Ship implements java.io.Serializable {
     /**
      * The number of crew on the ship, affects room repair speed.
      */

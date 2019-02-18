@@ -6,7 +6,7 @@ import combat.items.RoomUpgrade;
  * 8 rooms make up a ship.
  */
 @SuppressWarnings("WeakerAccess")
-public class Room {
+public class Room implements java.io.Serializable {
     /**
      * The default HP a room is given.
      */

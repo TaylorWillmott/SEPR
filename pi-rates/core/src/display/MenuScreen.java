@@ -27,8 +27,6 @@ public class MenuScreen extends BaseScreen {
     private BitmapFont buttonFont = new BitmapFont();
     private TextButton.TextButtonStyle myTextButtonStyle = new TextButton.TextButtonStyle();
     private TextureAtlas buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
-    private TextButton startGame;
-    private TextButton exitGame;
 
     public MenuScreen(final GameManager game){
         super(game);
@@ -50,12 +48,15 @@ public class MenuScreen extends BaseScreen {
         /**
          * Creates Text buttons for the menu, Sets them up and Adds listeners to switch to correct screen
          */
-        startGame = new TextButton("Start Game", myTextButtonStyle);
-        exitGame = new TextButton("Exit Game", myTextButtonStyle);
+        TextButton newGame = new TextButton("New Game", myTextButtonStyle);
+        TextButton loadGame = new TextButton("Load Game", myTextButtonStyle);
+        TextButton exitGame = new TextButton("Exit Game", myTextButtonStyle);
         Table table = new Table();
 
         table.row().size(viewwidth/8f, viewheight/10f).padBottom(viewheight/24f);
-        table.add(startGame);
+        table.add(newGame);
+        table.row().size(viewwidth/8f, viewheight/10f).padBottom(viewheight/24f);
+        table.add(loadGame);
         table.row().size(viewwidth/8f, viewheight/10f).fill();
         table.add(exitGame);
 
@@ -63,10 +64,18 @@ public class MenuScreen extends BaseScreen {
         table.center();
         mainStage.addActor(table);
 
-        startGame.addListener(new ClickListener() {
+        newGame.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){
-                Gdx.app.debug("Menu DEBUG", "Start button pressed");
+                Gdx.app.debug("Menu DEBUG", "New button pressed");
                 changeScreen(new SailingScreen(game, true));
+            }
+        });
+
+        loadGame.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.debug("Menu DEBUG", "Load button pressed");
+                loadGame(game.getPrefs());
+                changeScreen(new SailingScreen(game, false));
             }
         });
 

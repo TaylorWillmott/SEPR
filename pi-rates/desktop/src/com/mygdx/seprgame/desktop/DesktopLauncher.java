@@ -3,6 +3,7 @@ package com.mygdx.seprgame.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import game_manager.GameManager;
+import other.Difficulty;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -11,6 +12,6 @@ public class DesktopLauncher {
 		config.backgroundFPS = config.foregroundFPS;
 		config.forceExit = false;
 
-		new LwjglApplication(new GameManager(null,null), config);
+		new LwjglApplication(new GameManager("Pirate", Difficulty.EASY), config);
 	}
 }

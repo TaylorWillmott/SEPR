@@ -14,7 +14,7 @@ import static other.Constants.COOLDOWN_TICKS_PER_TURN;
 /**
  * The "AI" which controls an opponent in combat.
  */
-public class CombatEnemy extends CombatActor {
+public class CombatEnemy extends CombatActor implements java.io.Serializable {
     public CombatEnemy(Ship ship) {
         super(ship);
     }

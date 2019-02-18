@@ -18,7 +18,7 @@ import static other.Constants.NON_FUNCTIONAL_ROOM_MULTIPLIER;
 /**
  * The class that controls the flow of combat and decides if shots hit or not.
  */
-public class CombatManager {
+public class CombatManager implements java.io.Serializable {
     private CombatPlayer player;
     private CombatEnemy enemy;
     private Boolean shotHit = true;

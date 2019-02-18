@@ -43,8 +43,6 @@ public class DepartmentScreen extends BaseScreen {
     private Table resource2 = new Table();
     private Table resource3 = new Table();
 
-    private Skin skin;
-
     /**
      * Sets up department to retrieve values
      */
@@ -73,7 +71,6 @@ public class DepartmentScreen extends BaseScreen {
         setMusic(makeMusic("the-buccaneers-haul.mp3"));
 
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
-        skin = game.getSkin();
         skin.addRegions(buttonAtlas);
         buttonTable = new Table();
 

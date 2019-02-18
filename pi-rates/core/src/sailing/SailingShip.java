@@ -11,7 +11,7 @@ import location.College;
 import static location.College.Derwent;
 
 public class SailingShip extends PhysicsActor {
-    private Texture sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
+    private Texture sailingTexture;
     private College college;
     private boolean isBoss = false;
 
@@ -23,6 +23,7 @@ public class SailingShip extends PhysicsActor {
 
     public SailingShip(College college) {
         this.college = college;
+        sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         setupShip();
     }
 

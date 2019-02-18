@@ -16,7 +16,7 @@ import static other.Constants.*;
 /**
  * The department acts as a shop in our game.
  */
-public class Department {
+public class Department implements java.io.Serializable {
     /**
      * The weapons that can be bought at the shop
      */

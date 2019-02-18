@@ -192,7 +192,6 @@ public class SailingScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
-        System.out.println("Update is called");
         removeList.clear();
         goldLabel.setText(Integer.toString(game.getGold()));
         this.playerShip.playerMove(delta);
@@ -222,7 +221,7 @@ public class SailingScreen extends BaseScreen {
 
         if (!x) {
             mapMessage.setText("Neutral Territory");
-            Gdx.app.debug("Sailing Location","Neutral Territory");
+//            Gdx.app.debug("Sailing Location","Neutral Territory");
         }
 
 
@@ -279,6 +278,9 @@ public class SailingScreen extends BaseScreen {
 //                    Gdx.app.debug("Sailing DEBUG", "Pure obstacle");
                 }
             }
+            game.setSailingShipX(playerShip.getX());
+            game.setSailingShipY(playerShip.getY());
+            game.setSailingShipRotation(playerShip.getRotation());
         }
 
         if (!y) hintMessage.setText("");
@@ -325,7 +327,6 @@ public class SailingScreen extends BaseScreen {
         uiStage.draw();
 
         if (!gamePaused){
-            System.out.println(playerShip.isAnchor());
             uiStage.act(delta);
             mainStage.act(delta);
             update(delta);

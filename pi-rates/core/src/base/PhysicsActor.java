@@ -8,15 +8,24 @@ public class PhysicsActor extends BaseActor {
     private Vector2 velocity;
     private Vector2 acceleration;
 
-    // maximum speed
+    /**
+     * Maximum speed
+     */
     private float maxSpeed;
 
-    // speed reduction, in pixels/second, when not accelerating
+    /**
+     * Speed reduction, in pixels/second, when not accelerating
+     */
     private float deceleration;
 
-    // should image rotate to match velocity?
+    /**
+     * Should image rotate to match velocity?
+     */
     private boolean autoAngle;
 
+    /**
+     * Is the ship anchored?
+     */
     private boolean anchor;
 
     public PhysicsActor() {
@@ -28,10 +37,11 @@ public class PhysicsActor extends BaseActor {
         this.anchor = true;
     }
 
-    // acceleration/deceleration methods
     public void setAccelerationXY(float ax, float ay) {acceleration.set(ax, ay);}
 
-    // set acceleration from angle and speed
+    /**
+     * Set acceleration from angle and speed
+     */
     public void setAccelerationAS(float angleDeg, float speed) {
         acceleration.x = speed * MathUtils.cosDeg(angleDeg);
         acceleration.y = speed * MathUtils.sinDeg(angleDeg);
@@ -45,10 +55,18 @@ public class PhysicsActor extends BaseActor {
 
     public void setMaxSpeed(float ms) {maxSpeed = ms;}
 
+    /**
+     * @return the angle of motion of an Actor
+     */
     public float getMotionAngle() {
         return MathUtils.atan2(velocity.y, velocity.x) * MathUtils.radiansToDegrees;
     }
 
+    /**
+     * Adjust acceleration of the Actor based on a given strength and angle
+     * @param angle The angle of acceleration
+     * @param amount The magnitude of acceleration
+     */
     public void addAccelerationAS(float angle, float amount) {
         acceleration.add(amount * MathUtils.cosDeg(angle),amount * MathUtils.sinDeg(angle));
     }
@@ -78,7 +96,5 @@ public class PhysicsActor extends BaseActor {
 
     public void setAnchor(boolean anchor) { this.anchor = anchor; }
 
-    public boolean isAnchor() {
-        return anchor;
-    }
+    public boolean isAnchor() { return anchor; }
 }

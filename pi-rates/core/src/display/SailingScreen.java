@@ -228,7 +228,7 @@ public class SailingScreen extends BaseScreen {
 
         musicSetup("glorious-morning.mp3");
     }
-
+    
     @Override
     public void update(float delta) {
         removeList.clear();
@@ -240,7 +240,6 @@ public class SailingScreen extends BaseScreen {
             String name = region.getName();
             if (playerShip.overlaps(region, false)) {
                 x = true;
-
 
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
 

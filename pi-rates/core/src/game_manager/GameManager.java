@@ -237,15 +237,6 @@ public class GameManager extends Game implements java.io.Serializable {
         this.Physics = new Department(PHYS_WEPS.getWeaponList(), PHYS_UPGRADES.getRoomUpgradeList(), this);
     }
 
-    public void saveGame(Preferences prefs){
-//        prefs.putInteger("points", this.getPoints());
-//        prefs.putInteger("gold", this.getGold());
-//        prefs.putInteger("food", this.getFood());
-//        prefs.put("ship", this.playerShip);
-    }
-    public void loadGame(Preferences prefs){
-
-    }
 
     public Preferences getPrefs() {
         return prefs;

@@ -8,8 +8,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import display.*;
@@ -80,6 +82,14 @@ public abstract class BaseScreen implements Screen {
         soundLabel = new Label((int)(game.getSoundValue() * 100) + " / " + 100, skin);
         musicLabel = new Label((int)(game.getMusicValue() * 100) + " / " + 100, skin);
 
+        TextButton saveButton = new TextButton("Save Game", skin);
+        saveButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.debug("Save DEBUG", "Save button pressed");
+                saveGame(game.getPrefs());
+            }
+        });
+
         Table table = new Table();
         table.setFillParent(true);
         table.add(new Label("PAUSED", skin)).colspan(3);
@@ -96,6 +106,9 @@ public abstract class BaseScreen implements Screen {
         table.add(musicSlider);
         table.add(musicLabel);
         table.row().uniform();
+        table.add(saveButton).colspan(3).center();
+
+
         pauseBackgroundImage.setSize(table.getPrefWidth() * 1.25f, table.getPrefHeight() * 1.5f);
         pauseBackgroundImage.setPosition(viewwidth/2, viewheight/2, Align.center);
         pauseStage.addActor(pauseBackgroundImage);

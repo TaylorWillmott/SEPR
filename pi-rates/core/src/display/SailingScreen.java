@@ -26,36 +26,75 @@ import java.util.concurrent.ThreadLocalRandom;
 import static game_manager.GameManager.*;
 import static location.College.*;
 
+/**
+ * SailingScreen is the main class that deals with sailing
+ *
+ */
 public class SailingScreen extends BaseScreen {
 
+    /**
+     * An instance of SailingShip, Derwent is used as the home college by default
+     */
     private SailingShip playerShip = new SailingShip(Derwent);
 
-    //Map Variables
+    /**
+     * Lists to hold all the objects retrieved from the tiled map
+     */
     private ArrayList<BaseActor> obstacleList;
-    private ArrayList<BaseActor> removeList;
     private ArrayList<BaseActor> regionList;
 
+    /**
+     * Lists to hold all the objects to be removed from the game
+     */
+    private ArrayList<BaseActor> removeList;
+
+    /**
+     * Variables to keep track of the size and dimension of the tile map
+     */
     private int tileSize = 64;
     private int tileCountWidth = 120;
     private int tileCountHeight = 120;
 
-    //calculate game world dimensions
+    /**
+     * Game world dimensions
+     */
     private final int mapWidth = tileSize * tileCountWidth;
     private final int mapHeight = tileSize * tileCountHeight;
+
+    /**
+     * An object used to reference to the tile map
+     */
     private TiledMap tiledMap;
 
+    /**
+     * The renderer and Camera for the tile map
+     */
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private OrthographicCamera tiledCamera;
+
+    /**
+     * Specifying layers in order of rendering, background layers are rendered first in ascending order
+     */
     private int[] backgroundLayers = {0,1,2};
     private int[] foregroundLayers = {3};
 
+    /**
+     * UI elements on the screen
+     */
     private Label pointsLabel;
     private Label goldLabel;
     private Label mapMessage;
     private Label hintMessage;
 
+    /**
+     * Timer used for adding point through passage of time
+     */
     private Float timer;
 
+    /**
+     * @param isFirstSailingInstance check if this SailingScreen is generated for the first time in a new game from MainMenu
+     *                               or if it is generated from save game or from another screen outside of MainMenu
+     */
     public SailingScreen(GameManager game, boolean isFirstSailingInstance) {
         super(game);
 

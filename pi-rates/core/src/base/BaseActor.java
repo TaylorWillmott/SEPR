@@ -15,6 +15,10 @@ public class BaseActor extends Group {
     private TextureRegion region;
     private Polygon boundingPolygon;
 
+    /**
+     *Hold the College and Department values used when retrieving information from objects
+     * in the tile map
+     */
     private College college;
     private Department department;
 
@@ -36,6 +40,9 @@ public class BaseActor extends Group {
         super.draw(batch, parentAlpha);
     }
 
+    /**
+     * Set the boundary for a BaseActor object as a rectangle
+     */
     public void setRectangleBoundary() {
         float w = getWidth();
         float h = getHeight();
@@ -44,6 +51,9 @@ public class BaseActor extends Group {
         boundingPolygon.setOrigin(getOriginX(), getOriginY());
     }
 
+    /**
+     * Set the boundary for a BaseActor object as an ellipse
+     */
     public void setEllipseBoundary() {
         // number of vertices;
         int n = 8;
@@ -61,6 +71,9 @@ public class BaseActor extends Group {
         boundingPolygon.setOrigin(getOriginX(), getOriginY());
     }
 
+    /**
+     * @return The bounding polygon of a BaseActor object
+     */
     public Polygon getBoundingPolygon() {
         boundingPolygon.setPosition(getX(), getY());
         boundingPolygon.setRotation(getRotation());
@@ -68,12 +81,11 @@ public class BaseActor extends Group {
     }
 
     /**
-     * Determine if the collision polygons of two BaseActor
-     objects overlap.
-     * If (resolve == true), then when there is overlap, move
-     this BaseActor
-     * along minimum translation vector until there is no
-     overlap.
+     * Determine if the collision polygons of two BaseActor objects overlap.
+     * @param other a BaseActor
+     * @param resolve If (resolve == true), then when there is overlap, move this BaseActor
+     *                along minimum translation vector until there is no overlap.
+     * @return true if there is collision, falsse otherwise
      */
     public boolean overlaps(BaseActor other, boolean resolve) {
         Polygon poly1 = this.getBoundingPolygon();
@@ -91,6 +103,9 @@ public class BaseActor extends Group {
         return (polyOverlap && (mtv.depth > significant));
     }
 
+    /**
+     * Set the origin of a BaseActor object to its centre for more accurate movement amd rotation
+     */
     public void setOriginCentre() {
         if (getWidth() == 0) System.err.println("error: actor size not set");
         setOrigin(getWidth()/2,getHeight()/2);

@@ -223,7 +223,6 @@ public class GameManager extends Game implements java.io.Serializable {
     public float getSoundValue() { return soundVolume; }
 
     public GameManager(String playerName, Difficulty difficulty) {
-	    //Gdx.graphics.setTitle("3.14rates");
         this.playerName = playerName;
         this.difficulty = difficulty;
         this.gold = STARTING_GOLD;

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import display.*;
 import combat.ship.Ship;
 import display.CombatScreen;
 import display.DepartmentScreen;
@@ -131,11 +132,11 @@ public abstract class BaseScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             changeScreen(new CombatScreen(game, false, Goodricke));
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-            changeScreen(new CombatScreen(game, true, Goodricke));
-        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
             changeScreen(new DepartmentScreen(game, ComputerScience));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+            changeScreen(new VictoryScreen(game));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             changeScreen(new MinigameScreen(game));

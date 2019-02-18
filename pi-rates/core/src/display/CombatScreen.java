@@ -251,7 +251,7 @@ public class CombatScreen extends BaseScreen {
             }
 
             if (colleges.isEmpty()) {
-                System.out.println("VICTORYYYYYYYYYYYY");
+                changeScreen(new VictoryScreen(game));
             } else {
                 //Waits 5 Loops to ensure Above messages render, Sleeps, then returns to menu
                 if (a == 5) {

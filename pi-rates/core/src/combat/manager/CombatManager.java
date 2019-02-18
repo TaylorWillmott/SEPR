@@ -36,8 +36,6 @@ public class CombatManager implements java.io.Serializable {
         List<Pair<Room, Integer>> damageReport = new ArrayList<Pair<Room, Integer>>();
         List<Pair<Room, Weapon>> turnReport = new ArrayList<Pair<Room, Weapon>>();
 
-        System.out.println("HP: " + shooter.getShip().getHullHP() + " and HP: " + receiver.getShip().getBaseHullHP());
-
 //        Get targets and weapons
         shooter.takeTurn(weaponSelected);
         turnReport.add(new Pair<Room, Weapon>(roomSelected, weaponSelected));

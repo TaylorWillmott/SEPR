@@ -13,7 +13,7 @@ public class Constants {
     /**
      * The default HP that a new ship is given
      */
-    public static final int DEFAULT_SHIP_HP = 1000;
+    public static final int DEFAULT_SHIP_HP = 600;
     /**
      * The default crew that a new ship is given
      */

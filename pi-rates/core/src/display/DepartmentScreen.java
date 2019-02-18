@@ -68,8 +68,6 @@ public class DepartmentScreen extends BaseScreen {
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
 
-        setMusic(makeMusic("the-buccaneers-haul.mp3"));
-
         buttonAtlas = new TextureAtlas("buttonSpriteSheet.txt");
         skin.addRegions(buttonAtlas);
         buttonTable = new Table();

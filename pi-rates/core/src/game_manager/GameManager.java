@@ -14,7 +14,7 @@ import static banks.RoomUpgradeSetBank.*;
 import static banks.ShipBank.COLLEGE_SHIP;
 import static banks.ShipBank.STARTER_SHIP;
 import static banks.WeaponSetBank.*;
-import static com.badlogic.gdx.Application.LOG_DEBUG;
+import static com.badlogic.gdx.Application.LOG_NONE;
 import static other.Constants.STARTING_FOOD;
 import static other.Constants.STARTING_GOLD;
 
@@ -270,7 +270,7 @@ public class GameManager extends Game implements java.io.Serializable {
      */
     @Override
     public void create() { //Called when the application is
-        Gdx.app.setLogLevel(LOG_DEBUG); // Sets level of logs to display.
+        Gdx.app.setLogLevel(LOG_NONE); // Sets level of logs to display. LOG_DEBUG when programming. LOG_NONE to mute all.
         Gdx.app.debug("Game DEBUG","Initialising Application");
         MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);

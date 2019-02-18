@@ -18,14 +18,13 @@ import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
 import combat.ship.Ship;
-import display.*;
+import display.MenuScreen;
 import game_manager.GameManager;
 import org.apache.commons.lang3.SerializationUtils;
 import other.Difficulty;
 
 import java.util.Base64;
 
-import static game_manager.GameManager.ComputerScience;
 import static location.College.*;
 
 public abstract class BaseScreen implements Screen {
@@ -107,6 +106,15 @@ public abstract class BaseScreen implements Screen {
             }
         });
 
+        TextButton mainMenuButton = new TextButton("Save and Return To Menu", skin);
+        mainMenuButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.debug("SaveMenu DEBUG", "SaveMenu button pressed");
+                saveGame(prefs);
+                changeScreen(new MenuScreen(game));
+            }
+        });
+
         Table table = new Table();
         table.setFillParent(true);
         table.add(new Label("PAUSED", skin)).colspan(3);
@@ -124,6 +132,8 @@ public abstract class BaseScreen implements Screen {
         table.add(musicLabel);
         table.row().uniform();
         table.add(saveButton).colspan(3).center();
+        table.row().uniform();
+        table.add(mainMenuButton).colspan(3).center();
 
 
         pauseBackgroundImage.setSize(table.getPrefWidth() * 1.25f, table.getPrefHeight() * 1.5f);
@@ -162,21 +172,7 @@ public abstract class BaseScreen implements Screen {
             Gdx.app.debug("Pause Menu", "Toggled");
             toggleGamePaused();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-            changeScreen(new CombatScreen(game, false, Goodricke));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
-            changeScreen(new DepartmentScreen(game, ComputerScience));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.N)) {
-            changeScreen(new VictoryScreen(game));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            changeScreen(new MinigameScreen(game));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            changeScreen(new SailingScreen(game, true));
-        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             if (fullscreen) {
                 Gdx.graphics.setWindowedMode((int)(Gdx.graphics.getDisplayMode().width*0.8), (int)(Gdx.graphics.getDisplayMode().height*0.8));
@@ -185,12 +181,7 @@ public abstract class BaseScreen implements Screen {
             }
             fullscreen = !fullscreen;
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
-            saveGame(prefs);
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            loadGame(prefs);
-        }
+
     }
 
     /**
@@ -217,6 +208,7 @@ public abstract class BaseScreen implements Screen {
      * Setting a new screen after calling the current one's dispose method
      */
     public void changeScreen(BaseScreen screen) {
+        music.stop();
         dispose();
         game.setScreen(screen);
     }
@@ -261,8 +253,8 @@ public abstract class BaseScreen implements Screen {
         this.uiStage.dispose();
         this.mainStage.dispose();
         this.pauseStage.dispose();
-        this.music.stop();
-        this.music.dispose();
+        this.getMusic().stop();
+        this.getMusic().dispose();
     }
 
     /**

@@ -21,7 +21,7 @@ public enum ShipBank {
     DEFAULT_BRIG(DEFAULT_SHIP_CREW, RoomSetBank.STARTER_ROOMS.getRoomList(),
             WeaponSetBank.STARTER_WEAPONS.getWeaponList(), DEFAULT_SHIP_HP),
     COLLEGE_SHIP(DEFAULT_SHIP_CREW * 2, RoomSetBank.STARTER_ROOMS.getRoomList(),
-            WeaponSetBank.COLLEGE_WEPS.getWeaponList(), DEFAULT_SHIP_HP * 1.5);
+            WeaponSetBank.COLLEGE_WEPS.getWeaponList(), (int) (DEFAULT_SHIP_HP * 1.5));
 
     // Internal workings of the enum
     private int crew;

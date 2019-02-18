@@ -251,7 +251,7 @@ public class SailingScreen extends BaseScreen {
                         game.setSailingShipX(this.playerShip.getX());
                         game.setSailingShipY(this.playerShip.getY());
                         game.setSailingShipRotation(this.playerShip.getRotation());
-                        game.setScreen(new CombatScreen(game, false, college));
+                        changeScreen(new CombatScreen(game, false, college));
                     }
                 }
             }
@@ -276,7 +276,7 @@ public class SailingScreen extends BaseScreen {
                         game.setSailingShipX(this.playerShip.getX());
                         game.setSailingShipY(this.playerShip.getY());
                         game.setSailingShipRotation(this.playerShip.getRotation());
-                        game.setScreen(new DepartmentScreen(game, obstacle.getDepartment()));
+                        changeScreen(new DepartmentScreen(game, obstacle.getDepartment()));
                     }
                 }
                 // Obstacle must be a college if college not null
@@ -293,9 +293,9 @@ public class SailingScreen extends BaseScreen {
                             game.setSailingShipX(this.playerShip.getX());
                             game.setSailingShipY(this.playerShip.getY());
                             game.setSailingShipRotation(this.playerShip.getRotation());
-                            game.setScreen(new MinigameScreen(game));
+                            changeScreen(new MinigameScreen(game));
                         }
-                    } else if (college.isBossAlive()) { // TODO Make winning boss battle actually add college to allys list.
+                    } else if (college.isBossAlive()) {
                         mapMessage.setText(capitalizeFirstLetter(name) + " Island");
                         hintMessage.setText("Press Enter to interact");
                         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
@@ -303,7 +303,7 @@ public class SailingScreen extends BaseScreen {
                             game.setSailingShipX(this.playerShip.getX());
                             game.setSailingShipY(this.playerShip.getY());
                             game.setSailingShipRotation(this.playerShip.getRotation());
-                            game.setScreen(new CombatScreen(game, true, college)); // TODO Make the combat either a generic boss or reflect the actual college being fought. Currently always Constantine.
+                            changeScreen(new CombatScreen(game, true, college));
                         }
                     } else {
                         mapMessage.setText(capitalizeFirstLetter(name) + " Island (Sacked)");

@@ -37,7 +37,9 @@ import static other.Constants.EASY_SCORE_MULTIPLIER;
 
 /**
  * CombatScreen is the class that mostly handles the visual elements of combat.
- * The changes we made to this class were mainly inside of the render loop in regards to how textures are rendered.
+ * A big change to this class was the move from absolute positioning to Scene2D's table structure, this was a big change
+ * as the layout had to be reworked, however the combat framework behind the scenes was retained.
+ * Other changes we made to this class were mainly inside of the render loop in regards to how textures are rendered.
  * These changes were to improve performance.
  */
 public class CombatScreen extends BaseScreen {
@@ -45,7 +47,6 @@ public class CombatScreen extends BaseScreen {
     /**
      * Sets up all required managers to access Methods and Cause Combat
      */
-
     private Ship playerShip;
     private CombatPlayer combatPlayer = game.getCombatPlayer();
     private Ship enemyShip;
@@ -117,6 +118,7 @@ public class CombatScreen extends BaseScreen {
     private Table playerShipTable;
     private Table enemyShipTable;
     private Table attackTable;
+    private Label titleLabel;
 
     /**
      * Constructor requiring instance of GameManager (to switch screen) and is college battle, also takes a college parameter
@@ -139,6 +141,7 @@ public class CombatScreen extends BaseScreen {
         // Table Set up
         fullTable = new Table();
         fullTable.setFillParent(true);
+
         playerHealthTable = new Table();
         playerShipTable = new Table();
         enemyShipTable = new Table();
@@ -149,13 +152,15 @@ public class CombatScreen extends BaseScreen {
         backgroundImg.setSize(viewwidth, viewheight);
         mainStage.addActor(backgroundImg);
 
-        if (isCollegeBattle) {
-            drawCollege(college.getName());
-        }
+        titleLabel = new Label("", skin, "title");
+
+        drawCollege(college.getName());
+
         setUpTextures();
         groupEnemyBar.addActor(hpEnemyImage);
         groupEnemyBar.addActor(enemyHpBar);
 
+        fullTable.add(titleLabel).colspan(2).center();
         fullTable.row().uniformX().width(viewwidth/3);
         fullTable.add(playerHealthTable);
         fullTable.add(groupEnemyBar).align(Align.top).width(hpImage.getPrefWidth());
@@ -168,6 +173,7 @@ public class CombatScreen extends BaseScreen {
         mainStage.addActor(fullTable);
         drawHitMissButtons();
 
+        fullTable.center();
         // ALL TABLE DEBUGGING
 //        fullTable.debugAll();
     }
@@ -182,7 +188,6 @@ public class CombatScreen extends BaseScreen {
             enemyShip = game.getEnemyShip();
             combatEnemy = game.getCombatEnemy();
         }
-
 	    musicSetup("the-buccaneers-haul.mp3");
         cannon_1 = makeSound("cannon_1.mp3");
         cannon_2 = makeSound("cannon_2.mp3");
@@ -323,21 +328,18 @@ public class CombatScreen extends BaseScreen {
     }
 
     /**
-     * Checks which college was chosen and Draws the CollegeSprite, ShipBackground and ShipText
+     * Checks which college was chosen and rewrites the title, depending on if the battle is a boss battle
      */
     private void drawCollege(String college){
-        Label label = new Label("", skin, "title");
         if (isCollegeBattle){
-            label.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Boss");
+            titleLabel.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Boss");
         }
         else{
-            label.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender");
+            titleLabel.setText(college.substring(0,1).toUpperCase() + college.substring(1) + " Defender");
         }
-        label.setPosition(viewwidth/2,viewheight*900/1024, Align.center);
-
-        mainStage.addActor(label);
     }
 
+    // These labels are used to display the HP of specific rooms, and must not be local as they must be updated throughout.
     private Label hpLabelCQ;
     private Label hpLabelCN;
     private Label hpLabelGD;
@@ -439,8 +441,8 @@ public class CombatScreen extends BaseScreen {
         playerHealthTable.add(groupPlayerBar).colspan(4).center();
         playerHealthTable.row().fill();
         playerHealthTable.add(pointsLabel);
-        playerHealthTable.add(goldLabel);
-        playerHealthTable.add(foodLabel);
+        playerHealthTable.add(goldLabel).pad(0, viewwidth/100f,0,viewwidth/100f);
+        playerHealthTable.add(foodLabel).pad(0, 0,0,viewwidth/100f);
         playerHealthTable.add(crewLabel);
     }
 
@@ -698,12 +700,14 @@ public class CombatScreen extends BaseScreen {
      */
     private void drawEndButtons(){
         youWin = new TextButton("You win!", textButtonStyle);
-        youWin.align(Align.center);
+        youWin.setOrigin(Align.center);
+        youWin.setPosition(viewwidth/2, viewheight/2);
         mainStage.addActor(youWin);
         youWin.setVisible(false);
 
         youLose = new TextButton("You Lose :(", textButtonStyle);
-        youLose.align(Align.center);
+        youLose.setOrigin(Align.center);
+        youLose.setPosition(viewwidth/2, viewheight/2);
         mainStage.addActor(youLose);
         youLose.setVisible(false);
     }

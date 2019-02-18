@@ -14,12 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import display.*;
+import combat.actors.CombatEnemy;
+import combat.actors.CombatPlayer;
+import combat.manager.CombatManager;
 import combat.ship.Ship;
-import display.CombatScreen;
-import display.DepartmentScreen;
-import display.MinigameScreen;
-import display.SailingScreen;
+import display.*;
 import game_manager.GameManager;
 import org.apache.commons.lang3.SerializationUtils;
 import other.Difficulty;
@@ -53,7 +52,7 @@ public abstract class BaseScreen implements Screen {
     private Label masterLabel;
     private Label soundLabel;
     private Label musicLabel;
-
+    protected Preferences prefs;
     private Music music;
 
     public BaseScreen(GameManager pirateGame){
@@ -63,6 +62,7 @@ public abstract class BaseScreen implements Screen {
         this.pauseStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
         this.gamePaused = false;
 
+        prefs = Gdx.app.getPreferences("save_file");
 
         // Sets up PauseStage
         skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -86,7 +86,7 @@ public abstract class BaseScreen implements Screen {
         saveButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){
                 Gdx.app.debug("Save DEBUG", "Save button pressed");
-                saveGame(game.getPrefs());
+                saveGame(prefs);
             }
         });
 
@@ -166,10 +166,10 @@ public abstract class BaseScreen implements Screen {
             fullscreen = !fullscreen;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
-            saveGame(game.getPrefs());
+            saveGame(prefs);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            loadGame(game.getPrefs());
+            loadGame(prefs);
         }
     }
 
@@ -269,14 +269,42 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void saveGame(Preferences prefs){
-        System.out.println("Saving game");
+//        byte[] gameData = SerializationUtils.serialize(getGame());
+//        String encodedGame = Base64.getEncoder().encodeToString(gameData);
+//        prefs.putString("game", encodedGame);
 
-        byte[] shipData = SerializationUtils.serialize(game.getPlayerShip());
-        String encodedPlayerShip = Base64.getEncoder().encodeToString(shipData);
+        byte[] playerShipData = SerializationUtils.serialize(game.getPlayerShip());
+        String encodedPlayerShip = Base64.getEncoder().encodeToString(playerShipData);
+
+        byte[] enemyShipData = SerializationUtils.serialize(game.getEnemyShip());
+        String encodedEnemyShip = Base64.getEncoder().encodeToString(enemyShipData);
+
+        byte[] collegeShipData = SerializationUtils.serialize(game.getPlayerShip());
+        String encodedCollegeShip = Base64.getEncoder().encodeToString(collegeShipData);
+
+        byte[] combatPlayerData = SerializationUtils.serialize(game.getCombatPlayer());
+        String encodedCombatPlayer = Base64.getEncoder().encodeToString(combatPlayerData);
+
+        byte[] combatEnemyData = SerializationUtils.serialize(game.getCombatEnemy());
+        String encodedCombatEnemy = Base64.getEncoder().encodeToString(combatEnemyData);
+
+        byte[] combatCollegeData = SerializationUtils.serialize(game.getCombatCollege());
+        String encodedCombatCollege = Base64.getEncoder().encodeToString(combatCollegeData);
+
+        byte[] combatManagerData = SerializationUtils.serialize(game.getCombatManager());
+        String encodedCombatManager = Base64.getEncoder().encodeToString(combatManagerData);
+
         byte[] difficultyData = SerializationUtils.serialize(game.getDifficulty());
         String encodedDifficulty = Base64.getEncoder().encodeToString(difficultyData);
 
         prefs.putString("ship", encodedPlayerShip);
+        prefs.putString("enemyShip", encodedEnemyShip);
+        prefs.putString("collegeShip", encodedCollegeShip);
+        prefs.putString("combatPlayer", encodedCombatPlayer);
+        prefs.putString("combatEnemy", encodedCombatEnemy);
+        prefs.putString("combatCollege", encodedCombatCollege);
+        prefs.putString("combatManager", encodedCombatManager);
+
         prefs.putInteger("points", game.getPoints());
         prefs.putInteger("gold", game.getGold());
         prefs.putInteger("food", game.getFood());
@@ -289,10 +317,17 @@ public abstract class BaseScreen implements Screen {
     }
 
 
-    public void loadGame(Preferences prefs){
-        System.out.println("Loading game");
+    public GameManager loadGame(Preferences prefs){
+//        setGame((GameManager) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("game"))));
 
         game.setPlayerShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("ship"))));
+        game.setEnemyShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("enemyShip"))));
+        game.setCollegeShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("collegeShip"))));
+        game.setCombatPlayer((CombatPlayer)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatPlayer"))));
+        game.setCombatEnemy((CombatEnemy)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatEnemy"))));
+        game.setCombatCollege((CombatEnemy) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatCollege"))));
+        game.setCombatManager((CombatManager) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatManager"))));
+
         game.setPoints(prefs.getInteger("points"));
         game.setGold(prefs.getInteger("gold"));
         game.setFood(prefs.getInteger("food"));
@@ -301,6 +336,7 @@ public abstract class BaseScreen implements Screen {
         game.setSailingShipX(prefs.getFloat("shipX"));
         game.setSailingShipY(prefs.getFloat("shipY"));
         game.setSailingShipRotation(prefs.getFloat("shipRotation"));
+        return game;
     }
 
 }

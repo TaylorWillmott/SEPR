@@ -2,7 +2,6 @@ package game_manager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import combat.actors.CombatEnemy;
 import combat.actors.CombatPlayer;
 import combat.manager.CombatManager;
@@ -75,12 +74,22 @@ public class GameManager extends Game implements java.io.Serializable {
      * Creates Instances of enemyShip, playerShip and their Actors to be used in the game
      */
     private Ship playerShip = STARTER_SHIP.getShip();
+
+    public void setEnemyShip(Ship enemyShip) {
+        this.enemyShip = enemyShip;
+    }
+
+    public void setCollegeShip(Ship collegeShip) {
+        this.collegeShip = collegeShip;
+    }
+
     private CombatPlayer combatPlayer = new CombatPlayer(playerShip);
 
     private Ship enemyShip = STARTER_SHIP.getShip();
     private CombatEnemy combatEnemy = new CombatEnemy(enemyShip);
 
     private Ship collegeShip = COLLEGE_SHIP.getShip();
+
     private CombatEnemy combatCollege = new CombatEnemy(collegeShip);
 
     private CombatManager combatManager = new CombatManager(combatPlayer, combatEnemy);
@@ -130,6 +139,22 @@ public class GameManager extends Game implements java.io.Serializable {
         if (gold < 0) {
             gold = 0;
         }
+    }
+
+    public void setCombatPlayer(CombatPlayer combatPlayer) {
+        this.combatPlayer = combatPlayer;
+    }
+
+    public void setCombatEnemy(CombatEnemy combatEnemy) {
+        this.combatEnemy = combatEnemy;
+    }
+
+    public void setCombatCollege(CombatEnemy combatCollege) {
+        this.combatCollege = combatCollege;
+    }
+
+    public void setCombatManager(CombatManager combatManager) {
+        this.combatManager = combatManager;
     }
 
     /**
@@ -238,11 +263,6 @@ public class GameManager extends Game implements java.io.Serializable {
     }
 
 
-    public Preferences getPrefs() {
-        return prefs;
-    }
-
-    private Preferences prefs;
 
     /**
      * Creates an Instance of Screen and all the different Screens used
@@ -253,7 +273,7 @@ public class GameManager extends Game implements java.io.Serializable {
         Gdx.app.debug("Game DEBUG","Initialising Application");
         MenuScreen menuScreen =  new MenuScreen(this);
         this.setScreen(menuScreen);
-        prefs = Gdx.app.getPreferences("save_file");
+
     }
 
 

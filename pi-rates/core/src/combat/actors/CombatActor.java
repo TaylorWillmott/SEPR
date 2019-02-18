@@ -5,7 +5,7 @@ import combat.ship.Ship;
 /**
  * An abstract class which defines the architecture of CombatEnemy and CombatPlayer
  */
-public abstract class CombatActor {
+public abstract class CombatActor implements java.io.Serializable {
     private Ship ship;
 
     public Ship getShip() {

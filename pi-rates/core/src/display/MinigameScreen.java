@@ -140,7 +140,6 @@ public class MinigameScreen extends BaseScreen {
 		table.add(goldTable).right().padRight(viewwidth/48f);
 		table.add(betTable).left().padLeft(viewwidth/48f);
 
-		table.setDebug(true);
 		drawEndButtons();
 		timer = 0;
 		startTimer = false;

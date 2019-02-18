@@ -41,14 +41,12 @@ public class CombatScreen extends BaseScreen {
      * Sets up all required managers to access Methods and Cause Combat
      */
 
-    //NOT SURE WHY YOU WOULD EVER CREATE A NEW SHIP
     private Ship playerShip;
     private CombatPlayer combatPlayer = game.getCombatPlayer();
     private Ship enemyShip;
     private CombatEnemy combatEnemy;
     private CombatManager combatManager = game.getCombatManager();
 
-    private int randInt = pickRandom(3);
     private College college;
 
     /**

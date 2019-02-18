@@ -24,6 +24,9 @@ public class College {
         this.bossAlive = bossAlive;
     }
 
+    /**
+     * Static instances of colleges to be accessed from anywhere within the code base
+     */
     public static College Derwent = new College("Derwent");
     public static College Vanbrugh = new College("Vanbrugh");
     public static College James = new College("James");
@@ -31,8 +34,10 @@ public class College {
     public static College Langwith = new College("Langwith");
     public static College Goodricke = new College("Goodricke");
 
-    // List to check for game win condition
-    // No Derwent as that is home college
+    /**
+     * List of colleges used to check for game win condition
+     * No Derwent as that is home college
+     */
     public static List<College> colleges = new ArrayList<College>(
             Arrays.asList(
                     Vanbrugh, James, Alcuin, Langwith, Goodricke

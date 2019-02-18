@@ -13,7 +13,6 @@ import static location.College.Derwent;
 public class SailingShip extends PhysicsActor {
     private Texture sailingTexture;
     private College college;
-    private boolean isBoss = false;
 
     // For testing purposes only. Use of this constructor in-game WILL cause errors.
     @Deprecated
@@ -58,7 +57,6 @@ public class SailingShip extends PhysicsActor {
         batch.draw(new TextureRegion(sailingTexture),getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation());
     }
 
-    // Getters and Setters
     public College getCollege() {
         return college;
     }

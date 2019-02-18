@@ -32,20 +32,33 @@ public abstract class BaseScreen implements Screen {
 
     protected GameManager game;
 
+    /**
+     * Different stages in the screen
+     */
     protected Stage mainStage;
     protected Stage uiStage;
     protected Stage pauseStage;
+
     protected boolean gamePaused;
 
-
+    /**
+     * BaseScreen resolution
+     */
     protected final int viewwidth = 1920;
     protected final int viewheight = 1080;
+
     protected final Skin skin;
     private Texture pauseBackgroundTexture;
     private Image pauseBackgroundImage;
 
+    /**
+     * The game starts on a small window by default
+     */
     private boolean fullscreen = false;
 
+    /**
+     * The  GUI elements for volume handling
+     */
     private Slider masterSlider;
     private Slider soundSlider;
     private Slider musicSlider;
@@ -53,6 +66,10 @@ public abstract class BaseScreen implements Screen {
     private Label soundLabel;
     private Label musicLabel;
     protected Preferences prefs;
+
+    /**
+     * A music object to hold the music for the game
+     */
     private Music music;
 
     public BaseScreen(GameManager pirateGame){
@@ -137,6 +154,9 @@ public abstract class BaseScreen implements Screen {
         this.inputForScreen();
     }
 
+    /**
+     * Handle all the key inputs for a BaseScreen
+     */
     public void inputForScreen() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.debug("Pause Menu", "Toggled");
@@ -173,6 +193,10 @@ public abstract class BaseScreen implements Screen {
         }
     }
 
+    /**
+     * Handle all the processes going pn when the game is paused
+     * Specifically, the volume.
+     */
     public void pauseProcess(){
         Gdx.input.setInputProcessor(pauseStage);
         pauseStage.draw();
@@ -189,6 +213,9 @@ public abstract class BaseScreen implements Screen {
         music.setVolume(game.getMusicVolume());
     }
 
+    /**
+     * Setting a new screen after calling the current one's dispose method
+     */
     public void changeScreen(BaseScreen screen) {
         dispose();
         game.setScreen(screen);
@@ -238,6 +265,9 @@ public abstract class BaseScreen implements Screen {
         this.music.dispose();
     }
 
+    /**
+     * Handle resizing of the BaseScreen
+     */
     public void resize(int width, int height) {
         this.pauseStage.getViewport().update(width, height, true);
         this.mainStage.getViewport().update(width, height, true);
@@ -268,6 +298,9 @@ public abstract class BaseScreen implements Screen {
         gamePaused = !gamePaused;
     }
 
+    /**
+     * Implement saving game feature
+     */
     public void saveGame(Preferences prefs){
 //        byte[] gameData = SerializationUtils.serialize(getGame());
 //        String encodedGame = Base64.getEncoder().encodeToString(gameData);
@@ -317,6 +350,9 @@ public abstract class BaseScreen implements Screen {
     }
 
 
+    /**
+     * Implement loading game feature
+     */
     public GameManager loadGame(Preferences prefs){
 //        setGame((GameManager) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("game"))));
 

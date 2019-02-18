@@ -15,6 +15,7 @@ import static other.Constants.*;
 
 /**
  * The department acts as a shop in our game.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public class Department implements java.io.Serializable {
     /**

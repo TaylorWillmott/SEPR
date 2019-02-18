@@ -17,6 +17,7 @@ import static other.Constants.NON_FUNCTIONAL_ROOM_MULTIPLIER;
 @SuppressWarnings("FieldCanBeLocal")
 /**
  * The class that controls the flow of combat and decides if shots hit or not.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public class CombatManager implements java.io.Serializable {
     private CombatPlayer player;
@@ -34,6 +35,8 @@ public class CombatManager implements java.io.Serializable {
     public void combatLoop(CombatPlayer shooter, CombatEnemy receiver, Room roomSelected, Weapon weaponSelected) {
         List<Pair<Room, Integer>> damageReport = new ArrayList<Pair<Room, Integer>>();
         List<Pair<Room, Weapon>> turnReport = new ArrayList<Pair<Room, Weapon>>();
+
+        System.out.println("HP: " + shooter.getShip().getHullHP() + " and HP: " + receiver.getShip().getBaseHullHP());
 
 //        Get targets and weapons
         shooter.takeTurn(weaponSelected);

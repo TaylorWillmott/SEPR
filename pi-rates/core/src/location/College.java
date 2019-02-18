@@ -2,9 +2,12 @@ package location;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class College {
+/**
+ * Allows the creation of a College object, which stores whether a particular college has been beaten
+ * Had to implement Serializable due to encoding needed for saving game data.
+ */
+public class College implements java.io.Serializable {
     String name;
     private boolean bossAlive;
 
@@ -38,7 +41,7 @@ public class College {
      * List of colleges used to check for game win condition
      * No Derwent as that is home college
      */
-    public static List<College> colleges = new ArrayList<College>(
+    public static ArrayList<College> colleges = new ArrayList<College>(
             Arrays.asList(
                     Vanbrugh, James, Alcuin, Langwith, Goodricke
             )

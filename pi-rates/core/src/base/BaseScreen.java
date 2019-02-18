@@ -26,7 +26,7 @@ import other.Difficulty;
 import java.util.Base64;
 
 import static game_manager.GameManager.ComputerScience;
-import static location.College.Goodricke;
+import static location.College.*;
 
 public abstract class BaseScreen implements Screen {
 
@@ -300,6 +300,8 @@ public abstract class BaseScreen implements Screen {
 
     /**
      * Implement saving game feature
+     * Used SerializationUtils package from apache commons library to allow Objects to be converted to byte[], and Base64 method from java to convert to a string.
+     * These were then stored in an xml file using libgdx built in 'Preferences' system.
      */
     public void saveGame(Preferences prefs){
 //        byte[] gameData = SerializationUtils.serialize(getGame());
@@ -330,6 +332,27 @@ public abstract class BaseScreen implements Screen {
         byte[] difficultyData = SerializationUtils.serialize(game.getDifficulty());
         String encodedDifficulty = Base64.getEncoder().encodeToString(difficultyData);
 
+        byte[] derwentData = SerializationUtils.serialize(Derwent);
+        String encodedDerwent = Base64.getEncoder().encodeToString(derwentData);
+
+        byte[] vanbrughData = SerializationUtils.serialize(Vanbrugh);
+        String encodedVanbrugh = Base64.getEncoder().encodeToString(vanbrughData);
+
+        byte[] goodrickeData = SerializationUtils.serialize(Goodricke);
+        String encodedGoodricke = Base64.getEncoder().encodeToString(goodrickeData);
+
+        byte[] alcuinData = SerializationUtils.serialize(Alcuin);
+        String encodedAlcuin = Base64.getEncoder().encodeToString(alcuinData);
+
+        byte[] langwithData = SerializationUtils.serialize(Langwith);
+        String encodedLangwith = Base64.getEncoder().encodeToString(langwithData);
+
+        byte[] jamesData = SerializationUtils.serialize(James);
+        String encodedJames = Base64.getEncoder().encodeToString(jamesData);
+
+        byte[] collegeData = SerializationUtils.serialize(colleges);
+        String encodedColleges = Base64.getEncoder().encodeToString(collegeData);
+
         prefs.putString("ship", encodedPlayerShip);
         prefs.putString("enemyShip", encodedEnemyShip);
         prefs.putString("collegeShip", encodedCollegeShip);
@@ -337,6 +360,13 @@ public abstract class BaseScreen implements Screen {
         prefs.putString("combatEnemy", encodedCombatEnemy);
         prefs.putString("combatCollege", encodedCombatCollege);
         prefs.putString("combatManager", encodedCombatManager);
+        prefs.putString("derwent", encodedDerwent);
+        prefs.putString("alcuin", encodedAlcuin);
+        prefs.putString("james", encodedJames);
+        prefs.putString("vanbrugh", encodedVanbrugh);
+        prefs.putString("langwith", encodedLangwith);
+        prefs.putString("goodricke", encodedGoodricke);
+        prefs.putString("colleges", encodedColleges);
 
         prefs.putInteger("points", game.getPoints());
         prefs.putInteger("gold", game.getGold());
@@ -352,6 +382,7 @@ public abstract class BaseScreen implements Screen {
 
     /**
      * Implement loading game feature
+     * Decoding using Serialization and Base64, and then setting the correct objects reading from the xml file.
      */
     public GameManager loadGame(Preferences prefs){
 //        setGame((GameManager) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("game"))));
@@ -359,10 +390,20 @@ public abstract class BaseScreen implements Screen {
         game.setPlayerShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("ship"))));
         game.setEnemyShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("enemyShip"))));
         game.setCollegeShip((Ship)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("collegeShip"))));
-        game.setCombatPlayer((CombatPlayer)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatPlayer"))));
-        game.setCombatEnemy((CombatEnemy)SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatEnemy"))));
-        game.setCombatCollege((CombatEnemy) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatCollege"))));
-        game.setCombatManager((CombatManager) SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("combatManager"))));
+
+        game.setCombatPlayer(new CombatPlayer(game.getPlayerShip()));
+        game.setCombatEnemy(new CombatEnemy(game.getEnemyShip()));
+        game.setCombatCollege(new CombatEnemy(game.getCollegeShip()));
+        game.setCombatManager(new CombatManager(game.getCombatPlayer(), game.getCombatEnemy()));
+
+        Derwent = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("derwent")));
+        Alcuin = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("alcuin")));
+        James = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("james")));
+        Goodricke = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("goodricke")));
+        Langwith = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("langwith")));
+        Vanbrugh = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("vanbrugh")));
+
+        colleges = SerializationUtils.deserialize(Base64.getDecoder().decode(prefs.getString("colleges")));
 
         game.setPoints(prefs.getInteger("points"));
         game.setGold(prefs.getInteger("gold"));

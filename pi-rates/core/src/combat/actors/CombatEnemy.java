@@ -13,6 +13,7 @@ import static other.Constants.COOLDOWN_TICKS_PER_TURN;
 
 /**
  * The "AI" which controls an opponent in combat.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public class CombatEnemy extends CombatActor implements java.io.Serializable {
     public CombatEnemy(Ship ship) {

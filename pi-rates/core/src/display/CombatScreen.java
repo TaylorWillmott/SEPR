@@ -35,6 +35,11 @@ import static location.College.colleges;
 import static other.Constants.COOLDOWN_TICKS_PER_TURN;
 import static other.Constants.EASY_SCORE_MULTIPLIER;
 
+/**
+ * CombatScreen is the class that mostly handles the visual elements of combat.
+ * The changes we made to this class were mainly inside of the render loop in regards to how textures are rendered.
+ * These changes were to improve performance.
+ */
 public class CombatScreen extends BaseScreen {
 
     /**
@@ -204,6 +209,9 @@ public class CombatScreen extends BaseScreen {
     private Label foodLabel;
     private Label crewLabel;
 
+    /**
+     * This method sets up the textures correctly, it is a change from the previous implementation where textures were creating each render loop call.
+     */
     public void setUpTextures(){
         roomSpriteAtlas = new TextureAtlas("roomSpriteSheet.txt");
         hpBar = new Texture("background.png");
@@ -590,6 +598,8 @@ public class CombatScreen extends BaseScreen {
                 if (weaponSelected instanceof Weapon && roomSelected instanceof  Room) {
                     if (weaponSelected.getCurrentCooldown() > 0) {
                         for (Weapon weapon : playerShip.getWeapons()) {
+                            Gdx.app.log("Combat", "Cooldown decremented");
+                            Gdx.app.log("Combat", weapon.getName());
                             weapon.decrementCooldown(COOLDOWN_TICKS_PER_TURN);
                         }
                         playerShip.combatRepair();

@@ -1,7 +1,10 @@
 package combat.items;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * A weapon that can be bought from departments and applied to ships to use in combat.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public class Weapon implements java.io.Serializable{
     /**
@@ -97,6 +100,7 @@ public class Weapon implements java.io.Serializable{
      *              file for this.
      */
     public void decrementCooldown(int ticks) {
+        Gdx.app.debug("Weapon", "Called for " + this.getName());
         currentCooldown -= ticks;
         if (currentCooldown < 0) {
             currentCooldown = 0;

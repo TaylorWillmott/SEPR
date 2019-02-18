@@ -4,6 +4,7 @@ import combat.ship.Ship;
 
 /**
  * An abstract class which defines the architecture of CombatEnemy and CombatPlayer
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public abstract class CombatActor implements java.io.Serializable {
     private Ship ship;

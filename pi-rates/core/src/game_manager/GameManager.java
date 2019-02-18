@@ -22,6 +22,7 @@ import static other.Constants.STARTING_GOLD;
  * Controls the overall process of the game, handing control to various sub-managers (eg combat manager) as necessary.
  * It also stores the information about the game which will be needed in lots of places, eg the amount of gold the
  * player has or the points.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public class GameManager extends Game implements java.io.Serializable {
     /**
@@ -253,7 +254,7 @@ public class GameManager extends Game implements java.io.Serializable {
         this.gold = STARTING_GOLD;
         this.food = STARTING_FOOD;
         this.points = 0;
-        this.masterVolume = 0.0f;
+        this.masterVolume = 0.1f;
         this.soundVolume = 0.5f;
         this.musicVolume = 0.5f;
 

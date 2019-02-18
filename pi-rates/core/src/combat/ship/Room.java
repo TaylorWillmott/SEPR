@@ -4,6 +4,7 @@ import combat.items.RoomUpgrade;
 
 /**
  * 8 rooms make up a ship.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 @SuppressWarnings("WeakerAccess")
 public class Room implements java.io.Serializable {

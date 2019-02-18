@@ -10,6 +10,7 @@ import static other.Constants.*;
 
 /**
  * The ship which has new weapons or upgrades applied to it. Also the ship which is damaged in combat.
+ * Had to implement Serializable due to encoding needed for saving game data
  */
 public class Ship implements java.io.Serializable {
     /**

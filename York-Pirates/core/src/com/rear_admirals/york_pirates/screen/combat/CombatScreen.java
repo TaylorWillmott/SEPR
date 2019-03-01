@@ -108,8 +108,8 @@ public class CombatScreen extends BaseScreen {
         attackTable = new Table();
 
         // Instantiate both the ships for the battle
-        CombatShip myShip = new CombatShip("ship1.png", viewwidth/3);
-        CombatShip enemyShip = new CombatShip("ship2.png",viewwidth/3);
+        CombatShip myShip = new CombatShip("ship1.png", viewwidth/3.5f);
+        CombatShip enemyShip = new CombatShip("ship2.png",viewwidth/3.5f);
 
         Label shipName = new Label(player.getPlayerShip().getName(),pirateGame.getSkin(), "default_black");
         playerSailsHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(), 0.1f, false, pirateGame.getSkin());
@@ -246,6 +246,8 @@ public class CombatScreen extends BaseScreen {
         enemyAttacks.add(Attack.attackMain);
         enemyAttacks.add(GrapeShot.attackGrape);
         enemyAttacks.add(Attack.attackSwivel);
+
+        rootTable.setDebug(true);
 
         Gdx.input.setInputProcessor(uiStage);
 

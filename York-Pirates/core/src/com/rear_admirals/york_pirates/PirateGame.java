@@ -23,7 +23,6 @@ public class PirateGame extends Game {
 	public static Department Economics;
 
 	public void create(){
-		Gdx.graphics.setTitle("York Pirates!");
 		this.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
 		batch = new SpriteBatch();
         //Use LibGDX's default Arial font.

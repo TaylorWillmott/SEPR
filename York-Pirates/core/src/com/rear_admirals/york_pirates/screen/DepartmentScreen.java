@@ -72,12 +72,12 @@ public class DepartmentScreen extends BaseScreen {
         // Create and align department screen title text
         Label titleText = new Label(department.getName() + " Department", main.getSkin(), "title");
         titleText.setAlignment(Align.top);
-        titleText.setFillParent(true);
+//        titleText.setFillParent(true);
 
         // Create and align text and buttons for healing options
         Table healTable = new Table();
-        healTable.setX(viewwidth * -0.35f, Align.center);
-        healTable.setFillParent(true);
+//        healTable.setX(viewwidth * -0.35f, Align.center);
+//        healTable.setFillParent(true);
 
         final Label healText = new Label("Heal", main.getSkin(), "title");
 
@@ -102,20 +102,20 @@ public class DepartmentScreen extends BaseScreen {
         
         // Create buttons used to show upgrade options
         Table upgradeTable = new Table();
-        upgradeTable.align(Align.center);
-        upgradeTable.setFillParent(true);
+//        upgradeTable.align(Align.center);
+//        upgradeTable.setFillParent(true);
 
         final Label upgradeText = new Label("Upgrade", main.getSkin(), "title");
         final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getUpgrade() + " for " + department.getUpgradeCost() + " gold", main.getSkin());
 
-        upgradeTable.add(upgradeText).padBottom(0.05f * Gdx.graphics.getHeight());
+        upgradeTable.add(upgradeText).padBottom(viewheight/40);
         upgradeTable.row();
         upgradeTable.add(upgradeButton);
 
         // Create buttons used to show shop options
         Table shopTable = new Table();
-        shopTable.setX(viewwidth * 0.35f, Align.center);
-        shopTable.setFillParent(true);
+//        shopTable.setX(viewwidth * 0.35f, Align.center);
+//        shopTable.setFillParent(true);
 
         final Label shopText = new Label("Shop", main.getSkin(), "title");
         final TextButton shopButton = new TextButton("Buy " + department.getWeaponToBuy().getName() + " for " + department.getWeaponToBuy().getCost() + " gold", main.getSkin());
@@ -228,10 +228,18 @@ public class DepartmentScreen extends BaseScreen {
             }
         });
 
-        mainStage.addActor(titleText);
-        mainStage.addActor(healTable);
-        mainStage.addActor(upgradeTable);
-        mainStage.addActor(shopTable);
+        Table fullTable = new Table();
+        fullTable.setFillParent(true);
+        fullTable.center();
+        fullTable.add(titleText).colspan(3);
+        fullTable.row();
+        fullTable.add(healTable).top();
+        fullTable.add(upgradeTable).top();
+        fullTable.add(shopTable).top();
+
+        fullTable.setDebug(true);
+
+        mainStage.addActor(fullTable);
         Gdx.input.setInputProcessor(mainStage);
     }
 

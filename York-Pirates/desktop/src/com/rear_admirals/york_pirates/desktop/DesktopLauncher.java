@@ -20,8 +20,8 @@ public class DesktopLauncher {
 		boolean fullscreen = false; // Set this to true to enable fullscreen by default.
 		if (!fullscreen) {
 			config.fullscreen = false;
-			config.width *= 0.95f;
-			config.height *= 0.95f;
+			config.width *= 0.9f;
+			config.height *= 0.9f;
 			if ((config.width / 16) * 9 > config.height) {
 				config.width = (config.height / 9) * 16;
 			} else { config.height = (config.width / 16) * 9; }

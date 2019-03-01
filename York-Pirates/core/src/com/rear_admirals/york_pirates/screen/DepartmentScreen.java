@@ -2,7 +2,9 @@ package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,6 +19,9 @@ public class DepartmentScreen extends BaseScreen {
     private Label hullHealthTextLabel, hullHealthValueLabel;
     private Label goldValueLabel, goldTextLabel;
     private Label pointsValueLabel, pointsTextLabel;
+
+    private Texture menuBackground = new Texture("woodBackground.png");
+    private Image background = new Image(menuBackground);
 
     private int sailsHealthFromMax, hullHealthFromMax;
 
@@ -86,7 +91,7 @@ public class DepartmentScreen extends BaseScreen {
         final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
         final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin());
         final TextButton healSailsTenBtn = new TextButton("Heal 10 sails health for 1 gold", main.getSkin());
-        final Label healMessage = new Label("status", main.getSkin());
+        final Label healMessage = new Label("", main.getSkin());
 
         healTable.add(healText).padBottom(viewheight/40);
         healTable.row();
@@ -228,6 +233,8 @@ public class DepartmentScreen extends BaseScreen {
             }
         });
 
+        mainStage.addActor(background);
+        this.background.setSize(viewwidth, viewheight);
         mainStage.addActor(titleText);
         mainStage.addActor(healTable);
         mainStage.addActor(upgradeTable);

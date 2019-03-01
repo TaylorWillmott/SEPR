@@ -2,6 +2,7 @@ package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -24,10 +25,11 @@ public class MainMenu extends BaseScreen {
     private float screen_width;
     private float screen_height;
 
+    private Texture menuBackground = new Texture("logoBackground.png");
+    private Image background = new Image(menuBackground);
+
     public MainMenu(final PirateGame pirateGame){
         super(pirateGame);
-
-        Gdx.graphics.setTitle("York Pirates!");
 
         // Layout Properties
         Container<Table> tableContainer = new Container<Table>();
@@ -43,8 +45,11 @@ public class MainMenu extends BaseScreen {
         // Debugging
         System.out.println(screen_width + ", " + screen_height);
 
-        Label title = new Label("Rear Admirals", pirateGame.getSkin(), "title");
+        Label title = new Label("York Pirates!", pirateGame.getSkin(), "title");
         title.setAlignment(Align.center);
+
+        stage.addActor(background);
+        this.background.setSize(viewwidth, viewheight);
 
         TextButton sailing_mode = new TextButton("Start Game", pirateGame.getSkin()); // Starts sailing mode.
         TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());

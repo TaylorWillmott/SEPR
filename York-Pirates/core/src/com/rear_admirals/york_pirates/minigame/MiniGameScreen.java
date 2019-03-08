@@ -61,7 +61,7 @@ public class MiniGameScreen extends BaseScreen {
         super(main);
         //Initialize.
         player = new MiniGamePlayer();
-        System.out.println("Mini Game");
+        Gdx.app.debug("Minigame","Minigame is loading.");
         player = new MiniGamePlayer();
         enemies = new ArrayList<MiniGameEnemy>();
         batch = new SpriteBatch();
@@ -143,7 +143,7 @@ public class MiniGameScreen extends BaseScreen {
     public void update(float delta){
         //Set escape to SellingScreen
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            System.out.println("ESCAPE");
+            Gdx.app.debug("Minigame","Escape key was pressed. Exiting to sailing mode.");
             pirateGame.setScreen(pirateGame.getSailingScene());
         }
         //Check if Player finish the game or dead.
@@ -152,11 +152,11 @@ public class MiniGameScreen extends BaseScreen {
         isDead = player.isDead(enemies,player);
         //Show the finish screen.
         if(finish){
-            System.out.println("finished");
+            Gdx.app.debug("Minigame","Minigame finished. Transitioning to end screen.");
             pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,false));
         }
         if(isDead){
-            System.out.println("is Dead");
+            Gdx.app.debug("Minigame","Player has died. Transitioning to end screen.");
             pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,true));
         }
         //Player movement.

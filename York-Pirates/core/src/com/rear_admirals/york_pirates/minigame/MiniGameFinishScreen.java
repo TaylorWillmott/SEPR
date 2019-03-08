@@ -61,7 +61,7 @@ public class MiniGameFinishScreen extends BaseScreen {
     public void update(float delta){
         //Set way to return to the sailing mode.
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            System.out.println("ESCAPE");
+            Gdx.app.debug("Minigame","Escape key was pressed. Exiting to sailing mode.");
             pirateGame.setScreen(pirateGame.getSailingScene());
         }
     }

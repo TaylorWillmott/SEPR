@@ -1,5 +1,6 @@
 package com.rear_admirals.york_pirates;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -33,6 +34,7 @@ public class PirateGame extends Game {
 		Economics = new Department("Economics", "accuracy", GrapeShot.attackGrape, this);
 		this.sailingScene = new SailingScreen(this);
         setScreen(new MainMenu(this));
+		Gdx.app.setLogLevel(Application.LOG_INFO);
 	}
 
 	@Override

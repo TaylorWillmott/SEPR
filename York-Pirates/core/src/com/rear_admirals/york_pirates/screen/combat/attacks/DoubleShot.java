@@ -1,5 +1,6 @@
 package com.rear_admirals.york_pirates.screen.combat.attacks;
 
+import com.badlogic.gdx.Gdx;
 import com.rear_admirals.york_pirates.Ship;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,9 +20,9 @@ public class DoubleShot extends Attack{
                 int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
                 // Multiply real damage by the attackers damage multiplier (Increased through attack upgrades)
                 this.damage += attacker.getAtkMultiplier() * randDmg;
-                System.out.println("DOUBLE SHOT HIT");
+                Gdx.app.debug("Combat","Double Shot Hit");
             } else {
-                System.out.println("DOUBLE SHOT MISSED");
+                Gdx.app.debug("Combat","Double Shot Missed");
             }
         }
         defender.damage(name, this.damage);

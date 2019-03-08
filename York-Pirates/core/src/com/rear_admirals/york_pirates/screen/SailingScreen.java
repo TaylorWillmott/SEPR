@@ -70,10 +70,10 @@ public class SailingScreen extends BaseScreen {
         super(main);
 
         playerShip = main.getPlayer().getPlayerShip();
-        System.out.println(playerShip.getName());
+        Gdx.app.debug("Sailing","Player ship's name is "+playerShip.getName());
 
         mainStage.addActor(playerShip);
-        System.out.println("playerShip added");
+        Gdx.app.debug("Sailing","playerShip added to mainStage");
 
         Table uiTable = new Table();
 
@@ -182,11 +182,11 @@ public class SailingScreen extends BaseScreen {
                 else if (objectName.equals("physics")) solid.setDepartment(Physics);
                 else if (objectName.equals("economics")) solid.setDepartment(Economics);
                 else{
-                    System.out.println("Not college/department: " + solid.getName());
+                    Gdx.app.debug("Sailing","Not college/department: " + solid.getName());
                 }
                 obstacleList.add(solid);
             } else {
-                System.err.println("Unknown PhysicsData object.");
+                Gdx.app.error("Sailing","Unknown PhysicsData object.");
             }
         }
 
@@ -217,9 +217,6 @@ public class SailingScreen extends BaseScreen {
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
-
-        // Debug processor
-//        System.out.println("IP: im");
     }
 
     @Override
@@ -236,10 +233,10 @@ public class SailingScreen extends BaseScreen {
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
-                    System.out.println("Enemy Found in " + name);
+                    Gdx.app.log("Sailing","Enemy encountered in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
-                        System.out.println(name);
+                        Gdx.app.debug("Sailing",name);
                         pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(Brig, college)));
                     }
                 }

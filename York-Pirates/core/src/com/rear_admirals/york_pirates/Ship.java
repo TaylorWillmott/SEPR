@@ -90,7 +90,7 @@ public class Ship extends PhysicsActor {
         this.setWidth(this.sailingTexture.getWidth());
         this.setHeight(this.sailingTexture.getHeight());
         this.setOriginCentre();
-        this.setMaxSpeed(500);
+        this.setMaxSpeed(250);
         this.setDeceleration(250);
         this.setEllipseBoundary();
     }

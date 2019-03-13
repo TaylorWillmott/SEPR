@@ -144,14 +144,13 @@ public class DepartmentScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(sailsHealthFromMax))) {
-                        System.out.println("Charged to fully heal sails");
+                        Gdx.app.debug("DepartmentScreen","Player successfully charged to fully heal sails");
                         player.getPlayerShip().setSailsHealth(player.getPlayerShip().getHealthMax());
                         healMessage.setText("Ship sails fully repaired");
                     } else {
                         healMessage.setText("Not enough money to repair ship sails");
                     }
                 }
-                System.out.println(player.getPlayerShip().getSailsHealth());
             }
         });
 
@@ -163,14 +162,13 @@ public class DepartmentScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(hullHealthFromMax))) {
-                        System.out.println("Charged to fully heal hull");
+                        Gdx.app.debug("DepartmentScreen","Player successfully charged to fully heal hull");
                         player.getPlayerShip().setHullHealth(player.getPlayerShip().getHealthMax());
                         healMessage.setText("Ship hull fully repaired");
                     } else {
                         healMessage.setText("Not enough money to repair ship hull");
                     }
                 }
-                System.out.println(player.getPlayerShip().getHullHealth());
             }
         });
 
@@ -182,14 +180,13 @@ public class DepartmentScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(10))) { // Pay cost to heal 10 health
-                        System.out.println("Charged to heal sails by 10hp");
+                        Gdx.app.debug("DepartmentScreen","Player successfully charged to heal sails by 10hp");
                         player.getPlayerShip().healSails(10);
                         healMessage.setText("10 health restored to sails");
                     } else {
                         healMessage.setText("Not enough money to repair ship sails");
                     }
                 }
-                System.out.println(player.getPlayerShip().getSailsHealth());
             }
         });
 
@@ -201,14 +198,13 @@ public class DepartmentScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(10))) { // Pay cost to heal 10 health
-                        System.out.println("Charged to heal hull by 10hp");
+                        Gdx.app.debug("DepartmentScreen","Player successfully charged to heal hull by 10hp");
                         player.getPlayerShip().healHull(10);
                         healMessage.setText("10 health restored to hull");
                     } else {
                         healMessage.setText("Not enough money to repair ship hull");
                     }
                 }
-                System.out.println(player.getPlayerShip().getHullHealth());
             }
         });
 
@@ -254,7 +250,7 @@ public class DepartmentScreen extends BaseScreen {
     @Override
     public void update(float delta){
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            System.out.println("ESCAPE");
+            Gdx.app.debug("DepartmentScreen","Escape key pressed. Exiting college screen.");
             pirateGame.setScreen(pirateGame.getSailingScene());
         }
 

@@ -43,7 +43,7 @@ public class MainMenu extends BaseScreen {
         screen_height = stage.getHeight();
 
         // Debugging
-        System.out.println(screen_width + ", " + screen_height);
+        Gdx.app.debug("Screen Dimensions",screen_width + ", " + screen_height);
 
         //TODO Remove this when redoing menu buttons as it is now redundant.
         Label title = new Label("", pirateGame.getSkin(), "title");
@@ -117,7 +117,6 @@ public class MainMenu extends BaseScreen {
         stage.addActor(tableContainer);
 
         Gdx.input.setInputProcessor(stage);
-        System.out.println("IP: stage");
     }
 
     @Override

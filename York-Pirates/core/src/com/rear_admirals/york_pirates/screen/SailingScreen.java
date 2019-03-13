@@ -262,20 +262,19 @@ public class SailingScreen extends BaseScreen {
                 else if (!(obstacle.getCollege() == null)) {
                     mapMessage.setText(capitalizeFirstLetter(name) + " Island");
                     hintMessage.setText("Press F to interact");
-//                    System.out.println("A college");
                     College college = obstacle.getCollege();
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-                        System.out.println("A college");
+                        Gdx.app.debug("Sailing","Interacted with a college");
                         if (!playerShip.getCollege().getAlly().contains(college) && !obstacle.getCollege().isBossDead()) {
-                            System.out.println("Enemy");
+                            Gdx.app.debug("Sailing","College is hostile.");
                             pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
                         } else {
-                            System.out.println("Ally");
+                            Gdx.app.debug("Sailing","College is friendly.");
                             pirateGame.setScreen(new CollegeScreen(pirateGame, college));
                         }
                     }
                 } else {
-//                    System.out.println("Pure obstacle");
+//                    Gdx.app.debug("Sailing","Pure obstacle encountered");
                 }
             }
         }

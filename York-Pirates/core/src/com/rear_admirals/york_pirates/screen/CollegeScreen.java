@@ -168,7 +168,7 @@ public class CollegeScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(sailsHealthFromMax))) {
-                        System.out.println("Charged to fully heal sails");
+                        Gdx.app.debug("CollegeScreen","Player successfully charged to fully heal sails.");
                         player.getPlayerShip().setSailsHealth(player.getPlayerShip().getHealthMax());
                         healMessage.setText("Ship sails fully repaired");
                     } else {
@@ -186,7 +186,7 @@ public class CollegeScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(hullHealthFromMax))) {
-                        System.out.println("Charged to fully heal hull");
+                        Gdx.app.debug("CollegeScreen","Player successfully charged to fully heal hull");
                         player.getPlayerShip().setHullHealth(player.getPlayerShip().getHealthMax());
                         healMessage.setText("Ship hull fully repaired");
                     } else {
@@ -204,7 +204,7 @@ public class CollegeScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(10))) { // Pay cost to heal 10 health
-                        System.out.println("Charged to heal sails by 10hp");
+                        Gdx.app.debug("CollegeScreen","Player successfully charged to heal sails by 10hp");
                         player.getPlayerShip().healSails(10);
                         healMessage.setText("10 health restored to sails");
                     } else {
@@ -222,7 +222,7 @@ public class CollegeScreen extends BaseScreen {
                 }
                 else {
                     if (player.payGold(getHealCost(10))) { // Pay cost to heal 10 health
-                        System.out.println("Charged to heal hull by 10hp");
+                        Gdx.app.debug("CollegeScreen","Player successfully charged to heal hull by 10hp");
                         player.getPlayerShip().healHull(10);
                         healMessage.setText("10 health restored to hull");
                     } else {
@@ -250,7 +250,7 @@ public class CollegeScreen extends BaseScreen {
     @Override
     public void update(float delta){
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            System.out.println("ESCAPE");
+            Gdx.app.debug("CollegeScreen","Escape key pressed. Exiting college screen.");
             pirateGame.setScreen(pirateGame.getSailingScene());
             dispose();
         }

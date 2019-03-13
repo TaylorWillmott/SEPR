@@ -25,7 +25,7 @@ public class MainMenu extends BaseScreen {
     private float screen_width;
     private float screen_height;
 
-    private Texture menuBackground = new Texture("logoBackground.png");
+    private Texture menuBackground = new Texture("menuBackground.png");
     private Image background = new Image(menuBackground);
 
     public MainMenu(final PirateGame pirateGame){
@@ -45,7 +45,8 @@ public class MainMenu extends BaseScreen {
         // Debugging
         System.out.println(screen_width + ", " + screen_height);
 
-        Label title = new Label("York Pirates!", pirateGame.getSkin(), "title");
+        //TODO Remove this when redoing menu buttons as it is now redundant.
+        Label title = new Label("", pirateGame.getSkin(), "title");
         title.setAlignment(Align.center);
 
         stage.addActor(background);

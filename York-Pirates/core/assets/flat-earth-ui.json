@@ -17,7 +17,7 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0
 		a: 1
 	}
-	color: {
+	old-color: {
 		r: 0.3372549
 		g: 0.8
 		b: 0.44705883
@@ -69,6 +69,12 @@ com.badlogic.gdx.graphics.Color: {
 		r: 0.76862746
 		g: 0.4509804
 		b: 0
+		a: 1
+	}
+	color: {
+		r: 0.866
+		g: 0.875
+		b: 0.643
 		a: 1
 	}
 }
@@ -179,7 +185,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	}
 	slider-horizontal-s: {
 		name: slider-horizontal
-		color: color
+		color: old-color
 	}
 	slider-vertical-s: {
 		name: slider-vertical

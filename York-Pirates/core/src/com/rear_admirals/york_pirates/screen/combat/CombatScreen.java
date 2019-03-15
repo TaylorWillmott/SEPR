@@ -139,15 +139,17 @@ public class CombatScreen extends BaseScreen {
         Table enemySailsHPTable = new Table();
         Table enemyHullHPTable = new Table();
 
-        playerSailsHPTable.add(playerSailsHPLabel).padRight(viewwidth/36f);
+        playerSailsHPTable.add(playerSailsHPLabel).width(viewwidth/8f).left();
         playerSailsHPTable.add(playerSailsHP).width(viewwidth/5);
-        playerHullHPTable.add(playerHullHPLabel).padRight(viewwidth/36f);
-        playerHullHPTable.add(playerHullHP).width(viewwidth/5);
+        playerSailsHPTable.row().padTop(viewheight/48f);
+        playerSailsHPTable.add(playerHullHPLabel).width(viewwidth/8f).left();
+        playerSailsHPTable.add(playerHullHP).width(viewwidth/5);
 
-        enemySailsHPTable.add(enemySailsHPLabel).padRight(viewwidth/36f);
+        enemySailsHPTable.add(enemySailsHPLabel).width(viewwidth/8f).left();
         enemySailsHPTable.add(enemySailsHP).width(viewwidth/5);
-        enemyHullHPTable.add(enemyHullHPLabel).padRight(viewwidth/36f);
-        enemyHullHPTable.add(enemyHullHP).width(viewwidth/5);
+        enemySailsHPTable.row().padTop(viewheight/48f);
+        enemySailsHPTable.add(enemyHullHPLabel).width(viewwidth/8f).left();
+        enemySailsHPTable.add(enemyHullHP).width(viewwidth/5);
 
         Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
         screenTitle.setAlignment(Align.center);

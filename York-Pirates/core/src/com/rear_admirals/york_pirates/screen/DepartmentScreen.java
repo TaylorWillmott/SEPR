@@ -66,8 +66,8 @@ public class DepartmentScreen extends BaseScreen {
         uiTable.add(goldTextLabel).fill();
         uiTable.add(goldValueLabel).fill();
         uiTable.row();
-        uiTable.add(pointsTextLabel);
-        uiTable.add(pointsValueLabel).width(pointsTextLabel.getWidth());
+        uiTable.add(pointsTextLabel).fill();
+        uiTable.add(pointsValueLabel).fill();
 
         uiTable.align(Align.topRight);
         uiTable.setFillParent(true);
@@ -113,7 +113,7 @@ public class DepartmentScreen extends BaseScreen {
         final Label upgradeText = new Label("Upgrade", main.getSkin(), "title");
         final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getUpgrade() + " for " + department.getUpgradeCost() + " gold", main.getSkin());
 
-        upgradeTable.add(upgradeText).padBottom(viewheight/40);
+        upgradeTable.add(upgradeText).padBottom(viewheight/40f);
         upgradeTable.row();
         upgradeTable.add(upgradeButton);
 
@@ -237,9 +237,9 @@ public class DepartmentScreen extends BaseScreen {
         fullTable.center();
         fullTable.add(titleText).colspan(3);
         fullTable.row();
-        fullTable.add(healTable).top();
-        fullTable.add(upgradeTable).top();
-        fullTable.add(shopTable).top();
+        fullTable.add(healTable).top().width(viewwidth/3.5f);
+        fullTable.add(upgradeTable).top().width(viewwidth/3.5f);
+        fullTable.add(shopTable).top().width(viewwidth/3.5f);
 
         fullTable.setDebug(true);
 

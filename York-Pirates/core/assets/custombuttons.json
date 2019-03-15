@@ -11,7 +11,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: basic
+		font: font
 		up: button
 		down: buttondown
 	}

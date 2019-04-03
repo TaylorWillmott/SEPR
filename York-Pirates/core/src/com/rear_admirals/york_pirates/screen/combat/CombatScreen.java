@@ -392,6 +392,27 @@ public class CombatScreen extends BaseScreen {
                 if (enemy.getIsBoss() == true) {
                     enemy.getCollege().setBossDead(true);
                     this.player.getPlayerShip().getCollege().addAlly(this.enemy.getCollege());
+                    // Randomly upgrades one of the player's stats
+                    //TODO Make a message appear in-game to let the player know they received an upgrade.
+                    int upgrade = ThreadLocalRandom.current().nextInt(0,3);
+                    switch(upgrade) {
+                        case 0: // Player gets gold instead of an upgrade.
+                            Gdx.app.log("Upgrade","Player receives gold instead of upgrade.");
+                            player.addGold(500);
+                            break;
+                        case 1: // Cannoneer joins the player's crew
+                            Gdx.app.log("Upgrade","Player received an attack upgrade.");
+                            player.getPlayerShip().addAttack(1);
+                            break;
+                        case 2: // Navigator joins the player's crew
+                            Gdx.app.log("Upgrade","Player received a speed upgrade.");
+                            player.getPlayerShip().setSpeed(player.getPlayerShip().getSpeed()*1.25f);
+                            break;
+                        case 3: // Shipwright upgrades the player's hull
+                            Gdx.app.log("Upgrade","Player received a defence upgrade.");
+                            player.getPlayerShip().addDefence(1);
+                            break;
+                    }
                 }
                 break;
             case PLAYER_FLEES:

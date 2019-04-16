@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.rear_admirals.york_pirates.screen.SailingScreen;
 import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
@@ -427,7 +428,7 @@ public class CombatScreen extends BaseScreen {
                 player.getPlayerShip().setAnchor(true);
                 Gdx.app.debug("Combat","Combat finished. Transitioning back to sailing mode.");
                 toggleAttackStage();
-                pirateGame.setScreen(pirateGame.getSailingScene());
+                pirateGame.setScreen(new SailingScreen(pirateGame, false));
                 break;
         }
     }

@@ -1,8 +1,9 @@
 package com.rear_admirals.york_pirates;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class College {
+public class College implements Serializable {
 
 	private final String name;
 	private ArrayList<College> ally;

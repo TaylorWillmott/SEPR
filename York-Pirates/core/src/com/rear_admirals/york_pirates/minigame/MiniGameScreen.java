@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.SailingScreen;
 
 import java.util.ArrayList;
 
@@ -144,7 +145,7 @@ public class MiniGameScreen extends BaseScreen {
         //Set escape to SellingScreen
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.debug("Minigame","Escape key was pressed. Exiting to sailing mode.");
-            pirateGame.setScreen(pirateGame.getSailingScene());
+            pirateGame.setScreen(new SailingScreen(pirateGame, false));
         }
         //Check if Player finish the game or dead.
         player.resetMovable();

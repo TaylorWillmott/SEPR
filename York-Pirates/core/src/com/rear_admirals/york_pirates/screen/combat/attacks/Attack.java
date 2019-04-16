@@ -2,9 +2,10 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Attack {
+public class Attack implements Serializable {
 	protected String name;
 	protected String desc;
 	protected int damage;

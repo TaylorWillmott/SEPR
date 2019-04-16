@@ -22,8 +22,11 @@ import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
+import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.rear_admirals.york_pirates.College.*;
@@ -66,7 +69,7 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
 
-    public SailingScreen(final PirateGame main){
+    public SailingScreen(final PirateGame main, boolean isFirstSailingInstance){
         super(main);
 
         playerShip = main.getPlayer().getPlayerShip();
@@ -153,9 +156,14 @@ public class SailingScreen extends BaseScreen {
             RectangleMapObject rectangleObject = (RectangleMapObject)object;
             Rectangle r = rectangleObject.getRectangle();
 
-            if (name.equals("player")){
+            if (name.equals("player") && isFirstSailingInstance){
                 playerShip.setPosition(r.x, r.y);
-            } else{
+            }
+            else if (name.equals("player") && !isFirstSailingInstance) {
+                playerShip.setPosition(pirateGame.getSailingShipX(), pirateGame.getSailingShipY());
+                playerShip.setRotation(pirateGame.getSailingShipRotation());
+            }
+            else{
                 System.err.println("Unknown tilemap object: " + name);
             }
         }
@@ -225,6 +233,10 @@ public class SailingScreen extends BaseScreen {
         goldValueLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         this.playerShip.playerMove(delta);
 
+        pirateGame.setSailingShipX(playerShip.getX());
+        pirateGame.setSailingShipY(playerShip.getY());
+        pirateGame.setSailingShipRotation(playerShip.getRotation());
+
         Boolean x = false;
         for (BaseActor region : regionList) {
             String name = region.getName();
@@ -233,6 +245,9 @@ public class SailingScreen extends BaseScreen {
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
+                    pirateGame.setSailingShipX(playerShip.getX());
+                    pirateGame.setSailingShipY(playerShip.getY());
+                    pirateGame.setSailingShipRotation(playerShip.getRotation());
                     Gdx.app.log("Sailing","Enemy encountered in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
@@ -322,8 +337,8 @@ public class SailingScreen extends BaseScreen {
         uiStage.act(delta);
 
         mainStage.act(delta);
-        update(delta);
 
+        update(delta);
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -334,6 +349,13 @@ public class SailingScreen extends BaseScreen {
 
         uiStage.draw();
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            System.out.println("SAVED");
+            saveFile(pirateGame.getSave_file());
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.I)){
+            pirateGame.getPlayer().addGold(100);
+        }
         if (!playerShip.isAnchor()){
             playerShip.addAccelerationAS(playerShip.getRotation(), 10000);
         } else{
@@ -355,4 +377,31 @@ public class SailingScreen extends BaseScreen {
         }
         return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
+
+    public void saveFile(Preferences file){
+
+        // Player Data
+        file.putInteger("gold", pirateGame.getPlayer().getGold());
+        file.putInteger("points", pirateGame.getPlayer().getPoints());
+        file.putString("ship", Base64.getEncoder().encodeToString(SerializationUtils.serialize(pirateGame.getPlayer().getPlayerShip())));
+        file.putString("owned attacks", Base64.getEncoder().encodeToString(SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getOwnedAttacks()) )));
+        file.putString("equipped attacks", Base64.getEncoder().encodeToString(SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getEquippedAttacks()) )));
+
+        //Ship Data: float atkMultiplier, int defence, int accMultiplier, ShipType type, College college, String name, boolean isBoss
+        file.putFloat("atkMultiplier", playerShip.getAtkMultiplier());
+        file.putInteger("defence", playerShip.getDefence());
+        file.putFloat("accMultiplier", playerShip.getAccMultiplier());
+        file.putString("name", playerShip.getName());
+        file.putInteger("sail health", playerShip.getSailsHealth());
+        file.putInteger("hull health", playerShip.getHullHealth());
+
+
+        // Ship Position Data
+        file.putFloat("shipX", pirateGame.getSailingShipX());
+        file.putFloat("shipY", pirateGame.getSailingShipY());
+        file.putFloat("shipRotation", pirateGame.getSailingShipRotation());
+
+        file.flush();
+    }
+
 }

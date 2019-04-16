@@ -1,6 +1,7 @@
 package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,10 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.PirateGame;
+import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 import com.rear_admirals.york_pirates.minigame.MiniGameScreen;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.Ship;
+import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
+import org.apache.commons.lang3.SerializationException;
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.util.Base64;
 
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;
@@ -52,7 +61,37 @@ public class MainMenu extends BaseScreen {
         stage.addActor(background);
         this.background.setSize(viewwidth, viewheight);
 
-        TextButton sailing_mode = new TextButton("Start Game", pirateGame.getSkin()); // Starts sailing mode.
+        final TextButton new_game = new TextButton("New Game", pirateGame.getSkin()); // Starts sailing mode.
+        final TextButton load_game = new TextButton("Load Game", pirateGame.getSkin());
+
+
+        load_game.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // SHOW SAVES
+                loadFile(pirateGame.getSave_file());
+                pirateGame.setScreen(new SailingScreen(pirateGame, false));
+                dispose();
+
+
+            }
+        });
+        new_game.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+//                Stage new_game_stage = new Stage();
+//                Table new_game_table = new Table();
+//                new_game_table.setFillParent(true);
+//                new_game_table.add(new TextField("Enter New World Name:", pirateGame.getSkin()));
+//                new_game_table.add();
+//                new_game_stage.addActor(new_game_table);
+                pirateGame.setSave_file(Gdx.app.getPreferences("game_save"));
+                pirateGame.setScreen(new SailingScreen(pirateGame, true));
+                dispose();
+            }
+        });
+
+
         TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
         TextButton college_mode = new TextButton("Go to College screen", pirateGame.getSkin());
         TextButton department_mode = new TextButton("Go to Department screen", pirateGame.getSkin());
@@ -67,13 +106,13 @@ public class MainMenu extends BaseScreen {
             }
         });
 
-        sailing_mode.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                pirateGame.setScreen(pirateGame.getSailingScene());
-                dispose();
-            }
-        });
+//        new_game.addListener(new ClickListener(){
+//            @Override
+//            public void clicked(InputEvent event, float x, float y){
+//                pirateGame.setScreen(new SailingScreen(pirateGame, true));
+//                dispose();
+//            }
+//        });
 
         college_mode.addListener(new ClickListener(){
             @Override
@@ -102,7 +141,9 @@ public class MainMenu extends BaseScreen {
 
         table.add(title).padBottom(viewwidth/20).width(viewwidth/2);
         table.row(); // Ends the current row
-        table.add(sailing_mode).uniform().padBottom(viewheight/40).size(viewwidth/2,viewheight/10);
+        table.add(new_game).uniform().padBottom(viewheight/40).size(viewwidth/2,viewheight/10);
+        table.row();
+        table.add(load_game).uniform().padBottom(viewheight/40).size(viewwidth/2,viewheight/10);
         table.row();
         table.add(new Label("These are for demo purposes, to show implementation of combat and colleges.", pirateGame.getSkin()));
         table.row();
@@ -127,6 +168,25 @@ public class MainMenu extends BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
         stage.act();
+
+    }
+
+    public void loadFile(Preferences file){
+
+        pirateGame.setPlayer(new Player());
+
+
+        pirateGame.getPlayer().setPlayerShip(new Ship(file.getFloat("atkMultiplier"), file.getInteger("defence"), file.getFloat("accMultiplier"), Brig, Derwent, file.getString("name"), false));
+        pirateGame.getPlayer().getPlayerShip().setHullHealth(file.getInteger("hull health"));
+        pirateGame.getPlayer().getPlayerShip().setSailsHealth(file.getInteger("sail health"));
+        pirateGame.getPlayer().setGold(file.getInteger("gold"));
+        pirateGame.getPlayer().setPoints(file.getInteger("points"));
+        pirateGame.getPlayer().setEquippedAttacks((java.util.List<Attack>) SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("equipped attacks"))));
+        pirateGame.getPlayer().setOwnedAttacks((java.util.List<Attack>) SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("owned attacks"))));
+
+        pirateGame.setSailingShipX(file.getFloat("shipX"));
+        pirateGame.setSailingShipY(file.getFloat("shipY"));
+        pirateGame.setSailingShipRotation(file.getFloat("shipRotation"));
 
     }
 

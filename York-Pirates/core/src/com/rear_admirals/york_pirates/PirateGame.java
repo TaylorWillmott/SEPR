@@ -3,6 +3,7 @@ package com.rear_admirals.york_pirates;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,11 +18,37 @@ public class PirateGame extends Game {
     private SpriteBatch batch;
     private BitmapFont font;
     private Skin skin;
-    private Player player;
-	private SailingScreen sailingScene;
+
+	private Player player;
 	public static Department Chemistry;
 	public static Department Physics;
 	public static Department Economics;
+
+	public Preferences getSave_file() {
+		return save_file;
+	}
+
+	public void setSave_file(Preferences save_file) {
+		this.save_file = save_file;
+	}
+
+	private Preferences save_file;
+
+
+	/**
+	 * Keep track of the coordinates and angle of the player on the map
+	 */
+	private float sailingShipX;
+	private float sailingShipY;
+	private float sailingShipRotation;
+
+	public float getSailingShipX() { return this.sailingShipX; }
+	public float getSailingShipY() { return this.sailingShipY; }
+	public float getSailingShipRotation() { return this.sailingShipRotation; }
+
+	public void setSailingShipX(float sailingShipX) { this.sailingShipX = sailingShipX; }
+	public void setSailingShipY(float sailingShipY) { this.sailingShipY = sailingShipY; }
+	public void setSailingShipRotation(float sailingShipRotation) { this.sailingShipRotation = sailingShipRotation; }
 
 	public void create(){
 		this.skin = new Skin(Gdx.files.internal("flat-earth-ui.json"));
@@ -32,9 +59,10 @@ public class PirateGame extends Game {
 		Chemistry = new Department("Chemistry", "attack", ExplosiveShell.attackExplosive, this);
 		Physics = new Department("Physics", "defence", DoubleShot.attackDouble, this);
 		Economics = new Department("Economics", "accuracy", GrapeShot.attackGrape, this);
-		this.sailingScene = new SailingScreen(this);
         setScreen(new MainMenu(this));
 		Gdx.app.setLogLevel(Application.LOG_INFO);
+		save_file = Gdx.app.getPreferences("save_file");
+
 	}
 
 	@Override
@@ -69,7 +97,10 @@ public class PirateGame extends Game {
 
 	public void setSkin(Skin skin) { this.skin = skin; }
 
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	public Player getPlayer() { return this.player; }
 
-	public SailingScreen getSailingScene() { return this.sailingScene; }
 }

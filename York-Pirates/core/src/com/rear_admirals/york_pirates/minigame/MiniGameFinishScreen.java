@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.SailingScreen;
 
 public class MiniGameFinishScreen extends BaseScreen {
     //Assets variables.
@@ -62,7 +63,7 @@ public class MiniGameFinishScreen extends BaseScreen {
         //Set way to return to the sailing mode.
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.debug("Minigame","Escape key was pressed. Exiting to sailing mode.");
-            pirateGame.setScreen(pirateGame.getSailingScene());
+            pirateGame.setScreen(new SailingScreen(pirateGame, false));
         }
     }
 

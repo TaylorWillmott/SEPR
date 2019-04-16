@@ -7,11 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.rear_admirals.york_pirates.College.Derwent;
 
-public class Ship extends PhysicsActor {
+public class Ship extends PhysicsActor implements Serializable {
 	private String name;
     private float atkMultiplier;
 	private int defence;
@@ -21,7 +22,12 @@ public class Ship extends PhysicsActor {
     private double damageRatio;
     private ShipType type;
     private int healthMax;
-    private Texture sailingTexture;
+
+    public void setSailingTexture(Texture sailingTexture) {
+        this.sailingTexture = sailingTexture;
+    }
+
+    private transient Texture sailingTexture;
     private College college;
     private boolean isBoss = false;
 
@@ -71,7 +77,7 @@ public class Ship extends PhysicsActor {
 	    this.name = name;
     }
 
-    public Ship(float atkMultiplier, int defence, int accMultiplier, ShipType type, College college, String name, boolean isBoss) {
+    public Ship(float atkMultiplier, int defence, float accMultiplier, ShipType type, College college, String name, boolean isBoss) {
         this.atkMultiplier = atkMultiplier;
         this.defence = defence;
         this.accMultiplier = accMultiplier;

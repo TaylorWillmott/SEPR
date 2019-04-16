@@ -2,12 +2,14 @@ package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class ShipType {
+import java.io.Serializable;
+
+public class ShipType implements Serializable {
 	private float atkMultiplier;
 	private int defence;
 	private float accMultiplier;
 	private String name;
-	private Texture texture;
+	private transient Texture texture;
 
 	public ShipType (String name, float atkMultiplier, int defence, float accMultiplier, int health) {
 		this.name = name;

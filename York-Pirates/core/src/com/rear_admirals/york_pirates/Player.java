@@ -2,18 +2,38 @@ package com.rear_admirals.york_pirates;
 
 import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.ShipType.*;
 
-public class Player {
+public class Player implements Serializable {
     private Ship playerShip;
     private int gold;
     private int points;
+
+    public List<Attack> getEquippedAttacks() {
+        return equippedAttacks;
+    }
+
+    public void setEquippedAttacks(List<Attack> equippedAttacks) {
+        this.equippedAttacks = equippedAttacks;
+    }
+
     public List<Attack> equippedAttacks = new ArrayList<Attack>(); // List of weapons the player is currently using
+
+    public List<Attack> getOwnedAttacks() {
+        return ownedAttacks;
+    }
+
+    public void setOwnedAttacks(List<Attack> ownedAttacks) {
+        this.ownedAttacks = ownedAttacks;
+    }
+
     public List<Attack> ownedAttacks = new ArrayList<Attack>(); // List of all weapons the player owns
+
     public Player() {
 	    this.playerShip = new Ship(Brig, "Your Ship", Derwent);
         this.gold = 0;
@@ -68,4 +88,8 @@ public class Player {
     public void addPoints(int value) { points += value; }
 
     public void addGold(int value) { gold = gold + value; }
+
+    public void setPlayerShip(Ship playerShip) {
+        this.playerShip = playerShip;
+    }
 }

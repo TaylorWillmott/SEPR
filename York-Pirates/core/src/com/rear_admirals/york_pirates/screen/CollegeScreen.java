@@ -251,7 +251,7 @@ public class CollegeScreen extends BaseScreen {
     public void update(float delta){
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.debug("CollegeScreen","Escape key pressed. Exiting college screen.");
-            pirateGame.setScreen(pirateGame.getSailingScene());
+            pirateGame.setScreen(new SailingScreen(pirateGame, false));
             dispose();
         }
 

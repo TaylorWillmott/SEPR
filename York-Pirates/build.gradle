@@ -46,7 +46,7 @@ project(":desktop") {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        
+        compile 'org.apache.commons:commons-lang3:3.9'
     }
 }
 
@@ -56,7 +56,7 @@ project(":core") {
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        
+        compile 'org.apache.commons:commons-lang3:3.9'
     }
 }
 

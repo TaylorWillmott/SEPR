@@ -387,11 +387,12 @@ public class CombatScreen extends BaseScreen {
                 break;
             case ENEMY_DIES:
                 textBox.setStyle(pirateGame.getSkin().get("default", TextButton.TextButtonStyle.class));
-                player.addGold(20);
-                player.addPoints(20);
-                dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
+                String upgradeMessage;
+                upgradeMessage = "";
+
                 if (enemy.getIsBoss() == true) {
                     enemy.getCollege().setBossDead(true);
+                    player.addPoints(100);
                     this.player.getPlayerShip().getCollege().addAlly(this.enemy.getCollege());
                     // Randomly upgrades one of the player's stats
                     //TODO Make a message appear in-game to let the player know they received an upgrade.
@@ -400,21 +401,34 @@ public class CombatScreen extends BaseScreen {
                         case 0: // Player gets gold instead of an upgrade.
                             Gdx.app.log("Upgrade","Player receives gold instead of upgrade.");
                             player.addGold(500);
+                            upgradeMessage = "You receive 500 gold and 100 points.";
                             break;
                         case 1: // Cannoneer joins the player's crew
                             Gdx.app.log("Upgrade","Player received an attack upgrade.");
                             player.getPlayerShip().addAttack(1);
+                            upgradeMessage = "You earned a Cannoneer - upgrading attack - and 100 points.";
                             break;
                         case 2: // Navigator joins the player's crew
                             Gdx.app.log("Upgrade","Player received a speed upgrade.");
                             player.getPlayerShip().setSpeed(player.getPlayerShip().getSpeed()*1.25f);
+                            upgradeMessage = "You earned a Navigator - upgrading speed - and 100 points.";
+
                             break;
                         case 3: // Shipwright upgrades the player's hull
                             Gdx.app.log("Upgrade","Player received a defence upgrade.");
                             player.getPlayerShip().addDefence(1);
+                            upgradeMessage = "You earned a Shipwright - upgrading defence - and 100 points.";
+
                             break;
                     }
                 }
+                else {
+                    player.addGold(20);
+                    player.addPoints(20);
+                    upgradeMessage = "You receive 20 gold and 20 points.";
+                }
+                dialog("Congratulations, you have defeated Enemy " + enemy.getName() + ". " + upgradeMessage, BattleEvent.SCENE_RETURN);
+
                 break;
             case PLAYER_FLEES:
                 textBox.setStyle(pirateGame.getSkin().get("red", TextButton.TextButtonStyle.class));
@@ -430,6 +444,8 @@ public class CombatScreen extends BaseScreen {
                 toggleAttackStage();
                 pirateGame.setScreen(new SailingScreen(pirateGame, false));
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + status);
         }
     }
 

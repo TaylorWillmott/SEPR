@@ -105,9 +105,9 @@ public class SailingScreen extends BaseScreen {
         uiTable.add(goldTextLabel).fill();
         uiTable.add(goldValueLabel).fill();
         uiTable.row();
-        uiTable.add(pointsTextLabel);
+        uiTable.add(pointsTextLabel).fill();
         uiTable.add(pointsValueLabel).width(pointsTextLabel.getWidth());
-
+        uiTable.setDebug(true);
         uiTable.align(Align.topRight);
         uiTable.setFillParent(true);
 

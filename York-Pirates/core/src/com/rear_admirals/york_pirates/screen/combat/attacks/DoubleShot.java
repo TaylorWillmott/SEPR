@@ -3,7 +3,7 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 import com.badlogic.gdx.Gdx;
 import com.rear_admirals.york_pirates.Ship;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
 
 public class DoubleShot extends Attack{
     protected DoubleShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){

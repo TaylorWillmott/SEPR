@@ -20,9 +20,12 @@ import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
-import java.util.Base64;
+import java.io.ObjectInputStream;
+import java.util.*;
+import java.util.List;
 
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.ShipType.*;
@@ -85,7 +88,6 @@ public class MainMenu extends BaseScreen {
 //                new_game_table.add(new TextField("Enter New World Name:", pirateGame.getSkin()));
 //                new_game_table.add();
 //                new_game_stage.addActor(new_game_table);
-                pirateGame.setSave_file(Gdx.app.getPreferences("game_save"));
                 pirateGame.setScreen(new SailingScreen(pirateGame, true));
                 dispose();
             }
@@ -174,6 +176,8 @@ public class MainMenu extends BaseScreen {
     public void loadFile(Preferences file){
 
         pirateGame.setPlayer(new Player());
+        ArrayList<Attack> equippedAttacks;
+        ArrayList<Attack> ownedAttacks;
 
 
         pirateGame.getPlayer().setPlayerShip(new Ship(file.getFloat("atkMultiplier"), file.getInteger("defence"), file.getFloat("accMultiplier"), Brig, Derwent, file.getString("name"), false));
@@ -181,14 +185,33 @@ public class MainMenu extends BaseScreen {
         pirateGame.getPlayer().getPlayerShip().setSailsHealth(file.getInteger("sail health"));
         pirateGame.getPlayer().setGold(file.getInteger("gold"));
         pirateGame.getPlayer().setPoints(file.getInteger("points"));
-        pirateGame.getPlayer().setEquippedAttacks((java.util.List<Attack>) SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("equipped attacks"))));
-        pirateGame.getPlayer().setOwnedAttacks((java.util.List<Attack>) SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("owned attacks"))));
+
+        try {
+            System.out.println("about to serialize");
+            equippedAttacks = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("equipped attacks")));
+
+            pirateGame.getPlayer().setEquippedAttacks(equippedAttacks);
+        }catch (SerializationException a){}
+        try {
+            System.out.println(file.getString("owned attacks"));
+            ownedAttacks = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("owned attacks")));
+
+            pirateGame.getPlayer().setEquippedAttacks(ownedAttacks);
+        }catch (SerializationException a){}
+
+        Derwent = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("derwent")));
+        Vanbrugh = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("vanbrugh")));
+        James = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("james")));
+        Alcuin = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("alcuin")));
+        Wentworth = SerializationUtils.deserialize(Base64.getDecoder().decode(file.getString("wentworth")));
+
 
         pirateGame.setSailingShipX(file.getFloat("shipX"));
         pirateGame.setSailingShipY(file.getFloat("shipY"));
         pirateGame.setSailingShipRotation(file.getFloat("shipRotation"));
 
     }
+
 
     @Override
     public void resize(int width, int height) {

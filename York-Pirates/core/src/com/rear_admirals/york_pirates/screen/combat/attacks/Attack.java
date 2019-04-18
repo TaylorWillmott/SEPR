@@ -3,7 +3,7 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 import com.rear_admirals.york_pirates.Ship;
 
 import java.io.Serializable;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
 
 public class Attack implements Serializable {
 	protected String name;

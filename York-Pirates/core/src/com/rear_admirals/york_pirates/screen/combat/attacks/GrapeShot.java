@@ -2,7 +2,7 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
 
 public class GrapeShot extends Attack {
 

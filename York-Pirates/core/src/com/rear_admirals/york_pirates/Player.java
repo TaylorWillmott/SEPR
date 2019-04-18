@@ -14,23 +14,7 @@ public class Player implements Serializable {
     private int gold;
     private int points;
 
-    public List<Attack> getEquippedAttacks() {
-        return equippedAttacks;
-    }
-
-    public void setEquippedAttacks(List<Attack> equippedAttacks) {
-        this.equippedAttacks = equippedAttacks;
-    }
-
     public List<Attack> equippedAttacks = new ArrayList<Attack>(); // List of weapons the player is currently using
-
-    public List<Attack> getOwnedAttacks() {
-        return ownedAttacks;
-    }
-
-    public void setOwnedAttacks(List<Attack> ownedAttacks) {
-        this.ownedAttacks = ownedAttacks;
-    }
 
     public List<Attack> ownedAttacks = new ArrayList<Attack>(); // List of all weapons the player owns
 
@@ -91,5 +75,22 @@ public class Player implements Serializable {
 
     public void setPlayerShip(Ship playerShip) {
         this.playerShip = playerShip;
+    }
+
+
+    public List<Attack> getEquippedAttacks() {
+        return equippedAttacks;
+    }
+
+    public void setEquippedAttacks(List<Attack> equippedAttacks) {
+        this.equippedAttacks = equippedAttacks;
+    }
+
+    public List<Attack> getOwnedAttacks() {
+        return ownedAttacks;
+    }
+
+    public void setOwnedAttacks(List<Attack> ownedAttacks) {
+        this.ownedAttacks = ownedAttacks;
     }
 }

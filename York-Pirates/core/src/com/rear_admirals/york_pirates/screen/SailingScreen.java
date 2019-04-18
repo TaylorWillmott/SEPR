@@ -26,8 +26,8 @@ import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
+import java.util.concurrent.*;
 
 import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.PirateGame.*;
@@ -380,12 +380,44 @@ public class SailingScreen extends BaseScreen {
 
     public void saveFile(Preferences file){
 
+        //
+        byte[] ownedAttacks = SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getOwnedAttacks()));
+        String encodedOwnedAttacks = Base64.getEncoder().encodeToString(ownedAttacks);
+
+        byte[] equippedAttacks = SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getEquippedAttacks()));
+        String encodedEquippedAttacks = Base64.getEncoder().encodeToString(equippedAttacks);
+
+        byte[] derwentData = SerializationUtils.serialize(Derwent);
+        String encodedDerwent = Base64.getEncoder().encodeToString(derwentData);
+
+        byte[] vanbrughData = SerializationUtils.serialize(Vanbrugh);
+        String encodedVanbrugh = Base64.getEncoder().encodeToString(vanbrughData);
+
+        byte[] jamesData = SerializationUtils.serialize(James);
+        String encodedJames = Base64.getEncoder().encodeToString(jamesData);
+
+        byte[] alcuinData = SerializationUtils.serialize(Alcuin);
+        String encodedAlcuin = Base64.getEncoder().encodeToString(alcuinData);
+
+        byte[] wentworthData = SerializationUtils.serialize(Wentworth);
+        String encodedWentworth = Base64.getEncoder().encodeToString(wentworthData);
+
+
+
+        file.putString("owned attacks", encodedOwnedAttacks);
+        file.putString("equipped attacks", encodedEquippedAttacks);
+
+        file.putString("derwent", encodedDerwent);
+        file.putString("vanbrugh", encodedVanbrugh);
+        file.putString("james", encodedJames);
+        file.putString("alcuin", encodedAlcuin);
+        file.putString("wentworth", encodedWentworth);
+
+
         // Player Data
         file.putInteger("gold", pirateGame.getPlayer().getGold());
         file.putInteger("points", pirateGame.getPlayer().getPoints());
-        file.putString("ship", Base64.getEncoder().encodeToString(SerializationUtils.serialize(pirateGame.getPlayer().getPlayerShip())));
-        file.putString("owned attacks", Base64.getEncoder().encodeToString(SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getOwnedAttacks()) )));
-        file.putString("equipped attacks", Base64.getEncoder().encodeToString(SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getEquippedAttacks()) )));
+
 
         //Ship Data: float atkMultiplier, int defence, int accMultiplier, ShipType type, College college, String name, boolean isBoss
         file.putFloat("atkMultiplier", playerShip.getAtkMultiplier());

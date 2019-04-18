@@ -61,7 +61,7 @@ public class PirateGame extends Game {
 		Economics = new Department("Economics", "accuracy", GrapeShot.attackGrape, this);
         setScreen(new MainMenu(this));
 		Gdx.app.setLogLevel(Application.LOG_INFO);
-		save_file = Gdx.app.getPreferences("save_file");
+		save_file = Gdx.app.getPreferences("game_save");
 
 	}
 

@@ -2,8 +2,8 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
-import java.util.concurrent.ThreadLocalRandom;
 
+import java.util.concurrent.*;
 public class ExplosiveShell extends Attack{
 
     protected ExplosiveShell(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){

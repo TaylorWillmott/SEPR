@@ -1,0 +1,24 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
+	"default": {
+		"up": "button",
+		"down": "buttondown"
+	},
+	"wide": {
+		"up": "widebutton",
+		"down": "widebuttondown"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+	"default": {
+		"font": "basic",
+		"up": "button",
+		"down": "buttondown"
+	},
+	"wide": {
+		"parent": "default",
+		"up": "widebutton",
+		"down": "widebuttondown"
+	}
+}
+}

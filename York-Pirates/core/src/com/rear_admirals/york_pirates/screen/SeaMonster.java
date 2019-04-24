@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SeaMonster extends PhysicsActor {
     //Enemy variables.
-    public int moveSpeed = 150;
+    public int moveSpeed = 100;
     public TextureAtlas monsterTextureAtlas;
     public TextureRegion monsterTexture;
 
@@ -47,7 +47,7 @@ public class SeaMonster extends PhysicsActor {
         this.setWidth(this.monsterTexture.getRegionWidth());
         this.setHeight(this.monsterTexture.getRegionHeight());
         this.setOriginCentre();
-        this.setMaxSpeed(250);
+        this.setMaxSpeed(200);
         this.setDeceleration(250);
         this.setEllipseBoundary();
 
@@ -69,6 +69,6 @@ public class SeaMonster extends PhysicsActor {
     @Override
     public void draw(Batch batch, float alpha){
         batch.setColor(1,1,1,alpha);
-        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation());
+        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation() + 90);
     }
 }

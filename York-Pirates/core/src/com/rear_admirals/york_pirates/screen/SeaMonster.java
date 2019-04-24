@@ -13,6 +13,8 @@ public class SeaMonster extends PhysicsActor {
     public TextureAtlas monsterTextureAtlas;
     public TextureRegion monsterTexture;
 
+    private float time;
+
     //Setup new enemy.
     public SeaMonster(float x, float y){
         this.setSpeed(moveSpeed);
@@ -26,11 +28,21 @@ public class SeaMonster extends PhysicsActor {
         this.setMaxSpeed(250);
         this.setDeceleration(250);
         this.setEllipseBoundary();
+
+        this.time = 10;
     }
 
-    public void monsterMovement(float dt, boolean collision){
-
+    public float getTime() {
+        return time;
     }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
+//    public void monsterMovement(float dt, boolean collision){
+//        this.addAccelerationAS(this.getRotation(), 1000);
+//    }
 
     @Override
     public void draw(Batch batch, float alpha){

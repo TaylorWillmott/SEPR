@@ -387,13 +387,15 @@ public class SailingScreen extends BaseScreen {
                 pirateGame.getPlayer().addPoints(1);
             }
             timer -= 1;
-            for (SeaMonster monster : monsterArrayList){
-                monster.setRotation((float)(Math.atan2(
-                        playerShip.getY() - monster.getY(),
-                        playerShip.getX() - monster.getX()
-                ) * 180.0d / Math.PI));
-                monster.addAccelerationAS(monster.getRotation(), 1000);
-            }
+
+        }
+
+        for (SeaMonster monster : monsterArrayList){
+            monster.setRotation((float)(Math.atan2(
+                    playerShip.getY() - monster.getY(),
+                    playerShip.getX() - monster.getX()
+            ) * 180.0d / Math.PI));
+            monster.addAccelerationAS(monster.getRotation(), 1000);
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));

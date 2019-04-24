@@ -1,6 +1,7 @@
 package com.rear_admirals.york_pirates.base;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
@@ -23,6 +24,14 @@ public class BaseActor extends Group {
 		boundingPolygon = null;
 		college = null;
 		department = null;
+	}
+
+	public void setTexture(Texture t) {
+		int w = t.getWidth();
+		int h = t.getHeight();
+		setWidth(w);
+		setHeight(h);
+		region.setRegion(t);
 	}
 
 	public void act(float dt) {

@@ -13,6 +13,7 @@ public class MiniGamePlayer extends PhysicsActor {
     //Player variables
     public Texture playerTexture;
     public int moveSpeed = 250;
+
     //Movement variables
     public boolean moveLeft;
     public boolean moveRight;
@@ -22,11 +23,14 @@ public class MiniGamePlayer extends PhysicsActor {
     //Setup new player.
     public MiniGamePlayer(){
         this.playerTexture = new Texture("miniGamePlayer.png");
+        this.setTexture(playerTexture);
+
         this.setSpeed(moveSpeed);
         this.moveLeft = true;
         this.moveRight = true;
         this.moveUp = true;
         this.moveDown = true;
+        this.setEllipseBoundary();
     }
 
     @Override
@@ -40,19 +44,12 @@ public class MiniGamePlayer extends PhysicsActor {
     //Player movement function.
     public void playerMove(float dt) {
         this.setAccelerationXY(0,0);
-        if ((moveLeft)&&(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))) {
-            this.moveBy(-(moveSpeed * dt),0);
-        }
-        if ((moveRight)&&(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))){
-            this.moveBy(moveSpeed * dt,0);
-        }
-        if ((moveUp)&&(Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))){
-            this.moveBy(0,moveSpeed * dt);
-        }
-        if ((moveDown)&&(Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))){
-            this.moveBy(0,-(moveSpeed * dt));
-        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) this.moveBy(-(moveSpeed * dt),0);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) this.moveBy(moveSpeed * dt,0);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) this.moveBy(0,moveSpeed * dt);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) this.moveBy(0,-(moveSpeed * dt));
     }
+
     //Check if the player has run to a ghost(enemy) i.e. player is dead.
     public boolean isDead(ArrayList<MiniGameEnemy> enemies, MiniGamePlayer player){
         for(MiniGameEnemy enemy : enemies){
@@ -65,6 +62,7 @@ public class MiniGamePlayer extends PhysicsActor {
         }
         return false;
     }
+
     //Reset player movement variables.
     public void resetMovable(){
         this.moveUp = true;
@@ -72,6 +70,7 @@ public class MiniGamePlayer extends PhysicsActor {
         this.moveLeft = true;
         this.moveDown = true;
     }
+
     //Check if player is movable in each direction. Return if the player has win the game.
     public boolean movable( MiniGamePlayer player, boolean[][] isWall, boolean[][] isExit){
         int x = (int)((player.getX())/64);
@@ -94,7 +93,5 @@ public class MiniGamePlayer extends PhysicsActor {
             }
             return false;
         }
-
     }
-
 }

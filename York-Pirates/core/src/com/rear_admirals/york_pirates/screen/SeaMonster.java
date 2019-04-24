@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SeaMonster extends PhysicsActor {
     //Enemy variables.
@@ -18,10 +19,31 @@ public class SeaMonster extends PhysicsActor {
     //Setup new enemy.
     public SeaMonster(float x, float y){
         this.setSpeed(moveSpeed);
-        this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal("largeshark.atlas"));
-        this.monsterTexture = monsterTextureAtlas.findRegion("shark1");
-        this.setPosition(x,y);
 
+        String atlas = "largeshark.atlas";
+        String texture = "shark1";
+        /*
+        switch(ThreadLocalRandom.current().nextInt(3)) {
+            case 0:
+	            atlas = "largeshark.atlas";
+            	texture = "shark1";
+            	break;
+            case 1:
+	            atlas = "largeshark.atlas";
+	            texture = "shark1";
+	            break;
+            case 2:
+	            atlas = "largeshark.atlas";
+	            texture = "shark1";
+	            break;
+	        default:
+	            atlas = "largeshark.atlas";
+	            texture = "shark1";
+	    */
+        this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
+        this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
+        this.setPosition(x,y);
         this.setWidth(this.monsterTexture.getRegionWidth());
         this.setHeight(this.monsterTexture.getRegionHeight());
         this.setOriginCentre();

@@ -42,6 +42,7 @@ public class MiniGameScreen extends BaseScreen {
     private TiledMap tiledMap;
     private MiniGamePlayer player;
     private ArrayList<MiniGameEnemy> enemies;
+    private ArrayList<BaseActor> wallList;
 
     //In-Class map and game status storage.
     private boolean[][] isWall = new boolean[30][30];
@@ -60,12 +61,16 @@ public class MiniGameScreen extends BaseScreen {
 
     public MiniGameScreen(final PirateGame main){
         super(main);
+
         //Initialize.
         player = new MiniGamePlayer();
+        mainStage.addActor(player);
+
         Gdx.app.debug("Minigame","Minigame is loading.");
-        player = new MiniGamePlayer();
         enemies = new ArrayList<MiniGameEnemy>();
+        wallList = new ArrayList<BaseActor>();
         batch = new SpriteBatch();
+
         //Setup renderer and camera.
         tiledMap = new TmxMapLoader().load("miniGame_try.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -79,8 +84,6 @@ public class MiniGameScreen extends BaseScreen {
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
         elementSize = 20*(screenWidth/640);
-
-
     }
     //Get the location of walls, player and enemies in the map.
     public void getMapObject(TiledMap tiledMap){
@@ -89,7 +92,7 @@ public class MiniGameScreen extends BaseScreen {
             String name = object.getName();
 
             // all object data assumed to be stored as rectangles
-            RectangleMapObject rectangleObject = (RectangleMapObject)object;
+            RectangleMapObject rectangleObject = (RectangleMapObject) object;
             Rectangle r = rectangleObject.getRectangle();
 
             if (name.equals("player")){
@@ -113,7 +116,20 @@ public class MiniGameScreen extends BaseScreen {
             }
         }
 
+        // New wall for player movement
+        objects = tiledMap.getLayers().get("PhysicsData").getObjects();
+        for (MapObject object : objects) {
+            RectangleMapObject rectangleObject = (RectangleMapObject) object;
+            Rectangle r = rectangleObject.getRectangle();
+
+            BaseActor wall = new BaseActor();
+            wall.setPosition(r.x, r.y);
+            wall.setSize(r.width, r.height);
+            wall.setRectangleBoundary();
+            wallList.add(wall);
+        }
     }
+
     //Draw enemies and player.
     public void drawEnemies(){
 
@@ -133,11 +149,11 @@ public class MiniGameScreen extends BaseScreen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render();
+        mainStage.draw();
         batch.begin();
         drawEnemies();
-        drawPlayer();
+//        drawPlayer();
         batch.end();
-
     }
 
     @Override
@@ -151,7 +167,7 @@ public class MiniGameScreen extends BaseScreen {
         player.resetMovable();
         finish = player.movable(player,isWall,isExit);
         isDead = player.isDead(enemies,player);
-        //Show the finish screen.
+//        Show the finish screen.
         if(finish){
             Gdx.app.debug("Minigame","Minigame finished. Transitioning to end screen.");
             pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,false));
@@ -160,8 +176,14 @@ public class MiniGameScreen extends BaseScreen {
             Gdx.app.debug("Minigame","Player has died. Transitioning to end screen.");
             pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,true));
         }
+
         //Player movement.
         player.playerMove(delta);
+
+        for (BaseActor wall : wallList) {
+           player.overlaps(wall,true);
+        }
+
         //Enemies movement.
         for(MiniGameEnemy enemy : enemies){
             enemy.enemyMovement(delta,isWall);

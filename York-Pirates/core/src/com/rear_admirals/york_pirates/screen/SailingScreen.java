@@ -262,6 +262,14 @@ public class SailingScreen extends BaseScreen {
             mapMessage.setText("Neutral Territory");
         }
 
+        int monsterChance = ThreadLocalRandom.current().nextInt(0, 10001);
+        if (monsterChance < 5){
+            Integer monsterPosX = ThreadLocalRandom.current().nextInt(0, mapPixelWidth);
+            Integer monsterPosY = ThreadLocalRandom.current().nextInt(0, mapPixelHeight);
+            SeaMonster testShark = new SeaMonster(2500, 1820);
+            mainStage.addActor(testShark);
+        }
+
 
         Boolean y = false;
         for (BaseActor obstacle : obstacleList) {
@@ -362,6 +370,7 @@ public class SailingScreen extends BaseScreen {
             playerShip.setAccelerationXY(0,0);
             playerShip.setDeceleration(250);
         }
+//        mainStage.setDebugAll(true);
     }
 
     @Override

@@ -14,9 +14,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.base.LabelTimer;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
@@ -72,9 +74,15 @@ public class SailingScreen extends BaseScreen {
     private Label coordinateLabel;
 
     private ArrayList<SeaMonster> monsterArrayList;
+    private ArrayList<LabelTimer> damageLabels;
+
+
+    private Skin skin;
 
     public SailingScreen(final PirateGame main, boolean isFirstSailingInstance){
         super(main);
+
+        this.skin = main.getSkin();
 
         playerShip = main.getPlayer().getPlayerShip();
         Gdx.app.debug("Sailing","Player ship's name is "+playerShip.getName());
@@ -84,7 +92,8 @@ public class SailingScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
-        monsterArrayList = new ArrayList<SeaMonster>();
+        monsterArrayList = new ArrayList<>();
+        damageLabels = new ArrayList<>();
 
         sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_black");
         sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_black");
@@ -381,6 +390,15 @@ public class SailingScreen extends BaseScreen {
                 }
             }
 
+            Iterator<LabelTimer> labelIterator = damageLabels.iterator();
+            while (labelIterator.hasNext()){
+                LabelTimer label = labelIterator.next();
+                label.setTimer(label.getTimer()-1);
+                if (label.getTimer() < 0) {
+                    label.remove();
+                    labelIterator.remove();
+                }
+            }
 
             // Only give the player points when not sailing in neutral territory.
             if (x){
@@ -390,9 +408,22 @@ public class SailingScreen extends BaseScreen {
 
         }
 
-        for (SeaMonster monster : monsterArrayList){
+        Iterator<SeaMonster> monsterIterator = monsterArrayList.iterator();
+
+        while (monsterIterator.hasNext()) {
+            SeaMonster monster = monsterIterator.next();
             for (BaseActor obstacle : obstacleList) {
-                playerShip.overlaps(obstacle, true);
+                monster.overlaps(obstacle, true);
+            }
+            if (monster.overlaps(playerShip, true)){
+                playerShip.setHullHealth(playerShip.getHullHealth() - 10);
+                monster.remove();
+                monsterIterator.remove();
+
+                LabelTimer damageLabel = new LabelTimer("-10hp", skin);
+                mainStage.addActor(damageLabel);
+                damageLabel.setPosition(playerShip.getX(),playerShip.getY(), Align.top);
+                damageLabels.add(damageLabel);
             }
             monster.setRotation((float)(Math.atan2(
                     playerShip.getY() - monster.getY(),

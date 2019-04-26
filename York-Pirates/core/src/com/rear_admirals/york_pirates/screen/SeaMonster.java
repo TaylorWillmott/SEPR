@@ -69,6 +69,6 @@ public class SeaMonster extends PhysicsActor {
     @Override
     public void draw(Batch batch, float alpha){
         batch.setColor(1,1,1,alpha);
-        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation() + 90);
+        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth()/1.5f,getHeight()/1.5f,1,1,getRotation() + 90);
     }
 }

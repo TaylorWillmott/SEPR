@@ -14,9 +14,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.base.LabelTimer;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
@@ -69,8 +71,18 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
 
+    private Label coordinateLabel;
+
+    private ArrayList<SeaMonster> monsterArrayList;
+    private ArrayList<LabelTimer> damageLabels;
+
+
+    private Skin skin;
+
     public SailingScreen(final PirateGame main, boolean isFirstSailingInstance){
         super(main);
+
+        this.skin = main.getSkin();
 
         playerShip = main.getPlayer().getPlayerShip();
         Gdx.app.debug("Sailing","Player ship's name is "+playerShip.getName());
@@ -79,6 +91,9 @@ public class SailingScreen extends BaseScreen {
         Gdx.app.debug("Sailing","playerShip added to mainStage");
 
         Table uiTable = new Table();
+
+        monsterArrayList = new ArrayList<>();
+        damageLabels = new ArrayList<>();
 
         sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_black");
         sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_black");
@@ -96,6 +111,8 @@ public class SailingScreen extends BaseScreen {
         goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
         goldValueLabel.setAlignment(Align.left);
 
+        coordinateLabel = new Label("", main.getSkin());
+
         uiTable.add(sailsHealthTextLabel).fill();
         uiTable.add(sailsHealthValueLabel).fill();
         uiTable.row();
@@ -112,6 +129,14 @@ public class SailingScreen extends BaseScreen {
         uiTable.setFillParent(true);
 
         uiStage.addActor(uiTable);
+
+        Table coordTable = new Table();
+        coordTable.add(coordinateLabel);
+        uiStage.addActor(coordTable);
+
+        coordTable.setFillParent(true);
+        coordTable.align(Align.topLeft);
+
 
         mapMessage = new Label("", main.getSkin(), "default_black");
         hintMessage = new Label("", main.getSkin(),"default_black");
@@ -237,6 +262,8 @@ public class SailingScreen extends BaseScreen {
         pirateGame.setSailingShipY(playerShip.getY());
         pirateGame.setSailingShipRotation(playerShip.getRotation());
 
+
+
         Boolean x = false;
         for (BaseActor region : regionList) {
             String name = region.getName();
@@ -244,6 +271,10 @@ public class SailingScreen extends BaseScreen {
                 x = true;
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
+
+                //TODO REMOVE THIS AT SOME POINT
+                enemyChance = 11;
+
                 if (enemyChance <= 10) {
                     pirateGame.setSailingShipX(playerShip.getX());
                     pirateGame.setSailingShipY(playerShip.getY());
@@ -263,11 +294,28 @@ public class SailingScreen extends BaseScreen {
         }
 
         int monsterChance = ThreadLocalRandom.current().nextInt(0, 10001);
-        if (monsterChance < 5){
-            Integer monsterPosX = ThreadLocalRandom.current().nextInt(0, mapPixelWidth);
-            Integer monsterPosY = ThreadLocalRandom.current().nextInt(0, mapPixelHeight);
-            SeaMonster testShark = new SeaMonster(2500, 1820);
-            mainStage.addActor(testShark);
+        if (monsterChance < 100){
+            System.out.println("Monster spawn");
+            Boolean monsterAllowedPosition = false;
+            SeaMonster monster = new SeaMonster(0, 0);
+            while (!monsterAllowedPosition){
+                Integer monsterPosX = ThreadLocalRandom.current().nextInt(0, mapPixelWidth);
+                Integer monsterPosY = ThreadLocalRandom.current().nextInt(0, mapPixelHeight);
+                monster.setPosition(monsterPosX, monsterPosY);
+                Boolean safePos = true;
+
+                for (BaseActor obstacle : obstacleList) {
+                    if (monster.overlaps(obstacle, false)){
+                        safePos = false;
+                        System.out.println("Pos Rejected: " + obstacle.getName());
+                    }
+                }
+                monsterAllowedPosition = safePos;
+
+            }
+            System.out.println("Monster spawn, position: " + monster.getX() + ", " + monster.getY());
+            monsterArrayList.add(monster);
+            mainStage.addActor(monster);
         }
 
 
@@ -328,11 +376,60 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
+            coordinateLabel.setText("X: " + ((int) playerShip.getX()) + ", Y: " + ((int)playerShip.getY()));
+
+            Iterator<SeaMonster> iter = monsterArrayList.iterator();
+
+            while (iter.hasNext()) {
+                SeaMonster item = iter.next();
+                System.out.println(item.getTime());
+                item.setTime(item.getTime() - 1);
+                if (item.getTime() <= 0){
+                    item.remove();
+                    iter.remove();
+                }
+            }
+
+            Iterator<LabelTimer> labelIterator = damageLabels.iterator();
+            while (labelIterator.hasNext()){
+                LabelTimer label = labelIterator.next();
+                label.setTimer(label.getTimer()-1);
+                if (label.getTimer() < 0) {
+                    label.remove();
+                    labelIterator.remove();
+                }
+            }
+
             // Only give the player points when not sailing in neutral territory.
             if (x){
                 pirateGame.getPlayer().addPoints(1);
             }
             timer -= 1;
+
+        }
+
+        Iterator<SeaMonster> monsterIterator = monsterArrayList.iterator();
+
+        while (monsterIterator.hasNext()) {
+            SeaMonster monster = monsterIterator.next();
+            for (BaseActor obstacle : obstacleList) {
+                monster.overlaps(obstacle, true);
+            }
+            if (monster.overlaps(playerShip, true)){
+                playerShip.setHullHealth(playerShip.getHullHealth() - 10);
+                monster.remove();
+                monsterIterator.remove();
+
+                LabelTimer damageLabel = new LabelTimer("-10hp", skin);
+                mainStage.addActor(damageLabel);
+                damageLabel.setPosition(playerShip.getX(),playerShip.getY(), Align.top);
+                damageLabels.add(damageLabel);
+            }
+            monster.setRotation((float)(Math.atan2(
+                    playerShip.getY() - monster.getY(),
+                    playerShip.getX() - monster.getX()
+            ) * 180.0d / Math.PI));
+            monster.moveBy(1, 1);
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));

@@ -44,7 +44,7 @@
 251,0,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251
 </data>
  </layer>
- <objectgroup id="4" name="ObjectData">
+ <objectgroup id="4" name="ObjectData" visible="0">
   <object id="1" name="player" x="72" y="1030.67" width="45.3333" height="49.3333"/>
   <object id="2" name="enemy" x="69" y="709.167" width="53" height="58"/>
   <object id="3" name="enemy" x="836.5" y="961.167" width="53" height="58"/>

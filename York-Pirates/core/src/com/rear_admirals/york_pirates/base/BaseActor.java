@@ -13,7 +13,7 @@ import com.rear_admirals.york_pirates.Department;
 
 public class BaseActor extends Group {
 
-	private TextureRegion region;
+	public TextureRegion region;
 	private Polygon boundingPolygon;
 	private College college;
     private Department department;

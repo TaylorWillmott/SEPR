@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.rear_admirals.york_pirates.base.BaseActor;
 
-public class PhysicsActor extends BaseActor {
+public class PhysicsActor extends AnimatedActor {
 
 	private Vector2 velocity;
 	private Vector2 acceleration;

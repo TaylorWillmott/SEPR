@@ -1,0 +1,34 @@
+
+squid.png
+size: 1280,789
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+squid1
+  rotate: false
+  xy: 0, 0
+  size: 640, 395
+  orig: 640, 395
+  offset: 0, 0
+  index: -1
+squid2
+  rotate: false
+  xy: 152, 156
+  size: 640, 395
+  orig: 640, 395
+  offset: 640, 0
+  index: -1
+squid3
+  rotate: false
+  xy: 304, 312
+  size: 640, 395
+  orig: 640, 395
+  offset: 0, 395
+  index: -1
+squid4
+  rotate: false
+  xy: 304, 312
+  size: 640, 395
+  orig: 640, 395
+  offset: 640, 395
+  index: -1

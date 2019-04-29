@@ -2,15 +2,20 @@ package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.rear_admirals.york_pirates.base.GameUtils;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
+
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SeaMonster extends PhysicsActor {
     //Enemy variables.
-    public int moveSpeed = 100;
+    public int moveSpeed = 2;
     public TextureAtlas monsterTextureAtlas;
     public TextureRegion monsterTexture;
 
@@ -43,6 +48,10 @@ public class SeaMonster extends PhysicsActor {
         this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
         this.monsterTexture = monsterTextureAtlas.findRegion(texture);
 
+        Animation sharkAnim = GameUtils.parseSpriteSheet("largeshark.png", 1, 3, new int[] {0, 1, 2}, 0.1f, Animation.PlayMode.LOOP);
+        this.storeAnimation("move", sharkAnim);
+        this.setActiveAnimation("move");
+
         this.setPosition(x,y);
         this.setWidth(this.monsterTexture.getRegionWidth());
         this.setHeight(this.monsterTexture.getRegionHeight());
@@ -66,9 +75,9 @@ public class SeaMonster extends PhysicsActor {
 //        this.addAccelerationAS(this.getRotation(), 1000);
 //    }
 
-    @Override
-    public void draw(Batch batch, float alpha){
-        batch.setColor(1,1,1,alpha);
-        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth()/1.5f,getHeight()/1.5f,1,1,getRotation() + 90);
-    }
+//    @Override
+//    public void draw(Batch batch, float alpha){
+//        batch.setColor(1,1,1,alpha);
+//        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth()/1.5f,getHeight()/1.5f,1,1,getRotation() + 90);
+//    }
 }

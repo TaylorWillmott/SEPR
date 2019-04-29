@@ -40,7 +40,11 @@ public class PhysicsActor extends AnimatedActor {
 
 	public void setDeceleration(float d) {deceleration = d;}
 
-	public float getSpeed() {return velocity.len();}
+	public void setVelocity(Vector2 vector2) { velocity = vector2; }
+
+    public Vector2 getVelocity() { return this.velocity; }
+
+    public float getSpeed() {return velocity.len();}
 
 	public void setSpeed(float s) {velocity.setLength(s);}
 

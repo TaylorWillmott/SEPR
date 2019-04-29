@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.base.AnimatedActor;
 import com.rear_admirals.york_pirates.base.LabelTimer;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
@@ -75,7 +76,6 @@ public class SailingScreen extends BaseScreen {
 
     private ArrayList<SeaMonster> monsterArrayList;
     private ArrayList<LabelTimer> damageLabels;
-
 
     private Skin skin;
 
@@ -262,8 +262,6 @@ public class SailingScreen extends BaseScreen {
         pirateGame.setSailingShipY(playerShip.getY());
         pirateGame.setSailingShipRotation(playerShip.getRotation());
 
-
-
         Boolean x = false;
         for (BaseActor region : regionList) {
             String name = region.getName();
@@ -311,13 +309,11 @@ public class SailingScreen extends BaseScreen {
                     }
                 }
                 monsterAllowedPosition = safePos;
-
             }
             System.out.println("Monster spawn, position: " + monster.getX() + ", " + monster.getY());
             monsterArrayList.add(monster);
             mainStage.addActor(monster);
         }
-
 
         Boolean y = false;
         for (BaseActor obstacle : obstacleList) {
@@ -425,11 +421,13 @@ public class SailingScreen extends BaseScreen {
                 damageLabel.setPosition(playerShip.getX(),playerShip.getY(), Align.top);
                 damageLabels.add(damageLabel);
             }
-            monster.setRotation((float)(Math.atan2(
-                    playerShip.getY() - monster.getY(),
-                    playerShip.getX() - monster.getX()
-            ) * 180.0d / Math.PI));
-            monster.moveBy(1, 1);
+
+            float dx = playerShip.getX() - monster.getX();
+            float dy = playerShip.getY() - monster.getY();
+            float norm = (float) Math.sqrt(dx*dx + dy*dy);
+
+            monster.setRotation((float)(Math.atan2(dy, dx)*180.0d / Math.PI)); // Monster always point towards player
+            monster.moveBy(dx *= (monster.moveSpeed/norm), dy *= (monster.moveSpeed/norm)); // Monster move towards player
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));

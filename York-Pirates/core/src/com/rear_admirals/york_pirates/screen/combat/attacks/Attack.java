@@ -6,17 +6,18 @@ import java.io.Serializable;
 import java.util.concurrent.*;
 
 public class Attack implements Serializable {
-	protected String name;
-	protected String desc;
-	protected int damage;
-	protected int dmgMin, dmgMax; // Minimum and maximum damage attacks can do (randomly in this range)
-	protected int accPercent;
-	protected int cost;
-	protected boolean skipMoveStatus;
-	protected boolean skipMove;
+	String name;
+	String desc;
+	int damage;
+	int dmgMin;
+    int dmgMax; // Minimum and maximum damage attacks can do (randomly in this range)
+	int accPercent;
+	int cost;
+	private boolean skipMoveStatus;
+	private boolean skipMove;
 
 	// Generic constructor. Creates simple broadside attack.
-	protected Attack() {
+    Attack() {
 		this.name = "Broadside";
 		this.desc = "Fire a broadside at your enemy.";
 		this.dmgMin = 8;
@@ -30,7 +31,7 @@ public class Attack implements Serializable {
 
 	// Custom constructor. Can be used to create any attack which applies a multiple of the attacker's damage
 	// to the defender. Can also take a turn to charge and have custom accuracy.
-	protected Attack(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
+    Attack(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
 		this.name = name;
 		this.desc = desc + "Base damage from " + dmgMin + " to " + dmgMax + ". Base accuracy of " + accPercent;
 		this.dmgMin = dmgMin;
@@ -43,7 +44,7 @@ public class Attack implements Serializable {
 
 
 	// New function used to check if an attack hits the enemy.
-	protected boolean doesHit(float shipMultiplier, int accPercent) {//================================ Modify to account for sail damage?
+    boolean doesHit(float shipMultiplier, int accPercent) {//================================ Modify to account for sail damage?
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
 		return accPercent * shipMultiplier > random;
 	}

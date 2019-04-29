@@ -20,7 +20,7 @@ public class PhysicsActor extends AnimatedActor {
 
 	private boolean anchor;
 
-	public PhysicsActor() {
+	protected PhysicsActor() {
 		this.velocity = new Vector2();
 		this.acceleration = new Vector2();
 		this.maxSpeed = 9999;
@@ -50,7 +50,7 @@ public class PhysicsActor extends AnimatedActor {
 
 	public void setMaxSpeed(float ms) {maxSpeed = ms;}
 
-	public float getMotionAngle() {
+	private float getMotionAngle() {
 		return MathUtils.atan2(velocity.y, velocity.x) * MathUtils.radiansToDegrees;
 	}
 

@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class MiniGamePlayer extends PhysicsActor {
     //Player variables
-    public Texture playerTexture;
-    public int moveSpeed = 250;
+    private Texture playerTexture;
+    private int moveSpeed = 250;
 
     //Movement variables
-    public boolean moveLeft;
-    public boolean moveRight;
-    public boolean moveUp;
-    public boolean moveDown;
+    private boolean moveLeft;
+    private boolean moveRight;
+    private boolean moveUp;
+    private boolean moveDown;
 
     //Setup new player.
     public MiniGamePlayer(){

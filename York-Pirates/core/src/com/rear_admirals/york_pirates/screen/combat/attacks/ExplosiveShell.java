@@ -6,7 +6,7 @@ import com.rear_admirals.york_pirates.Ship;
 import java.util.concurrent.*;
 public class ExplosiveShell extends Attack{
 
-    protected ExplosiveShell(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){
+    private ExplosiveShell(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){
         super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
     }
 

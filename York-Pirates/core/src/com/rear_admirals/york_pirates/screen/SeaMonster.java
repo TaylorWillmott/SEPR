@@ -13,11 +13,11 @@ import com.rear_admirals.york_pirates.base.PhysicsActor;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SeaMonster extends PhysicsActor {
+class SeaMonster extends PhysicsActor {
     //Enemy variables.
     public int moveSpeed = 2;
-    public TextureAtlas monsterTextureAtlas;
-    public TextureRegion monsterTexture;
+    private TextureAtlas monsterTextureAtlas;
+    private TextureRegion monsterTexture;
 
     private float time;
 
@@ -71,13 +71,4 @@ public class SeaMonster extends PhysicsActor {
         this.time = time;
     }
 
-//    public void monsterMovement(float dt, boolean collision){
-//        this.addAccelerationAS(this.getRotation(), 1000);
-//    }
-
-//    @Override
-//    public void draw(Batch batch, float alpha){
-//        batch.setColor(1,1,1,alpha);
-//        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth()/1.5f,getHeight()/1.5f,1,1,getRotation() + 90);
-//    }
 }

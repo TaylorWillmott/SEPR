@@ -9,7 +9,7 @@ public class College implements Serializable {
 	private ArrayList<College> ally;
     private boolean bossDead;
 
-    public College(String name) {
+    private College(String name) {
         this.name = name;
         this.ally = new ArrayList<College>();
         this.ally.add(this);

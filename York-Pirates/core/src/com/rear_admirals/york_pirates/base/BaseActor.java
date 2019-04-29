@@ -13,7 +13,7 @@ import com.rear_admirals.york_pirates.Department;
 
 public class BaseActor extends Group {
 
-	public TextureRegion region;
+	TextureRegion region;
 	private Polygon boundingPolygon;
 	private College college;
     private Department department;
@@ -71,7 +71,7 @@ public class BaseActor extends Group {
 		boundingPolygon.setOrigin(getOriginX(), getOriginY());
 	}
 
-	public Polygon getBoundingPolygon() {
+	private Polygon getBoundingPolygon() {
 		boundingPolygon.setPosition(getX(), getY());
 		boundingPolygon.setRotation(getRotation());
 		return  boundingPolygon;

@@ -22,12 +22,8 @@ import java.util.concurrent.*;
 
 public class CombatScreen extends BaseScreen {
 
-    // screen layout variables
-    private float button_pad_bottom;
-    private float button_pad_right;
-
     // Labels changed throughout the scene
-    public Label descriptionLabel;
+    private Label descriptionLabel;
     private Label playerSailsHPLabel;
     private Label playerHullHPLabel;
     private Label enemySailsHPLabel;
@@ -41,19 +37,13 @@ public class CombatScreen extends BaseScreen {
 
     // Image textures and images for the various stages
     private Texture bg_texture;
-    private Texture wood_texture;
-    private Image background;
     private Image background_wood;
 
-    public Player player;
-    public Ship enemy;
+    private Player player;
+    private Ship enemy;
 
     // Control the layout of the stage
     private Table completeAttackTable;
-    private Table attackTable;
-    private Table rootTable;
-    private Table descriptionTable;
-    private Container<Table> tableContainer;
 
     // Written text box
     private TextButton textBox;
@@ -85,28 +75,29 @@ public class CombatScreen extends BaseScreen {
         combatStack = new Stack();
 
         // Sets size constants for the scene depending on viewport, also sets button padding constants for use in tables
-        button_pad_bottom = viewheight/24f;
-        button_pad_right = viewwidth/32f;
+        // screen layout variables
+        float button_pad_bottom = viewheight / 24f;
+        float button_pad_right = viewwidth / 32f;
 
         // Insantiate the image textures for use within the scene as backgrounds.
         bg_texture = new Texture("water_texture_sky.png");
-        background = new Image(bg_texture);
+        Image background = new Image(bg_texture);
         background.setSize(viewwidth, viewheight);
 
-        wood_texture = new Texture("wood_vertical_board_texture.png");
+        Texture wood_texture = new Texture("wood_vertical_board_texture.png");
         background_wood = new Image(wood_texture);
         background_wood.setSize(viewwidth, viewheight);
 
         // Create a Container which takes up the whole screen (used for layout purposes)
-        tableContainer = new Container<Table>();
+        Container<Table> tableContainer = new Container<Table>();
         tableContainer.setFillParent(true);
         tableContainer.setPosition(0,0);
         tableContainer.align(Align.bottom);
 
         // Instantiate some different tables used throughout scene
-        rootTable = new Table();
-        descriptionTable = new Table();
-        attackTable = new Table();
+        Table rootTable = new Table();
+        Table descriptionTable = new Table();
+        Table attackTable = new Table();
 
         // Instantiate both the ships for the battle
         CombatShip myShip = new CombatShip("ship1.png", viewwidth/3.5f);
@@ -200,7 +191,7 @@ public class CombatScreen extends BaseScreen {
         descriptionLabel.setAlignment(Align.center);
 
         descriptionTable.center();
-        descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(viewwidth/2 - button_pad_right*2, viewheight/12).top();
+        descriptionTable.add(descriptionLabel).uniform().pad(0, button_pad_right,0, button_pad_right).size(viewwidth/2 - button_pad_right *2, viewheight/12).top();
         descriptionTable.row();
         descriptionTable.add(fleeButton).uniform();
 
@@ -279,7 +270,7 @@ public class CombatScreen extends BaseScreen {
 	}
 
 
-    public void toggleAttackStage(){
+    private void toggleAttackStage(){
         // This method toggles the visibility of the players attack moves and changes input processor to relevant stage
         if (background_wood.isVisible()) {
             background_wood.setVisible(false);
@@ -294,7 +285,7 @@ public class CombatScreen extends BaseScreen {
 
     // combat Handler
     // This function handles the ship combat using BattleEvent enum type
-    public void combatHandler(BattleEvent status){
+    private void combatHandler(BattleEvent status){
         //Debugging
         Gdx.app.debug("Combat","Running combatHandler with status: " + status.toString());
 
@@ -394,7 +385,9 @@ public class CombatScreen extends BaseScreen {
                     enemy.getCollege().setBossDead(true);
                     player.addPoints(100);
                     this.player.getPlayerShip().getCollege().addAlly(this.enemy.getCollege());
-                    // Randomly upgrades one of the player's stats
+
+                    // This is new for Assessment 4
+                    // Randomly upgrades one of the player's stats.
                     //TODO Make a message appear in-game to let the player know they received an upgrade.
                     int upgrade = ThreadLocalRandom.current().nextInt(0,3);
                     switch(upgrade) {
@@ -420,6 +413,11 @@ public class CombatScreen extends BaseScreen {
                             upgradeMessage = "You earned a Shipwright - upgrading defence - and 100 points.";
 
                             break;
+                    }
+
+                    // WIN CONDITION - could be improved by removing hardcoding of size.
+                    if (player.getPlayerShip().getCollege().getAlly().size() == 4){
+                        // DO WINNING
                     }
                 }
                 else {
@@ -451,17 +449,17 @@ public class CombatScreen extends BaseScreen {
 
     // Button Listener Classes - creates a hover listener for any button passed through
 
-    public void buttonListener(final AttackButton button){
+    private void buttonListener(final AttackButton button){
         button.addListener(new ClickListener(){
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor){
                 descriptionLabel.setText(button.getDesc());
-            };
+            }
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor){
                 descriptionLabel.setText("What would you like to do?");
-            };
+            }
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -476,12 +474,12 @@ public class CombatScreen extends BaseScreen {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor){
                 descriptionLabel.setText(button.getDesc());
-            };
+            }
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor){
                 descriptionLabel.setText("Choose an option");
-            };
+            }
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -491,7 +489,7 @@ public class CombatScreen extends BaseScreen {
     }
 
     // This method updates the player HP bar and text values
-    public void updateHP(){
+    private void updateHP(){
         enemySailsHP.setAnimateDuration(1);
         enemyHullHP.setAnimateDuration(1);
         playerSailsHP.setAnimateDuration(1);
@@ -526,7 +524,7 @@ public class CombatScreen extends BaseScreen {
     }
 
     // Updates and displays text box
-    public void dialog(String message, final BattleEvent nextEvent){
+    private void dialog(String message, final BattleEvent nextEvent){
         queuedCombatEvent = nextEvent;
 
         if (background_wood.isVisible()){
@@ -539,7 +537,7 @@ public class CombatScreen extends BaseScreen {
     }
 
     // This method controls the animation of the dialog label
-    public void labelAnimationUpdate(float dt){
+    private void labelAnimationUpdate(float dt){
         if (textAnimation) {
             delayTime += dt;
 

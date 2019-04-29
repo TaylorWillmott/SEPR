@@ -2,12 +2,12 @@ package com.rear_admirals.york_pirates.minigame;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
-public class MiniGameEnemy extends PhysicsActor {
+class MiniGameEnemy extends PhysicsActor {
     //Enemy variables.
-    public int moveSpeed = 150;
-    public Texture enemyTexture;
+    private int moveSpeed = 150;
+    private Texture enemyTexture;
     //Movement variables
-    public int randomDirection;
+    private int randomDirection;
 
     //Setup new enemy.
     public MiniGameEnemy(float x, float y){
@@ -18,7 +18,7 @@ public class MiniGameEnemy extends PhysicsActor {
 
     public Texture getEnemyTexture(){return this.enemyTexture;}
     //Get a random int number between 0 to 3 as the random direction enemy will move towards.
-    public void getRandomDirection(){
+    private void getRandomDirection(){
         this.randomDirection = (int)(Math.random()*4);
     }
 

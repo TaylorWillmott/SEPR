@@ -6,7 +6,7 @@ import com.rear_admirals.york_pirates.Ship;
 import java.util.concurrent.*;
 
 public class DoubleShot extends Attack{
-    protected DoubleShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){
+    private DoubleShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){
         super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
     }
 

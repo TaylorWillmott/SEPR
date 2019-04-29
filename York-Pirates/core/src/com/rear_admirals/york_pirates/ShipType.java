@@ -11,7 +11,7 @@ public class ShipType implements Serializable {
 	private String name;
 	private transient Texture texture;
 
-	public ShipType (String name, float atkMultiplier, int defence, float accMultiplier, int health) {
+	private ShipType(String name, float atkMultiplier, int defence, float accMultiplier, int health) {
 		this.name = name;
 		this.atkMultiplier = atkMultiplier;
 		this.defence = defence;

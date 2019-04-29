@@ -69,9 +69,14 @@ public class MainMenu extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 // SHOW SAVES
-                loadFile(pirateGame.getSave_file());
-                pirateGame.setScreen(new SailingScreen(pirateGame, false));
-                dispose();
+                try {
+                    loadFile(pirateGame.getSave_file());
+                    pirateGame.setScreen(new SailingScreen(pirateGame, false));
+                    dispose();
+                }catch (Exception e){
+                    Gdx.app.log("load", "No save file found");
+                    load_game.setText("No save found.");
+                }
 
 
             }

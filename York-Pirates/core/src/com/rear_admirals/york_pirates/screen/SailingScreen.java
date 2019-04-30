@@ -5,27 +5,21 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.Player;
-import com.rear_admirals.york_pirates.base.AnimatedActor;
+import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.base.LabelTimer;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
-import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
-import com.rear_admirals.york_pirates.Ship;
 import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -282,15 +276,16 @@ public class SailingScreen extends BaseScreen {
             if (playerShip.overlaps(region, false)) {
                 x = true;
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
+                College college = region.getCollege();
+                if (playerShip.getCollege().getAlly().contains(college)) {
+                    mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory (peaceful)");
+                }
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
-
-
-                if (enemyChance <= 10) {
+                if (enemyChance <= 15) {
                     pirateGame.setSailingShipX(playerShip.getX());
                     pirateGame.setSailingShipY(playerShip.getY());
                     pirateGame.setSailingShipRotation(playerShip.getRotation());
                     Gdx.app.log("Sailing","Enemy encountered in " + name);
-                    College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
                         Gdx.app.debug("Sailing",name);
                         pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(Brig, college)));
@@ -321,6 +316,7 @@ public class SailingScreen extends BaseScreen {
                 monsterAllowedPosition = safePos;
             }
             monsterArrayList.add(monster);
+            
             mainStage.addActor(monster);
         }
 
@@ -346,7 +342,7 @@ public class SailingScreen extends BaseScreen {
                             pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(1.25f, 8, 1.25f, Brig, college, college.getName() + " Boss", true)));
                         } else {
                             Gdx.app.debug("Sailing","College is friendly.");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(0.75f, 4, 0.75f, Brig, college, college.getName() + " Brig", false)));
+                            pirateGame.setScreen(new CollegeScreen(pirateGame, college));
                         }
                     }
                 } else {
@@ -417,7 +413,9 @@ public class SailingScreen extends BaseScreen {
         while (monsterIterator.hasNext()) {
             SeaMonster monster = monsterIterator.next();
             for (BaseActor obstacle : obstacleList) {
-                monster.overlaps(obstacle, true);
+                if (monster.isCollide()){
+                    monster.overlaps(obstacle, true);
+                }
             }
             if (monster.overlaps(playerShip, true)){
                 playerShip.setHullHealth(playerShip.getHullHealth() - 10);

@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.base.AnimatedActor;
 import com.rear_admirals.york_pirates.base.LabelTimer;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
@@ -78,10 +79,15 @@ public class SailingScreen extends BaseScreen {
     private ArrayList<LabelTimer> damageLabels;
 
     private Skin skin;
+    private Player player;
+    private LabelTimer deathLabel;
+
+    private Boolean paused = false;
 
     public SailingScreen(final PirateGame main, boolean isFirstSailingInstance){
         super(main);
 
+        this.player = main.getPlayer();
         this.skin = main.getSkin();
 
         playerShip = main.getPlayer().getPlayerShip();
@@ -91,6 +97,14 @@ public class SailingScreen extends BaseScreen {
         Gdx.app.debug("Sailing","playerShip added to mainStage");
 
         Table uiTable = new Table();
+
+        deathLabel = new LabelTimer("YOU DIED! Respawning in 3 seconds.", skin, 3, Color.RED);
+        deathLabel.setSize(600, 300);
+        uiStage.addActor(deathLabel);
+        deathLabel.setFillParent(true);
+        deathLabel.setAlignment(Align.center);
+        deathLabel.setVisible(false);
+
 
         monsterArrayList = new ArrayList<>();
         damageLabels = new ArrayList<>();
@@ -290,8 +304,7 @@ public class SailingScreen extends BaseScreen {
         }
 
         int monsterChance = ThreadLocalRandom.current().nextInt(0, 10001);
-        if (monsterChance < 100){
-            System.out.println("Monster spawn");
+        if (monsterChance < 25){
             Boolean monsterAllowedPosition = false;
             SeaMonster monster = new SeaMonster(0, 0);
             while (!monsterAllowedPosition){
@@ -303,12 +316,10 @@ public class SailingScreen extends BaseScreen {
                 for (BaseActor obstacle : obstacleList) {
                     if (monster.overlaps(obstacle, false)){
                         safePos = false;
-                        System.out.println("Pos Rejected: " + obstacle.getName());
                     }
                 }
                 monsterAllowedPosition = safePos;
             }
-            System.out.println("Monster spawn, position: " + monster.getX() + ", " + monster.getY());
             monsterArrayList.add(monster);
             mainStage.addActor(monster);
         }
@@ -376,7 +387,6 @@ public class SailingScreen extends BaseScreen {
 
             while (iter.hasNext()) {
                 SeaMonster item = iter.next();
-                System.out.println(item.getTime());
                 item.setTime(item.getTime() - 1);
                 if (item.getTime() <= 0){
                     item.remove();
@@ -439,7 +449,7 @@ public class SailingScreen extends BaseScreen {
 
         mainStage.act(delta);
 
-        update(delta);
+        if (!paused) update(delta);
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -451,7 +461,7 @@ public class SailingScreen extends BaseScreen {
         uiStage.draw();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            System.out.println("SAVED");
+            Gdx.app.log("game save","Game saved");
             saveFile(pirateGame.getSave_file());
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.I)){
@@ -462,6 +472,30 @@ public class SailingScreen extends BaseScreen {
         } else{
             playerShip.setAccelerationXY(0,0);
             playerShip.setDeceleration(250);
+        }
+        if (playerShip.getHullHealth() <= 0){
+            paused = true;
+            deathLabel.setVisible(true);
+            player.getPlayerShip().setSpeed(0);
+            player.getPlayerShip().setAccelerationXY(0,0);
+            player.getPlayerShip().setAnchor(true);
+            playerShip.setVisible(false);
+
+            deathLabel.setTimer(deathLabel.getTimer() - delta);
+            deathLabel.setText("YOU DIED! Respawning in " + Math.ceil(deathLabel.getTimer()) + "seconds.");
+
+            if (deathLabel.getTimer() <= 0){
+                player.addGold(-player.getGold()/2);
+                player.setPoints(0);
+                playerShip.setSailsHealth(Math.max(playerShip.getSailsHealth(), playerShip.getHealthMax() / 4));
+                playerShip.setHullHealth(Math.max(playerShip.getHullHealth(), playerShip.getHealthMax() / 4));
+                playerShip.setPosition(4250,1900);
+                playerShip.setVisible(true);
+                deathLabel.setVisible(false);
+                deathLabel.setTimer(3);
+                paused = false;
+            }
+
         }
 //        mainStage.setDebugAll(true);
     }

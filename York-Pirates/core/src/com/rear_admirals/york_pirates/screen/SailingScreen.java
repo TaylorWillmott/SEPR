@@ -343,10 +343,10 @@ public class SailingScreen extends BaseScreen {
                         Gdx.app.debug("Sailing","Interacted with a college");
                         if (!playerShip.getCollege().getAlly().contains(college) && !obstacle.getCollege().isBossDead()) {
                             Gdx.app.debug("Sailing","College is hostile.");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
+                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(1.25f, 8, 1.25f, Brig, college, college.getName() + " Boss", true)));
                         } else {
                             Gdx.app.debug("Sailing","College is friendly.");
-                            pirateGame.setScreen(new CollegeScreen(pirateGame, college));
+                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(0.75f, 4, 0.75f, Brig, college, college.getName() + " Brig", false)));
                         }
                     }
                 } else {

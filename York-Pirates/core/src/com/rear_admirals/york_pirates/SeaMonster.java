@@ -43,6 +43,10 @@ public class SeaMonster extends PhysicsActor {
                 this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
                 this.monsterTexture = monsterTextureAtlas.findRegion(texture);
 
+                this.setWidth(this.monsterTexture.getRegionWidth()*0.5f);
+                this.setHeight(this.monsterTexture.getRegionHeight()*0.5f);
+
+
                 this.storeAnimation("move", sharkAnim);
 
                 break;
@@ -52,6 +56,9 @@ public class SeaMonster extends PhysicsActor {
 
                 this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
                 this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
+                this.setWidth(this.monsterTexture.getRegionWidth()*1.5f);
+                this.setHeight(this.monsterTexture.getRegionHeight()*1.5f);
 
                 this.storeAnimation("move", dragonAnim);
 
@@ -65,6 +72,10 @@ public class SeaMonster extends PhysicsActor {
 
                 this.storeAnimation("move", seaSoldierAnim);
 
+                this.setWidth(this.monsterTexture.getRegionWidth()*1.5f);
+                this.setHeight(this.monsterTexture.getRegionHeight()*1.5f);
+
+
                 break;
             case 3:
                 atlas = "leviathan.atlas";
@@ -75,14 +86,18 @@ public class SeaMonster extends PhysicsActor {
 
                 this.storeAnimation("move", leviathanAnim);
 
+                this.setWidth(this.monsterTexture.getRegionWidth()*1.5f);
+                this.setHeight(this.monsterTexture.getRegionHeight()*1.5f);
+
+
                 break;
         }
 
         this.setActiveAnimation("move");
 
         this.setPosition(x,y);
-        this.setWidth((float) (this.monsterTexture.getRegionWidth()*1.5));
-        this.setHeight((float) (this.monsterTexture.getRegionHeight()*1.5));
+        this.setWidth(this.monsterTexture.getRegionWidth()*1.5f);
+        this.setHeight(this.monsterTexture.getRegionHeight()*1.5f);
         this.setOriginCentre();
         this.setMaxSpeed(200);
         this.setEllipseBoundary();

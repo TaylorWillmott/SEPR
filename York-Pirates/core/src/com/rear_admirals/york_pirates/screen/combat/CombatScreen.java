@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.screen.SailingScreen;
+import com.rear_admirals.york_pirates.screen.WinScreen;
 import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
@@ -417,7 +418,7 @@ public class CombatScreen extends BaseScreen {
 
                     // WIN CONDITION - could be improved by removing hardcoding of size.
                     if (player.getPlayerShip().getCollege().getAlly().size() == 4){
-                        // DO WINNING
+                        pirateGame.setScreen(new WinScreen(pirateGame));
                     }
                 }
                 else {

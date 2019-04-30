@@ -270,8 +270,6 @@ public class SailingScreen extends BaseScreen {
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
                 int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
 
-                //TODO REMOVE THIS AT SOME POINT
-                enemyChance = 11;
 
                 if (enemyChance <= 10) {
                     pirateGame.setSailingShipX(playerShip.getX());
@@ -416,7 +414,7 @@ public class SailingScreen extends BaseScreen {
                 monster.remove();
                 monsterIterator.remove();
 
-                LabelTimer damageLabel = new LabelTimer("-10hp", skin);
+                LabelTimer damageLabel = new LabelTimer("-10hp", skin, 1, Color.RED);
                 mainStage.addActor(damageLabel);
                 damageLabel.setPosition(playerShip.getX(),playerShip.getY(), Align.top);
                 damageLabels.add(damageLabel);
@@ -475,14 +473,14 @@ public class SailingScreen extends BaseScreen {
         playerShip.getSailingTexture().dispose();
     }
 
-    public String capitalizeFirstLetter(String original) {
+    private String capitalizeFirstLetter(String original) {
         if (original == null || original.length() == 0) {
             return original;
         }
         return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
 
-    public void saveFile(Preferences file){
+    private void saveFile(Preferences file){
 
         //
         byte[] ownedAttacks = SerializationUtils.serialize(new ArrayList<Attack>(pirateGame.getPlayer().getOwnedAttacks()));

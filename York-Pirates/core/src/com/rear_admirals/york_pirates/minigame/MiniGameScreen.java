@@ -86,7 +86,7 @@ public class MiniGameScreen extends BaseScreen {
         elementSize = 20*(screenWidth/640);
     }
     //Get the location of walls, player and enemies in the map.
-    public void getMapObject(TiledMap tiledMap){
+    private void getMapObject(TiledMap tiledMap){
         MapObjects objects = tiledMap.getLayers().get("ObjectData").getObjects();
         for (MapObject object : objects) {
             String name = object.getName();
@@ -131,7 +131,7 @@ public class MiniGameScreen extends BaseScreen {
     }
 
     //Draw enemies and player.
-    public void drawEnemies(){
+    private void drawEnemies(){
 
         for(MiniGameEnemy enemy : enemies){
             batch.draw(enemy.getEnemyTexture(),enemy.getX()/(1920/screenWidth),enemy.getY()/(1080/screenHeight),elementSize,elementSize);
@@ -193,7 +193,7 @@ public class MiniGameScreen extends BaseScreen {
 
     }
     //Camera update function.
-    public void cameraMove(){
+    private void cameraMove(){
         Camera mainCamera = mainStage.getCamera();
         // bound camera to layout
         mainCamera.position.x = MathUtils.clamp(mainCamera.position.x, viewwidth / 2, mapWidth - viewwidth / 2);

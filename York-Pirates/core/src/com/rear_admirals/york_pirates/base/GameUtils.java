@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
 public class GameUtils {
+    //NEW CLASS FOR ASSESSMENT 4. Allows animation to occur.
 
     // creates an Animation from a single sprite sheet with a subset of the frames, specified by an array
     public static Animation parseSpriteSheet(String fileName, int frameCols, int frameRows, int[] frameIndices, float frameDuration, PlayMode mode) {

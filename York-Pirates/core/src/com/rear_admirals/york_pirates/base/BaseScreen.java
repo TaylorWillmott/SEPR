@@ -17,13 +17,13 @@ public abstract class BaseScreen implements Screen {
     protected final int viewwidth = 1920;
     protected final int viewheight = 1080;
 
-    public BaseScreen(PirateGame game){
+    protected BaseScreen(PirateGame game){
         this.pirateGame = game;
         this.mainStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
         this.uiStage = new Stage(new FitViewport(this.viewwidth, this.viewheight));
     }
 
-    public abstract void update(float delta);
+    protected abstract void update(float delta);
 
     public void render (float delta) {
         this.uiStage.act(delta);

@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 
 public class Flee extends Attack {
 
-    protected Flee() {
+    private Flee() {
         this.name = "FLEE";
         this.desc = "Attempt to escape enemy.";
     }

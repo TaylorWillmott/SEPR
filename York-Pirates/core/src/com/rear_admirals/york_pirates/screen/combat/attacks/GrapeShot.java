@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 
 public class GrapeShot extends Attack {
 
-    public GrapeShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
+    private GrapeShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
         super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
     }
 

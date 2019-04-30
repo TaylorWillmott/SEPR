@@ -264,7 +264,7 @@ public class CollegeScreen extends BaseScreen {
     }
 
     // Function to get the cost to heal sails to full:
-    public int getHealCost(int value) {
+    private int getHealCost(int value) {
         // if statement ensures player pays at least 1 gold to heal
         if (value / 10 == 0) {
             return 1;

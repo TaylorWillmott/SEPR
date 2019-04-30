@@ -92,7 +92,7 @@ public class Ship extends PhysicsActor implements Serializable {
         setupShip();
     }
 
-    public void setupShip(){
+    private void setupShip(){
         this.setWidth(this.sailingTexture.getWidth());
         this.setHeight(this.sailingTexture.getHeight());
         this.setOriginCentre();

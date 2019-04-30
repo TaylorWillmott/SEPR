@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class LabelTimer extends Label {
+    // This is a new class for Assessment 4. It is used for generating temporary labels.
     public float getTimer() {
         return timer;
     }
@@ -15,9 +16,17 @@ public class LabelTimer extends Label {
 
     private float timer;
 
-    public LabelTimer(CharSequence text, Skin skin){
+    // Default constructor
+    public LabelTimer(CharSequence text, Skin skin, float startTimer){
         super(text, skin);
-        this.timer = 1;
-        this.setColor(Color.RED);
+        this.timer = startTimer;
+
+    }
+
+    // Constructor allowing colouring of the text
+    public LabelTimer(CharSequence text, Skin skin, float startTimer, Color color){
+        super(text, skin);
+        this.timer = startTimer;
+        this.setColor(color);
     }
 }

@@ -12,10 +12,10 @@ public class AnimatedActor extends BaseActor {
     private float elapsedTime;
     private Animation<TextureRegion> activeAnim;
     private String activeName;
-    protected Map<String, Animation> animationStorage;
+    private Map<String, Animation> animationStorage;
     private boolean pauseAnim;
 
-    public  AnimatedActor() {
+    AnimatedActor() {
         super();
         elapsedTime = 0;
         activeAnim = null;

@@ -34,11 +34,7 @@ import static com.rear_admirals.york_pirates.College.*;
 public class MainMenu extends BaseScreen {
     private Stage stage;
 
-    private float screen_width;
-    private float screen_height;
-
     private Texture menuBackground = new Texture("menuBackground.png");
-    private Image background = new Image(menuBackground);
 
     public MainMenu(final PirateGame pirateGame){
         super(pirateGame);
@@ -51,18 +47,19 @@ public class MainMenu extends BaseScreen {
         Table table = new Table();
         stage = new Stage(new FitViewport(1920,1080));
 
-        screen_width = stage.getWidth();
-        screen_height = stage.getHeight();
+        float screen_width = stage.getWidth();
+        float screen_height = stage.getHeight();
 
         // Debugging
-        Gdx.app.debug("Screen Dimensions",screen_width + ", " + screen_height);
+        Gdx.app.debug("Screen Dimensions", screen_width + ", " + screen_height);
 
         //TODO Remove this when redoing menu buttons as it is now redundant.
         Label title = new Label("", pirateGame.getSkin(), "title");
         title.setAlignment(Align.center);
 
+        Image background = new Image(menuBackground);
         stage.addActor(background);
-        this.background.setSize(viewwidth, viewheight);
+        background.setSize(viewwidth, viewheight);
 
         final TextButton new_game = new TextButton("New Game", pirateGame.getSkin()); // Starts sailing mode.
         final TextButton load_game = new TextButton("Load Game", pirateGame.getSkin());
@@ -72,9 +69,14 @@ public class MainMenu extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 // SHOW SAVES
-                loadFile(pirateGame.getSave_file());
-                pirateGame.setScreen(new SailingScreen(pirateGame, false));
-                dispose();
+                try {
+                    loadFile(pirateGame.getSave_file());
+                    pirateGame.setScreen(new SailingScreen(pirateGame, false));
+                    dispose();
+                }catch (Exception e){
+                    Gdx.app.log("load", "No save file found");
+                    load_game.setText("No save found.");
+                }
 
 
             }
@@ -173,7 +175,7 @@ public class MainMenu extends BaseScreen {
 
     }
 
-    public void loadFile(Preferences file){
+    private void loadFile(Preferences file){
 
         pirateGame.setPlayer(new Player());
         ArrayList<Attack> equippedAttacks;

@@ -432,7 +432,7 @@ public class SailingScreen extends BaseScreen {
 
             // Monster movement
             monster.monsterMovement(this.playerShip);
-//            monster.setDebug(true);
+            monster.setDebug(true);
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));

@@ -26,49 +26,63 @@ public class SeaMonster extends PhysicsActor {
     public SeaMonster(float x, float y){
         this.setSpeed(moveSpeed);
 
-        String atlas = "largeshark.atlas";
-        String texture = "shark1";
-
-        /*
-        switch(ThreadLocalRandom.current().nextInt(3)) {
-            case 0:
-	            atlas = "largeshark.atlas";
-            	texture = "shark1";
-            	break;
-            case 1:
-	            atlas = "largeshark.atlas";
-	            texture = "shark1";
-	            break;
-            case 2:
-	            atlas = "largeshark.atlas";
-	            texture = "shark1";
-	            break;
-	        default:
-	            atlas = "largeshark.atlas";
-	            texture = "shark1";
-	    */
-        this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
-        this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+        String atlas;
+        String texture;
 
         Animation sharkAnim = GameUtils.parseSpriteSheet("largeshark.png", 1, 3, new int[] {0, 1, 2}, 0.1f, Animation.PlayMode.LOOP);
-        this.storeAnimation("move", sharkAnim);
+        Animation dragonAnim = GameUtils.parseSpriteSheet("dragon.png", 4, 4, new int[] {0, 4, 8, 12}, 0.3f, Animation.PlayMode.LOOP);
+        Animation seaSoldierAnim = GameUtils.parseSpriteSheet("seaSoldier.png", 4, 4, new int[] {0, 4, 8, 12}, 0.2f, Animation.PlayMode.LOOP);
+        Animation leviathanAnim = GameUtils.parseSpriteSheet("leviathan.png", 4, 4, new int[] {0, 4, 8, 12}, 0.2f, Animation.PlayMode.LOOP);
+
+        // Randomly choose an appearance for the monster
+        switch(ThreadLocalRandom.current().nextInt(4)) {
+            case 0:
+                atlas = "largeshark.atlas";
+                texture = "shark1";
+
+                this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
+                this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
+                this.storeAnimation("move", sharkAnim);
+
+                break;
+            case 1:
+                atlas = "dragon.atlas";
+                texture = "s1";
+
+                this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
+                this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
+                this.storeAnimation("move", dragonAnim);
+
+                break;
+            case 2:
+                atlas = "seaSoldier.atlas";
+                texture = "s1";
+
+                this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
+                this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
+                this.storeAnimation("move", seaSoldierAnim);
+
+                break;
+            case 3:
+                atlas = "leviathan.atlas";
+                texture = "s1";
+
+                this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
+                this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
+                this.storeAnimation("move", leviathanAnim);
+
+                break;
+        }
+
         this.setActiveAnimation("move");
 
-//        Animation dragonAnim = GameUtils.parseSpriteSheet("dragon.png", 4, 4, new int[] {0, 4, 8, 12}, 0.3f, Animation.PlayMode.LOOP);
-//        this.storeAnimation("move", dragonAnim);
-//        this.setActiveAnimation("move");
-
-//        Animation seaSoldierAnim = GameUtils.parseSpriteSheet("seaSoldier.png", 4, 4, new int[] {0, 4, 8, 12}, 0.2f, Animation.PlayMode.LOOP);
-//        this.storeAnimation("move", seaSoldierAnim);
-//        this.setActiveAnimation("move");
-
-//        Animation leviathanAnim = GameUtils.parseSpriteSheet("leviathan.png", 4, 4, new int[] {0, 4, 8, 12}, 0.2f, Animation.PlayMode.LOOP);
-//        this.storeAnimation("move", leviathanAnim);
-//        this.setActiveAnimation("move");
-
         this.setPosition(x,y);
-        this.setWidth(this.monsterTexture.getRegionWidth());
-        this.setHeight(this.monsterTexture.getRegionHeight());
+        this.setWidth(this.monsterTexture.getRegionWidth()*2);
+        this.setHeight(this.monsterTexture.getRegionHeight()*2);
         this.setOriginCentre();
         this.setMaxSpeed(200);
         this.setEllipseBoundary();

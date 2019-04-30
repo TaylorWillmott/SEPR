@@ -81,8 +81,8 @@ public class SeaMonster extends PhysicsActor {
         this.setActiveAnimation("move");
 
         this.setPosition(x,y);
-        this.setWidth(this.monsterTexture.getRegionWidth()*2);
-        this.setHeight(this.monsterTexture.getRegionHeight()*2);
+        this.setWidth((float) (this.monsterTexture.getRegionWidth()*1.5));
+        this.setHeight((float) (this.monsterTexture.getRegionHeight()*1.5));
         this.setOriginCentre();
         this.setMaxSpeed(200);
         this.setEllipseBoundary();

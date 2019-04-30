@@ -147,7 +147,13 @@ public class CombatScreen extends BaseScreen {
         Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
         screenTitle.setAlignment(Align.center);
 
-        textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());
+        if (enemy.getIsBoss()){
+            textBox = new TextButton("You encountered the "+ enemy.getCollege().getName()+" boss!", pirateGame.getSkin());
+        }
+        else{
+            textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());
+        }
+
         textBox.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

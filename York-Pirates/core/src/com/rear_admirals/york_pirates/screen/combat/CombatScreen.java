@@ -417,7 +417,7 @@ public class CombatScreen extends BaseScreen {
                     }
 
                     // WIN CONDITION - could be improved by removing hardcoding of size.
-                    if (player.getPlayerShip().getCollege().getAlly().size() == 4){
+                    if (player.getPlayerShip().getCollege().getAlly().size() == 5){
                         pirateGame.setScreen(new WinScreen(pirateGame));
                     }
                 }

@@ -20,6 +20,9 @@ public class SeaMonster extends PhysicsActor {
     public TextureAtlas monsterTextureAtlas;
     public TextureRegion monsterTexture;
 
+    // This boolean controls whether a SeaMonster collides with the land
+    private boolean collide;
+
     private float time;
 
     //Setup new enemy.
@@ -28,6 +31,7 @@ public class SeaMonster extends PhysicsActor {
 
         String atlas;
         String texture;
+        setCollide(true);
 
         Animation sharkAnim = GameUtils.parseSpriteSheet("largeshark.png", 1, 3, new int[] {0, 1, 2}, 0.1f, Animation.PlayMode.LOOP);
         Animation dragonAnim = GameUtils.parseSpriteSheet("dragon.png", 4, 4, new int[] {0, 4, 8, 12}, 0.3f, Animation.PlayMode.LOOP);
@@ -54,8 +58,10 @@ public class SeaMonster extends PhysicsActor {
                 atlas = "dragon.atlas";
                 texture = "s1";
 
+                setCollide(false);
                 this.monsterTextureAtlas = new TextureAtlas(Gdx.files.internal(atlas));
                 this.monsterTexture = monsterTextureAtlas.findRegion(texture);
+
 
                 this.setWidth(this.monsterTexture.getRegionWidth()*1.5f);
                 this.setHeight(this.monsterTexture.getRegionHeight()*1.5f);
@@ -122,9 +128,12 @@ public class SeaMonster extends PhysicsActor {
         this.moveBy(dx *= (this.moveSpeed/norm), dy *= (this.moveSpeed/norm)); // Monster move towards player
     }
 
-//    @Override
-//    public void draw(Batch batch, float alpha){
-//        batch.setColor(1,1,1,alpha);
-//        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth()/1.5f,getHeight()/1.5f,1,1,getRotation() + 90);
-//    }
+    public boolean isCollide() {
+        return collide;
+    }
+
+    public void setCollide(boolean collide) {
+        this.collide = collide;
+    }
+
 }

@@ -304,7 +304,7 @@ public class SailingScreen extends BaseScreen {
         }
 
         int monsterChance = ThreadLocalRandom.current().nextInt(0, 10001);
-        if (monsterChance < 25){
+        if (monsterChance < 20){
             Boolean monsterAllowedPosition = false;
             SeaMonster monster = new SeaMonster(0, 0);
             while (!monsterAllowedPosition){

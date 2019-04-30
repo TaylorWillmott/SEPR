@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97ff53de-07a3-4479-a8c4-a1a88ccd51c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SeaMonster.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/SeaMonster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" afterDir="false" />
-    </list>
+    <list default="true" id="97ff53de-07a3-4479-a8c4-a1a88ccd51c3" name="Default Changelist" comment="commit to pull" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -1048,6 +1041,11 @@
             <path>
               <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
               <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
+              <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
@@ -1160,12 +1158,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556633290170</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="commit to pull">
+      <created>1556652377958</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1556652377958</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="0" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32843137" />
@@ -1264,7 +1268,8 @@
     <MESSAGE value="atlas update" />
     <MESSAGE value="Merge branch 'master' of https://github.com/TheRandomnessGuy/SEPR&#10;&#10;# Conflicts:&#10;#&#9;York-Pirates/.idea/workspace.xml&#10;&#10;atlas creation" />
     <MESSAGE value="atlas" />
-    <option name="LAST_COMMIT_MESSAGE" value="atlas" />
+    <MESSAGE value="commit to pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit to pull" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/LabelTimer.java">

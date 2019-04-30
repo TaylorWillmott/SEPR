@@ -241,8 +241,6 @@ public class DepartmentScreen extends BaseScreen {
         fullTable.add(upgradeTable).top().width(viewwidth/3.5f);
         fullTable.add(shopTable).top().width(viewwidth/3.5f);
 
-        fullTable.setDebug(true);
-
         mainStage.addActor(fullTable);
         Gdx.input.setInputProcessor(mainStage);
     }

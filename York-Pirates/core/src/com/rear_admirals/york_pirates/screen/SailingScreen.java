@@ -54,8 +54,8 @@ public class SailingScreen extends BaseScreen {
 
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private OrthographicCamera tiledCamera;
-    private int[] backgroundLayers = {0,1,2};
-    private int[] foregroundLayers = {3};
+    private int[] backgroundLayers = {0,1,2,3};
+    private int[] foregroundLayers = {4};
 
     private Label sailsHealthValueLabel, sailsHealthTextLabel;
     private Label hullHealthValueLabel, hullHealthTextLabel;
@@ -67,7 +67,9 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
 
+    private Table infoTable;
     private Label coordinateLabel;
+    private Label fpsLabel;
 
     private ArrayList<SeaMonster> monsterArrayList;
     private ArrayList<LabelTimer> damageLabels;
@@ -119,7 +121,6 @@ public class SailingScreen extends BaseScreen {
         goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
         goldValueLabel.setAlignment(Align.left);
 
-        coordinateLabel = new Label("", main.getSkin());
 
         uiTable.add(sailsHealthTextLabel).fill();
         uiTable.add(sailsHealthValueLabel).fill();
@@ -132,18 +133,23 @@ public class SailingScreen extends BaseScreen {
         uiTable.row();
         uiTable.add(pointsTextLabel).fill();
         uiTable.add(pointsValueLabel).width(pointsTextLabel.getWidth());
-        uiTable.setDebug(true);
         uiTable.align(Align.topRight);
         uiTable.setFillParent(true);
 
         uiStage.addActor(uiTable);
 
-        Table coordTable = new Table();
-        coordTable.add(coordinateLabel);
-        uiStage.addActor(coordTable);
+        coordinateLabel = new Label("", skin, "default_black");
+        fpsLabel = new Label("FPS: " + Gdx.graphics.getFramesPerSecond(), skin, "default_black");
 
-        coordTable.setFillParent(true);
-        coordTable.align(Align.topLeft);
+        infoTable = new Table();
+        infoTable.add(coordinateLabel);
+        infoTable.row();
+        infoTable.add(fpsLabel).left();
+        uiStage.addActor(infoTable);
+
+        infoTable.setVisible(false);
+        infoTable.setFillParent(true);
+        infoTable.align(Align.topLeft);
 
 
         mapMessage = new Label("", main.getSkin(), "default_black");
@@ -316,7 +322,7 @@ public class SailingScreen extends BaseScreen {
                 monsterAllowedPosition = safePos;
             }
             monsterArrayList.add(monster);
-            
+
             mainStage.addActor(monster);
         }
 
@@ -378,6 +384,7 @@ public class SailingScreen extends BaseScreen {
         timer += delta;
         if (timer > 1) {
             coordinateLabel.setText("X: " + ((int) playerShip.getX()) + ", Y: " + ((int)playerShip.getY()));
+            fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
 
             Iterator<SeaMonster> iter = monsterArrayList.iterator();
 
@@ -430,7 +437,6 @@ public class SailingScreen extends BaseScreen {
 
             // Monster movement
             monster.monsterMovement(this.playerShip);
-            monster.setDebug(true);
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
@@ -459,8 +465,8 @@ public class SailingScreen extends BaseScreen {
             Gdx.app.log("game save","Game saved");
             saveFile(pirateGame.getSave_file());
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.I)){
-            pirateGame.getPlayer().addGold(100);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.T)){
+            infoTable.setVisible(!infoTable.isVisible());
         }
         if (!playerShip.isAnchor()){
             playerShip.addAccelerationAS(playerShip.getRotation(), 10000);
@@ -492,7 +498,6 @@ public class SailingScreen extends BaseScreen {
             }
 
         }
-//        mainStage.setDebugAll(true);
     }
 
     @Override

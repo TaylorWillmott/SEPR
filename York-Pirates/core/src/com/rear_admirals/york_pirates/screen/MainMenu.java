@@ -96,51 +96,6 @@ public class MainMenu extends BaseScreen {
         });
 
 
-        TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
-        TextButton college_mode = new TextButton("Go to College screen", pirateGame.getSkin());
-        TextButton department_mode = new TextButton("Go to Department screen", pirateGame.getSkin());
-        TextButton miniGame_mode = new TextButton("Start Mini Game",pirateGame.getSkin());
-
-        // Allows button to be clickable, and sets process for when clicked.
-        combat_mode.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(Brig, Derwent)));
-                dispose();
-            }
-        });
-
-//        new_game.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y){
-//                pirateGame.setScreen(new SailingScreen(pirateGame, true));
-//                dispose();
-//            }
-//        });
-
-        college_mode.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                pirateGame.setScreen(new CollegeScreen(pirateGame, Derwent));
-                dispose();
-            }
-        });
-
-        department_mode.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                pirateGame.setScreen(new DepartmentScreen(pirateGame, Chemistry));
-                dispose();
-            }
-        });
-        miniGame_mode.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                pirateGame.setScreen(new MiniGameScreen(pirateGame));
-                dispose();
-            }
-        });
-
         tableContainer.setActor(table);
 
         table.add(title).padBottom(viewwidth/20).width(viewwidth/2);
@@ -149,15 +104,6 @@ public class MainMenu extends BaseScreen {
         table.row();
         table.add(load_game).uniform().padBottom(viewheight/40).size(viewwidth/2,viewheight/10);
         table.row();
-        table.add(new Label("These are for demo purposes, to show implementation of combat and colleges.", pirateGame.getSkin()));
-        table.row();
-        table.add(combat_mode).uniform().padBottom(viewheight/40).fill();
-        table.row();
-        table.add(college_mode).uniform().fill().padBottom(viewheight/40);
-        table.row();
-        table.add(department_mode).uniform().fill().padBottom(viewheight/40);
-        table.row();
-        table.add(miniGame_mode).uniform().fill().padBottom(viewheight/40);
 
         stage.addActor(tableContainer);
 

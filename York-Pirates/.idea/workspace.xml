@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97ff53de-07a3-4479-a8c4-a1a88ccd51c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/assets/dragon.atlas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/dragon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/leviathan.atlas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/leviathan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/seaSoldier.atlas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/seaSoldier.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/AnimatedActor.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/AnimatedActor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SeaMonster.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SeaMonster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -48,7 +41,7 @@
         <counts>
           <entry key="atlas" value="3" />
           <entry key="gradle" value="1" />
-          <entry key="java" value="19" />
+          <entry key="java" value="24" />
           <entry key="json" value="1" />
           <entry key="png" value="5" />
         </counts>
@@ -57,24 +50,24 @@
         <counts>
           <entry key="Groovy" value="1" />
           <entry key="Image" value="5" />
-          <entry key="JAVA" value="19" />
+          <entry key="JAVA" value="24" />
           <entry key="JSON" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="atlas" value="192" />
-          <entry key="java" value="1684" />
+          <entry key="atlas" value="193" />
+          <entry key="java" value="1987" />
           <entry key="json" value="121" />
-          <entry key="txt" value="222" />
+          <entry key="txt" value="243" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1684" />
+          <entry key="JAVA" value="1987" />
           <entry key="JSON" value="121" />
-          <entry key="PLAIN_TEXT" value="414" />
+          <entry key="PLAIN_TEXT" value="436" />
         </counts>
       </usages-collector>
     </session>
@@ -91,82 +84,63 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/assets/wood_vertical_board_texture.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/assets/woodBackground.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/DepartmentScreen.java">
+        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3514">
-              <caret line="241" column="61" selection-start-line="235" selection-start-column="7" selection-end-line="241" selection-end-column="61" />
+            <state relative-caret-position="170">
+              <caret line="11" column="55" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/CollegeScreen.java">
+        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/BaseScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="64" column="22" lean-forward="true" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
+            <state relative-caret-position="-561">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/assets/seaSoldier.atlas">
+        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="118" lean-forward="true" selection-start-line="1" selection-end-line="118" />
+            <state relative-caret-position="51">
+              <caret line="420" column="69" selection-start-line="420" selection-start-column="69" selection-end-line="420" selection-end-column="69" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/assets/leviathan.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/assets/leviathan.atlas">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/assets/dragon.png">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/assets/dragon.atlas">
+        <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+            <state relative-caret-position="1054">
+              <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="105" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>saveFile</find>
       <find>load</find>
-      <find>Syste</find>
       <find>color</find>
       <find>TextButton</find>
-      <find>uiT</find>
       <find>minigame</find>
       <find>uiTable</find>
+      <find>uiT</find>
+      <find>Syste</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1002,19 +976,20 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/desktop/build.gradle" />
-        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/LabelTimer.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SeaMonster.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/GameUtils.java" />
-        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" />
         <option value="$PROJECT_DIR$/core/assets/squid.atlas" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" />
         <option value="$PROJECT_DIR$/core/assets/flat-earth-ui.json" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/DepartmentScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/CollegeScreen.java" />
-        <option value="$PROJECT_DIR$/core/assets/seaSoldier.atlas" />
         <option value="$PROJECT_DIR$/core/assets/leviathan.atlas" />
         <option value="$PROJECT_DIR$/core/assets/dragon.atlas" />
+        <option value="$PROJECT_DIR$/core/assets/seaSoldier.atlas" />
+        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" />
       </list>
     </option>
   </component>
@@ -1100,7 +1075,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556633236323" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556636086913" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -1168,14 +1143,28 @@
       <option name="project" value="LOCAL" />
       <updated>1556581436769</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Merge branch 'master' of https://github.com/TheRandomnessGuy/SEPR&#10;&#10;# Conflicts:&#10;#&#9;York-Pirates/.idea/workspace.xml&#10;&#10;atlas creation">
+      <created>1556633264815</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1556633264815</updated>
+    </task>
+    <task id="LOCAL-00006" summary="atlas">
+      <created>1556633290170</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1556633290170</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2543624" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2543624" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1184,7 +1173,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32907802" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32907802" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1217,7 +1206,9 @@
     <MESSAGE value="Fixed crashing when game attempted to load without valid save." />
     <MESSAGE value="created squid.atlas and renamed squid texture file" />
     <MESSAGE value="atlas update" />
-    <option name="LAST_COMMIT_MESSAGE" value="atlas update" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/TheRandomnessGuy/SEPR&#10;&#10;# Conflicts:&#10;#&#9;York-Pirates/.idea/workspace.xml&#10;&#10;atlas creation" />
+    <MESSAGE value="atlas" />
+    <option name="LAST_COMMIT_MESSAGE" value="atlas" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/desktop/build.gradle">
@@ -1307,57 +1298,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/BaseScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="437" column="16" selection-start-line="437" selection-start-column="16" selection-end-line="439" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2079">
-          <caret line="72" column="26" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
-          <folding>
-            <element signature="e#2635#3069#0" expanded="true" />
-            <element signature="e#3068#3069#0" expanded="true" />
-            <element signature="e#3101#3699#0" expanded="true" />
-            <element signature="e#3698#3699#0" expanded="true" />
-            <element signature="e#4195#4451#0" expanded="true" />
-            <element signature="e#4450#4451#0" expanded="true" />
-            <element signature="e#4772#5012#0" expanded="true" />
-            <element signature="e#5011#5012#0" expanded="true" />
-            <element signature="e#5052#5297#0" expanded="true" />
-            <element signature="e#5296#5297#0" expanded="true" />
-            <element signature="e#5334#5566#0" expanded="true" />
-            <element signature="e#5565#5566#0" expanded="true" />
-            <element signature="e#8913#8914#0" expanded="true" />
-            <element signature="e#8969#8970#0" expanded="true" />
-            <element signature="e#9199#9200#0" expanded="true" />
-            <element signature="e#9230#9231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/assets/wood_vertical_board_texture.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/assets/woodBackground.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="743">
-          <caret line="460" column="47" selection-start-line="460" selection-start-column="47" selection-end-line="460" selection-end-column="47" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/assets/flat-earth-ui.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -1366,31 +1308,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/DepartmentScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3514">
-          <caret line="241" column="61" selection-start-line="235" selection-start-column="7" selection-end-line="241" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/CollegeScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="64" column="22" lean-forward="true" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/assets/seaSoldier.atlas">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="118" lean-forward="true" selection-start-line="1" selection-end-line="118" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/assets/seaSoldier.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/assets/leviathan.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/core/assets/leviathan.atlas">
@@ -1407,6 +1325,71 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/assets/seaSoldier.atlas">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="108" column="14" selection-start-line="108" selection-start-column="14" selection-end-line="108" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/CollegeScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="64" column="22" lean-forward="true" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/DepartmentScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="253" column="32" lean-forward="true" selection-start-line="253" selection-start-column="32" selection-end-line="253" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/assets/leviathan.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/assets/woodBackground.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="743">
+          <caret line="460" column="47" selection-start-line="460" selection-start-column="47" selection-end-line="460" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/base/BaseScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-561">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="420" column="69" selection-start-line="420" selection-start-column="69" selection-end-line="420" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="55" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="105" selection-end-column="20" />
         </state>
       </provider>
     </entry>

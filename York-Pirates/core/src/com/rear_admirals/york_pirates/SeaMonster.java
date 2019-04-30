@@ -1,4 +1,4 @@
-package com.rear_admirals.york_pirates.screen;
+package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

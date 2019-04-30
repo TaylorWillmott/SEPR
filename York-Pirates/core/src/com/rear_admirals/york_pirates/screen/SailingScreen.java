@@ -5,27 +5,21 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.Player;
-import com.rear_admirals.york_pirates.base.AnimatedActor;
+import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.base.LabelTimer;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
-import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
-import com.rear_admirals.york_pirates.Ship;
 import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -346,7 +340,7 @@ public class SailingScreen extends BaseScreen {
                             pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(1.25f, 8, 1.25f, Brig, college, college.getName() + " Boss", true)));
                         } else {
                             Gdx.app.debug("Sailing","College is friendly.");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(0.75f, 4, 0.75f, Brig, college, college.getName() + " Brig", false)));
+                            pirateGame.setScreen(new CollegeScreen(pirateGame, college));
                         }
                     }
                 } else {

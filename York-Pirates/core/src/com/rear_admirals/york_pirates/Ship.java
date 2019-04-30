@@ -19,7 +19,6 @@ public class Ship extends PhysicsActor implements Serializable {
 	private float accMultiplier;
     private int sailsHealth;
     private int hullHealth;
-    private double damageRatio;
     private ShipType type;
     private int healthMax;
 
@@ -121,7 +120,7 @@ public class Ship extends PhysicsActor implements Serializable {
 
     public void damage(String attack, int value) {
         if (attack.equals("Broadside") || attack.equals("Double Shot") || attack.equals("Explosive Shell")) {
-            damageRatio = ThreadLocalRandom.current().nextInt(1, 25);
+            double damageRatio = ThreadLocalRandom.current().nextInt(1, 25);
             sailsHealth -= value * (damageRatio / 100);
             hullHealth -= value * ((100 - damageRatio) / 100);
         } else if (attack.equals("Grape Shot")) {

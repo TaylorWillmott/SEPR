@@ -41,13 +41,6 @@ public class SailingScreen extends BaseScreen {
     private ArrayList<BaseActor> regionList;
 
 
-    //calculate game world dimensions
-    private TiledMap tiledMap;
-    private MapProperties mapProperties;
-    private int mapTileWidth;
-    private int mapTileHeight;
-
-    private int tilePixelSize;
     private final int mapPixelWidth;
     private final int mapPixelHeight;
 
@@ -57,10 +50,10 @@ public class SailingScreen extends BaseScreen {
     private int[] backgroundLayers = {0,1,2,3};
     private int[] foregroundLayers = {4};
 
-    private Label sailsHealthValueLabel, sailsHealthTextLabel;
-    private Label hullHealthValueLabel, hullHealthTextLabel;
-    private Label goldValueLabel, goldTextLabel;
-    private Label pointsValueLabel, pointsTextLabel;
+    private Label sailsHealthValueLabel;
+    private Label hullHealthValueLabel;
+    private Label goldValueLabel;
+    private Label pointsValueLabel;
 
     private Label mapMessage;
     private Label hintMessage;
@@ -105,19 +98,19 @@ public class SailingScreen extends BaseScreen {
         monsterArrayList = new ArrayList<>();
         damageLabels = new ArrayList<>();
 
-        sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_black");
+        Label sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_black");
         sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_black");
         sailsHealthValueLabel.setAlignment(Align.left);
 
-        hullHealthTextLabel = new Label("Hull Health: ", main.getSkin(), "default_black");
+        Label hullHealthTextLabel = new Label("Hull Health: ", main.getSkin(), "default_black");
         hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin(),"default_black");
         hullHealthValueLabel.setAlignment(Align.left);
 
-        pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
+        Label pointsTextLabel = new Label("Points: ", main.getSkin(), "default_black");
         pointsValueLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
         pointsValueLabel.setAlignment(Align.left);
 
-        goldTextLabel = new Label("Gold:", main.getSkin(),"default_black");
+        Label goldTextLabel = new Label("Gold:", main.getSkin(), "default_black");
         goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
         goldValueLabel.setAlignment(Align.left);
 
@@ -170,11 +163,12 @@ public class SailingScreen extends BaseScreen {
         regionList = new ArrayList<BaseActor>();
 
         // set up Tiled Map and associated properties/attributes (width/height)
-        tiledMap = new TmxMapLoader().load("new_game_map.tmx");
-        mapProperties = tiledMap.getProperties();
-        mapTileWidth = mapProperties.get("width", Integer.class);
-        mapTileHeight = mapProperties.get("height", Integer.class);
-        tilePixelSize = mapProperties.get("tilewidth", Integer.class);
+        //calculate game world dimensions
+        TiledMap tiledMap = new TmxMapLoader().load("new_game_map.tmx");
+        MapProperties mapProperties = tiledMap.getProperties();
+        int mapTileWidth = mapProperties.get("width", Integer.class);
+        int mapTileHeight = mapProperties.get("height", Integer.class);
+        int tilePixelSize = mapProperties.get("tilewidth", Integer.class);
         mapPixelWidth = tilePixelSize * mapTileWidth;
         mapPixelHeight = tilePixelSize * mapTileHeight;
 

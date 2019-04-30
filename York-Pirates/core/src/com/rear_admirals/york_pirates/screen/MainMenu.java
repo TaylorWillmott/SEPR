@@ -34,8 +34,6 @@ import static com.rear_admirals.york_pirates.College.*;
 public class MainMenu extends BaseScreen {
     private Stage stage;
 
-    private Texture menuBackground = new Texture("menuBackground.png");
-
     public MainMenu(final PirateGame pirateGame){
         super(pirateGame);
 
@@ -57,6 +55,7 @@ public class MainMenu extends BaseScreen {
         Label title = new Label("", pirateGame.getSkin(), "title");
         title.setAlignment(Align.center);
 
+        Texture menuBackground = new Texture("menuBackground.png");
         Image background = new Image(menuBackground);
         stage.addActor(background);
         background.setSize(viewwidth, viewheight);

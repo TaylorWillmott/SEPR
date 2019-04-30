@@ -39,7 +39,6 @@ public class MiniGameScreen extends BaseScreen {
     private int tileCountHeight = 30;
     private final int mapWidth = tileSize * tileCountWidth;
     private final int mapHeight = tileSize * tileCountHeight;
-    private TiledMap tiledMap;
     private MiniGamePlayer player;
     private ArrayList<MiniGameEnemy> enemies;
     private ArrayList<BaseActor> wallList;
@@ -48,8 +47,6 @@ public class MiniGameScreen extends BaseScreen {
     //In-Class map and game status storage.
     private boolean[][] isWall = new boolean[30][30];
     private boolean[][] isExit = new boolean[30][30];
-    private boolean finish = false;
-    private boolean isDead = false;
 
     //Size calculations.
     private float elementSize;
@@ -78,7 +75,7 @@ public class MiniGameScreen extends BaseScreen {
         batch = new SpriteBatch();
 
         //Setup renderer and camera.
-        tiledMap = new TmxMapLoader().load("miniGame_try.tmx");
+        TiledMap tiledMap = new TmxMapLoader().load("miniGame_try.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         tiledCamera = new OrthographicCamera(viewwidth,viewheight);
         tiledCamera.setToOrtho(false, viewwidth, viewheight);
@@ -172,8 +169,8 @@ public class MiniGameScreen extends BaseScreen {
         }
         //Check if Player finish the game or dead.
         player.resetMovable();
-        finish = player.movable(player,isWall,isExit);
-        isDead = player.isDead(enemies,player);
+        boolean finish = player.movable(player, isWall, isExit);
+        boolean isDead = player.isDead(enemies, player);
 //        Show the finish screen.
         if(finish){
             Gdx.app.debug("Minigame","Minigame finished. Transitioning to end screen.");

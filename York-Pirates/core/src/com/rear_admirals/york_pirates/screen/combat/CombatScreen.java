@@ -80,7 +80,7 @@ public class CombatScreen extends BaseScreen {
         float button_pad_bottom = viewheight / 24f;
         float button_pad_right = viewwidth / 32f;
 
-        // Insantiate the image textures for use within the scene as backgrounds.
+        // Instantiate the image textures for use within the scene as backgrounds.
         bg_texture = new Texture("water_texture_sky.png");
         Image background = new Image(bg_texture);
         background.setSize(viewwidth, viewheight);

@@ -19,13 +19,12 @@ import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 
 public class CollegeScreen extends BaseScreen {
     private Player player;
-    private Label sailsHealthTextLabel, sailsHealthValueLabel;
-    private Label hullHealthTextLabel, hullHealthValueLabel;
-    private Label goldValueLabel, goldTextLabel;
-    private Label pointsValueLabel, pointsTextLabel;
+    private Label sailsHealthValueLabel;
+    private Label hullHealthValueLabel;
+    private Label goldValueLabel;
+    private Label pointsValueLabel;
     private int hullHealthFromMax, sailsHealthFromMax;
     private Texture menuBackground = new Texture("parchment.png");
-    private Image background = new Image(menuBackground);
 
     public CollegeScreen(PirateGame main, College college){
         super(main);
@@ -44,19 +43,19 @@ public class CollegeScreen extends BaseScreen {
         A "ValueLabel": These labels are the integer value associated to the Text Labels (e.g. 40 for gold)
         */
 
-        sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_brown");
+        Label sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_brown");
         sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_brown");
         sailsHealthValueLabel.setAlignment(Align.left);
 
-        hullHealthTextLabel = new Label("Hull Health: ", main.getSkin(), "default_brown");
+        Label hullHealthTextLabel = new Label("Hull Health: ", main.getSkin(), "default_brown");
         hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin(), "default_brown");
         hullHealthValueLabel.setAlignment(Align.left);
 
-        goldTextLabel = new Label("Gold: ", main.getSkin(),"default_brown");
+        Label goldTextLabel = new Label("Gold: ", main.getSkin(), "default_brown");
         goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(),"default_brown");
         goldValueLabel.setAlignment(Align.left);
 
-        pointsTextLabel = new Label("Points: ", main.getSkin(),"default_brown");
+        Label pointsTextLabel = new Label("Points: ", main.getSkin(), "default_brown");
         pointsValueLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(),"default_brown");
         pointsValueLabel.setAlignment(Align.left);
 
@@ -242,8 +241,9 @@ public class CollegeScreen extends BaseScreen {
 
         fullTable.center();
 
+        Image background = new Image(menuBackground);
         mainStage.addActor(background);
-        this.background.setSize(viewwidth, viewheight);
+        background.setSize(viewwidth, viewheight);
         mainStage.addActor(fullTable);
 //        mainStage.addActor(healTable);
 //        mainStage.addActor(shipTable);

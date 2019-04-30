@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf22d9dc-5ad8-4965-bcdd-1828cda5157b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/map-tiles-64.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/map-tiles-64.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/rpg-tiles-64.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/rpg-tiles-64.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Ship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/minigame/MiniGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/minigame/MiniGameScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/CollegeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/CollegeScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/DepartmentScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/DepartmentScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/desktop/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -40,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="150" column="86" lean-forward="true" selection-start-line="150" selection-start-column="86" selection-end-line="150" selection-end-column="86" />
+            <state relative-caret-position="969">
+              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
             </state>
           </provider>
         </entry>
@@ -84,11 +87,6 @@
             <path>
               <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
               <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
-              <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
@@ -121,24 +119,6 @@
               <item name="screen" type="462c0819:PsiDirectoryNode" />
               <item name="combat" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
-              <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
-              <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="York-Pirates" type="b2602c69:ProjectViewProjectNode" />
-              <item name="York-Pirates" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="libs" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -154,6 +134,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunDashboard">
@@ -173,6 +154,9 @@
       <option name="MAIN_CLASS_NAME" value="com.rear_admirals.york_pirates.desktop.DesktopLauncher" />
       <module name="York-Pirates.desktop.main" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/assets" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SvnConfiguration">
@@ -186,7 +170,7 @@
       <option name="presentableId" value="Default" />
       <updated>1556659174560</updated>
       <workItem from="1556659176982" duration="455000" />
-      <workItem from="1556659682996" duration="2335000" />
+      <workItem from="1556659682996" duration="4695000" />
     </task>
     <task id="LOCAL-00001" summary="slight combat tweak">
       <created>1556662946464</created>
@@ -195,11 +179,27 @@
       <option name="project" value="LOCAL" />
       <updated>1556662946464</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="merge">
+      <created>1556663096940</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1556663096940</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2790000" />
+    <option name="totallyTimeSpent" value="5150000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
@@ -211,13 +211,15 @@
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" />
+      <window_info anchor="bottom" id="Inspection Results" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
@@ -242,7 +244,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="slight combat tweak" />
-    <option name="LAST_COMMIT_MESSAGE" value="slight combat tweak" />
+    <MESSAGE value="merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/build.gradle">
@@ -269,10 +272,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/minigame/MiniGameScreen.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="150" column="86" lean-forward="true" selection-start-line="150" selection-start-column="86" selection-end-line="150" selection-end-column="86" />
+        <state relative-caret-position="969">
+          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
         </state>
       </provider>
     </entry>

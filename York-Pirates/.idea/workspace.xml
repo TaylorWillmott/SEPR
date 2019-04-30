@@ -173,9 +173,6 @@
       <option name="MAIN_CLASS_NAME" value="com.rear_admirals.york_pirates.desktop.DesktopLauncher" />
       <module name="York-Pirates.desktop.main" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/assets" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
   </component>
   <component name="SvnConfiguration">

@@ -7,17 +7,18 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.rear_admirals.york_pirates.Ship;
 import com.rear_admirals.york_pirates.base.GameUtils;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
 
 
 import java.util.concurrent.ThreadLocalRandom;
 
-class SeaMonster extends PhysicsActor {
+public class SeaMonster extends PhysicsActor {
     //Enemy variables.
     public int moveSpeed = 2;
-    private TextureAtlas monsterTextureAtlas;
-    private TextureRegion monsterTexture;
+    public TextureAtlas monsterTextureAtlas;
+    public TextureRegion monsterTexture;
 
     private float time;
 
@@ -27,6 +28,7 @@ class SeaMonster extends PhysicsActor {
 
         String atlas = "largeshark.atlas";
         String texture = "shark1";
+
         /*
         switch(ThreadLocalRandom.current().nextInt(3)) {
             case 0:
@@ -52,12 +54,23 @@ class SeaMonster extends PhysicsActor {
         this.storeAnimation("move", sharkAnim);
         this.setActiveAnimation("move");
 
+//        Animation dragonAnim = GameUtils.parseSpriteSheet("dragon.png", 4, 4, new int[] {0, 4, 8, 12}, 0.3f, Animation.PlayMode.LOOP);
+//        this.storeAnimation("move", dragonAnim);
+//        this.setActiveAnimation("move");
+
+//        Animation seaSoldierAnim = GameUtils.parseSpriteSheet("seaSoldier.png", 4, 4, new int[] {0, 4, 8, 12}, 0.2f, Animation.PlayMode.LOOP);
+//        this.storeAnimation("move", seaSoldierAnim);
+//        this.setActiveAnimation("move");
+
+//        Animation leviathanAnim = GameUtils.parseSpriteSheet("leviathan.png", 4, 4, new int[] {0, 4, 8, 12}, 0.2f, Animation.PlayMode.LOOP);
+//        this.storeAnimation("move", leviathanAnim);
+//        this.setActiveAnimation("move");
+
         this.setPosition(x,y);
         this.setWidth(this.monsterTexture.getRegionWidth());
         this.setHeight(this.monsterTexture.getRegionHeight());
         this.setOriginCentre();
         this.setMaxSpeed(200);
-        this.setDeceleration(250);
         this.setEllipseBoundary();
 
         this.time = 10;
@@ -71,4 +84,18 @@ class SeaMonster extends PhysicsActor {
         this.time = time;
     }
 
+    public void monsterMovement(Ship playerShip){
+        float dx = playerShip.getX() - this.getX();
+        float dy = playerShip.getY() - this.getY();
+        float norm = (float) Math.sqrt(dx*dx + dy*dy);
+
+        this.setRotation((float)(Math.atan2(dy, dx)*180.0d / Math.PI)); // Monster always point towards player
+        this.moveBy(dx *= (this.moveSpeed/norm), dy *= (this.moveSpeed/norm)); // Monster move towards player
+    }
+
+//    @Override
+//    public void draw(Batch batch, float alpha){
+//        batch.setColor(1,1,1,alpha);
+//        batch.draw(monsterTexture,getX(),getY(),getOriginX(),getOriginY(),getWidth()/1.5f,getHeight()/1.5f,1,1,getRotation() + 90);
+//    }
 }

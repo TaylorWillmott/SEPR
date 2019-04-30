@@ -43,6 +43,7 @@ public class MiniGameScreen extends BaseScreen {
     private MiniGamePlayer player;
     private ArrayList<MiniGameEnemy> enemies;
     private ArrayList<BaseActor> wallList;
+    private BaseActor exit;
 
     //In-Class map and game status storage.
     private boolean[][] isWall = new boolean[30][30];
@@ -65,6 +66,11 @@ public class MiniGameScreen extends BaseScreen {
         //Initialize.
         player = new MiniGamePlayer();
         mainStage.addActor(player);
+
+        exit = new BaseActor();
+        exit.setTexture(new Texture(Gdx.files.internal("coin.png")));
+        exit.setRectangleBoundary();
+        mainStage.addActor(exit);
 
         Gdx.app.debug("Minigame","Minigame is loading.");
         enemies = new ArrayList<MiniGameEnemy>();
@@ -103,6 +109,7 @@ public class MiniGameScreen extends BaseScreen {
             }
             if(name.equals("exit")){
                 isExit[(int)(r.x/64)][(int)(r.y/64)] = true;
+                exit.setPosition(r.x+14, r.y+10);
             }
         }
 
@@ -183,6 +190,8 @@ public class MiniGameScreen extends BaseScreen {
         for (BaseActor wall : wallList) {
            player.overlaps(wall,true);
         }
+
+        if (player.overlaps(exit, false)) pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,false));
 
         //Enemies movement.
         for(MiniGameEnemy enemy : enemies){

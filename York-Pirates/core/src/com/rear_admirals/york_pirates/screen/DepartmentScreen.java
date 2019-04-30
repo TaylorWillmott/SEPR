@@ -20,7 +20,7 @@ public class DepartmentScreen extends BaseScreen {
     private Label goldValueLabel, goldTextLabel;
     private Label pointsValueLabel, pointsTextLabel;
 
-    private Texture menuBackground = new Texture("woodBackground.png");
+    private Texture menuBackground = new Texture("parchment.png");
     private Image background = new Image(menuBackground);
 
     private int sailsHealthFromMax, hullHealthFromMax;
@@ -28,6 +28,7 @@ public class DepartmentScreen extends BaseScreen {
     public DepartmentScreen(final PirateGame main, final Department department){
         super(main);
         player = main.getPlayer();
+//        background.rotateBy(90);
         // Get the amount of health required to heal to maximum
         this.sailsHealthFromMax = player.getPlayerShip().getSailsHealthFromMax();
         this.hullHealthFromMax = player.getPlayerShip().getHullHealthFromMax();
@@ -40,20 +41,20 @@ public class DepartmentScreen extends BaseScreen {
         A "ValueLabel": These labels are the integer value associated to the Text Labels (e.g. 40 for gold)
         */
 
-        sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin());
-        sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin());
+        sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_brown");
+        sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_brown");
         sailsHealthValueLabel.setAlignment(Align.left);
 
-        hullHealthTextLabel = new Label("Hull Health: ", main.getSkin());
-        hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin());
+        hullHealthTextLabel = new Label("Hull Health: ", main.getSkin(), "default_brown");
+        hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin(), "default_brown");
         hullHealthValueLabel.setAlignment(Align.left);
 
-        goldTextLabel = new Label("Gold: ", main.getSkin());
-        goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin());
+        goldTextLabel = new Label("Gold: ", main.getSkin(), "default_brown");
+        goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(),"default_brown");
         goldValueLabel.setAlignment(Align.left);
 
-        pointsTextLabel = new Label("Points: ", main.getSkin());
-        pointsValueLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin());
+        pointsTextLabel = new Label("Points: ", main.getSkin(),"default_brown");
+        pointsValueLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(),"default_brown");
         pointsValueLabel.setAlignment(Align.left);
 
 
@@ -69,13 +70,12 @@ public class DepartmentScreen extends BaseScreen {
         uiTable.add(pointsTextLabel).fill();
         uiTable.add(pointsValueLabel).fill();
 
-        uiTable.align(Align.topRight);
-        uiTable.setFillParent(true);
+        uiTable.setPosition(viewwidth*0.85f,viewheight*0.9f);
 
         uiStage.addActor(uiTable);
 
         // Create and align department screen title text
-        Label titleText = new Label(department.getName() + " Department", main.getSkin(), "title");
+        Label titleText = new Label(department.getName() + " Department", main.getSkin(), "title_brown");
         titleText.setAlignment(Align.top);
 //        titleText.setFillParent(true);
 
@@ -84,13 +84,13 @@ public class DepartmentScreen extends BaseScreen {
 //        healTable.setX(viewwidth * -0.35f, Align.center);
 //        healTable.setFillParent(true);
 
-        final Label healText = new Label("Heal", main.getSkin(), "title");
+        final Label healText = new Label("Heal", main.getSkin(), "title_brown");
 
         // Sails and hull both have option to heal to max, or 10 health.
-        final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHealCost(hullHealthFromMax)) +" gold", main.getSkin());
-        final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
-        final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin());
-        final TextButton healSailsTenBtn = new TextButton("Heal 10 sails health for 1 gold", main.getSkin());
+        final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHealCost(hullHealthFromMax)) +" gold", main.getSkin(), "brown_button");
+        final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getHealCost(sailsHealthFromMax)) +" gold", main.getSkin(), "brown_button");
+        final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin(), "brown_button");
+        final TextButton healSailsTenBtn = new TextButton("Heal 10 sails health for 1 gold", main.getSkin(), "brown_button");
         final Label healMessage = new Label("", main.getSkin());
 
         healTable.add(healText).padBottom(viewheight/40);
@@ -110,8 +110,8 @@ public class DepartmentScreen extends BaseScreen {
 //        upgradeTable.align(Align.center);
 //        upgradeTable.setFillParent(true);
 
-        final Label upgradeText = new Label("Upgrade", main.getSkin(), "title");
-        final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getUpgrade() + " for " + department.getUpgradeCost() + " gold", main.getSkin());
+        final Label upgradeText = new Label("Upgrade", main.getSkin(), "title_brown");
+        final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getUpgrade() + " for " + department.getUpgradeCost() + " gold", main.getSkin(), "brown_button");
 
         upgradeTable.add(upgradeText).padBottom(viewheight/40f);
         upgradeTable.row();
@@ -122,8 +122,8 @@ public class DepartmentScreen extends BaseScreen {
 //        shopTable.setX(viewwidth * 0.35f, Align.center);
 //        shopTable.setFillParent(true);
 
-        final Label shopText = new Label("Shop", main.getSkin(), "title");
-        final TextButton shopButton = new TextButton("Buy " + department.getWeaponToBuy().getName() + " for " + department.getWeaponToBuy().getCost() + " gold", main.getSkin());
+        final Label shopText = new Label("Shop", main.getSkin(), "title_brown");
+        final TextButton shopButton = new TextButton("Buy " + department.getWeaponToBuy().getName() + " for " + department.getWeaponToBuy().getCost() + " gold", main.getSkin(), "brown_button");
         final Label shopMessage = new Label("", main.getSkin());
 
         shopTable.add(shopText).padBottom(viewheight/40);

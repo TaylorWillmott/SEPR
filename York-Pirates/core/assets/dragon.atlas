@@ -1,0 +1,118 @@
+
+dragon.png
+size: 384,384
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+s1
+  rotate: false
+  xy: 0, 0
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s2
+  rotate: false
+  xy: 96, 0
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s3
+  rotate: false
+  xy: 192, 0
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s4
+  rotate: false
+  xy: 288, 0
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s5
+  rotate: false
+  xy: 0, 96
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s6
+  rotate: false
+  xy: 96, 96
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s7
+  rotate: false
+  xy: 192, 96
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s8
+  rotate: false
+  xy: 288, 96
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s9
+  rotate: false
+  xy: 0, 192
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s10
+  rotate: false
+  xy: 96, 192
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s11
+  rotate: false
+  xy: 192, 192
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s12
+  rotate: false
+  xy: 288, 192
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s13
+  rotate: false
+  xy: 0, 288
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s14
+  rotate: false
+  xy: 96, 288
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s15
+  rotate: false
+  xy: 192, 288
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+s16
+  rotate: false
+  xy: 288, 288
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1

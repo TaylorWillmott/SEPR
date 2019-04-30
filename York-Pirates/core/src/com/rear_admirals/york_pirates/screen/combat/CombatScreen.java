@@ -242,7 +242,6 @@ public class CombatScreen extends BaseScreen {
         enemyAttacks.add(GrapeShot.attackGrape);
         enemyAttacks.add(Attack.attackSwivel);
 
-        rootTable.setDebug(true);
 
         Gdx.input.setInputProcessor(uiStage);
 

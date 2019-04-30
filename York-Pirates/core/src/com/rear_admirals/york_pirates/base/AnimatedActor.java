@@ -49,11 +49,9 @@ public class AnimatedActor extends BaseActor {
         activeAnim = animationStorage.get(name);
         elapsedTime = 0;
 
-        if ( getWidth() == 0 || getHeight() == 0 ) {
-            Texture tex = activeAnim.getKeyFrame(0).getTexture();
-            setWidth( tex.getWidth() );
-            setHeight( tex.getHeight() );
-        }
+        Texture tex = activeAnim.getKeyFrame(0).getTexture();
+        setWidth( tex.getWidth() );
+        setHeight( tex.getHeight() );
     }
 
     public String getAnimationName() {

@@ -420,12 +420,9 @@ public class SailingScreen extends BaseScreen {
                 damageLabels.add(damageLabel);
             }
 
-            float dx = playerShip.getX() - monster.getX();
-            float dy = playerShip.getY() - monster.getY();
-            float norm = (float) Math.sqrt(dx*dx + dy*dy);
-
-            monster.setRotation((float)(Math.atan2(dy, dx)*180.0d / Math.PI)); // Monster always point towards player
-            monster.moveBy(dx *= (monster.moveSpeed/norm), dy *= (monster.moveSpeed/norm)); // Monster move towards player
+            // Monster movement
+            monster.monsterMovement(this.playerShip);
+//            monster.setDebug(true);
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));

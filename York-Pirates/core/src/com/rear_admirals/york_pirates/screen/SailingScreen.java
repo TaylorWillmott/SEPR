@@ -60,10 +60,14 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
 
+    // New for Assessment 4
+    // Variables that are updated while the program is running, mainly for debug reasons but also to give player information about how the game is running should they wish.
     private Table infoTable;
     private Label coordinateLabel;
     private Label fpsLabel;
 
+    // New for Assessment 4
+    // Lists to store objects related to monster collisions
     private ArrayList<SeaMonster> monsterArrayList;
     private ArrayList<LabelTimer> damageLabels;
 
@@ -71,6 +75,8 @@ public class SailingScreen extends BaseScreen {
     private Player player;
     private LabelTimer deathLabel;
 
+    // New for Assessment 4
+    // Boolean to pause the game updates, used for when the ship needs to respawn.
     private Boolean paused = false;
 
     public SailingScreen(final PirateGame main, boolean isFirstSailingInstance){
@@ -87,6 +93,8 @@ public class SailingScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
+        // New for Assessment 4
+        // Creating and positioning the label in the screen, so whenever needed can be set to visible.
         deathLabel = new LabelTimer("YOU DIED! Respawning in 3 seconds.", skin, 3, Color.RED);
         deathLabel.setSize(600, 300);
         uiStage.addActor(deathLabel);
@@ -95,6 +103,8 @@ public class SailingScreen extends BaseScreen {
         deathLabel.setVisible(false);
 
 
+        // New for Assessment 4
+        // Creating the lists for random
         monsterArrayList = new ArrayList<>();
         damageLabels = new ArrayList<>();
 
@@ -298,11 +308,14 @@ public class SailingScreen extends BaseScreen {
             mapMessage.setText("Neutral Territory");
         }
 
+        // New for Assessment 4
+        // Random number generator for the spawning of monsters
         int monsterChance = ThreadLocalRandom.current().nextInt(0, 10001);
         if (monsterChance < 20){
             Boolean monsterAllowedPosition = false;
             SeaMonster monster = new SeaMonster(0, 0);
             while (!monsterAllowedPosition){
+                // Once a monster has been generated, keep randomly generating a position on the map until a valid position for spawning is found
                 Integer monsterPosX = ThreadLocalRandom.current().nextInt(0, mapPixelWidth);
                 Integer monsterPosY = ThreadLocalRandom.current().nextInt(0, mapPixelHeight);
                 monster.setPosition(monsterPosX, monsterPosY);
@@ -316,15 +329,15 @@ public class SailingScreen extends BaseScreen {
                 monsterAllowedPosition = safePos;
             }
             monsterArrayList.add(monster);
-
             mainStage.addActor(monster);
         }
 
-        Boolean y = false;
+        Boolean resetHintMessage = false;
         for (BaseActor obstacle : obstacleList) {
             String name = obstacle.getName();
             if (playerShip.overlaps(obstacle, true)) {
-                y = true;
+                // If true, then ship is colliding with a solid object
+                resetHintMessage = true;
                 if (!(obstacle.getDepartment() == null)) {
                     mapMessage.setText(capitalizeFirstLetter(name) + " Island");
                     hintMessage.setText("Press F to interact");
@@ -351,7 +364,7 @@ public class SailingScreen extends BaseScreen {
             }
         }
 
-        if (!y) hintMessage.setText("");
+        if (!resetHintMessage) hintMessage.setText("");
 
         for (BaseActor object : removeList) {
             object.remove();
@@ -376,12 +389,15 @@ public class SailingScreen extends BaseScreen {
         tiledMapRenderer.setView(tiledCamera);
 
         timer += delta;
+
+        // Every second everything in this selection statement is completed.
         if (timer > 1) {
+            // Update 'debug' table
             coordinateLabel.setText("X: " + ((int) playerShip.getX()) + ", Y: " + ((int)playerShip.getY()));
             fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
 
+            // This Iterator 'iter' is used to control the length of time a SeaMonster is alive for
             Iterator<SeaMonster> iter = monsterArrayList.iterator();
-
             while (iter.hasNext()) {
                 SeaMonster item = iter.next();
                 item.setTime(item.getTime() - 1);
@@ -391,6 +407,7 @@ public class SailingScreen extends BaseScreen {
                 }
             }
 
+            // This Iterator 'labelIterator' is used to control the length of time a damage label is shown for
             Iterator<LabelTimer> labelIterator = damageLabels.iterator();
             while (labelIterator.hasNext()){
                 LabelTimer label = labelIterator.next();
@@ -409,6 +426,7 @@ public class SailingScreen extends BaseScreen {
 
         }
 
+        // This iterator loops through every active SeaMonster to check for collisions with the player and walls, and to enable AI movement
         Iterator<SeaMonster> monsterIterator = monsterArrayList.iterator();
 
         while (monsterIterator.hasNext()) {
@@ -433,6 +451,7 @@ public class SailingScreen extends BaseScreen {
             monster.monsterMovement(this.playerShip);
         }
 
+        // Update labels
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
         sailsHealthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getSailsHealth()));
         hullHealthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getHullHealth()));
@@ -468,6 +487,8 @@ public class SailingScreen extends BaseScreen {
             playerShip.setAccelerationXY(0,0);
             playerShip.setDeceleration(250);
         }
+        // New for Assessment 4
+        // Control the behaviour when the ship is sunk while Sailing
         if (playerShip.getHullHealth() <= 0){
             paused = true;
             deathLabel.setVisible(true);
@@ -501,6 +522,7 @@ public class SailingScreen extends BaseScreen {
         playerShip.getSailingTexture().dispose();
     }
 
+    //This function capitalizes the first letter of a string taken as a parameter
     private String capitalizeFirstLetter(String original) {
         if (original == null || original.length() == 0) {
             return original;
@@ -508,6 +530,8 @@ public class SailingScreen extends BaseScreen {
         return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
 
+    // New for Assessment 4
+    // This method stores all data in an external file
     private void saveFile(Preferences file){
 
         //
